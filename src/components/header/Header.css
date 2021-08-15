@@ -1,0 +1,10 @@
+.header {
+	grid-area: h;
+	background-color: rgb(247, 243, 245);
+	/* color: red;
+text-align: center; */
+}
+
+.header-image {
+	height: 127px;
+}

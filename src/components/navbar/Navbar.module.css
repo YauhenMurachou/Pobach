@@ -1,0 +1,13 @@
+.nav {
+	grid-area: n;
+	background-color: rgb(29, 84, 236);
+}
+
+.item {
+	color: white;
+}
+
+.nav .activeLink {
+	color: gold;
+	font-weight: 600;
+}
