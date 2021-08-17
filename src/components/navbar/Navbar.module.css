@@ -1,6 +1,7 @@
 .nav {
 	grid-area: n;
-	background-color: rgb(29, 84, 236);
+	background-color: rgb(250, 0, 0);
+	font-size: 26px;
 }
 
 .item {
@@ -9,5 +10,5 @@
 
 .nav .activeLink {
 	color: gold;
-	font-weight: 600;
+	font-weight: 600;	
 }

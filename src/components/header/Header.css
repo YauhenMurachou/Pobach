@@ -1,10 +1,44 @@
+@font-face {
+	font-family: "Skaryna 2017 Title";
+	font-style: normal;
+	font-weight: 500;
+	/* Браузер сначала попробует найти шрифт локально */
+	src: local("Skaryna 2017 Title"),
+		/* Если не получилось, загрузит woff2 */ url("../../fonts/skaryna-title-2017-CC-v20200624-1052.ttf");
+}
+
 .header {
 	grid-area: h;
-	background-color: rgb(247, 243, 245);
-	/* color: red;
-text-align: center; */
+	background-color: white;
+	color: red;
 }
 
 .header-image {
 	height: 127px;
+}
+
+.header-text-wrapper {
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 60px;
+}
+
+.header-text-near {
+	font-size: 48px;
+	font-weight: 600;
+	font-family: "Skaryna 2017 Title";
+}
+
+.header-text {
+	color: red;
+	text-align: center;
+	margin: auto 0 auto 60px;
+	display: inline-block;
+	padding-top: 20px;
+	vertical-align: top;
+}
+
+.header-text-social {
+	font-style: italic;
+	margin-left: 15px;
 }
