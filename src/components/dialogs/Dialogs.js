@@ -1,38 +1,34 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import classes from './Dialogs.module.css';
 
-const Dialogs = () => {
+const DialogItem = (props) => {
+	return <div className={classes.dialog}>
+		<NavLink to={'/Dialogs/' + props.id}>{props.name}</NavLink>
+	</div>
+}
+
+const Message = (props) => {
+	return <div className={classes.message}>
+		{props.message}
+	</div>
+}
+
+const Dialogs = (props) => {
 	return <div className={classes.dialogs}>
 		<div className={classes.dialogsItems} >
-			<div className={classes.dialog}>
-				Yauhen
-			</div>
-			<div className={classes.dialog + ' ' + classes.active}>
-				Volha
-			</div>
-			<div className={classes.dialog}>
-				Alena
-			</div>
-			<div className={classes.dialog}>
-				Mikalay
-			</div>
-			<div className={classes.dialog}>
-				Nina
-			</div>
-			<div className={classes.dialog}>
-				Vasil
-			</div>
+			<DialogItem name='Volha' id='2' />
+			<DialogItem name='Alena' id='3' />
+			<DialogItem name='Mikalay' id='4' />
+			<DialogItem name='Nina' id='5' />
+			<DialogItem name='Vasil' id='6' />
 		</div>
 		<div className={classes.messages}>
-			<div className={classes.message}>
-				You're a woman
-			</div>
-			<div className={classes.message}>
-				I'm a man
-			</div>
-			<div className={classes.message}>
-				This is more than just a game
-			</div>
+			<Message message='You are woman' />
+			<Message message='I am a man' />
+			<Message message='This is more than just a game' />
+			<Message message='New message' />
+			<Message message='Hello!' />
 		</div>
 	</div>
 };

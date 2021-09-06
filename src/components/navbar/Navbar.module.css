@@ -6,9 +6,10 @@
 
 .item {
 	color: white;
+	margin-bottom: 20px;
 }
 
 .nav .activeLink {
 	color: gold;
-	font-weight: 600;	
+	font-weight: 600;
 }
