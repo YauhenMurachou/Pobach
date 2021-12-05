@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import './index.css';
 
-import store from './redux/State';
+import store from './redux/Store';
 import App from './App';
 
 

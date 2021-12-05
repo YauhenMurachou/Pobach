@@ -3,7 +3,7 @@ import React from 'react';
 import classes from './Myposts.module.css';
 
 import Post from './post/Post.js';
-import { addPostActionCreator, updatePostActionCreator } from '../../../redux/State';
+import { addPostActionCreator, updatePostActionCreator } from '../../../redux/profilePageReducer';
 
 const Myposts = (props) => {
 
@@ -15,7 +15,6 @@ const Myposts = (props) => {
 
 	let onPostChange = () => {
 		let text = newPostElement.current.value;
-		console.log('onPostChange--', text)
 		props.dispatch(updatePostActionCreator(text))
 	}
 

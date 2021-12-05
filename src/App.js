@@ -12,9 +12,9 @@ import './App.css';
 
 
 const App = (props) => {
-	// console.log('subscribe--')
+	console.log('subscribe--')
 
-	// console.log('App--', props)
+	console.log('App--', props)
 	return (
 		<BrowserRouter>
 			<div className='app-wrapper'>
@@ -23,15 +23,15 @@ const App = (props) => {
 				<div className='app-wrapper-content'>
 
 					<Route path="/Dialogs" render={() => <Dialogs
-						dialogsData={props.state.dialogsData}
-						messageData={props.state.messageData}
-						newMessageText={props.state.newMessageText}
+						dialogsData={props.state.dialogsPage.dialogsData}
+						messageData={props.state.dialogsPage.messageData}
+						newMessageText={props.state.dialogsPage.newMessageText}
 						dispatch={props.dispatch} />} />
 
 					<Route path="/Profile" render={() => <Profile
-						postsData={props.state.postsData}
+						postsData={props.state.profilePage.postsData}
 						dispatch={props.dispatch}
-						newPostText={props.state.newPostText}
+						newPostText={props.state.profilePage.newPostText}
 					/>} />
 
 
