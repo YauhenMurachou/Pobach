@@ -66,11 +66,11 @@ let store = {
 
 		else if (action.type === ADD_MESSAGE) {
 			let newMessage = {
-				name: this._state.newMessageText,
-				id: 5				
+				message: this._state.newMessageText,
+				id: 7 				
 			}
 
-			this._state.dialogsData.push(newMessage);
+			this._state.messageData.push(newMessage);
 			this._state.newMessageText = '';
 			this._callSubscriber(this._state);
 		}
@@ -84,7 +84,6 @@ let store = {
 	subscribe(observer) {
 		this._callSubscriber = observer;
 	}
-
 }
 
 export let addPostActionCreator = () => {

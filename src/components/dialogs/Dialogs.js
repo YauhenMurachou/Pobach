@@ -20,7 +20,7 @@ const Dialogs = (props) => {
 	}
 
 	let updateMessage = () => {
-		
+
 		let message = newMessageElement.current.value;
 		console.log('updateMessage--', message)
 		props.dispatch(updateMessageActionCreator(message))
@@ -36,17 +36,18 @@ const Dialogs = (props) => {
 		</div>
 
 		<div className={classes.messages}>
-			{messagesItems}
+			<div>{messagesItems}</div>
+			<div>
+				<div>
+					<textarea ref={newMessageElement} onChange={updateMessage} value={props.newMessageText}></textarea>
+				</div>
+				<button className={classes.addButton} onClick={addNewMessageButton} >
+					Write message
+				</button>
+			</div>
 		</div>
 
-		<div>
-			<div>
-				<textarea ref={newMessageElement} onChange={updateMessage} value={props.newMessageText}></textarea>
-			</div>
-			<button className={classes.addButton} onClick={addNewMessageButton} >
-				Write message
-			</button>
-		</div>
+
 
 	</div>
 };
