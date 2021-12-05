@@ -10,15 +10,31 @@ import Settings from "./components/settings/Settings";
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 
-const App = () => {
+
+const App = (props) => {
+	// console.log('subscribe--')
+
+	// console.log('App--', props)
 	return (
 		<BrowserRouter>
 			<div className='app-wrapper'>
 				<Header />
 				<Navbar />
 				<div className='app-wrapper-content'>
-					<Route path="/Dialogs" component={Dialogs} />
-					<Route path="/Profile" component={Profile} />
+
+					<Route path="/Dialogs" render={() => <Dialogs
+						dialogsData={props.state.dialogsData}
+						messageData={props.state.messageData}
+						newMessageText={props.state.newMessageText}
+						dispatch={props.dispatch} />} />
+
+					<Route path="/Profile" render={() => <Profile
+						postsData={props.state.postsData}
+						dispatch={props.dispatch}
+						newPostText={props.state.newPostText}
+					/>} />
+
+
 					<Route path="/Feed" component={Feed} />
 					<Route path='/Photos' component={Photos} />
 					<Route path='/Settings' component={Settings} />

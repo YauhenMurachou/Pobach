@@ -1,3 +1,7 @@
 .item {
 	color: rgb(27, 31, 223);
 }
+
+.item img {
+	width: 40px;
+}

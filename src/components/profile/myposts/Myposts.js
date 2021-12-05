@@ -1,26 +1,44 @@
 import React from 'react';
-import Post from './post/Post.js';
-import classes from './Myposts.module.css'
 
-const Myposts = () => {
+import classes from './Myposts.module.css';
+
+import Post from './post/Post.js';
+import { addPostActionCreator, updatePostActionCreator } from '../../../redux/State';
+
+const Myposts = (props) => {
+
+	let newPostElement = React.createRef();
+
+	let addPostButton = () => {		
+		props.dispatch(addPostActionCreator())
+	}
+
+	let onPostChange = () => {
+		let text = newPostElement.current.value;
+		console.log('onPostChange--', text)
+		props.dispatch(updatePostActionCreator(text))
+	}
+
+	let posts = props.postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} />)
+
 	return <div>
-		<h3>My posts</h3>
-		<div>
+		<h3 className={classes.item}>My posts</h3>
+		<div className={classes.item}>
 			<div>
-				<textarea></textarea>
+				<textarea ref={newPostElement} onChange={onPostChange} value={props.newPostText} />
 			</div>
 			<div>
-				<button>
+				<button className={classes.addButton} onClick={addPostButton}>
 					Add post
+				</button>
+
+				<button>
+					Remove post
 				</button>
 			</div>
 		</div>
 		<div className={classes.item}>
-			<Post message='Hello, how are you?' />
-			<Post message='Привет, как дела?' />
-			<Post message='Прывітанне, як твае справы?' />
-			<Post />
-			<Post />
+			{posts}
 		</div>
 	</div>
 };

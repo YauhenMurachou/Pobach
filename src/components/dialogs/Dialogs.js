@@ -1,12 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+
 import classes from './Dialogs.module.css';
 
-const DialogItem = (props) => {
-	return <div className={classes.dialog}>
-		<NavLink to={'/Dialogs/' + props.id}>{props.name}</NavLink>
-	</div>
-}
+import DialogItem from './dialogItem/DialogItem';
+import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/State';
+
 
 const Message = (props) => {
 	return <div className={classes.message}>
@@ -15,21 +13,41 @@ const Message = (props) => {
 }
 
 const Dialogs = (props) => {
+	let newMessageElement = React.createRef();
+
+	let addNewMessageButton = () => {
+		props.dispatch(addMessageActionCreator())
+	}
+
+	let updateMessage = () => {
+		
+		let message = newMessageElement.current.value;
+		console.log('updateMessage--', message)
+		props.dispatch(updateMessageActionCreator(message))
+	}
+
+	let dialogsItems = props.dialogsData.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />)
+	let messagesItems = props.messageData.map(message => <Message message={message.message} id={message.id} />)
+
+
 	return <div className={classes.dialogs}>
 		<div className={classes.dialogsItems} >
-			<DialogItem name='Volha' id='2' />
-			<DialogItem name='Alena' id='3' />
-			<DialogItem name='Mikalay' id='4' />
-			<DialogItem name='Nina' id='5' />
-			<DialogItem name='Vasil' id='6' />
+			{dialogsItems}
 		</div>
+
 		<div className={classes.messages}>
-			<Message message='You are woman' />
-			<Message message='I am a man' />
-			<Message message='This is more than just a game' />
-			<Message message='New message' />
-			<Message message='Hello!' />
+			{messagesItems}
 		</div>
+
+		<div>
+			<div>
+				<textarea ref={newMessageElement} onChange={updateMessage} value={props.newMessageText}></textarea>
+			</div>
+			<button className={classes.addButton} onClick={addNewMessageButton} >
+				Write message
+			</button>
+		</div>
+
 	</div>
 };
 
