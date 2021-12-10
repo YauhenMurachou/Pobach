@@ -4,7 +4,17 @@ import ReactDOM from 'react-dom';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 
-const profilePageReducer = (state, action) => {	
+let initialState = {
+	postsData: [
+		{ message: 'Привет, как дела?', id: 1, likesCount: 0 },
+		{ message: 'Hi! How are you?', id: 2, likesCount: 21 },
+		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
+	],
+
+	newPostText: 'New post hardcore'
+};
+
+const profilePageReducer = (state = initialState, action) => {	
 
 	switch (action.type) {
 		case ADD_POST:

@@ -4,8 +4,6 @@ import ReactDOM from 'react-dom';
 import postsDataReducer from './profilePageReducer';
 import dialogsPageReducer from './dialogsPageReducer';
 
-
-
 let store = {
 
 	_state: {

@@ -12,8 +12,7 @@ import './App.css';
 
 
 const App = (props) => {
-	console.log('subscribe--')
-
+	
 	console.log('App--', props)
 	return (
 		<BrowserRouter>
