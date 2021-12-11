@@ -3,22 +3,25 @@ import React from 'react';
 import classes from './Myposts.module.css';
 
 import Post from './post/Post.js';
-import { addPostActionCreator, updatePostActionCreator } from '../../../redux/profilePageReducer';
+// import { addPostActionCreator, updatePostActionCreator } from '../../../redux/profilePageReducer';
 
 const Myposts = (props) => {
 
+	console.log('Myposts--', props)
+
 	let newPostElement = React.createRef();
 
-	let addPostButton = () => {		
-		props.dispatch(addPostActionCreator())
+	let addPostButton = () => {
+		props.addPostButton()
 	}
 
 	let onPostChange = () => {
-		let text = newPostElement.current.value;
-		props.dispatch(updatePostActionCreator(text))
+		let text = newPostElement.current.value
+
+		props.onPostChange(text)
 	}
 
-	let posts = props.postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} />)
+	let posts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} />)
 
 	return <div>
 		<h3 className={classes.item}>My posts</h3>
