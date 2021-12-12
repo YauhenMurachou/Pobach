@@ -19,6 +19,8 @@ const MypostsContainer = (props) => {
 		{
 			(store) => {
 
+				let state = store.getState().profilePage
+
 				let addPostButton = () => {
 					// props.store.dispatch(addPostActionCreator())
 					store.dispatch(addPostActionCreator())
@@ -26,14 +28,14 @@ const MypostsContainer = (props) => {
 			
 				let onPostChange = (text) => {		
 					// props.store.dispatch(updatePostActionCreator(text))
-					store.dispatch(addPostActionCreator())
+					store.dispatch(updatePostActionCreator(text))
 				}
 				return (
 		<Myposts
 		addPostButton={addPostButton}
 		onPostChange={onPostChange}
-		posts = {store.getState().profilePage.postsData}
-		newPostText = {store.getState().profilePage.newPostText} />
+		posts = {state.postsData}
+		newPostText = {state.newPostText} />
 		)
 	}
 	}
