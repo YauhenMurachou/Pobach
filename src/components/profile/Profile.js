@@ -10,7 +10,7 @@ const Profile = (props) => {
 		// postsData={props.postsData}
 		// 	dispatch={props.dispatch}
 		// 	newPostText={props.newPostText}
-		store={props.store}
+		// store={props.store}
 		/>
 	</div>
 };
