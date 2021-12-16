@@ -9,30 +9,32 @@ import App from './App';
 
 
 
-let renderEntireTree = (state) => {
+// let renderEntireTree = (state) => {
 
-	ReactDOM.render(
-		<React.StrictMode>
 
-			<Provider store={store}>
-				<App
-				// state={state}
-				// dispatch={store.dispatch.bind(store)}
-				// store={store}
-				/>
-			</Provider>
+// }
 
-		</React.StrictMode>,
-		document.getElementById('root')
-	);
-}
+ReactDOM.render(
+	<React.StrictMode>
 
-renderEntireTree(store.getState());
+		<Provider store={store}>
+			<App
+			// state={state}
+			// dispatch={store.dispatch.bind(store)}
+			// store={store}
+			/>
+		</Provider>
 
-store.subscribe(() => {
-	let state = store.getState();
-	renderEntireTree(state);
-});
+	</React.StrictMode>,
+	document.getElementById('root')
+);
+
+// renderEntireTree(store.getState());
+
+// store.subscribe(() => {
+// 	let state = store.getState();
+// 	renderEntireTree(state);
+// });
 
 
 

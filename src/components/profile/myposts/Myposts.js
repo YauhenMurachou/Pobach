@@ -21,7 +21,7 @@ const Myposts = (props) => {
 		props.onPostChange(text)
 	}
 
-	let posts = props.posts.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} />)
+	let posts = props.postsData.map(post => <Post message={post.message} likesCount={post.likesCount} id={post.id} />)
 
 	return <div>
 		<h3 className={classes.item}>My posts</h3>

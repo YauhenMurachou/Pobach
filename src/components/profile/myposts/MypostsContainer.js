@@ -41,7 +41,7 @@ import Myposts from './Myposts';
 // };
 let mapStateToProps = (state) => {
 	return {
-		posts: state.profilePage.postsData,
+		postsData: state.profilePage.postsData,
 		newPostText: state.profilePage.newPostText
 	}
 }
