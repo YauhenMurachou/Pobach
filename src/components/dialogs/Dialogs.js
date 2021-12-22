@@ -4,7 +4,6 @@ import classes from './Dialogs.module.css';
 
 import DialogItem from './dialogItem/DialogItem';
 import Message from './message/Message';
-import { addMessageActionCreator, updateMessageActionCreator } from '../../redux/dialogsPageReducer';
 
 
 const Dialogs = (props) => {
@@ -22,7 +21,6 @@ const Dialogs = (props) => {
 	let dialogsItems = props.dialogsItems.map(dialog => <DialogItem name={dialog.name} id={dialog.id} />)
 	let messagesItems = props.messagesItems.map(message => <Message message={message.message} id={message.id} />)
 
-
 	return <div className={classes.dialogs}>
 		<div className={classes.dialogsItems} >
 			{dialogsItems}
@@ -39,9 +37,6 @@ const Dialogs = (props) => {
 				</button>
 			</div>
 		</div>
-
-
-
 	</div>
 };
 

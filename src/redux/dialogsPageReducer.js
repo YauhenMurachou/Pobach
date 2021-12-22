@@ -34,7 +34,7 @@ const dialogsPageReducer = (state = initialState, action) => {
 			}
 
 			let stateCopy = { ...state };
-			stateCopy.messageData = [...state.messageData];
+			// stateCopy.messageData = [...state.messageData];
 			stateCopy.messageData.push(newMessage);
 			stateCopy.newMessageText = '';
 
