@@ -8,24 +8,30 @@ import avatar from '../../../src/images/avatar.png'
 let Users = (props) => {
 	console.log('Users---', props.users)
 
-	if (props.users.length === 0) {
-props.setUsers ( [
-		
-	{ name: 'Yauhen', id: 1, followed: true, city: 'Vitebsk', country: 'Belarus', photos: { small: null} },
 
-	{ name: 'Viktor', id: 2, followed: false, city: 'Minsk', country: 'Belarus', photos: {	small: null	} },
+	let getUsers = () => {
+		if (props.users.length === 0) {
 
-	{ name: 'Dergey', id: 3, followed: true, city: 'Kiev', country: 'Ukraine', photos: {	small: null	} } 
-]
-)
-
-		// axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-		// 	props.setUsers(response.data.items)
-		// })
-
+			axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+				props.setUsers(response.data.items)
+			})
+		}	
 	}
+	
+
+	// 	if (props.users.length === 0) {
+	// 		props.setUsers(
+	// // load hardcode users I don't know why twice
+	// 			[{ name: 'Yauhen', id: 1, followed: true, city: 'Vitebsk', country: 'Belarus', photos: { small: null } },
+	// 			{ name: 'Viktor', id: 2, followed: false, city: 'Minsk', country: 'Belarus', photos: { small: null } },
+	// 			{ name: 'Dergey', id: 3, followed: true, city: 'Kiev', country: 'Ukraine', photos: { small: null } }]
+	// 		)
+	// 	}
+
+
 
 	return <>
+	<button onClick={getUsers}> Get users</button>
 		{
 			props.users.map(user =>
 
