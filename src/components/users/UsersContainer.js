@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { followActionCreator, unfollowActionCreator, setUsersActionCreator } from '../../redux/usersReducer';
 import Users from './Users';
 
-
 let mapStateToProps = (state) => {
 
 	console.log('users-mapStateToProps--', state.usersPage.users)

@@ -7,9 +7,16 @@ const SET_USERS = 'SET_USERS';
 
 let initialState = {
 	users: [
-		// 	{ name: 'Yauhen', id: 1, isFollowed: true, city: 'Vitebsk', country: 'Belarus' },
-		// 	{ name: 'Viktor', id: 2, isFollowed: false, city: 'Minsk', country: 'Belarus' },
-		// 	{ name: 'Dergey', id: 3, isFollowed: true, city: 'Kiev', country: 'Ukraine' }
+	
+	// 		{ name: 'Yauhen', id: 1, followed: true, city: 'Vitebsk', country: 'Belarus', photos: {
+	// 			small: null
+	// 		} },
+	// 		{ name: 'Viktor', id: 2, followed: false, city: 'Minsk', country: 'Belarus', photos: {
+	// 			small: null
+	// 		} },
+	// 		{ name: 'Dergey', id: 3, followed: true, city: 'Kiev', country: 'Ukraine', photos: {
+	// 			small: null
+	// 		} }
 	]
 };
 
@@ -24,7 +31,7 @@ const usersReducer = (state = initialState, action) => {
 				...state,
 				users: state.users.map(user => {
 					if (user.id === action.userId) {
-						return { ...user, isFollowed: true }
+						return { ...user, followed: true }
 					}
 					return user
 				}
@@ -37,7 +44,7 @@ const usersReducer = (state = initialState, action) => {
 				...state,
 				users: state.users.map(user => {
 					if (user.id === action.userId) {
-						return { ...user, isFollowed: false }
+						return { ...user, followed: false }
 					}
 					return user
 				}
@@ -54,18 +61,10 @@ const usersReducer = (state = initialState, action) => {
 	}
 }
 
-export let followActionCreator = (userId) => {
-	return { type: FOLLOW, userId }
-}
+export let followActionCreator = (userId) => ({ type: FOLLOW, userId })
 
-export let unfollowActionCreator = (userId) => {
-	return { type: UNFOLLOW, userId }
-}
+export let unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId })
 
-export let setUsersActionCreator = (users) => {
-
-
-	return { type: SET_USERS, users }
-}
+export let setUsersActionCreator = (users) => ({ type: SET_USERS, users })
 
 export default usersReducer;
