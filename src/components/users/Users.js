@@ -19,17 +19,6 @@ let Users = (props) => {
 	}
 	
 
-	// 	if (props.users.length === 0) {
-	// 		props.setUsers(
-	// // load hardcode users I don't know why twice
-	// 			[{ name: 'Yauhen', id: 1, followed: true, city: 'Vitebsk', country: 'Belarus', photos: { small: null } },
-	// 			{ name: 'Viktor', id: 2, followed: false, city: 'Minsk', country: 'Belarus', photos: { small: null } },
-	// 			{ name: 'Dergey', id: 3, followed: true, city: 'Kiev', country: 'Ukraine', photos: { small: null } }]
-	// 		)
-	// 	}
-
-
-
 	return <>
 	<button onClick={getUsers}> Get users</button>
 		{
@@ -48,7 +37,6 @@ let Users = (props) => {
 						{user.followed ? <button onClick={() => { props.unfollowUsers(user.id) }}>unfollow</button>
 							: <button onClick={() => { props.followUsers(user.id) }}>follow</button>}
 					</div>
-
 				</div>
 			)
 		}
