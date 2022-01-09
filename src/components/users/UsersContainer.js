@@ -73,29 +73,36 @@ let mapStateToProps = (state) => {
 	}
 }
 
-let mapDispatchToProps = (dispatch) => {
-	return {
-		followUsers: (userId) => {
-			dispatch(followActionCreator(userId))
-		},
-		unfollowUsers: (userId) => {
-			dispatch(unfollowActionCreator(userId))
-		},
-		setUsers: (users) => {
-			dispatch(setUsersActionCreator(users))
-		},
-		setCurrentPage: (pageNumber) => {
-			dispatch(setCurrentPageActionCreator(pageNumber))
-		},
-		setTotalUsersCount: (totalUsersCount) => {
-			dispatch(setTotalUsersCountActionCreator(totalUsersCount))
-		},
-		setIsFetching: (isFetching) => {
-			dispatch(setIsFetchingActionCreator(isFetching))
-		}
-	}
-}
+// let mapDispatchToProps = (dispatch) => {
+// 	return {
+// 		followUsers: (userId) => {
+// 			dispatch(followActionCreator(userId))
+// 		},
+// 		unfollowUsers: (userId) => {
+// 			dispatch(unfollowActionCreator(userId))
+// 		},
+// 		setUsers: (users) => {
+// 			dispatch(setUsersActionCreator(users))
+// 		},
+// 		setCurrentPage: (pageNumber) => {
+// 			dispatch(setCurrentPageActionCreator(pageNumber))
+// 		},
+// 		setTotalUsersCount: (totalUsersCount) => {
+// 			dispatch(setTotalUsersCountActionCreator(totalUsersCount))
+// 		},
+// 		setIsFetching: (isFetching) => {
+// 			dispatch(setIsFetchingActionCreator(isFetching))
+// 		}
+// 	}
+// }
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
+const UsersContainer = connect(mapStateToProps, {
+	followUsers: followActionCreator,
+	unfollowUsers: unfollowActionCreator,
+	setUsers: setUsersActionCreator,
+	setCurrentPage: setCurrentPageActionCreator,
+	setTotalUsersCount: setTotalUsersCountActionCreator,
+	setIsFetching: setIsFetchingActionCreator
+})(UsersC)
 
 export default UsersContainer;
