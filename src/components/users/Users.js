@@ -1,4 +1,3 @@
-import axios from 'axios';
 import React from 'react';
 
 import classes from './Users.module.css';
@@ -6,40 +5,42 @@ import classes from './Users.module.css';
 import avatar from '../../../src/images/avatar.png'
 
 let Users = (props) => {
-	console.log('Users---', props.users)
 
+	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
-	let getUsers = () => {
-		if (props.users.length === 0) {
+	let pages = [];
 
-			axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-				props.setUsers(response.data.items)
-			})
-		}	
+	for (let i = 1; i <= pagesCount; i++) {
+		pages.push(i)
 	}
 	
-
 	return <>
-	<button onClick={getUsers}> Get users</button>
-		{
-			props.users.map(user =>
+				<div>
+				{pages.map(p => {
+					return <span className={props.currentPage === p && classes.selected}
+						onClick={() => { props.onPageChange(p) }}> {p} </span>
+				})}
+			</div>
 
-				<div key={user.id} className={classes.item}>
-					<span>{user.photos.small ? <img src='user.photos' />
-						: <img src={avatar} className={classes.avatar} />}</span>
+			{
+				props.users.map(user =>
 
-					<span> {user.name} </span>
-					<span> id: {user.id} </span>
-					<span> {user.city} </span>
-					<span> {user.country}</span>
-					<span> {user.status}</span>
-					<div>
-						{user.followed ? <button onClick={() => { props.unfollowUsers(user.id) }}>unfollow</button>
-							: <button onClick={() => { props.followUsers(user.id) }}>follow</button>}
+					<div key={user.id} className={classes.item}>
+
+						<img src={user.photos.small != null ? user.photos.small : avatar} className={classes.avatar} />
+						<span> {user.name} </span>
+						<span> id: {user.id} </span>
+						<span> {user.city} </span>
+						<span> {user.country}</span>
+						<span> {user.status}</span>
+						<div>
+							{user.followed ? <button onClick={() => { props.unfollowUsers(user.id) }}>unfollow</button>
+								: <button onClick={() => { props.followUsers(user.id) }}>follow</button>}
+						</div>
+
 					</div>
-				</div>
-			)
-		}
+				)
+			}
 	</>
 
 };
