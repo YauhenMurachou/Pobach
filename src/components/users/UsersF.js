@@ -16,8 +16,7 @@ let Users = (props) => {
 				props.setUsers(response.data.items)
 			})
 		}	
-	}
-	
+	}	
 
 	return <>
 	<button onClick={getUsers}> Get users</button>

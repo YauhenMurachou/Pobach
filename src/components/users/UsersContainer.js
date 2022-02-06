@@ -21,13 +21,18 @@ class UsersC extends React.Component {
 	}
 
 	componentDidMount() {
+		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
+		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
+		//  Это хорошее место для создания сетевых запросов.
 		if (this.props.users.length === 0) {
 			this.props.setIsFetching(true)
 			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
 				.then(response => {
+
 					this.props.setIsFetching(false)
 					this.props.setUsers(response.data.items)
 					this.props.setTotalUsersCount(response.data.totalCount)
+				
 				})
 		}
 	}
@@ -39,6 +44,7 @@ class UsersC extends React.Component {
 			.then(response => {
 				this.props.setIsFetching(false)
 				this.props.setUsers(response.data.items)
+				console.log('onPageChange', this.props)
 			})
 	}
 
@@ -59,11 +65,9 @@ class UsersC extends React.Component {
 			/>
 		</>
 	}
-
 };
 
 let mapStateToProps = (state) => {
-
 	return {
 		users: state.usersPage.users,
 		pageSize: state.usersPage.pageSize,
@@ -72,6 +76,12 @@ let mapStateToProps = (state) => {
 		isFetching: state.usersPage.isFetching
 	}
 }
+
+// Аргумент mapStateToProps является функцией, которая возвращает либо обычный объект, либо другую функцию.
+//  Передача этого аргумента connect() приводит к подписке компонента-контейнера на обновления хранилища Redux.
+//  Это означает, что функция mapStateToProps будет вызываться каждый раз, когда состояние хранилища изменяется.
+
+
 
 // let mapDispatchToProps = (dispatch) => {
 // 	return {
@@ -104,5 +114,11 @@ const UsersContainer = connect(mapStateToProps, {
 	setTotalUsersCount: setTotalUsersCountActionCreator,
 	setIsFetching: setIsFetchingActionCreator
 })(UsersC)
+
+// После вызова функции connect() возвращается компонент высшего порядка,
+//  который можно использовать для оборачивания любого компонента React.
+// Т.е. здесь HOC это UsersContainer, а в презентационный компонент UsersC
+// в качестве пропсов попадают свойства, которые передаются в connect
+// Connect эти функции вызывает сам и автоматом передаёт им state и диспатч
 
 export default UsersContainer;
