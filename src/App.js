@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/header/Header';
 import Navbar from './components/navbar/Navbar';
-import Profile from './components/profile/Profile';
+import ProfileContainer from './components/profile/ProfileContainer';
 import DialogsContainer from './components/dialogs/DialogsContainer';
 import Feed from './components/feed/Feed';
 import Photos from './components/photos/Photos';
@@ -31,7 +31,7 @@ const App = (props) => {
 					// store={props.store}
 					/>} />
 
-					<Route path='/Profile' render={() => <Profile
+					<Route path='/Profile' render={() => <ProfileContainer
 
 					// postsData={props.state.profilePage.postsData}
 					// dispatch={props.dispatch}

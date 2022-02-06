@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
 
 let initialState = {
 	postsData: [
@@ -10,8 +10,8 @@ let initialState = {
 		{ message: 'Hi! How are you?', id: 2, likesCount: 21 },
 		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
 	],
-
-	newPostText: 'New post hardcore'
+	newPostText: 'New post hardcore',
+	profile: null
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -37,6 +37,12 @@ const profilePageReducer = (state = initialState, action) => {
 			return stateCopy
 		}
 
+		case SET_USER_PROFILE: {
+			let stateCopy = { ...state };
+			stateCopy.profile = action.profile;
+			return stateCopy
+		}
+
 		default:
 			return state;
 	}
@@ -48,6 +54,10 @@ export let addPostActionCreator = () => {
 
 export let updatePostActionCreator = (text) => {
 	return { type: UPDATE_NEW_POST_TEXT, updatePost: text }
+}
+
+export let setUserProfileActionCreator = (profile) => {
+	return { type: SET_USER_PROFILE, profile }
 }
 
 export default profilePageReducer;

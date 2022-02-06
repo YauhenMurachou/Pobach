@@ -3,11 +3,8 @@ import React from 'react';
 import classes from './Myposts.module.css';
 
 import Post from './post/Post.js';
-// import { addPostActionCreator, updatePostActionCreator } from '../../../redux/profilePageReducer';
 
 const Myposts = (props) => {
-
-	console.log('Myposts--', props)
 
 	let newPostElement = React.createRef();
 
