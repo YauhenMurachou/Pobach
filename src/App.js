@@ -31,7 +31,7 @@ const App = (props) => {
 					// store={props.store}
 					/>} />
 
-					<Route path='/Profile/:userId' render={() => <ProfileContainer
+					<Route path='/Profile/:userId?' render={() => <ProfileContainer
 
 					// postsData={props.state.profilePage.postsData}
 					// dispatch={props.dispatch}

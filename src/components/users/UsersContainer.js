@@ -24,7 +24,7 @@ class UsersC extends React.Component {
 		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
 		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
 		//  Это хорошее место для создания сетевых запросов.
-		if (this.props.users.length === 0) {
+		// if (this.props.users.length === 0) {
 			this.props.setIsFetching(true)
 			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
 				.then(response => {
@@ -34,7 +34,7 @@ class UsersC extends React.Component {
 					this.props.setTotalUsersCount(response.data.totalCount)
 				
 				})
-		}
+		// }
 	}
 
 	onPageChange = (pageNumber) => {

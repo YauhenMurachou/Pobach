@@ -16,7 +16,7 @@ let initialState = {
 	isFetching: false
 };
 
-const usersReducer = (state = initialState, action) => {
+const authReducer = (state = initialState, action) => {
 
 	switch (action.type) {
 
@@ -81,4 +81,5 @@ export let setTotalUsersCountActionCreator = (totalUsersCount) => ({ type: SET_T
 export let setIsFetchingActionCreator = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
 
 
-export default usersReducer;
+
+export default authReducer;

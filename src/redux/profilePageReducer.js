@@ -11,7 +11,8 @@ let initialState = {
 		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
 	],
 	newPostText: 'New post hardcore',
-	profile: null
+	profile: {}
+	// or null??
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -38,9 +39,7 @@ const profilePageReducer = (state = initialState, action) => {
 		}
 
 		case SET_USER_PROFILE: {
-			let stateCopy = { ...state };
-			stateCopy.profile = action.profile;
-			return stateCopy
+			return { ...state, profile: action.profile };
 		}
 
 		default:

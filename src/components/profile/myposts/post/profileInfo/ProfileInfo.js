@@ -1,7 +1,17 @@
 import React from 'react';
+
+import Loader from '../../../../loader/Loader';
+
 import classes from './ProfileInfo.module.css'
 
 const ProfileInfo = (props) => {
+
+	if (!props.profile) {
+		console.log('ProfileInfo inside--', props)
+		return <Loader />
+	}
+
+	console.log('ProfileInfo', props.profile)
 
 	// let info = Object.entries(props.profile);
 
@@ -11,20 +21,17 @@ const ProfileInfo = (props) => {
 		info.push(prop)
 	}
 
-
 	// if (props.profile.aboutMe) {
 	// 	let aboutMe = props.profile.aboutMe
-	// }
-
-	console.log('ProfileInfo', Array.isArray(props.profile), props.profile, info)
+	// }	
 
 	return <div>
 		<div>
 			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
 		</div>
-
-		{/* <div>
-			<img src={props.profile.map(item => {if(item === 'photos'){return item.large}})} />
+		{/* 
+		<div>
+			<img src={props.profile.photos.large} />
 		</div> */}
 		{/* {props.profile.aboutMe.map(item => <div>{item}</div>)} */}
 
@@ -35,6 +42,7 @@ const ProfileInfo = (props) => {
 		</div>
 
 		<div className={classes.item}>
+			{/* <img src={props.profile.photos.large} /> */}
 			ava + description
 		</div>
 	</div>
