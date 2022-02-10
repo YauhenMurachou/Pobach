@@ -38,6 +38,15 @@
 	vertical-align: top;
 }
 
+.header-text a {
+	color: red;
+	text-align: center;
+	margin: auto 0 auto 60px;
+	display: inline-block;
+	padding-top: 20px;
+	vertical-align: top;
+}
+
 .header-text-social {
 	font-style: italic;
 	margin-left: 15px;

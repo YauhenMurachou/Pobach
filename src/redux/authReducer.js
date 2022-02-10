@@ -1,65 +1,25 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
-const FOLLOW = 'FOLLOW';
-const UNFOLLOW = 'UNFOLLOW';
-const SET_USERS = 'SET_USERS';
-const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
-const SET_IS_FETCHING = 'SET_IS_FETCHING';
+const SET_USER_DATA = 'SET_USER_DATA';
+
 
 let initialState = {
-	users: [],
-	pageSize: 20,
-	totalUsersCount: 0,
-	currentPage: 1,
-	isFetching: false
+	userId: null,
+	email: null,
+	login: null,
+	isAuth: false
 };
 
 const authReducer = (state = initialState, action) => {
 
 	switch (action.type) {
 
-		case FOLLOW: {
+		case SET_USER_DATA: {
 			return {
 				...state,
-				users: state.users.map(user => {
-					if (user.id === action.userId) {
-						return { ...user, followed: true }
-					}
-					return user
-				}
-				)
+				...action.data,
+				isAuth: true
 			}
-		}
-
-		case UNFOLLOW: {
-			return {
-				...state,
-				users: state.users.map(user => {
-					if (user.id === action.userId) {
-						return { ...user, followed: false }
-					}
-					return user
-				}
-				)
-			}
-		}
-
-		case SET_USERS: {
-			return { ...state, users: [...action.users] }
-		}
-
-		case SET_CURRENT_PAGE: {
-			return { ...state, currentPage: action.currentPage }
-		}
-
-		case SET_TOTAL_USERS_COUNT: {
-			return { ...state, totalUsersCount: action.totalUsersCount }
-		}
-
-		case SET_IS_FETCHING: {
-			return { ...state, isFetching: action.isFetching }
 		}
 
 		default:
@@ -68,18 +28,6 @@ const authReducer = (state = initialState, action) => {
 }
 
 
-export let followActionCreator = (userId) => ({ type: FOLLOW, userId })
-
-export let unfollowActionCreator = (userId) => ({ type: UNFOLLOW, userId })
-
-export let setUsersActionCreator = (users) => ({ type: SET_USERS, users })
-
-export let setCurrentPageActionCreator = (currentPage) => ({ type: SET_CURRENT_PAGE, currentPage })
-
-export let setTotalUsersCountActionCreator = (totalUsersCount) => ({ type: SET_TOTAL_USERS_COUNT, totalUsersCount })
-
-export let setIsFetchingActionCreator = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
-
-
+export let setUserDataActionCreator = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} })
 
 export default authReducer;

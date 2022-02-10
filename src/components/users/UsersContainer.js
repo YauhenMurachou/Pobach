@@ -31,8 +31,7 @@ class UsersC extends React.Component {
 
 					this.props.setIsFetching(false)
 					this.props.setUsers(response.data.items)
-					this.props.setTotalUsersCount(response.data.totalCount)
-				
+					this.props.setTotalUsersCount(response.data.totalCount)				
 				})
 		// }
 	}
