@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import { connect } from 'react-redux';
 
 import {
@@ -13,6 +12,7 @@ import {
 
 import Users from './Users';
 import Loader from '../loader/Loader';
+import usersApi from '../../api/api';
 
 class UsersC extends React.Component {
 
@@ -21,30 +21,29 @@ class UsersC extends React.Component {
 	}
 
 	componentDidMount() {
+
+		console.log('componentDidMount', this.props)
+
 		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
 		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
 		//  Это хорошее место для создания сетевых запросов.
 		// if (this.props.users.length === 0) {
-			this.props.setIsFetching(true)
-			axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
-				.then(response => {
-
-					this.props.setIsFetching(false)
-					this.props.setUsers(response.data.items)
-					this.props.setTotalUsersCount(response.data.totalCount)				
-				})
+		this.props.setIsFetching(true)
+		usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+			this.props.setIsFetching(false)
+			this.props.setUsers(data.items)
+			this.props.setTotalUsersCount(data.totalCount)
+		})
 		// }
 	}
 
 	onPageChange = (pageNumber) => {
 		this.props.setCurrentPage(pageNumber)
 		this.props.setIsFetching(true)
-		axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
-			.then(response => {
-				this.props.setIsFetching(false)
-				this.props.setUsers(response.data.items)
-				console.log('onPageChange', this.props)
-			})
+		usersApi.getUsers(pageNumber, this.props.pageSize).then(data => {
+			this.props.setIsFetching(false)
+			this.props.setUsers(data.items)
+		})
 	}
 
 	render() {
@@ -114,7 +113,7 @@ const UsersContainer = connect(mapStateToProps, {
 	setIsFetching: setIsFetchingActionCreator
 })(UsersC)
 
-// После вызова функции connect() возвращается компонент высшего порядка,
+// После вызова функции connect() возвращается компонент высшего порядка???,
 //  который можно использовать для оборачивания любого компонента React.
 // Т.е. здесь в презентационный компонент UsersC
 // в качестве пропсов попадают свойства, которые передаются в connect
