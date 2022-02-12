@@ -6,7 +6,7 @@ import classes from './Users.module.css';
 import avatar from '../../../src/images/avatar.png';
 import usersApi from '../../api/api';
 
-let Users = (props) => {	
+let Users = (props) => {
 
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 	let pages = [];
@@ -38,27 +38,27 @@ let Users = (props) => {
 					<span> {user.status}</span>
 					<div>
 						{user.followed
-							? <button disabled={props.followingInProgress}
+							? <button disabled={props.followingInProgress.some(id => id === user.id)}
 								onClick={() => {
 
-									props.setFollowingInProgress(true)
+									props.setFollowingInProgress(true, user.id)
 									usersApi.unFollowUsers(user.id).then(data => {
 										if (data.resultCode === 0) {
 											props.unfollowUsers(user.id)
 										}
-										props.setFollowingInProgress(false)
+										props.setFollowingInProgress(false, user.id)
 									})
 
 								}}>unfollow</button>
-							: <button disabled={props.followingInProgress}
+							: <button disabled={props.followingInProgress.some(id => id === user.id)}
 								onClick={() => {
 
-									props.setFollowingInProgress(true)
+									props.setFollowingInProgress(true, user.id)
 									usersApi.followUsers(user.id, {}).then(data => {
 										if (data.resultCode === 0) {
 											props.followUsers(user.id)
 										}
-										props.setFollowingInProgress(false)
+										props.setFollowingInProgress(false, user.id)
 									})
 
 								}}>follow</button>}

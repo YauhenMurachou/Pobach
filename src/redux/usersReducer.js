@@ -15,7 +15,7 @@ let initialState = {
 	totalUsersCount: 0,
 	currentPage: 1,
 	isFetching: false,
-	followingInProgress: false
+	followingInProgress: []
 };
 
 const usersReducer = (state = initialState, action) => {
@@ -65,7 +65,11 @@ const usersReducer = (state = initialState, action) => {
 		}
 
 		case FOLLOWING_IN_PROGRESS: {
-			return { ...state, followingInProgress: action.followingInProgress }
+			return (
+				{...state, followingInProgress: 
+					action.followingInProgress ? [...state.followingInProgress, action.userId]
+				: state.followingInProgress.filter(id => id !== action.userId) }
+			) 
 		}
 
 		default:
@@ -86,7 +90,7 @@ export let setTotalUsersCountActionCreator = (totalUsersCount) => ({ type: SET_T
 
 export let setIsFetchingActionCreator = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
 
-export let setFollowingInProgressActionCreator = (followingInProgress) => ({ type: FOLLOWING_IN_PROGRESS, followingInProgress })
+export let setFollowingInProgressActionCreator = (followingInProgress, userId) => ({ type: FOLLOWING_IN_PROGRESS, followingInProgress, userId })
 
 
 export default usersReducer;
