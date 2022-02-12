@@ -6,13 +6,15 @@ import classes from './Users.module.css';
 import avatar from '../../../src/images/avatar.png';
 import usersApi from '../../api/api';
 
-let Users = (props) => {
+let Users = (props) => {	
 
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 	let pages = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
+
+	console.log('users', props)
 
 	return <>
 		<div>
@@ -36,24 +38,30 @@ let Users = (props) => {
 					<span> {user.status}</span>
 					<div>
 						{user.followed
-							? <button onClick={() => {
+							? <button disabled={props.followingInProgress}
+								onClick={() => {
 
-								usersApi.unFollowUsers(user.id).then(data => {
+									props.setFollowingInProgress(true)
+									usersApi.unFollowUsers(user.id).then(data => {
 										if (data.resultCode === 0) {
 											props.unfollowUsers(user.id)
 										}
+										props.setFollowingInProgress(false)
 									})
 
-							}}>unfollow</button>
-							: <button onClick={() => {
+								}}>unfollow</button>
+							: <button disabled={props.followingInProgress}
+								onClick={() => {
 
-								usersApi.followUsers(user.id, {}).then(data => {
+									props.setFollowingInProgress(true)
+									usersApi.followUsers(user.id, {}).then(data => {
 										if (data.resultCode === 0) {
 											props.followUsers(user.id)
 										}
+										props.setFollowingInProgress(false)
 									})
 
-							}}>follow</button>}
+								}}>follow</button>}
 					</div>
 				</div>
 			)

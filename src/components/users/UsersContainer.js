@@ -7,7 +7,8 @@ import {
 	setUsersActionCreator,
 	setCurrentPageActionCreator,
 	setTotalUsersCountActionCreator,
-	setIsFetchingActionCreator
+	setIsFetchingActionCreator,
+	setFollowingInProgressActionCreator
 } from '../../redux/usersReducer';
 
 import Users from './Users';
@@ -60,6 +61,8 @@ class UsersC extends React.Component {
 				unfollowUsers={this.props.unfollowUsers}
 				followUsers={this.props.followUsers}
 				users={this.props.users}
+				followingInProgress={this.props.followingInProgress}
+				setFollowingInProgress={this.props.setFollowingInProgress}
 			/>
 		</>
 	}
@@ -71,7 +74,8 @@ let mapStateToProps = (state) => {
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
-		isFetching: state.usersPage.isFetching
+		isFetching: state.usersPage.isFetching,
+		followingInProgress: state.usersPage.followingInProgress		
 	}
 }
 
@@ -110,7 +114,8 @@ const UsersContainer = connect(mapStateToProps, {
 	setUsers: setUsersActionCreator,
 	setCurrentPage: setCurrentPageActionCreator,
 	setTotalUsersCount: setTotalUsersCountActionCreator,
-	setIsFetching: setIsFetchingActionCreator
+	setIsFetching: setIsFetchingActionCreator,
+	setFollowingInProgress: setFollowingInProgressActionCreator
 })(UsersC)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
