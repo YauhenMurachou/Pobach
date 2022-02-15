@@ -23,11 +23,13 @@ const ProfileInfo = (props) => {
 		</div>
 
 
-		{/* 
+			{/* 
 		<div>
 			<img src={props.profile.photos.large} />
 		</div> */}
 		{/* {props.profile.aboutMe.map(item => <div>{item}</div>)} */}
+
+
 
 		<div>
 			{info.map(p => {
