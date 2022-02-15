@@ -17,7 +17,7 @@ const ProfileInfo = (props) => {
 		info.push(prop)
 	}
 
-	// if (props.profile.aboutMe) {
+	
 	// 	let aboutMe = props.profile.aboutMe
 	// }	
 
@@ -25,6 +25,8 @@ const ProfileInfo = (props) => {
 		<div>
 			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
 		</div>
+
+
 		{/* 
 		<div>
 			<img src={props.profile.photos.large} />
