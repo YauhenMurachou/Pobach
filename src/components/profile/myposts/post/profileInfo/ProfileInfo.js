@@ -11,24 +11,18 @@ const ProfileInfo = (props) => {
 		return <Loader />
 	}
 
-	console.log('ProfileInfo', props.profile)
-
-	// let info = Object.entries(props.profile);
-
 	let info = [];
 
 	for (let prop in props.profile) {
 		info.push(prop)
 	}
 
-	// if (props.profile.aboutMe) {
-	// 	let aboutMe = props.profile.aboutMe
-	// }	
-
 	return <div>
 		<div>
 			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
 		</div>
+
+
 		{/* 
 		<div>
 			<img src={props.profile.photos.large} />
