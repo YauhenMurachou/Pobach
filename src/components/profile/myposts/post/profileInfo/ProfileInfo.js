@@ -18,7 +18,7 @@ const ProfileInfo = (props) => {
 	}
 
 	
-	// 	let aboutMe = props.profile.aboutMe
+
 	// }	
 
 	return <div>
