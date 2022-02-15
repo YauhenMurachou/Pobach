@@ -27,7 +27,7 @@ const ProfileInfo = (props) => {
 		<div>
 		
 		</div> */}
-		{/* {props.profile.aboutMe.map(item => <div>{item}</div>)} */}
+	
 
 
 
