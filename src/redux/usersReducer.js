@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import usersApi from '../api/api';
+
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
 const SET_USERS = 'SET_USERS';
@@ -66,10 +68,12 @@ const usersReducer = (state = initialState, action) => {
 
 		case FOLLOWING_IN_PROGRESS: {
 			return (
-				{...state, followingInProgress: 
-					action.followingInProgress ? [...state.followingInProgress, action.userId]
-				: state.followingInProgress.filter(id => id !== action.userId) }
-			) 
+				{
+					...state, followingInProgress:
+						action.followingInProgress ? [...state.followingInProgress, action.userId]
+							: state.followingInProgress.filter(id => id !== action.userId)
+				}
+			)
 		}
 
 		default:
@@ -90,7 +94,23 @@ export let setTotalUsersCountActionCreator = (totalUsersCount) => ({ type: SET_T
 
 export let setIsFetchingActionCreator = (isFetching) => ({ type: SET_IS_FETCHING, isFetching })
 
-export let setFollowingInProgressActionCreator = (followingInProgress, userId) => ({ type: FOLLOWING_IN_PROGRESS, followingInProgress, userId })
+export let setFollowingInProgressActionCreator = (followingInProgress, userId) =>
+({
+	type: FOLLOWING_IN_PROGRESS,
+	followingInProgress, userId
+})
+
+export const getUsersThunkCreator = (currentPage, pageSize) => {
+
+	return (dispatch) => {
+		dispatch(setIsFetchingActionCreator(true))
+		usersApi.getUsers(currentPage, pageSize).then(data => {
+			dispatch(setIsFetchingActionCreator(false))
+			dispatch(setUsersActionCreator(data.items))
+			dispatch(setTotalUsersCountActionCreator(data.totalCount))
+		})
+	}
+}
 
 
 export default usersReducer;

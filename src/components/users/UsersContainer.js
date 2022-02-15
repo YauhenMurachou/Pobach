@@ -8,7 +8,8 @@ import {
 	setCurrentPageActionCreator,
 	setTotalUsersCountActionCreator,
 	setIsFetchingActionCreator,
-	setFollowingInProgressActionCreator
+	setFollowingInProgressActionCreator,
+	getUsersThunkCreator
 } from '../../redux/usersReducer';
 
 import Users from './Users';
@@ -23,19 +24,19 @@ class UsersC extends React.Component {
 
 	componentDidMount() {
 
-		console.log('componentDidMount', this.props)
-
-		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
+			// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
 		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
 		//  Это хорошее место для создания сетевых запросов.
 		// if (this.props.users.length === 0) {
-		this.props.setIsFetching(true)
-		usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-			this.props.setIsFetching(false)
-			this.props.setUsers(data.items)
-			this.props.setTotalUsersCount(data.totalCount)
-		})
+		// this.props.setIsFetching(true)
+		// usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
+		// 	this.props.setIsFetching(false)
+		// 	this.props.setUsers(data.items)
+		// 	this.props.setTotalUsersCount(data.totalCount)
+		// })
 		// }
+
+		this.props.getUsers()
 	}
 
 	onPageChange = (pageNumber) => {
@@ -115,7 +116,8 @@ const UsersContainer = connect(mapStateToProps, {
 	setCurrentPage: setCurrentPageActionCreator,
 	setTotalUsersCount: setTotalUsersCountActionCreator,
 	setIsFetching: setIsFetchingActionCreator,
-	setFollowingInProgress: setFollowingInProgressActionCreator
+	setFollowingInProgress: setFollowingInProgressActionCreator,
+	getUsers:getUsersThunkCreator
 })(UsersC)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
