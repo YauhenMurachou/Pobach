@@ -23,14 +23,6 @@ const ProfileInfo = (props) => {
 		</div>
 
 
-			{/* 
-		<div>
-		
-		</div> */}
-	
-
-
-
 		<div>
 			{info.map(p => {
 				return <div> {p} </div>
