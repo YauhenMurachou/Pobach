@@ -11,10 +11,6 @@ const ProfileInfo = (props) => {
 		return <Loader />
 	}
 
-	console.log('ProfileInfo', props.profile)
-
-	// let info = Object.entries(props.profile);
-
 	let info = [];
 
 	for (let prop in props.profile) {
