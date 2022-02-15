@@ -17,10 +17,6 @@ const ProfileInfo = (props) => {
 		info.push(prop)
 	}
 
-	
-
-	// }	
-
 	return <div>
 		<div>
 			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
