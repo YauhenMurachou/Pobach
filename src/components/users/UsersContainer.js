@@ -24,28 +24,23 @@ class UsersC extends React.Component {
 
 	componentDidMount() {
 
-			// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
+		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
 		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
 		//  Это хорошее место для создания сетевых запросов.
-		// if (this.props.users.length === 0) {
-		// this.props.setIsFetching(true)
-		// usersApi.getUsers(this.props.currentPage, this.props.pageSize).then(data => {
-		// 	this.props.setIsFetching(false)
-		// 	this.props.setUsers(data.items)
-		// 	this.props.setTotalUsersCount(data.totalCount)
-		// })
-		// }
-
-		this.props.getUsers()
+		this.props.getUsers(this.props.currentPage, this.props.pageSize)
 	}
 
+	// onPageChange = (pageNumber) => {
+	// 	this.props.setCurrentPage(pageNumber)
+	// 	this.props.setIsFetching(true)
+	// 	usersApi.getUsers(pageNumber, this.props.pageSize).then(data => {
+	// 		this.props.setIsFetching(false)
+	// 		this.props.setUsers(data.items)
+	// 	})
+	// }
+
 	onPageChange = (pageNumber) => {
-		this.props.setCurrentPage(pageNumber)
-		this.props.setIsFetching(true)
-		usersApi.getUsers(pageNumber, this.props.pageSize).then(data => {
-			this.props.setIsFetching(false)
-			this.props.setUsers(data.items)
-		})
+		this.props.getUsers(pageNumber, this.props.pageSize)
 	}
 
 	render() {
@@ -76,7 +71,7 @@ let mapStateToProps = (state) => {
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
 		isFetching: state.usersPage.isFetching,
-		followingInProgress: state.usersPage.followingInProgress		
+		followingInProgress: state.usersPage.followingInProgress
 	}
 }
 
@@ -117,7 +112,7 @@ const UsersContainer = connect(mapStateToProps, {
 	setTotalUsersCount: setTotalUsersCountActionCreator,
 	setIsFetching: setIsFetchingActionCreator,
 	setFollowingInProgress: setFollowingInProgressActionCreator,
-	getUsers:getUsersThunkCreator
+	getUsers: getUsersThunkCreator
 })(UsersC)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
