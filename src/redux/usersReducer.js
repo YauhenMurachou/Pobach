@@ -16,9 +16,15 @@ let initialState = {
 	pageSize: 20,
 	totalUsersCount: 0,
 	currentPage: 1,
+
 	isFetching: false,
-	followingInProgress: []
+	followingInProgress: [],
 };
+
+
+console.log('currentPage---1', initialState.currentPage)
+
+
 
 const usersReducer = (state = initialState, action) => {
 

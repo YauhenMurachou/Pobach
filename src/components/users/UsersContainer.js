@@ -4,19 +4,15 @@ import { connect } from 'react-redux';
 import {
 	followActionCreator,
 	unfollowActionCreator,
-	setUsersActionCreator,
-	setCurrentPageActionCreator,
 	setTotalUsersCountActionCreator,
-	setIsFetchingActionCreator,
 	setFollowingInProgressActionCreator,
 	getUsersThunkCreator
 } from '../../redux/usersReducer';
 
 import Users from './Users';
 import Loader from '../loader/Loader';
-import usersApi from '../../api/api';
 
-class UsersC extends React.Component {
+class UsersC extends React.Component {	
 
 	constructor(props) {
 		super(props)
@@ -30,21 +26,12 @@ class UsersC extends React.Component {
 		this.props.getUsers(this.props.currentPage, this.props.pageSize)
 	}
 
-	// onPageChange = (pageNumber) => {
-	// 	this.props.setCurrentPage(pageNumber)
-	// 	this.props.setIsFetching(true)
-	// 	usersApi.getUsers(pageNumber, this.props.pageSize).then(data => {
-	// 		this.props.setIsFetching(false)
-	// 		this.props.setUsers(data.items)
-	// 	})
-	// }
-
 	onPageChange = (pageNumber) => {
 		this.props.getUsers(pageNumber, this.props.pageSize)
 	}
 
 	render() {
-
+		console.log('currentPage---3', this.props.currentPage)
 		return <>
 			<Loader
 				isFetching={this.props.isFetching}
@@ -65,9 +52,10 @@ class UsersC extends React.Component {
 };
 
 let mapStateToProps = (state) => {
+	console.log('currentPage---2', state.usersPage.currentPage)
 	return {
 		users: state.usersPage.users,
-		pageSize: state.usersPage.pageSize,
+		pageSize: state.usersPage.pageSize,	
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
 		isFetching: state.usersPage.isFetching,
@@ -107,10 +95,7 @@ let mapStateToProps = (state) => {
 const UsersContainer = connect(mapStateToProps, {
 	followUsers: followActionCreator,
 	unfollowUsers: unfollowActionCreator,
-	setUsers: setUsersActionCreator,
-	setCurrentPage: setCurrentPageActionCreator,
 	setTotalUsersCount: setTotalUsersCountActionCreator,
-	setIsFetching: setIsFetchingActionCreator,
 	setFollowingInProgress: setFollowingInProgressActionCreator,
 	getUsers: getUsersThunkCreator
 })(UsersC)

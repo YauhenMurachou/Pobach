@@ -8,13 +8,15 @@ import usersApi from '../../api/api';
 
 let Users = (props) => {
 
+	console.log('currentPage---4', props.currentPage)
+
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 	let pages = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
 
-	console.log('users', props)
+	// console.log('users', props)
 
 	return <>
 		<div>
