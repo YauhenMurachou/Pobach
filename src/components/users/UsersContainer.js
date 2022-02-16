@@ -6,7 +6,9 @@ import {
 	unfollowActionCreator,
 	setTotalUsersCountActionCreator,
 	setFollowingInProgressActionCreator,
-	getUsersThunkCreator
+	getUsersThunkCreator,
+	unfollowUsersThunkCreator,
+	followUsersThunkCreator
 } from '../../redux/usersReducer';
 
 import Users from './Users';
@@ -97,7 +99,9 @@ const UsersContainer = connect(mapStateToProps, {
 	unfollowUsers: unfollowActionCreator,
 	setTotalUsersCount: setTotalUsersCountActionCreator,
 	setFollowingInProgress: setFollowingInProgressActionCreator,
-	getUsers: getUsersThunkCreator
+	getUsers: getUsersThunkCreator,
+	followUsers: followUsersThunkCreator,
+	unfollowUsers: unfollowUsersThunkCreator
 })(UsersC)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
