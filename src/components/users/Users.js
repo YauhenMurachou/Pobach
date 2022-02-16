@@ -4,7 +4,6 @@ import { NavLink } from 'react-router-dom';
 import classes from './Users.module.css';
 
 import avatar from '../../../src/images/avatar.png';
-import usersApi from '../../api/api';
 
 let Users = (props) => {
 

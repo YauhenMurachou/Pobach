@@ -11,47 +11,7 @@ import {
 	followUsersThunkCreator
 } from '../../redux/usersReducer';
 
-import Users from './Users';
-import Loader from '../loader/Loader';
-
-class UsersC extends React.Component {	
-
-	constructor(props) {
-		super(props)
-	}
-
-	componentDidMount() {
-
-		// componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
-		// В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
-		//  Это хорошее место для создания сетевых запросов.
-		this.props.getUsers(this.props.currentPage, this.props.pageSize)
-	}
-
-	onPageChange = (pageNumber) => {
-		this.props.getUsers(pageNumber, this.props.pageSize)
-	}
-
-	render() {
-		console.log('currentPage---3', this.props.currentPage)
-		return <>
-			<Loader
-				isFetching={this.props.isFetching}
-			/>
-			<Users
-				totalUsersCount={this.props.totalUsersCount}
-				pageSize={this.props.pageSize}
-				currentPage={this.props.currentPage}
-				onPageChange={this.onPageChange}
-				unfollowUsers={this.props.unfollowUsers}
-				followUsers={this.props.followUsers}
-				users={this.props.users}
-				followingInProgress={this.props.followingInProgress}
-				setFollowingInProgress={this.props.setFollowingInProgress}
-			/>
-		</>
-	}
-};
+import UsersClass from './UsersClass';
 
 let mapStateToProps = (state) => {
 	console.log('currentPage---2', state.usersPage.currentPage)
@@ -64,7 +24,6 @@ let mapStateToProps = (state) => {
 		followingInProgress: state.usersPage.followingInProgress
 	}
 }
-
 // Аргумент mapStateToProps является функцией, которая возвращает либо обычный объект, либо другую функцию.
 //  Передача этого аргумента connect() приводит к подписке компонента-контейнера на обновления хранилища Redux.
 //  Это означает, что функция mapStateToProps будет вызываться каждый раз, когда состояние хранилища изменяется.
@@ -102,7 +61,7 @@ const UsersContainer = connect(mapStateToProps, {
 	getUsers: getUsersThunkCreator,
 	followUsers: followUsersThunkCreator,
 	unfollowUsers: unfollowUsersThunkCreator
-})(UsersC)
+})(UsersClass)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
 //  который можно использовать для оборачивания любого компонента React.
