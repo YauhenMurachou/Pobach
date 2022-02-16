@@ -1,7 +1,8 @@
 import React from 'react';
 
-const SET_USER_DATA = 'SET_USER_DATA';
+import usersApi from '../api/api';
 
+const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
 	userId: null,
@@ -27,7 +28,19 @@ const authReducer = (state = initialState, action) => {
 	}
 }
 
+export let setUserDataActionCreator = (userId, email, login) => ({ type: SET_USER_DATA, data: { userId, email, login } })
 
-export let setUserDataActionCreator = (userId, email, login) => ({ type: SET_USER_DATA, data: {userId, email, login} })
+export const setUserDataThunkCreator = () => {
+	return (dispatch) => {
+		usersApi.setLogin().then(data => {
+
+			if (data.resultCode === 0) {
+				let { userId, email, login } = data.data;
+				dispatch(setUserDataActionCreator(userId, email, login))
+			}
+		})
+	}
+}
+
 
 export default authReducer;

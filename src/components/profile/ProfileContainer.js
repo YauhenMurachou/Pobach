@@ -2,21 +2,17 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Profile from './Profile';
-import { setUserProfileActionCreator } from '../../redux/profilePageReducer';
+import { setUserProfileThunkCreator } from '../../redux/profilePageReducer';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
-import usersApi from '../../api/api';
 // import { useEffect } from 'react';
 
 class ProfileContainer extends React.Component {
 
 	componentDidMount() {
-		
-		let userId = this.props.match.params.userId		
 
-		usersApi.getProfile(userId)
-			.then(data => {
-				this.props.setUserProfile(data)
-			})
+		let userId = this.props.match.params.userId
+
+		this.props.setUserProfile(userId)
 	}
 
 	// useEffect(() => {
@@ -39,4 +35,4 @@ let mapStateToProps = (state) => ({ profile: state.profilePage.profile })
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, { setUserProfile: setUserProfileActionCreator })(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, { setUserProfile: setUserProfileThunkCreator })(WithUrlDataContainerComponent);
