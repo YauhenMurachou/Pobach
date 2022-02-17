@@ -5,21 +5,11 @@ import './Header.css';
 
 import Header from './Header';
 import { setUserDataThunkCreator } from '../../redux/authReducer';
-import usersApi from '../../api/api';
 
 class HeaderContainer extends React.Component {
 
 	componentDidMount() {
-
 		this.props.setAuthUserData()
-
-		// usersApi.setLogin().then(data => {
-
-		// 	if (data.resultCode === 0) {
-		// 		let { id, email, login } = data.data;
-		// 		this.props.setAuthUserData(id, email, login)
-		// 	}
-		// })
 	}
 
 	render() {
