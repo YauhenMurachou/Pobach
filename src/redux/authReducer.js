@@ -5,10 +5,10 @@ import usersApi from '../api/api';
 const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
+	isAuth: false,
 	userId: null,
 	email: null,
-	login: null,
-	isAuth: false
+	login: null
 };
 
 const authReducer = (state = initialState, action) => {

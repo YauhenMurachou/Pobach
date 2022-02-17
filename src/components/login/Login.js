@@ -1,6 +1,10 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 const Login = () => {
+
+	// const { isAuth } = useSelector(state => state.authReducer);
+
 	return <>
 		<h1>
 			Login
