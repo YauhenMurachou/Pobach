@@ -11,6 +11,7 @@ import Feed from './components/feed/Feed';
 import Photos from './components/photos/Photos';
 import Settings from './components/settings/Settings';
 import UsersContainer from './components/users/UsersContainer';
+import Login from './components/login/Login';
 
 const App = () => {
 
@@ -29,6 +30,7 @@ const App = () => {
 					<Route path='/Photos' component={Photos} />
 					<Route path='/Settings' component={Settings} />
 					<Route path='/Users' render={() => <UsersContainer />} />
+					<Route path='/Login' render={() => <Login />} />
 				</div>
 			</div>
 		</BrowserRouter>

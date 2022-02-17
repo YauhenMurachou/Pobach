@@ -3,12 +3,17 @@ import { connect } from 'react-redux';
 
 import Profile from './Profile';
 import { setUserProfileThunkCreator } from '../../redux/profilePageReducer';
+import { setUserDataThunkCreator } from '../../redux/authReducer';
 import { withRouter } from 'react-router-dom/cjs/react-router-dom.min';
 // import { useEffect } from 'react';
 
 class ProfileContainer extends React.Component {
 
 	componentDidMount() {
+
+
+		// this.props.setAuthUserData()
+		// console.log('ProfileContainer---', this.props)
 
 		let userId = this.props.match.params.userId
 
@@ -31,8 +36,14 @@ class ProfileContainer extends React.Component {
 	}
 };
 
-let mapStateToProps = (state) => ({ profile: state.profilePage.profile })
+let mapStateToProps = (state) => ({
+	profile: state.profilePage.profile,
+	isAuth: state.auth.isAuth
+})
 
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
-export default connect(mapStateToProps, { setUserProfile: setUserProfileThunkCreator })(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {
+	setUserProfile: setUserProfileThunkCreator
+	// setAuthUserData: setUserDataThunkCreator
+})(WithUrlDataContainerComponent);
