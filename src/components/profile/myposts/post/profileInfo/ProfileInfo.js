@@ -16,7 +16,7 @@ const ProfileInfo = (props) => {
 	let objProp = props.profile;
 	let info = Object.getOwnPropertyNames(objProp);
 
-	console.log('ProfileInfo--', objProp, info)
+	console.log('ProfileInfo--', props)
 
 	return <div>
 
@@ -37,7 +37,7 @@ const ProfileInfo = (props) => {
 		})}
 
 		<div className={classes.item}>
-			<ProfileStatus status='Hello my friends!!' />
+			<ProfileStatus status={props.status} />
 		</div>
 	</div>
 };

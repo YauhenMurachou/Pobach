@@ -5,6 +5,7 @@ import { profileApi } from '../api/api';
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const GET_STATUS = 'GET_STATUS';
 
 let initialState = {
 	postsData: [
@@ -13,8 +14,8 @@ let initialState = {
 		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
 	],
 	newPostText: 'New post hardcore',
-	profile: null
-	// or null??
+	profile: null,
+	status: ''
 };
 
 const profilePageReducer = (state = initialState, action) => {
@@ -44,6 +45,10 @@ const profilePageReducer = (state = initialState, action) => {
 			return { ...state, profile: action.profile };
 		}
 
+		case GET_STATUS: {
+			return { ...state, status: action.status };
+		}
+
 		default:
 			return state;
 	}
@@ -61,13 +66,27 @@ export let setUserProfileActionCreator = (profile) => {
 	return { type: SET_USER_PROFILE, profile }
 }
 
-export const setUserProfileThunkCreator = (userId) => {
+export let getStatusActionCreator = (status) => {
+	return { type: GET_STATUS, status }
+}
 
+export const setUserProfileThunkCreator = (userId) => {
 	return (dispatch) => {
 		profileApi.getProfile(userId)
 			.then(data => {
 
 				dispatch(setUserProfileActionCreator(data))
+			}
+			)
+	}
+}
+
+export const getStatusThunkCreator = (userId) => {
+	return (dispatch) => {
+		profileApi.getStatus(userId)
+			.then(data => {
+
+				dispatch(getStatusActionCreator(data))
 			}
 			)
 	}
