@@ -18,7 +18,6 @@ class ProfileStatus extends React.Component {
 			editMode: false})
 	}
 
-
 	render() {
 		return (
 			<div>
@@ -35,7 +34,6 @@ class ProfileStatus extends React.Component {
 			</div>
 		)
 	}
-
 };
 
 export default ProfileStatus;

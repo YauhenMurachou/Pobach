@@ -1,6 +1,6 @@
 import React from 'react';
 
-import usersApi from '../api/api';
+import {usersApi} from '../api/api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 

@@ -1,7 +1,6 @@
 import React from 'react';
 
-import usersApi from '../api/api';
-
+import { profileApi } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
@@ -14,7 +13,7 @@ let initialState = {
 		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
 	],
 	newPostText: 'New post hardcore',
-	profile: {}
+	profile: null
 	// or null??
 };
 
@@ -65,7 +64,7 @@ export let setUserProfileActionCreator = (profile) => {
 export const setUserProfileThunkCreator = (userId) => {
 
 	return (dispatch) => {
-		usersApi.getProfile(userId)
+		profileApi.getProfile(userId)
 			.then(data => {
 
 				dispatch(setUserProfileActionCreator(data))

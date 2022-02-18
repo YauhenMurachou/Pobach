@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 
-const instance = axios.create(
+ const instance = axios.create(
 	{
 		withCredentials: true,
 		baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -9,7 +9,7 @@ const instance = axios.create(
 	}
 )
 
-const usersApi = {
+export const usersApi = {
 	getUsers(currentPage = 1, pageSize = 20) {
 		console.log('currentPage---6', currentPage)
 		return (
@@ -36,10 +36,16 @@ const usersApi = {
 	},
 
 	getProfile(userId) {
+		return profileApi.getProfile()
+	}
+}
+
+export const profileApi = {
+
+	getProfile(userId) {
 		return (
 			instance.get(`profile/${userId}`).then(response => response.data)
 		)
 	}
 }
 
-export default usersApi;

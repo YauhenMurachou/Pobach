@@ -2,6 +2,7 @@ import React from 'react';
 
 import Loader from '../../../../loader/Loader';
 import ProfileStatus from './profilleStatus/ProfileStatus';
+import avatar from '../../../../../images/avatar.png';
 
 import classes from './ProfileInfo.module.css'
 
@@ -12,40 +13,31 @@ const ProfileInfo = (props) => {
 		return <Loader />
 	}
 
-	console.log('ProfileInfo', props.profile)
+	let objProp = props.profile;
+	let info = Object.getOwnPropertyNames(objProp);
 
-	// let info = Object.entries(props.profile);
-
-	let info = [];
-
-	for (let prop in props.profile) {
-		info.push(prop)
-	}
-
-	// if (props.profile.aboutMe) {
-	// 	let aboutMe = props.profile.aboutMe
-	// }	
+	console.log('ProfileInfo--', objProp, info)
 
 	return <div>
-		<div>
+
+		{/* <div>
 			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
-		</div>
-		{/* 
-		<div>
-			<img src={props.profile.photos.large} />
 		</div> */}
-		{/* {props.profile.aboutMe.map(item => <div>{item}</div>)} */}
 
 		<div>
-			{info.map(p => {
-				return <div> {p} </div>
-			})}
+			<img alt='photos' src={props.profile.photos.large ? props.profile.photos.large : avatar} />
 		</div>
+
+		{info.map(key => {
+			if (objProp[key] && typeof (objProp[key]) !== 'object') {
+				return <div> {key}: {objProp[key]} </div>
+			} else {
+				return <div> {key}: No data </div>
+			}
+		})}
 
 		<div className={classes.item}>
-			{/* <img src={props.profile.photos.large} /> */}
-			{/* ava + description */}
-			<ProfileStatus status='Hello my friends!!'/>
+			<ProfileStatus status='Hello my friends!!' />
 		</div>
 	</div>
 };
