@@ -6,6 +6,7 @@ const ADD_POST = 'ADD_POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
+const UPDATE_STATUS = 'UPDATE_STATUS';
 
 let initialState = {
 	postsData: [
@@ -49,6 +50,10 @@ const profilePageReducer = (state = initialState, action) => {
 			return { ...state, status: action.status };
 		}
 
+		case UPDATE_STATUS: {
+			return { ...state, status: action.status };
+		}
+
 		default:
 			return state;
 	}
@@ -70,6 +75,12 @@ export let getStatusActionCreator = (status) => {
 	return { type: GET_STATUS, status }
 }
 
+export let updateStatusActionCreator = (status) => {
+	return { type: UPDATE_STATUS, status }
+}
+
+
+
 export const setUserProfileThunkCreator = (userId) => {
 	return (dispatch) => {
 		profileApi.getProfile(userId)
@@ -87,6 +98,18 @@ export const getStatusThunkCreator = (userId) => {
 			.then(data => {
 
 				dispatch(getStatusActionCreator(data))
+			}
+			)
+	}
+}
+
+export const updateStatusThunkCreator = (status) => {
+	return (dispatch) => {
+		profileApi.updateStatus(status)
+			.then(data => {
+				if (data.resultCode === 0) {
+					dispatch(updateStatusActionCreator(status))
+				}
 			}
 			)
 	}
