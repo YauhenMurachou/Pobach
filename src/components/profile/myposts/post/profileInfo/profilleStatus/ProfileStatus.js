@@ -1,13 +1,11 @@
 import React from 'react';
 
-// import classes from './ProfileInfo.module.css'
-
 class ProfileStatus extends React.Component {
 
 	state = {
 		editMode: false,
-		status: this.props.status
-	}
+		status: this.props.status	
+	}	
 
 	activeEditMode() {
 		this.setState({
@@ -26,10 +24,16 @@ class ProfileStatus extends React.Component {
 		this.setState({status: e.currentTarget.value})
 	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if(prevProps.status !== this.props.status) {
+			this.setState({status: this.props.status})
+		}
+	}
+
 	render() {
+
 		return (
 			<div>
-
 				<div> Status: </div>
 
 				{!this.state.editMode &&
@@ -44,7 +48,6 @@ class ProfileStatus extends React.Component {
 							value={this.state.status}
 							autoFocus={true} />
 					</div>}
-
 			</div>
 		)
 	}
