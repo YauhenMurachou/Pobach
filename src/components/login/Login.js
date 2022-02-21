@@ -22,7 +22,6 @@ const Login = () => {
 
 		{/* <div>
 			<a href="https://social-network.samuraijs.com/login" target="_blank" rel="noreferrer">Войдите в свой аккаунт</a>
-
 		</div> */}
 
 	</>

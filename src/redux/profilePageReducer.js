@@ -85,7 +85,6 @@ export const setUserProfileThunkCreator = (userId) => {
 	return (dispatch) => {
 		profileApi.getProfile(userId)
 			.then(data => {
-
 				dispatch(setUserProfileActionCreator(data))
 			}
 			)
@@ -96,7 +95,6 @@ export const getStatusThunkCreator = (userId) => {
 	return (dispatch) => {
 		profileApi.getStatus(userId)
 			.then(data => {
-
 				dispatch(getStatusActionCreator(data))
 			}
 			)

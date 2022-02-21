@@ -36,7 +36,6 @@ export const usersApi = {
 }
 
 export const profileApi = {
-
 	getProfile(userId) {
 		return (
 			instance.get(`profile/${userId}`).then(response => response.data)
@@ -56,3 +55,10 @@ export const profileApi = {
 	}
 }
 
+export const registrationApi = {
+	getRegistration(userId) {
+		return (
+			instance.get(`profile/${userId}`).then(response => response.data)
+		)
+	}
+}
