@@ -16,14 +16,7 @@ const ProfileInfo = (props) => {
 	let objProp = props.profile;
 	let info = Object.getOwnPropertyNames(objProp);
 
-	console.log('ProfileInfo--', props)
-
-	return <div>
-
-		{/* <div>
-			<img className={classes.img} src='https://globe.by/wp-content/uploads/2017/01/Belarus.jpg' />
-		</div> */}
-
+	return <>
 		<div>
 			<img alt='photos' src={props.profile.photos.large ? props.profile.photos.large : avatar} />
 		</div>
@@ -37,9 +30,9 @@ const ProfileInfo = (props) => {
 		})}
 
 		<div className={classes.item}>
-			<ProfileStatus status={props.status} updateStatus={props.updateStatus}/>
+			<ProfileStatus status={props.status} updateStatus={props.updateStatus} />
 		</div>
-	</div>
+	</>
 };
 
 export default ProfileInfo;

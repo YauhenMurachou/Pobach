@@ -3,7 +3,6 @@ import React from 'react';
 import { profileApi } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE_NEW_POST_TEXT';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const UPDATE_STATUS = 'UPDATE_STATUS';
@@ -14,7 +13,6 @@ let initialState = {
 		{ message: 'Hi! How are you?', id: 2, likesCount: 21 },
 		{ message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 }
 	],
-	newPostText: 'New post hardcore',
 	profile: null,
 	status: ''
 };
@@ -24,7 +22,7 @@ const profilePageReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST: {
 			let newPost = {
-				message: state.newPostText,
+				message: action.newPost,
 				id: 5,
 				likesCount: 0
 			}
@@ -32,15 +30,8 @@ const profilePageReducer = (state = initialState, action) => {
 			let stateCopy = { ...state };
 			stateCopy.postsData = [...state.postsData];
 			stateCopy.postsData.push(newPost);
-			stateCopy.newPostText = '';
 			return stateCopy
-		}
-
-		case UPDATE_NEW_POST_TEXT: {
-			let stateCopy = { ...state };
-			stateCopy.newPostText = action.updatePost;
-			return stateCopy
-		}
+		}	
 
 		case SET_USER_PROFILE: {
 			return { ...state, profile: action.profile };
@@ -59,12 +50,8 @@ const profilePageReducer = (state = initialState, action) => {
 	}
 }
 
-export let addPostActionCreator = () => {
-	return { type: ADD_POST }
-}
-
-export let updatePostActionCreator = (text) => {
-	return { type: UPDATE_NEW_POST_TEXT, updatePost: text }
+export let addPostActionCreator = (newPost) => {
+	return { type: ADD_POST, newPost }
 }
 
 export let setUserProfileActionCreator = (profile) => {
@@ -79,7 +66,7 @@ export let updateStatusActionCreator = (status) => {
 	return { type: UPDATE_STATUS, status }
 }
 
-
+//thunk-creatorы
 
 export const setUserProfileThunkCreator = (userId) => {
 	return (dispatch) => {

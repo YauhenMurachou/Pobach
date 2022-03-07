@@ -1,4 +1,5 @@
 import React from 'react';
+import { reduxForm } from 'redux-form';
 
 import MypostsContainer from './myposts/MypostsContainer';
 import ProfileInfo from './myposts/post/profileInfo/ProfileInfo';

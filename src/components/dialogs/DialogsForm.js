@@ -1,28 +1,22 @@
 import React from 'react';
 
+import { Field } from 'redux-form';
+
 import classes from './Dialogs.module.css';
 
-const DialogsForm = ({ dialogsItems, messagesItems, newMessageElement, updateMessage, newMessageText, addNewMessageButton }) => {
+const DialogsForm = (props) => {
 
-	return <div className={classes.dialogs}>
-
-		<div className={classes.dialogsItems} >
-			{dialogsItems}
-		</div>
-
-		<div className={classes.messages}>
-			<div>{messagesItems}</div>
+	return <>
+		<form onSubmit={props.handleSubmit}>
 			<div>
-				<div>
-					<textarea ref={newMessageElement} onChange={updateMessage} value={newMessageText}></textarea>
-				</div>
-				<button className={classes.addButton} onClick={addNewMessageButton} >
-					Write message
-				</button>
+				<Field name='newMessage' component={'textarea'} />
 			</div>
-		</div>
-
-	</div>
+			
+			<button className={classes.addButton}>
+				Write message
+			</button>
+		</form>
+	</>
 };
 
 export default DialogsForm;

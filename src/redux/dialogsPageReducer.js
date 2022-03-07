@@ -1,8 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 const ADD_MESSAGE = 'ADD_MESSAGE';
-const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
 
 let initialState = {
 	dialogsData: [
@@ -10,7 +8,8 @@ let initialState = {
 		{ name: 'Alena', id: 3 },
 		{ name: 'Mikalay', id: 4 },
 		{ name: 'Nina', id: 5 },
-		{ name: 'Vasil', id: 6 }
+		{ name: 'Vasil', id: 6 },
+		{ name: 'Valera', id: 7 }
 	],
 
 	messageData: [
@@ -19,33 +18,18 @@ let initialState = {
 		{ message: 'This is more than just a game', id: 4 },
 		{ message: 'New message', id: 5 },
 		{ message: 'Hello!', id: 6 }
-	],
-
-	newMessageText: 'New message hardcore'
+	]
 };
 
 const dialogsPageReducer = (state = initialState, action) => {
 
 	switch (action.type) {
 		case ADD_MESSAGE: {
-			let newMessage = {
-				message: state.newMessageText,
-				id: 7
+			let newMessage = action.newMessageText;
+			return {
+				...state,
+				messageData: [...state.messageData, { id: 7, message: newMessage }]
 			}
-
-			let stateCopy = { ...state };
-			// stateCopy.messageData = [...state.messageData];
-			stateCopy.messageData.push(newMessage);
-			stateCopy.newMessageText = '';
-
-			return stateCopy
-		}
-
-		case UPDATE_MESSAGE: {
-			let stateCopy = { ...state };
-			stateCopy.newMessageText = action.updateMessage;
-
-			return stateCopy
 		}
 
 		default:
@@ -53,12 +37,8 @@ const dialogsPageReducer = (state = initialState, action) => {
 	}
 }
 
-export let addMessageActionCreator = () => {
-	return { type: ADD_MESSAGE }
-}
-
-export let updateMessageActionCreator = (message) => {
-	return { type: UPDATE_MESSAGE, updateMessage: message }
+export let addMessageActionCreator = (newMessageText) => {
+	return { type: ADD_MESSAGE, newMessageText }
 }
 
 export default dialogsPageReducer;
