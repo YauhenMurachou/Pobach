@@ -8,10 +8,8 @@ const LoginReduxForm = reduxForm({form: 'login'})(LoginForm)
 
 const Login = () => {
 	const onSubmit = (formData) => {
-		console.log('onSubmit---')
-	}
+		console.log('onSubmit---')	}
 
-	// const { isAuth } = useSelector(state => state.authReducer);
 
 	return <>
 		<h1>

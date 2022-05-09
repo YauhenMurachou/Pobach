@@ -1,5 +1,3 @@
-import React from 'react';
-
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
 let initialState = {
