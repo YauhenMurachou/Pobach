@@ -1,11 +1,9 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
-import {authReducer} from '../../redux/authReducer';
 import { loginDataThunkCreator } from '../../redux/authReducer';
 import LoginForm from './LoginForm';
 
