@@ -23,7 +23,6 @@ const App = () => {
 	const { isInitialized } = useSelector(state => state.appReducer);
 
 	useEffect(() => {
-		console.log('inside App useEffect')
 		dispatch(initializedThunkCreator())
 	}, []);
 

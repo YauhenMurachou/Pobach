@@ -16,6 +16,7 @@ export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
 
 		case SET_USER_DATA: {
+			console.log('SET_USER_DATA', action)
 			return {
 				...state,
 				...action.data
@@ -30,13 +31,13 @@ export const authReducer = (state = initialState, action) => {
 export const setUserDataActionCreator = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
 
 export const setUserDataThunkCreator = () => {
-	
+
 	return (dispatch) => {
 		return usersApi.setLogin().then(data => {
 
 			if (data.resultCode === 0) {
-				let { userId, email, login } = data.data;
-				dispatch(setUserDataActionCreator(userId, email, login, true))
+				let { id, email, login } = data.data;
+				dispatch(setUserDataActionCreator(id, email, login, true))
 			}
 		})
 	}
