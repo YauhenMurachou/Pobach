@@ -44,7 +44,7 @@ const App = () => {
 					</div>
 				</div>
 			</BrowserRouter>}
-			{!isInitialized && <Loader />}
+			{!isInitialized && <Loader isFetching={!isInitialized} />}
 		</div>
 
 
