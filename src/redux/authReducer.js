@@ -30,8 +30,9 @@ export const authReducer = (state = initialState, action) => {
 export const setUserDataActionCreator = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
 
 export const setUserDataThunkCreator = () => {
+	
 	return (dispatch) => {
-		usersApi.setLogin().then(data => {
+		return usersApi.setLogin().then(data => {
 
 			if (data.resultCode === 0) {
 				let { userId, email, login } = data.data;
