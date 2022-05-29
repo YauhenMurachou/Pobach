@@ -21,11 +21,6 @@ let initialState = {
 	followingInProgress: [],
 };
 
-
-console.log('currentPage---1', initialState.currentPage)
-
-
-
 const usersReducer = (state = initialState, action) => {
 
 	switch (action.type) {

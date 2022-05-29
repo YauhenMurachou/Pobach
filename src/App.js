@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 import './App.css';
 
@@ -12,8 +13,16 @@ import Photos from './components/photos/Photos';
 import Settings from './components/settings/Settings';
 import UsersContainer from './components/users/UsersContainer';
 import Login from './components/login/Login';
+import { setUserDataThunkCreator } from './redux/authReducer';
 
 const App = () => {
+
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		console.log('inside App useEffect')
+		dispatch(setUserDataThunkCreator())
+	});
 
 	return (
 		<BrowserRouter>

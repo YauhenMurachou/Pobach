@@ -1,8 +1,7 @@
 import React from 'react';
 import { reduxForm } from 'redux-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
 
 import { loginDataThunkCreator } from '../../redux/authReducer';
 import LoginForm from './LoginForm';
