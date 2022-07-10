@@ -7,7 +7,7 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const UPDATE_STATUS = 'UPDATE_STATUS';
 
-let initialState = {
+const initialState = {
 	postsData: [
 		{ message: 'Привет, как дела?', id: 1, likesCount: 0 },
 		{ message: 'Hi! How are you?', id: 2, likesCount: 21 },

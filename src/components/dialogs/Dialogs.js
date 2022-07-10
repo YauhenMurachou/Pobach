@@ -11,6 +11,8 @@ const DialogsReduxForm = reduxForm({ form: 'dialogs' })(DialogsForm);
 
 const Dialogs = (props) => {
 
+	console.log('Dialogs', props)
+
 	let addNewMessage = (values) => {
 		props.addNewMessage(values.newMessage)
 	}

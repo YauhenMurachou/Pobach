@@ -22,7 +22,7 @@ class UsersClass extends React.Component {
 	}
 
 	render() {
-		console.log('currentPage---3', this.props.currentPage)
+		// console.log('currentPage---3', this.props.currentPage)
 		return <>
 			<Loader
 				isFetching={this.props.isFetching}

@@ -1,19 +1,19 @@
-import React from 'react';
+import React, { memo } from 'react';
 import { NavLink } from 'react-router-dom';
 
 import classes from './Users.module.css';
 
 import avatar from '../../../src/images/avatar.png';
 
-let Users = (props) => {
-
-	console.log('currentPage---4', props.currentPage)
+const Users =  memo(props => {	
 
 	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 	let pages = [];
 	for (let i = 1; i <= pagesCount; i++) {
 		pages.push(i)
 	}
+
+	console.log('Users', props)
 
 	return <>
 		<div>
@@ -55,6 +55,7 @@ let Users = (props) => {
 		}
 	</>
 
-};
+}
+);
 
 export default Users;

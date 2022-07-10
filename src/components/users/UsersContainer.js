@@ -14,7 +14,7 @@ import {
 import UsersClass from './UsersClass';
 
 let mapStateToProps = (state) => {
-	console.log('currentPage---2', state.usersPage.currentPage)
+	// console.log('currentPage---2', state.usersPage.currentPage)
 	return {
 		users: state.usersPage.users,
 		pageSize: state.usersPage.pageSize,	

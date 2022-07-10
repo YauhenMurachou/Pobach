@@ -21,11 +21,11 @@ const ProfileInfo = (props) => {
 			<img alt='photos' src={props.profile.photos.large ? props.profile.photos.large : avatar} />
 		</div>
 
-		{info.map(key => {
-			if (objProp[key] && typeof (objProp[key]) !== 'object') {
-				return <div> {key}: {objProp[key]} </div>
+		{info.map((item, index) => {
+			if (objProp[item] && typeof (objProp[item]) !== 'object') {
+				return <div key={index}> {item}: {objProp[item]} </div>
 			} else {
-				return <div> {key}: No data </div>
+				return <div key={index}> {item}: No data </div>
 			}
 		})}
 
