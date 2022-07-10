@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/IT-Kamasutra/static/css/main.98d23620.chunk.css",
+    "main.js": "/IT-Kamasutra/static/js/main.7c6b19d5.chunk.js",
+    "main.js.map": "/IT-Kamasutra/static/js/main.7c6b19d5.chunk.js.map",
+    "runtime-main.js": "/IT-Kamasutra/static/js/runtime-main.f4a26d77.js",
+    "runtime-main.js.map": "/IT-Kamasutra/static/js/runtime-main.f4a26d77.js.map",
+    "static/js/2.df141bac.chunk.js": "/IT-Kamasutra/static/js/2.df141bac.chunk.js",
+    "static/js/2.df141bac.chunk.js.map": "/IT-Kamasutra/static/js/2.df141bac.chunk.js.map",
+    "index.html": "/IT-Kamasutra/index.html",
+    "static/css/main.98d23620.chunk.css.map": "/IT-Kamasutra/static/css/main.98d23620.chunk.css.map",
+    "static/js/2.df141bac.chunk.js.LICENSE.txt": "/IT-Kamasutra/static/js/2.df141bac.chunk.js.LICENSE.txt",
+    "static/media/avatar.5a2d86a6.png": "/IT-Kamasutra/static/media/avatar.5a2d86a6.png",
+    "static/media/loader.ffcd610b.gif": "/IT-Kamasutra/static/media/loader.ffcd610b.gif",
+    "static/media/Header.css": "/IT-Kamasutra/static/media/skaryna-title-2017-CC-v20200624-1052.03e02b4e.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f4a26d77.js",
+    "static/js/2.df141bac.chunk.js",
+    "static/css/main.98d23620.chunk.css",
+    "static/js/main.7c6b19d5.chunk.js"
+  ]
+}
