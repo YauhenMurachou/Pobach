@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { BrowserRouter, Route } from "react-router-dom"
+import { HashRouter, Route } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
 import HeaderContainer from "./components/header/HeaderContainer"
@@ -27,7 +27,7 @@ const App = () => {
   return (
     <div>
       {isInitialized && (
-        <BrowserRouter basename={process.env.PUBLIC_URL}>
+        <HashRouter>
           <div className="app-wrapper">
             <HeaderContainer />
             <Navbar />
@@ -41,7 +41,7 @@ const App = () => {
               <Route path="/Login" render={() => <Login />} />
             </div>
           </div>
-        </BrowserRouter>
+        </HashRouter>
       )}
       {!isInitialized && <Loader isFetching={!isInitialized} />}
     </div>
