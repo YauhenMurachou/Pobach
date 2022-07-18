@@ -6,18 +6,25 @@ import avatar from "../../../../../images/avatar.png"
 
 import classes from "./ProfileInfo.module.css"
 
-const ProfileInfo = (props) => {
-  if (!props.profile) {
+const ProfileInfo = ({ profile, sendPhoto, isOwner, status, updateStatus }) => {
+  if (!profile) {
     return <Loader />
   }
 
-  let objProp = props.profile
+  let objProp = profile
   let info = Object.getOwnPropertyNames(objProp)
+
+  const loadFile = (e) => {
+    if (e.target.files.length) {
+      sendPhoto(e.target.files[0])
+    }
+  }
 
   return (
     <>
       <div>
-        <img alt="photos" src={props.profile.photos.large || avatar} />
+        <img alt="photos" src={profile.photos.large || avatar} />
+        {isOwner && <input type="file" onChange={loadFile} />}
       </div>
 
       {info.map((item, index) => {
@@ -34,7 +41,7 @@ const ProfileInfo = (props) => {
       })}
 
       <div className={classes.item}>
-        <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
+        <ProfileStatus status={status} updateStatus={updateStatus} />
       </div>
     </>
   )

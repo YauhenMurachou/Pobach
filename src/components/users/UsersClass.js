@@ -21,8 +21,7 @@ class UsersClass extends React.Component {
 		this.props.getUsers(pageNumber, this.props.pageSize)
 	}
 
-	render() {
-		// console.log('currentPage---3', this.props.currentPage)
+	render() {		
 		return <>
 			<Loader
 				isFetching={this.props.isFetching}

@@ -1,20 +1,24 @@
-import React, { memo } from 'react';
-import { reduxForm } from 'redux-form';
+import React, { memo } from "react"
 
-import MypostsContainer from './myposts/MypostsContainer';
-import ProfileInfo from './myposts/post/profileInfo/ProfileInfo';
+import MypostsContainer from "./myposts/MypostsContainer"
+import ProfileInfo from "./myposts/post/profileInfo/ProfileInfo"
 
-import classes from './Profile.module.css'
+import classes from "./Profile.module.css"
 
-const Profile = React.memo(props => {
-	console.log('Profile---', props)
+const Profile = memo((props) => {
 
-	return <div className={classes.content}>
+  return (
+    <div className={classes.content}>
+      <ProfileInfo
+        profile={props.profile}
+        status={props.status}
+        isOwner={props.isOwner}
+        updateStatus={props.updateStatus}
+        sendPhoto={props.sendPhoto}
+      />
+      <MypostsContainer />
+    </div>
+  )
+})
 
-		<ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus} />
-		<MypostsContainer />
-	</div>
-}
-);
-
-export default Profile;
+export default Profile

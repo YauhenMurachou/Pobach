@@ -6,8 +6,6 @@ import classes from './Users.module.css';
 import avatar from '../../../src/images/avatar.png'
 
 let Users = (props) => {
-	console.log('Users---', props.users)
-
 
 	let getUsers = () => {
 		if (props.users.length === 0) {

@@ -13,8 +13,6 @@ const Users =  memo(props => {
 		pages.push(i)
 	}
 
-	console.log('Users', props)
-
 	return <>
 		<div>
 			{pages.map(p => {

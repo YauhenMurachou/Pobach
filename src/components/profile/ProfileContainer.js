@@ -7,7 +7,8 @@ import Profile from "./Profile"
 import {
   setUserProfileThunkCreator,
   getStatusThunkCreator,
-  updateStatusThunkCreator
+  updateStatusThunkCreator,
+  sendPhotoThunkCreator
 } from "../../redux/profilePageReducer"
 import withAuthRedirect from "../hoc/withAuthRedirect"
 
@@ -23,7 +24,6 @@ class ProfileContainer extends React.Component {
 
   componentDidMount() {
     // this.props.setMyProfile()
-    // console.log('ProfileContainer', this.props)
     this.refreshProfile()
   }
 
@@ -36,7 +36,11 @@ class ProfileContainer extends React.Component {
   render() {
     return (
       <>
-        <Profile {...this.props} profile={this.props.profile} />
+        <Profile
+          {...this.props}
+          profile={this.props.profile}
+          isOwner={!this.props.match.params.userId}
+        />
       </>
     )
   }
@@ -52,7 +56,8 @@ export default compose(
   connect(mapStateToProps, {
     setUserProfile: setUserProfileThunkCreator,
     getStatus: getStatusThunkCreator,
-    updateStatus: updateStatusThunkCreator
+    updateStatus: updateStatusThunkCreator,
+    sendPhoto: sendPhotoThunkCreator
     // setMyProfile: setUserDataThunkCreator
   }),
   withRouter,
