@@ -7,6 +7,7 @@ import avatar from "../../../../../images/avatar.png"
 import classes from "./ProfileInfo.module.css"
 
 const ProfileInfo = ({ profile, sendPhoto, isOwner, status, updateStatus }) => {
+
   if (!profile) {
     return <Loader />
   }
@@ -41,7 +42,11 @@ const ProfileInfo = ({ profile, sendPhoto, isOwner, status, updateStatus }) => {
       })}
 
       <div className={classes.item}>
-        <ProfileStatus status={status} updateStatus={updateStatus} />
+        <ProfileStatus
+          isOwner={isOwner}
+          status={status}
+          updateStatus={isOwner ? updateStatus : null}
+        />
       </div>
     </>
   )

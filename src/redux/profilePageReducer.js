@@ -1,5 +1,3 @@
-import React from "react"
-
 import { profileApi } from "../api/api"
 
 const ADD_POST = "ADD_POST"

@@ -5,16 +5,15 @@ import ProfileInfo from "./myposts/post/profileInfo/ProfileInfo"
 
 import classes from "./Profile.module.css"
 
-const Profile = memo((props) => {
-
+const Profile = memo(({ profile, status, isOwner, updateStatus, sendPhoto }) => {
   return (
     <div className={classes.content}>
       <ProfileInfo
-        profile={props.profile}
-        status={props.status}
-        isOwner={props.isOwner}
-        updateStatus={props.updateStatus}
-        sendPhoto={props.sendPhoto}
+        profile={profile}
+        status={status}
+        isOwner={isOwner}
+        updateStatus={updateStatus}
+        sendPhoto={sendPhoto}
       />
       <MypostsContainer />
     </div>

@@ -30,10 +30,8 @@ export const authReducer = (state = initialState, action) => {
 export const setUserDataActionCreator = (userId, email, login, isAuth) => ({ type: SET_USER_DATA, data: { userId, email, login, isAuth } })
 
 export const setUserDataThunkCreator = () => {
-
 	return (dispatch) => {
 		return usersApi.setLogin().then(data => {
-
 			if (data.resultCode === 0) {
 				let { id, email, login } = data.data;
 				dispatch(setUserDataActionCreator(id, email, login, true))
@@ -43,10 +41,8 @@ export const setUserDataThunkCreator = () => {
 }
 
 export const loginDataThunkCreator = (email, password, rememberMe) => {
-
 	return (dispatch) => {
 		usersApi.login(email, password, rememberMe).then(data => {
-
 			if (data.resultCode === 0) {
 				dispatch(setUserDataThunkCreator())
 			} else {
@@ -60,7 +56,6 @@ export const loginDataThunkCreator = (email, password, rememberMe) => {
 export const logoutDataThunkCreator = () => {
 	return (dispatch) => {
 		usersApi.logout().then(data => {
-
 			if (data.resultCode === 0) {
 				dispatch(setUserDataActionCreator(null, null, null, true))
 			}
