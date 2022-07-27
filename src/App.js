@@ -13,7 +13,6 @@ import UsersContainer from "./components/users/UsersContainer"
 import Login from "./components/login/Login"
 import { initializedThunkCreator } from "./redux/appReducer"
 import Loader from "./components/loader/Loader"
-import ProfileContainerFunction from "./components/profile/ProfileContainerFunction"
 
 import "./App.css"
 
@@ -23,7 +22,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(initializedThunkCreator())
-  }, [])
+  }, [dispatch])
 
   return (
     <div>
