@@ -2,7 +2,6 @@ import React, { useEffect } from "react"
 import { HashRouter, Route } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 
-import HeaderContainer from "./components/header/HeaderContainer"
 import Header from "./components/header/Header"
 import Navbar from "./components/navbar/Navbar"
 import ProfileContainer from "./components/profile/ProfileContainer"

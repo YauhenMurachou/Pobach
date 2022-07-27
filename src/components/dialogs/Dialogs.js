@@ -11,14 +11,14 @@ const DialogsReduxForm = reduxForm({ form: "dialogs" })(DialogsForm)
 
 const Dialogs = (props) => {
 
-  let addNewMessage = (values) => {
+  const addNewMessage = (values) => {
     props.addNewMessage(values.newMessage)
   }
 
-  let dialogsItems = props.dialogsItems.map((dialog) => (
+  const dialogsItems = props.dialogsItems.map((dialog) => (
     <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />
   ))
-  let messagesItems = props.messagesItems.map((message) => (
+  const messagesItems = props.messagesItems.map((message) => (
     <Message message={message.message} id={message.id} key={message.id} />
   ))
 

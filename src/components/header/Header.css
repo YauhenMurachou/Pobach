@@ -30,7 +30,7 @@
 }
 
 .header-text {
-	color: red;
+	color: rgb(243, 52, 52);
 	text-align: center;
 	margin: auto 0 auto 60px;
 	display: inline-block;
@@ -39,7 +39,7 @@
 }
 
 .header-text a {
-	color: red;
+	color: rgb(243, 52, 52);
 	text-align: center;
 	margin: auto 0 auto 60px;
 	display: inline-block;

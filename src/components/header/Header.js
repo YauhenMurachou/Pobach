@@ -38,7 +38,6 @@ const Header = () => {
         <div className="header-text">
           {isAuth && (
             <NavLink to={"/login"} onClick={logoutOnClick}>
-              {" "}
               Logout
             </NavLink>
           )}
