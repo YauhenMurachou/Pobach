@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux"
 import Header from "./components/header/Header"
 import Navbar from "./components/navbar/Navbar"
 import ProfileContainer from "./components/profile/ProfileContainer"
-import DialogsContainer from "./components/dialogs/DialogsContainer"
+import Dialogs from "./components/dialogs/Dialogs"
 import Feed from "./components/feed/Feed"
 import Photos from "./components/photos/Photos"
 import Settings from "./components/settings/Settings"
@@ -32,7 +32,7 @@ const App = () => {
             <Header />
             <Navbar />
             <div className="app-wrapper-content">
-              <Route path="/Dialogs" render={() => <DialogsContainer />} />
+              <Route path="/Dialogs" render={() => <Dialogs />} />
               <Route path="/Profile/:userId?" render={() => <ProfileContainer />} />
               <Route path="/Feed" component={Feed} />
               <Route path="/Photos" component={Photos} />

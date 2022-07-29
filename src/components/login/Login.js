@@ -1,38 +1,35 @@
-import React from 'react';
-import { reduxForm } from 'redux-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import React from "react"
+import { reduxForm } from "redux-form"
+import { useDispatch, useSelector } from "react-redux"
+import { Redirect } from "react-router-dom"
 
-import { loginDataThunkCreator } from '../../redux/authReducer';
-import LoginForm from './LoginForm';
+import { loginDataThunkCreator } from "../../redux/authReducer"
+import LoginForm from "./LoginForm"
 
-const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm)
+const LoginReduxForm = reduxForm({ form: "login" })(LoginForm)
 
-const Login = (props) => {
+const Login = () => {
+  const dispatch = useDispatch()
+  const { isAuth } = useSelector((state) => state.auth)
+  const onSubmit = (formData) => {
+    dispatch(loginDataThunkCreator(formData.email, formData.password, formData.rememberMe))
+  }
 
-	const dispatch = useDispatch();
+  if (isAuth) {
+    return <Redirect to="/profile" />
+  }
 
-	const { isAuth } = useSelector(state => state.auth);
-	const onSubmit = (formData) => {
-		dispatch(loginDataThunkCreator(formData.email, formData.password, formData.rememberMe))
-	}
+  return (
+    <>
+      <h1>Login</h1>
 
-	if (isAuth) { return <Redirect to='/profile' /> }
+      <LoginReduxForm onSubmit={onSubmit} />
 
-	return <>
-		<h1>
-			Login
-		</h1>
-
-		<LoginReduxForm onSubmit={onSubmit} />
-
-		{/* <div>
+      {/* <div>
 			<a href="https://social-network.samuraijs.com/login" target="_blank" rel="noreferrer">Войдите в свой аккаунт</a>
 		</div> */}
-
-	</>
+    </>
+  )
 }
 
-export default Login;
-
-// export default connect(null, { loginDataThunkCreator })(Login);
+export default Login

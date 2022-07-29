@@ -1,34 +1,44 @@
 import React from "react"
+import { Redirect } from "react-router-dom"
+import { useDispatch, useSelector } from "react-redux"
 import { reduxForm } from "redux-form"
 
 import DialogItem from "./dialogItem/DialogItem"
 import Message from "./message/Message"
 import DialogsForm from "./DialogsForm"
+import { addMessageActionCreator } from "../../redux/dialogsPageReducer"
 
 import classes from "./Dialogs.module.css"
 
 const DialogsReduxForm = reduxForm({ form: "dialogs" })(DialogsForm)
 
-const Dialogs = (props) => {
+const Dialogs = () => {
+  const { dialogsData, messageData } = useSelector((state) => state.dialogsPage)
+  const { isAuth } = useSelector((state) => state.auth)
+  const dispatch = useDispatch()
 
-  const addNewMessage = (values) => {
-    props.addNewMessage(values.newMessage)
+  const addNewMessageForm = (values) => {
+    dispatch(addMessageActionCreator(values.newMessage))
   }
 
-  const dialogsItems = props.dialogsItems.map((dialog) => (
+  const dialogsItemsCopy = dialogsData.map((dialog) => (
     <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />
   ))
-  const messagesItems = props.messagesItems.map((message) => (
+	
+  const messagesItemsCopy = messageData.map((message) => (
     <Message message={message.message} id={message.id} key={message.id} />
   ))
 
+  if (!isAuth) {
+    return <Redirect to="/Login" />
+  }
+
   return (
     <div className={classes.dialogs}>
-      <div className={classes.dialogsItems}>{dialogsItems}</div>
-
+      <div className={classes.dialogsItems}>{dialogsItemsCopy}</div>
       <div className={classes.messages}>
-        <div>{messagesItems}</div>
-        <DialogsReduxForm onSubmit={addNewMessage} />
+        <div>{messagesItemsCopy}</div>
+        <DialogsReduxForm onSubmit={addNewMessageForm} />
       </div>
     </div>
   )
