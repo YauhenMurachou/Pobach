@@ -1,33 +1,47 @@
-import React from 'react';
-import { Field } from 'redux-form';
+import React from "react"
+import { Formik, Field, Form } from "formik"
+import * as Yup from "yup"
 
-import { Input } from '../common/FormsControl';
-import { required, maxLengthCreator } from '../../utils/validators/validators';
+import classes from "./Login.module.css"
 
-import classes from './Login.module.css'
+const LoginSchema = Yup.object().shape({
+  email: Yup.string().max(20, "Too Long!").required("Required"),
+  password: Yup.string().max(15, "Too Long!").required("Required")
+})
 
-const maxLength10 = maxLengthCreator(20)
-
-const LoginForm = (props) => {
-	return <>
-		<form onSubmit={props.handleSubmit}>
-			<div>
-				<Field placeholder='login' name='email' component={Input} validate={[required, maxLength10]} />
-			</div>
-			<div>
-				<Field placeholder='password' name='password' component={Input} type='password' validate={[required, maxLength10]} />
-			</div>
-			<div>
-				<Field type='checkbox' name='rememberMe' component={'input'} />remember me
-			</div>
-			{props.error && <div className={classes.errorWarning}>
-				{props.error}
-			</div>}
-			<div>
-				<button>Login </button>
-			</div>
-		</form>
-	</>
+const LoginForm = ({ onSubmit }) => {
+  return (
+    <>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={{
+          email: "",
+          password: ""
+        }}
+        validationSchema={LoginSchema}
+      >
+        {({ errors, touched }) => (
+          <Form>
+            <div>
+              <Field placeholder="login" name="email" id="email" />
+              {errors.email && touched.email ? <div>{errors.email}</div> : null}
+            </div>
+            <div>
+              <Field placeholder="password" name="password" id="email" type="password" />
+              {errors.password && touched.password ? <div>{errors.password}</div> : null}
+            </div>
+            <div>
+              <Field type="checkbox" name="rememberMe" />
+              remember me
+            </div>
+            <div>
+              <button type="submit">Login </button>
+            </div>
+          </Form>
+        )}
+      </Formik>
+    </>
+  )
 }
 
-export default LoginForm;
+export default LoginForm

@@ -1,29 +1,38 @@
-import React from 'react';
-import { Field } from 'redux-form';
+import React from "react"
+import { Formik, Field, Form } from "formik"
+import * as Yup from "yup"
 
-import { required, maxLengthCreator } from '../../../utils/validators/validators';
-import { Textarea } from '../../common/FormsControl';
+import classes from "./Myposts.module.css"
 
-import classes from './Myposts.module.css';
+const newPostSchema = Yup.object().shape({
+  newPost: Yup.string().min(3, "Too Short!").max(30, "Too Long Post, maximum length 30 symbols!")
+})
 
-const maxLength10 = maxLengthCreator(10)
+const MyPostsForm = ({ onSubmit }) => {
+  return (
+    <Formik
+      onSubmit={onSubmit}
+      initialValues={{
+        newPost: ""
+      }}
+      validationSchema={newPostSchema}
+    >
+      {({ errors, touched, dirty, isValid }) => (
+        <Form>
+          <div>
+            <Field component="Textarea" name="newPost" id="newPost" placeholder="newPost" />
+            {errors.newPost && touched.newPost ? <div>{errors.newPost}</div> : null}
+          </div>
+          <div>
+            <button className={classes.addButton} type="submit" disabled={!dirty || !isValid}>
+              Add post
+            </button>
+            <button>Remove post</button>
+          </div>
+        </Form>
+      )}
+    </Formik>
+  )
+}
 
-const MyPostsForm = (props) => {
-
-	return <form className={classes.item} onSubmit={props.handleSubmit}>
-		<div>
-			<Field component={Textarea} name='newPost' placeholder='New post' validate={[required, maxLength10]} />
-		</div>
-		<div>
-			<button className={classes.addButton}>
-				Add post
-			</button>
-
-			<button>
-				Remove post
-			</button>
-		</div>
-	</form>
-};
-
-export default MyPostsForm;
+export default MyPostsForm

@@ -1,17 +1,14 @@
 import React from "react"
-import { reduxForm } from "redux-form"
 import { useDispatch, useSelector } from "react-redux"
 import { Redirect } from "react-router-dom"
-
-import { loginDataThunkCreator } from "../../redux/authReducer"
 import LoginForm from "./LoginForm"
 
-const LoginReduxForm = reduxForm({ form: "login" })(LoginForm)
+import { loginDataThunkCreator } from "../../redux/authReducer"
 
 const Login = () => {
   const dispatch = useDispatch()
   const { isAuth } = useSelector((state) => state.auth)
-  const onSubmit = (formData) => {
+  const LogInFunction = (formData) => {
     dispatch(loginDataThunkCreator(formData.email, formData.password, formData.rememberMe))
   }
 
@@ -23,7 +20,7 @@ const Login = () => {
     <>
       <h1>Login</h1>
 
-      <LoginReduxForm onSubmit={onSubmit} />
+      <LoginForm onSubmit={LogInFunction} />
 
       {/* <div>
 			<a href="https://social-network.samuraijs.com/login" target="_blank" rel="noreferrer">Войдите в свой аккаунт</a>
