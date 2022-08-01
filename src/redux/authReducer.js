@@ -1,6 +1,6 @@
 import { usersApi } from "../api/api"
 
-import { stopSubmit } from "redux-form"
+// import { stopSubmit } from "redux-form"
 
 const SET_USER_DATA = "SET_USER_DATA"
 
@@ -47,7 +47,7 @@ export const loginDataThunkCreator = (email, password, rememberMe) => {
         dispatch(setUserDataThunkCreator())
       } else {
         const message = data.messages.length > 0 ? data.messages[0] : "Какая-то ошибка хз"
-        dispatch(stopSubmit("login", { _error: message }))
+        // dispatch(stopSubmit("login", { _error: message }))
       }
     })
   }

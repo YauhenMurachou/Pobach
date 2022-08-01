@@ -1,33 +1,28 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import { connect } from "react-redux"
 
 import {
-	followActionCreator,
-	unfollowActionCreator,
-	setTotalUsersCountActionCreator,
-	setFollowingInProgressActionCreator,
-	getUsersThunkCreator,
-	unfollowUsersThunkCreator,
-	followUsersThunkCreator
-} from '../../redux/usersReducer';
+  setTotalUsersCountActionCreator,
+  setFollowingInProgressActionCreator,
+  getUsersThunkCreator,
+  unfollowUsersThunkCreator,
+  followUsersThunkCreator
+} from "../../redux/usersReducer"
 
-import UsersClass from './UsersClass';
+import UsersClass from "./UsersClass"
 
-let mapStateToProps = (state) => {
-	return {
-		users: state.usersPage.users,
-		pageSize: state.usersPage.pageSize,	
-		totalUsersCount: state.usersPage.totalUsersCount,
-		currentPage: state.usersPage.currentPage,
-		isFetching: state.usersPage.isFetching,
-		followingInProgress: state.usersPage.followingInProgress
-	}
+const mapStateToProps = (state) => {
+  return {
+    users: state.usersPage.users,
+    pageSize: state.usersPage.pageSize,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgress
+  }
 }
 // Аргумент mapStateToProps является функцией, которая возвращает либо обычный объект, либо другую функцию.
 //  Передача этого аргумента connect() приводит к подписке компонента-контейнера на обновления хранилища Redux.
 //  Это означает, что функция mapStateToProps будет вызываться каждый раз, когда состояние хранилища изменяется.
-
-
 
 // let mapDispatchToProps = (dispatch) => {
 // 	return {
@@ -53,13 +48,11 @@ let mapStateToProps = (state) => {
 // }
 
 const UsersContainer = connect(mapStateToProps, {
-	followUsers: followActionCreator,
-	unfollowUsers: unfollowActionCreator,
-	setTotalUsersCount: setTotalUsersCountActionCreator,
-	setFollowingInProgress: setFollowingInProgressActionCreator,
-	getUsers: getUsersThunkCreator,
-	followUsers: followUsersThunkCreator,
-	unfollowUsers: unfollowUsersThunkCreator
+  setTotalUsersCount: setTotalUsersCountActionCreator,
+  setFollowingInProgress: setFollowingInProgressActionCreator,
+  getUsers: getUsersThunkCreator,
+  followUsers: followUsersThunkCreator,
+  unfollowUsers: unfollowUsersThunkCreator
 })(UsersClass)
 
 // После вызова функции connect() возвращается компонент высшего порядка???,
@@ -68,4 +61,4 @@ const UsersContainer = connect(mapStateToProps, {
 // в качестве пропсов попадают свойства, которые передаются в connect
 // Connect эти функции вызывает сам и автоматом передаёт им state и диспатч
 
-export default UsersContainer;
+export default UsersContainer
