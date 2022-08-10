@@ -1,75 +1,87 @@
-import React, { memo } from "react"
+import React, { memo, useState } from "react"
 import { NavLink } from "react-router-dom"
+import Pagination from "@mui/material/Pagination"
+import avatar from "../../../src/images/avatar.png"
 
 import classes from "./Users.module.css"
 
-import avatar from "../../../src/images/avatar.png"
+const Users = memo(
+  ({
+    totalUsersCount,
+    pageSize,
+    currentPage,
+    users,
+    followingInProgress,
+    onPageChange,
+    unfollowUsers,
+    followUsers
+  }) => {
+    const [page, setPage] = useState(1)
 
-const Users = memo((props) => {
-  const pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-  const pages = []
-  for (let i = 1; i <= pagesCount; i++) {
-    pages.push(i)
-  }
+    const handleChange = (event, value) => {
+      console.log(event, value)
+      setPage(value)
+      onPageChange(value)
+    }
+    const pagesCount = Math.ceil(totalUsersCount / pageSize)
+    const pages = []
+    for (let i = 1; i <= pagesCount; i++) {
+      pages.push(i)
+    }
 
-  return (
-    <>
-      <div>
-        {pages.map((p) => {
-          return (
-            <span
-              className={props.currentPage === p ? classes.selected : null}
-              onClick={() => {
-                props.onPageChange(p)
-              }}
-              key={p}
-            >
-              {" "}
-              {p}{" "}
-            </span>
-          )
-        })}
-      </div>
-
-      {props.users.map((user) => (
-        <div key={user.id} className={classes.item}>
-          <NavLink to={"/profile/" + user.id}>
-            <img
-              src={user.photos.small != null ? user.photos.small : avatar}
-              className={classes.avatar}
-              alt="avatar"
-            />
-          </NavLink>
-          <span> {user.name} </span>
-          <span> id: {user.id} </span>
-          <span> {user.city} </span>
-          <span> {user.country}</span>
-          <span> {user.status}</span>
-          <div>
-            {user.followed ? (
-              <button
-                disabled={props.followingInProgress.some((id) => id === user.id)}
-                onClick={() => {
-                  props.unfollowUsers(user.id)
-                }}
-              >
-                unfollow
-              </button>
-            ) : (
-              <button
-                disabled={props.followingInProgress.some((id) => id === user.id)}
-                onClick={() => {
-                  props.followUsers(user.id)
-                }}
-              >
-                follow
-              </button>
-            )}
-          </div>
+    return (
+      <>
+        <div className={classes.itemWrapper}>
+          {users.map((user) => (
+            <div key={user.id} className={classes.item}>
+              <NavLink to={"/profile/" + user.id}>
+                <img
+                  src={user.photos.small != null ? user.photos.small : avatar}
+                  className={classes.avatar}
+                  alt="avatar"
+                />
+              </NavLink>
+              <span> {user.name} </span>
+              <span> id: {user.id} </span>
+              <span> {user.city} </span>
+              <span> {user.country}</span>
+              <span> {user.status}</span>
+              <div>
+                {user.followed ? (
+                  <button
+                    disabled={followingInProgress.some((id) => id === user.id)}
+                    onClick={() => {
+                      unfollowUsers(user.id)
+                    }}
+                  >
+                    unfollow
+                  </button>
+                ) : (
+                  <button
+                    disabled={followingInProgress.some((id) => id === user.id)}
+                    onClick={() => {
+                      followUsers(user.id)
+                    }}
+                  >
+                    follow
+                  </button>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
-      ))}
-    </>
-  )
-})
+        <div>
+          <Pagination
+            count={pagesCount}
+            showFirstButton
+            showLastButton
+            page={page}
+            onChange={handleChange}
+          />
+        </div>
+      </>
+    )
+  }
+)
 
 export default Users
