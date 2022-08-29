@@ -13,6 +13,7 @@ import UsersContainer from "./components/users/UsersContainer"
 import Login from "./components/login/Login"
 import { initializedThunkCreator } from "./redux/appReducer"
 import Loader from "./components/loader/Loader"
+import { ChatPage } from "./components/chat/ChatPage"
 
 import "./App.css"
 
@@ -39,6 +40,7 @@ const App = () => {
               <Route path="/Settings" component={Settings} />
               <Route path="/Users" render={() => <UsersContainer />} />
               <Route path="/Login" render={() => <Login />} />
+              <Route path="/Chat" render={() => <ChatPage />} />
             </div>
           </div>
         </HashRouter>
