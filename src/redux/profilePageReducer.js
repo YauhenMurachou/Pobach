@@ -19,13 +19,13 @@ const initialState = {
 const profilePageReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST: {
-      let newPost = {
+      const newPost = {
         message: action.newPost,
         id: 5,
         likesCount: 0
       }
 
-      let stateCopy = { ...state }
+      const stateCopy = { ...state }
       stateCopy.postsData = [...state.postsData]
       stateCopy.postsData.push(newPost)
       return stateCopy
@@ -43,7 +43,7 @@ const profilePageReducer = (state = initialState, action) => {
       return { ...state, status: action.status }
     }
 
-    case SEND_PHOTO: {  
+    case SEND_PHOTO: {
       return { ...state, profile: { ...state.profile, photos: action.file } }
     }
 
@@ -52,23 +52,23 @@ const profilePageReducer = (state = initialState, action) => {
   }
 }
 
-export let addPostActionCreator = (newPost) => {
+export const addPostActionCreator = (newPost) => {
   return { type: ADD_POST, newPost }
 }
 
-export let setUserProfileActionCreator = (profile) => {
+export const setUserProfileActionCreator = (profile) => {
   return { type: SET_USER_PROFILE, profile }
 }
 
-export let getStatusActionCreator = (status) => {
+export const getStatusActionCreator = (status) => {
   return { type: GET_STATUS, status }
 }
 
-export let updateStatusActionCreator = (status) => {
+export const updateStatusActionCreator = (status) => {
   return { type: UPDATE_STATUS, status }
 }
 
-export let sendPhotoActionCreator = (file) => {
+export const sendPhotoActionCreator = (file) => {
   return { type: SEND_PHOTO, file }
 }
 
@@ -78,6 +78,17 @@ export const setUserProfileThunkCreator = (userId) => {
   return (dispatch) => {
     profileApi.getProfile(userId).then((data) => {
       dispatch(setUserProfileActionCreator(data))
+    })
+  }
+}
+
+export const editProfileThunkCreator = (profile) => {
+  return (dispatch, getState) => {
+    const userId = getState().auth.userId
+    profileApi.editProfileInfo(profile).then((data) => {
+      if (data.resultCode === 0) {
+        dispatch(setUserProfileThunkCreator(userId))
+      }
     })
   }
 }
@@ -103,7 +114,7 @@ export const updateStatusThunkCreator = (status) => {
 export const sendPhotoThunkCreator = (file) => {
   return (dispatch) => {
     profileApi.sendPhoto(file).then((data) => {
-      if (data.resultCode === 0) {     
+      if (data.resultCode === 0) {
         dispatch(sendPhotoActionCreator(data.data.photos))
       }
     })
