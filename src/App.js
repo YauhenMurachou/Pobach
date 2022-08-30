@@ -11,19 +11,23 @@ import Photos from "./components/photos/Photos"
 import Settings from "./components/settings/Settings"
 import UsersContainer from "./components/users/UsersContainer"
 import Login from "./components/login/Login"
-import { initializedThunkCreator } from "./redux/appReducer"
+import { initializedThunkCreator } from "./redux/appReducer.ts"
 import Loader from "./components/loader/Loader"
 import { ChatPage } from "./components/chat/ChatPage"
+import { RootState } from "./redux/redux-store"
 
 import "./App.css"
 
 const App = () => {
   const dispatch = useDispatch()
   const { isInitialized } = useSelector((state) => state.appReducer)
+  // const { isInitialized } = useSelector((state: RootState) => state.appReducer)
 
   useEffect(() => {
     dispatch(initializedThunkCreator())
   }, [dispatch])
+
+  console.log("app", isInitialized)
 
   return (
     <div>
