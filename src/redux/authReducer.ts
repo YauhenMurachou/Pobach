@@ -4,14 +4,29 @@ import { usersApi } from "../api/api"
 
 const SET_USER_DATA = "SET_USER_DATA"
 
-const initialState = {
+type setUserDataActionType = {
+  type: typeof SET_USER_DATA
+  data: authInitialStateType
+}
+
+export type authInitialStateType = {
+  isAuth: boolean | null
+  userId: number | null
+  email: string | null
+  login: string | null
+}
+
+const initialState: authInitialStateType = {
   isAuth: null,
   userId: null,
   email: null,
   login: null
 }
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (
+  state = initialState,
+  action: setUserDataActionType
+): authInitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
       return {
@@ -25,23 +40,32 @@ export const authReducer = (state = initialState, action) => {
   }
 }
 
-export const setUserDataActionCreator = (userId, email, login, isAuth) => ({
+export const setUserDataActionCreator = (
+  userId: number | null,
+  email: string | null,
+  login: string | null,
+  isAuth: boolean | null
+): setUserDataActionType => ({
   type: SET_USER_DATA,
   data: { userId, email, login, isAuth }
 })
 
 export const setUserDataThunkCreator = () => {
-  return async (dispatch) => {
+  return async (dispatch: Function) => {
     const data = await usersApi.setLogin()
-		if (data.resultCode === 0) {
-			const { id, email, login } = data.data
-			dispatch(setUserDataActionCreator(id, email, login, true))
-		}
+    if (data.resultCode === 0) {
+      const { id, email, login } = data.data
+      dispatch(setUserDataActionCreator(id, email, login, true))
+    }
   }
 }
 
-export const loginDataThunkCreator = (email, password, rememberMe) => {
-  return (dispatch) => {
+export const loginDataThunkCreator = (
+  email: string | null,
+  password: string | null,
+  rememberMe: boolean | null
+) => {
+  return (dispatch: any) => {
     usersApi.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataThunkCreator())
@@ -54,7 +78,7 @@ export const loginDataThunkCreator = (email, password, rememberMe) => {
 }
 
 export const logoutDataThunkCreator = () => {
-  return (dispatch) => {
+  return (dispatch: Function) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataActionCreator(null, null, null, true))

@@ -27,7 +27,7 @@ const ProfileInfo = ({ profile, sendPhoto, isOwner, status, updateStatus }) => {
   let objProp = profile
   let info = Object.getOwnPropertyNames(objProp)
 
-  // console.log("ProfileInfo", objProp)
+
 
   const loadFile = (e) => {
     if (e.target.files.length) {

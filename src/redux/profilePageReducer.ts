@@ -1,10 +1,41 @@
 import { profileApi } from "../api/api"
 
 const ADD_POST = "ADD_POST"
+type addPostActionType = {
+  type: typeof ADD_POST
+  newPost: string
+}
+
 const SET_USER_PROFILE = "SET_USER_PROFILE"
+type setUserProfileActionType = {
+  type: typeof SET_USER_PROFILE
+  profile: object
+}
+
 const GET_STATUS = "GET_STATUS"
+type getStatusActionType = {
+  type: typeof GET_STATUS
+  status: string
+}
+
 const UPDATE_STATUS = "UPDATE_STATUS"
+type updateStatusActionType = {
+  type: typeof UPDATE_STATUS
+  status: string
+}
+
 const SEND_PHOTO = "SEND_PHOTO"
+type sendPhotoActionType = {
+  type: typeof SEND_PHOTO
+  file: any
+}
+
+// type initialStateType = typeof initialState
+type initialStateType = {
+  postsData: typeof initialState.postsData
+  profile: object | null
+  status: string
+}
 
 const initialState = {
   postsData: [
@@ -16,7 +47,7 @@ const initialState = {
   status: ""
 }
 
-const profilePageReducer = (state = initialState, action) => {
+const profilePageReducer = (state = initialState, action: any): initialStateType => {
   switch (action.type) {
     case ADD_POST: {
       const newPost = {
@@ -44,7 +75,8 @@ const profilePageReducer = (state = initialState, action) => {
     }
 
     case SEND_PHOTO: {
-      return { ...state, profile: { ...state.profile, photos: action.file } }
+      const profileCopy = state.profile
+      return { ...state, profile: { profileCopy, photos: action.file } }
     }
 
     default:
@@ -52,38 +84,38 @@ const profilePageReducer = (state = initialState, action) => {
   }
 }
 
-export const addPostActionCreator = (newPost) => {
+export const addPostActionCreator = (newPost: string): addPostActionType => {
   return { type: ADD_POST, newPost }
 }
 
-export const setUserProfileActionCreator = (profile) => {
+export const setUserProfileActionCreator = (profile: object): setUserProfileActionType => {
   return { type: SET_USER_PROFILE, profile }
 }
 
-export const getStatusActionCreator = (status) => {
+export const getStatusActionCreator = (status: string): getStatusActionType => {
   return { type: GET_STATUS, status }
 }
 
-export const updateStatusActionCreator = (status) => {
+export const updateStatusActionCreator = (status: string): updateStatusActionType => {
   return { type: UPDATE_STATUS, status }
 }
 
-export const sendPhotoActionCreator = (file) => {
+export const sendPhotoActionCreator = (file: any): sendPhotoActionType => {
   return { type: SEND_PHOTO, file }
 }
 
 //thunk-creatorы
 
-export const setUserProfileThunkCreator = (userId) => {
-  return (dispatch) => {
+export const setUserProfileThunkCreator = (userId: number) => {
+  return (dispatch: Function) => {
     profileApi.getProfile(userId).then((data) => {
       dispatch(setUserProfileActionCreator(data))
     })
   }
 }
 
-export const editProfileThunkCreator = (profile) => {
-  return (dispatch, getState) => {
+export const editProfileThunkCreator = (profile: object) => {
+  return (dispatch: Function, getState: Function) => {
     const userId = getState().auth.userId
     profileApi.editProfileInfo(profile).then((data) => {
       if (data.resultCode === 0) {
@@ -93,16 +125,16 @@ export const editProfileThunkCreator = (profile) => {
   }
 }
 
-export const getStatusThunkCreator = (userId) => {
-  return (dispatch) => {
+export const getStatusThunkCreator = (userId: number) => {
+  return (dispatch: Function) => {
     profileApi.getStatus(userId).then((data) => {
       dispatch(getStatusActionCreator(data))
     })
   }
 }
 
-export const updateStatusThunkCreator = (status) => {
-  return (dispatch) => {
+export const updateStatusThunkCreator = (status: string) => {
+  return (dispatch: Function) => {
     profileApi.updateStatus(status).then((data) => {
       if (data.resultCode === 0) {
         dispatch(updateStatusActionCreator(status))
@@ -111,8 +143,8 @@ export const updateStatusThunkCreator = (status) => {
   }
 }
 
-export const sendPhotoThunkCreator = (file) => {
-  return (dispatch) => {
+export const sendPhotoThunkCreator = (file: any) => {
+  return (dispatch: Function) => {
     profileApi.sendPhoto(file).then((data) => {
       if (data.resultCode === 0) {
         dispatch(sendPhotoActionCreator(data.data.photos))
