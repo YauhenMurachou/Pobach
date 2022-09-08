@@ -43,7 +43,26 @@ type setFollowingInProgressType = {
   userId: number
 }
 
-let initialState = {
+export type userType = {
+  id?: number
+  name?: string
+  status?: string
+  photos?: { small: string; large: string }
+  followed?: boolean
+  city?: boolean
+  country?: boolean
+}
+
+type initialStateUsersType = {
+  users: Array<userType>
+  pageSize: number
+  totalUsersCount: number
+  currentPage: number
+  isFetching: boolean
+  followingInProgress: []
+}
+
+const initialState = {
   users: [],
   pageSize: 30,
   totalUsersCount: 0,
@@ -57,7 +76,7 @@ const usersReducer = (state = initialState, action: any) => {
     case FOLLOW: {
       return {
         ...state,
-        users: state.users.map((user: {id: number}) => {
+        users: state.users.map((user: userType) => {
           if (user.id === action.userId) {
             return { ...user, followed: true }
           }
@@ -69,7 +88,7 @@ const usersReducer = (state = initialState, action: any) => {
     case UNFOLLOW: {
       return {
         ...state,
-        users: state.users.map((user: {id: number}) => {
+        users: state.users.map((user: { id: number }) => {
           if (user.id === action.userId) {
             return { ...user, followed: false }
           }

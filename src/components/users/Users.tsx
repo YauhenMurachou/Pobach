@@ -1,11 +1,23 @@
-import React, { memo, useState } from "react"
+import React, { memo, useState, ChangeEvent } from "react"
 import { NavLink } from "react-router-dom"
 import Pagination from "@mui/material/Pagination"
 import avatar from "../../../src/images/avatar.png"
+import { userType } from "../../redux/usersReducer"
 
 import classes from "./Users.module.css"
 
-const Users = memo(
+export type Props = {
+  totalUsersCount: number
+  pageSize: number
+  currentPage: number
+  users: Array<object>
+  followingInProgress: Array<object>
+  onPageChange: (value: number) => void
+  unfollowUsers: (id?: number) => void
+  followUsers: (id?: number) => void
+}
+
+const Users: React.FC<Props> = memo(
   ({
     totalUsersCount,
     pageSize,
@@ -16,12 +28,13 @@ const Users = memo(
     unfollowUsers,
     followUsers
   }) => {
+    // console.log("Users", userType)
     const [page, setPage] = useState(1)
 
-    const handleChange = (event, value) => {
-      console.log(event, value)
-      setPage(value)
-      onPageChange(value)
+    const handleChange = (event: ChangeEvent<unknown>, page: number) => {
+      console.log(event, page)
+      setPage(page)
+      onPageChange(page)
     }
     const pagesCount = Math.ceil(totalUsersCount / pageSize)
     const pages = []
@@ -32,11 +45,11 @@ const Users = memo(
     return (
       <>
         <div className={classes.itemWrapper}>
-          {users.map((user) => (
-            <div key={user.id} className={classes.item}>
+          {users.map((user: userType, index) => (
+            <div key={index + user.toString()} className={classes.item}>
               <NavLink to={"/profile/" + user.id}>
                 <img
-                  src={user.photos.small != null ? user.photos.small : avatar}
+                  src={user.photos && user.photos.small != null ? user.photos.small : avatar}
                   className={classes.avatar}
                   alt="avatar"
                 />
@@ -49,7 +62,9 @@ const Users = memo(
               <div>
                 {user.followed ? (
                   <button
-                    disabled={followingInProgress.some((id) => id === user.id)}
+                    disabled={followingInProgress.some(
+                      (id: userType["id"] | object) => id === user.id
+                    )}
                     onClick={() => {
                       unfollowUsers(user.id)
                     }}
@@ -58,7 +73,9 @@ const Users = memo(
                   </button>
                 ) : (
                   <button
-                    disabled={followingInProgress.some((id) => id === user.id)}
+                    disabled={followingInProgress.some(
+                      (id: userType["id"] | object) => id === user.id
+                    )}
                     onClick={() => {
                       followUsers(user.id)
                     }}

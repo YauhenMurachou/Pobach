@@ -1,14 +1,24 @@
 import React from "react"
-import { Formik, Field, Form } from "formik"
+import { Formik, Field, Form, FormikHelpers } from "formik"
 import * as Yup from "yup"
 
 import classes from "./Dialogs.module.css"
 
 const MessageSchema = Yup.object().shape({
-  newMessage: Yup.string().min(2, "Too Short!").max(20, "Too Long!").required("Required")
+  newMessage: Yup.string()
+    .min(2, "Too Short!")
+    .max(20, "Too Long!")
+    .required("Required")
 })
 
-const DialogsForm = ({ onSubmit }) => {
+export type Props = {
+  onSubmit: (
+    values: { newMessage: string },
+    formikHelpers: FormikHelpers<{ newMessage: string }>
+  ) => void
+}
+
+const DialogsForm: React.FC<Props> = ({ onSubmit }) => {
   return (
     <>
       <Formik

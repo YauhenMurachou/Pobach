@@ -1,11 +1,11 @@
 const ADD_MESSAGE = "ADD_MESSAGE"
 
-type addMessageActionType = {
+export type addMessageActionType = {
   type: typeof ADD_MESSAGE
   newMessageText: string
 }
 
-type initialStateType = typeof initialState
+export type initialStateType = typeof initialState
 
 const initialState = {
   dialogsData: [

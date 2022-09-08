@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector, RootStateOrAny } from "react-redux"
 import { NavLink } from "react-router-dom"
 
 import { logoutDataThunkCreator } from "../../redux/authReducer"
@@ -7,9 +7,9 @@ import { setUserDataThunkCreator } from "../../redux/authReducer"
 
 import "./Header.css"
 
-const Header = () => {
+const Header: React.FC = () => {
   const dispatch = useDispatch()
-  const { isAuth, login } = useSelector((state) => state.auth)
+  const { isAuth, login } = useSelector((state: RootStateOrAny) => state.auth)
 
   useEffect(() => {
     dispatch(setUserDataThunkCreator())

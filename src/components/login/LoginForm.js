@@ -5,8 +5,12 @@ import * as Yup from "yup"
 import classes from "./Login.module.css"
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().max(20, "Too Long!").required("Required"),
-  password: Yup.string().max(15, "Too Long!").required("Required")
+  email: Yup.string()
+    .max(20, "Too Long!")
+    .required("Required"),
+  password: Yup.string()
+    .max(15, "Too Long!")
+    .required("Required")
 })
 
 const LoginForm = ({ onSubmit }) => {
@@ -27,7 +31,7 @@ const LoginForm = ({ onSubmit }) => {
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
             </div>
             <div>
-              <Field placeholder="password" name="password" id="email" type="password" />
+              <Field placeholder="password" name="password" id="password" type="password" />
               {errors.password && touched.password ? <div>{errors.password}</div> : null}
             </div>
             <div>
