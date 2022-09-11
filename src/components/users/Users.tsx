@@ -10,11 +10,11 @@ export type Props = {
   totalUsersCount: number
   pageSize: number
   currentPage: number
-  users: Array<object>
+  users: Array<userType>
   followingInProgress: Array<object>
   onPageChange: (value: number) => void
-  unfollowUsers: (id?: number) => void
-  followUsers: (id?: number) => void
+  unfollowUsers: (id: number) => void
+  followUsers: (id: number) => void
 }
 
 const Users: React.FC<Props> = memo(

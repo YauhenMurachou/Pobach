@@ -44,7 +44,7 @@ type setFollowingInProgressType = {
 }
 
 export type userType = {
-  id?: number
+  id: number
   name?: string
   status?: string
   photos?: { small: string; large: string }

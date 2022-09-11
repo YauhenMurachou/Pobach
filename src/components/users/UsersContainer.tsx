@@ -10,7 +10,7 @@ import {
 
 import UsersClass from "./UsersClass"
 
-const mapStateToProps = (state: RootStateOrAny) => {
+const mapStateToProps = (state?: RootStateOrAny) => {
   return {
     users: state.usersPage.users,
     pageSize: state.usersPage.pageSize,

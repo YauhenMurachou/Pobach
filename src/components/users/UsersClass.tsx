@@ -2,9 +2,23 @@ import React from "react"
 
 import Users from "./Users"
 import Loader from "../loader/Loader"
+import { userType } from "../../redux/usersReducer"
 
-class UsersClass extends React.Component {
+export type PropsType = {
+  currentPage: number
+  pageSize: number
+  getUsers: (currentPage: number, pageSize: number) => void
+  pageNumber: number
+  isFetching: boolean
+  users: Array<userType>
+  totalUsersCount: number
+  unfollowUsers: (id: number) => void
+  followUsers: (id: number) => void
+  followingInProgress: any
+  setFollowingInProgress: any
+}
 
+class UsersClass extends React.Component<PropsType> {
   componentDidMount() {
     // componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
@@ -12,7 +26,7 @@ class UsersClass extends React.Component {
     this.props.getUsers(this.props.currentPage, this.props.pageSize)
   }
 
-  onPageChange = (pageNumber) => {
+  onPageChange = (pageNumber: number) => {
     this.props.getUsers(pageNumber, this.props.pageSize)
   }
 
@@ -29,7 +43,7 @@ class UsersClass extends React.Component {
           followUsers={this.props.followUsers}
           users={this.props.users}
           followingInProgress={this.props.followingInProgress}
-          setFollowingInProgress={this.props.setFollowingInProgress}
+          // setFollowingInProgress={this.props.setFollowingInProgress}
         />
       </>
     )

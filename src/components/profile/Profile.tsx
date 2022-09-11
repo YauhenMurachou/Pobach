@@ -5,7 +5,15 @@ import ProfileInfo from "./myposts/post/profileInfo/ProfileInfo"
 
 import classes from "./Profile.module.css"
 
-const Profile = memo(({ profile, status, isOwner, updateStatus, sendPhoto }) => {
+export type Props = {
+  profile: object
+  status: string
+  isOwner: boolean
+  updateStatus: number
+  sendPhoto: () => void
+}
+
+const Profile: React.FC<Props> = memo(({ profile, status, isOwner, updateStatus, sendPhoto }) => {
   return (
     <div className={classes.content}>
       <ProfileInfo

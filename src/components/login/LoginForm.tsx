@@ -1,6 +1,10 @@
 import React from "react"
-import { Formik, Field, Form } from "formik"
+import { Formik, Field, Form, FormikHelpers, FormikValues } from "formik"
 import * as Yup from "yup"
+
+import { loginType } from "./Login"
+
+//TODO need for style this form and using Material
 
 import classes from "./Login.module.css"
 
@@ -13,14 +17,23 @@ const LoginSchema = Yup.object().shape({
     .required("Required")
 })
 
-const LoginForm = ({ onSubmit }) => {
+export type Props = {
+  onSubmit: (
+    values: loginType,
+    formikHelpers: FormikHelpers<{ email: string; password: string; rememberMe: boolean | null }>
+  ) => void
+}
+
+const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   return (
     <>
       <Formik
+        // @ts-ignore
         onSubmit={onSubmit}
         initialValues={{
           email: "",
-          password: ""
+          password: "",
+          rememberMe: null
         }}
         validationSchema={LoginSchema}
       >
@@ -28,10 +41,12 @@ const LoginForm = ({ onSubmit }) => {
           <Form>
             <div>
               <Field placeholder="login" name="email" id="email" />
+              {/* @ts-ignore */}
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
             </div>
             <div>
               <Field placeholder="password" name="password" id="password" type="password" />
+              {/* @ts-ignore */}
               {errors.password && touched.password ? <div>{errors.password}</div> : null}
             </div>
             <div>

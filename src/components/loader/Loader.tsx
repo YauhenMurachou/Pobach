@@ -3,7 +3,7 @@ import loader from "../../images/loader.gif"
 
 export type Props = {
   isFetching: boolean
-  id: number
+  // id: number
 }
 
 const Loader: React.FC<Props> = ({ isFetching }) => {
