@@ -30,10 +30,29 @@ type sendPhotoActionType = {
   file: any
 }
 
-// type initialStateType = typeof initialState
+export type contactsType = {
+  github: string
+  vk: string
+  facebook: string
+  instagram: string
+  twitter: string
+  website: string
+  youtube: string
+  mainLink: string
+}
+
+export type profileType = {
+  userId: number
+  lookingForAJob: boolean
+  lookingForAJobDescription: boolean
+  fullName: boolean
+  contacts: contactsType
+  photos: { small: string; large: string } | null
+}
+
 type initialStateType = {
   postsData: typeof initialState.postsData
-  profile: object | null
+  profile: profileType | null
   status: string
 }
 
@@ -76,6 +95,7 @@ const profilePageReducer = (state = initialState, action: any): initialStateType
 
     case SEND_PHOTO: {
       const profileCopy = state.profile
+      // @ts-ignore
       return { ...state, profile: { profileCopy, photos: action.file } }
     }
 

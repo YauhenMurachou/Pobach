@@ -2,7 +2,7 @@ import React from "react"
 import loader from "../../images/loader.gif"
 
 export type Props = {
-  isFetching: boolean
+  isFetching?: boolean
   // id: number
 }
 
