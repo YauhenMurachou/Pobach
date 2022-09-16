@@ -1,45 +1,45 @@
-import React, { memo, useState, ChangeEvent } from "react"
-import { NavLink } from "react-router-dom"
-import Pagination from "@mui/material/Pagination"
-import avatar from "../../../src/images/avatar.png"
-import { userType } from "../../redux/usersReducer"
+import React, { memo, useState, ChangeEvent } from 'react';
+import { NavLink } from 'react-router-dom';
+import Pagination from '@mui/material/Pagination';
+import avatar from '../../../src/images/avatar.png';
+import { userType } from '../../redux/usersReducer';
 
-import classes from "./Users.module.css"
+import classes from './Users.module.css';
 
 export type Props = {
-  totalUsersCount: number
-  pageSize: number
-  currentPage: number
-  users: Array<userType>
-  followingInProgress: Array<object>
-  onPageChange: (value: number) => void
-  unfollowUsers: (id: number) => void
-  followUsers: (id: number) => void
-}
+  totalUsersCount: number;
+  pageSize: number;
+  currentPage: number;
+  users: Array<userType>;
+  followingInProgress: Array<object>;
+  onPageChange: (value: number) => void;
+  unfollowUsers: (id: number) => void;
+  followUsers: (id: number) => void;
+};
 
 const Users: React.FC<Props> = memo(
   ({
     totalUsersCount,
     pageSize,
-    currentPage,
+    // currentPage,
     users,
     followingInProgress,
     onPageChange,
     unfollowUsers,
-    followUsers
+    followUsers,
   }) => {
     // console.log("Users", userType)
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
 
     const handleChange = (event: ChangeEvent<unknown>, page: number) => {
-      console.log(event, page)
-      setPage(page)
-      onPageChange(page)
-    }
-    const pagesCount = Math.ceil(totalUsersCount / pageSize)
-    const pages = []
+      console.log(event, page);
+      setPage(page);
+      onPageChange(page);
+    };
+    const pagesCount = Math.ceil(totalUsersCount / pageSize);
+    const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i)
+      pages.push(i);
     }
 
     return (
@@ -47,9 +47,13 @@ const Users: React.FC<Props> = memo(
         <div className={classes.itemWrapper}>
           {users.map((user: userType, index) => (
             <div key={index + user.toString()} className={classes.item}>
-              <NavLink to={"/profile/" + user.id}>
+              <NavLink to={'/profile/' + user.id}>
                 <img
-                  src={user.photos && user.photos.small != null ? user.photos.small : avatar}
+                  src={
+                    user.photos && user.photos.small != null
+                      ? user.photos.small
+                      : avatar
+                  }
                   className={classes.avatar}
                   alt="avatar"
                 />
@@ -63,10 +67,10 @@ const Users: React.FC<Props> = memo(
                 {user.followed ? (
                   <button
                     disabled={followingInProgress.some(
-                      (id: userType["id"] | object) => id === user.id
+                      (id: userType['id'] | object) => id === user.id
                     )}
                     onClick={() => {
-                      unfollowUsers(user.id)
+                      unfollowUsers(user.id);
                     }}
                   >
                     unfollow
@@ -74,10 +78,10 @@ const Users: React.FC<Props> = memo(
                 ) : (
                   <button
                     disabled={followingInProgress.some(
-                      (id: userType["id"] | object) => id === user.id
+                      (id: userType['id'] | object) => id === user.id
                     )}
                     onClick={() => {
-                      followUsers(user.id)
+                      followUsers(user.id);
                     }}
                   >
                     follow
@@ -97,8 +101,8 @@ const Users: React.FC<Props> = memo(
           />
         </div>
       </>
-    )
+    );
   }
-)
+);
 
-export default Users
+export default Users;

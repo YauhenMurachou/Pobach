@@ -1,34 +1,34 @@
-import React from "react"
+import React from 'react';
 
-import Users from "./Users"
-import Loader from "../loader/Loader"
-import { userType } from "../../redux/usersReducer"
+import Users from './Users';
+import Loader from '../loader/Loader';
+import { userType } from '../../redux/usersReducer';
 
 export type PropsType = {
-  currentPage: number
-  pageSize: number
-  getUsers: (currentPage: number, pageSize: number) => void
-  pageNumber: number
-  isFetching: boolean
-  users: Array<userType>
-  totalUsersCount: number
-  unfollowUsers: (id: number) => void
-  followUsers: (id: number) => void
-  followingInProgress: any
-  setFollowingInProgress: any
-}
+  currentPage: number;
+  pageSize: number;
+  getUsers: (currentPage: number, pageSize: number) => void;
+  pageNumber?: number;
+  isFetching: boolean;
+  users: Array<userType>;
+  totalUsersCount: number;
+  unfollowUsers: (id: number) => void;
+  followUsers: (id: number) => void;
+  followingInProgress: any;
+  setFollowingInProgress: any;
+};
 
 class UsersClass extends React.Component<PropsType> {
   componentDidMount() {
     // componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
     // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
     //  Это хорошее место для создания сетевых запросов.
-    this.props.getUsers(this.props.currentPage, this.props.pageSize)
+    this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
   onPageChange = (pageNumber: number) => {
-    this.props.getUsers(pageNumber, this.props.pageSize)
-  }
+    this.props.getUsers(pageNumber, this.props.pageSize);
+  };
 
   render() {
     return (
@@ -46,8 +46,8 @@ class UsersClass extends React.Component<PropsType> {
           // setFollowingInProgress={this.props.setFollowingInProgress}
         />
       </>
-    )
+    );
   }
 }
 
-export default UsersClass
+export default UsersClass;

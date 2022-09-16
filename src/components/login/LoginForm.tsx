@@ -1,28 +1,26 @@
-import React from "react"
-import { Formik, Field, Form, FormikHelpers, FormikValues } from "formik"
-import * as Yup from "yup"
+import React from 'react';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
-import { loginType } from "./Login"
+import { loginType } from './Login';
 
 //TODO need for style this form and using Material
 
-import classes from "./Login.module.css"
-
 const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .max(20, "Too Long!")
-    .required("Required"),
-  password: Yup.string()
-    .max(15, "Too Long!")
-    .required("Required")
-})
+  email: Yup.string().max(20, 'Too Long!').required('Required'),
+  password: Yup.string().max(15, 'Too Long!').required('Required'),
+});
 
 export type Props = {
   onSubmit: (
     values: loginType,
-    formikHelpers: FormikHelpers<{ email: string; password: string; rememberMe: boolean | null }>
-  ) => void
-}
+    formikHelpers: FormikHelpers<{
+      email: string;
+      password: string;
+      rememberMe: boolean | null;
+    }>
+  ) => void;
+};
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   return (
@@ -31,9 +29,9 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         // @ts-ignore
         onSubmit={onSubmit}
         initialValues={{
-          email: "",
-          password: "",
-          rememberMe: null
+          email: '',
+          password: '',
+          rememberMe: null,
         }}
         validationSchema={LoginSchema}
       >
@@ -45,9 +43,16 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
             </div>
             <div>
-              <Field placeholder="password" name="password" id="password" type="password" />
+              <Field
+                placeholder="password"
+                name="password"
+                id="password"
+                type="password"
+              />
               {/* @ts-ignore */}
-              {errors.password && touched.password ? <div>{errors.password}</div> : null}
+              {errors.password && touched.password ? (
+                <div>{errors.password}</div>
+              ) : null}
             </div>
             <div>
               <Field type="checkbox" name="rememberMe" />
@@ -60,7 +65,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         )}
       </Formik>
     </>
-  )
-}
+  );
+};
 
-export default LoginForm
+export default LoginForm;

@@ -1,30 +1,29 @@
-import React from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { Redirect } from "react-router-dom"
-import LoginForm from "./LoginForm"
-import { RootState } from "../../redux/redux-store"
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Redirect } from 'react-router-dom';
+import LoginForm from './LoginForm';
+import { RootState } from '../../redux/redux-store';
 
-import { loginDataThunkCreator } from "../../redux/authReducer"
-import { FormikHelpers, FormikValues } from "formik"
+import { loginDataThunkCreator } from '../../redux/authReducer';
+// import { FormikHelpers } from 'formik';
 
 export type loginType = {
-  email: string
-  password: string
-  rememberMe: boolean | null
-}
+  email: string;
+  password: string;
+  rememberMe: boolean | null;
+};
 
 const Login: React.FC = () => {
-  const dispatch = useDispatch()
-  const { isAuth } = useSelector((state: RootState) => state.auth)
-  const LogInFunction = (
-    values: loginType,
-    formikHelpers: FormikHelpers<{ email: string; password: string; rememberMe: boolean | null }>
-  ) => {
-    dispatch(loginDataThunkCreator(values.email, values.password, values.rememberMe))
-  }
+  const dispatch = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const LogInFunction = (values: loginType) => {
+    dispatch(
+      loginDataThunkCreator(values.email, values.password, values.rememberMe)
+    );
+  };
 
   if (isAuth) {
-    return <Redirect to="/profile" />
+    return <Redirect to="/profile" />;
   }
 
   return (
@@ -33,10 +32,10 @@ const Login: React.FC = () => {
 
       <LoginForm onSubmit={LogInFunction} />
     </>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
 
 {
   /* <div>
