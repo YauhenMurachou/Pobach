@@ -1,6 +1,7 @@
 import { profileApi } from '../api/api';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './redux-store';
+import { Dispatch } from 'react';
 
 const ADD_POST = 'ADD_POST';
 type addPostActionType = {
@@ -29,8 +30,15 @@ type updateStatusActionType = {
 const SEND_PHOTO = 'SEND_PHOTO';
 type sendPhotoActionType = {
   type: typeof SEND_PHOTO;
-  file: any;
+  file: HTMLImageElement;
 };
+
+type profileActionsTypes =
+  | sendPhotoActionType
+  | updateStatusActionType
+  | getStatusActionType
+  | setUserProfileActionType
+  | addPostActionType;
 
 export type contactsType = {
   github: string;
@@ -44,7 +52,7 @@ export type contactsType = {
 };
 
 export type profileType = {
-  userId: number;
+  userId: number | null;
   lookingForAJob: boolean;
   lookingForAJobDescription: boolean;
   fullName: boolean;
@@ -54,7 +62,7 @@ export type profileType = {
 
 type initialStateType = {
   postsData: typeof initialState.postsData;
-  profile: profileType | null;
+  profile: profileType | null | {};
   status: string;
 };
 
@@ -70,7 +78,7 @@ const initialState = {
 
 const profilePageReducer = (
   state = initialState,
-  action: any
+  action: profileActionsTypes
 ): initialStateType => {
   switch (action.type) {
     case ADD_POST: {
@@ -100,7 +108,6 @@ const profilePageReducer = (
 
     case SEND_PHOTO: {
       const profileCopy = state.profile;
-      // @ts-ignore
       return { ...state, profile: { profileCopy, photos: action.file } };
     }
 
@@ -129,16 +136,18 @@ export const updateStatusActionCreator = (
   return { type: UPDATE_STATUS, status };
 };
 
-export const sendPhotoActionCreator = (file: any): sendPhotoActionType => {
+export const sendPhotoActionCreator = (
+  file: HTMLImageElement
+): sendPhotoActionType => {
   return { type: SEND_PHOTO, file };
 };
 
 //thunk-creatorы
 
 export const setUserProfileThunkCreator = (
-  userId: number
+  userId: number | null
 ): ThunkAction<void, RootState, unknown, setUserProfileActionType> => {
-  return (dispatch: Function) => {
+  return (dispatch) => {
     profileApi.getProfile(userId).then((data) => {
       dispatch(setUserProfileActionCreator(data));
     });
@@ -148,7 +157,7 @@ export const setUserProfileThunkCreator = (
 export const editProfileThunkCreator = (
   profile: object
 ): ThunkAction<void, RootState, unknown, setUserProfileActionType> => {
-  return (dispatch: Function, getState: Function) => {
+  return (dispatch, getState) => {
     const userId = getState().auth.userId;
     profileApi.editProfileInfo(profile).then((data) => {
       if (data.resultCode === 0) {
@@ -159,7 +168,7 @@ export const editProfileThunkCreator = (
 };
 
 export const getStatusThunkCreator = (userId: number) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<getStatusActionType>) => {
     profileApi.getStatus(userId).then((data) => {
       dispatch(getStatusActionCreator(data));
     });
@@ -167,7 +176,7 @@ export const getStatusThunkCreator = (userId: number) => {
 };
 
 export const updateStatusThunkCreator = (status: string) => {
-  return (dispatch: Function) => {
+  return (dispatch: Dispatch<updateStatusActionType>) => {
     profileApi.updateStatus(status).then((data) => {
       if (data.resultCode === 0) {
         dispatch(updateStatusActionCreator(status));
@@ -176,8 +185,8 @@ export const updateStatusThunkCreator = (status: string) => {
   };
 };
 
-export const sendPhotoThunkCreator = (file: any) => {
-  return (dispatch: Function) => {
+export const sendPhotoThunkCreator = (file: HTMLImageElement) => {
+  return (dispatch: Dispatch<sendPhotoActionType>) => {
     profileApi.sendPhoto(file).then((data) => {
       if (data.resultCode === 0) {
         dispatch(sendPhotoActionCreator(data.data.photos));

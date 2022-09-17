@@ -18,7 +18,7 @@ export type Props = {
   status: string;
   isOwner: boolean;
   updateStatus: (status: string) => void;
-  sendPhoto: (file: any) => void;
+  sendPhoto: (file: HTMLImageElement) => void;
 };
 
 const ProfileInfo: React.FC<Props> = ({
@@ -32,7 +32,7 @@ const ProfileInfo: React.FC<Props> = ({
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
 
-  const handleProfileInfoEdit = (formData: any) => {
+  const handleProfileInfoEdit = (formData: profileType) => {
     dispatch(editProfileThunkCreator(formData));
     setEditMode(false);
   };
@@ -42,7 +42,7 @@ const ProfileInfo: React.FC<Props> = ({
   }
 
   // let objProp = profile
-  let info = Object.getOwnPropertyNames(profile);
+  const info = Object.getOwnPropertyNames(profile);
 
   // const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   if (e?.target?.files?.length) {
@@ -88,21 +88,24 @@ const ProfileInfo: React.FC<Props> = ({
             return <div> I am looking for a job</div>;
           } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
             return <div> I am NOT looking for a job</div>;
-          } else {
-            return (
-              <div key={index}>
-                {item}:{/* @ts-ignore */}
-                {Object.keys(profile[item]).map((elem, ind) => {
-                  return (
-                    <div key={ind}>
-                      {/* @ts-ignore */}
-                      {elem}: {profile[item][elem] || 'No data'}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          }
+          } 
+					// else {
+          //   return (
+          //     <div key={index}>
+          //       {item}:
+          //       {Object.keys(profile[item as keyof profileType]).map(
+          //         (elem, ind) => {
+          //           return (
+          //             <div key={ind}>
+          //               {elem}:
+          //               {profile[item as keyof profileType][elem] || 'No data'}
+          //             </div>
+          //           );
+          //         }
+          //       )}
+          //     </div>
+          //   );
+          // }
         })}
 
       {editMode && (

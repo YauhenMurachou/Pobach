@@ -10,7 +10,7 @@ import { loginDataThunkCreator } from '../../redux/authReducer';
 export type loginType = {
   email: string;
   password: string;
-  rememberMe: boolean | null;
+  rememberMe: boolean;
 };
 
 const Login: React.FC = () => {
@@ -37,8 +37,6 @@ const Login: React.FC = () => {
 
 export default Login;
 
-{
-  /* <div>
+/* <div>
 			<a href="https://social-network.samuraijs.com/login" target="_blank" rel="noreferrer">Войдите в свой аккаунт</a>
 		</div> */
-}

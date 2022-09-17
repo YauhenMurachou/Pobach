@@ -1,14 +1,14 @@
-import React, { useState } from "react"
-import { Formik, Field, Form } from "formik"
-import * as Yup from "yup"
+import React from 'react';
+import { Formik, Field, Form } from 'formik';
+// import * as Yup from "yup"
 
-import { Button } from "@mui/material"
-import TextField from "@mui/material/TextField"
+// import { Button } from "@mui/material"
+// import TextField from "@mui/material/TextField"
 
-import classes from "./ProfileInfo.module.css"
+import classes from './ProfileInfo.module.css';
 
 const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
-  let objProp = profile
+  let objProp = profile;
   return (
     <>
       <Formik
@@ -18,14 +18,16 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
         // }}
         initialValues={profile}
       >
-        {({ errors, touched }) => (
+        {() => (
+          /*{errors, touched}*/
+
           <Form>
             {info.map((item, index) => {
-              if (item === "photos") {
-                return <span key={index}></span>
-              } else if (typeof objProp[item] === "boolean") {
+              if (item === 'photos') {
+                return <span key={index}></span>;
+              } else if (typeof objProp[item] === 'boolean') {
                 return (
-                  <div style={{ display: "flex" }}>
+                  <div style={{ display: 'flex' }}>
                     <div> {item}</div>
                     <Field
                       label={item}
@@ -35,8 +37,8 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
                       key={(item + index).toString()}
                     />
                   </div>
-                )
-              } else if (typeof objProp[item] !== "object") {
+                );
+              } else if (typeof objProp[item] !== 'object') {
                 return (
                   <div>
                     {item}
@@ -48,7 +50,7 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
                       key={(item + index).toString()}
                     />
                   </div>
-                )
+                );
               } else {
                 return (
                   <div key={index}>
@@ -65,10 +67,10 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
                           />
                           {/* {elem}: {objProp[item][elem] || "No data"} */}
                         </div>
-                      )
+                      );
                     })}
                   </div>
-                )
+                );
               }
             })}
             <button className={classes.addButton} type="submit">
@@ -78,10 +80,10 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
         )}
       </Formik>
     </>
-  )
-}
+  );
+};
 
-export default ProfileInfoEditForm
+export default ProfileInfoEditForm;
 
 // <div style={{ display: "flex" }}>
 // <input type="checkbox" key={index} />

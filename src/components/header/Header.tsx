@@ -1,24 +1,26 @@
-import React, { useEffect } from "react"
-import { useDispatch, useSelector, RootStateOrAny } from "react-redux"
-import { NavLink } from "react-router-dom"
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 
-import { logoutDataThunkCreator } from "../../redux/authReducer"
-import { setUserDataThunkCreator } from "../../redux/authReducer"
+import {
+  logoutDataThunkCreator,
+  setUserDataThunkCreator,
+} from '../../redux/authReducer';
 
-import "./Header.css"
+import './Header.css';
 
 const Header: React.FC = () => {
-  const dispatch = useDispatch()
-  const { isAuth, login } = useSelector((state: RootStateOrAny) => state.auth)
+  const dispatch = useDispatch();
+  const { isAuth, login } = useSelector((state: RootStateOrAny) => state.auth);
 
   useEffect(() => {
-    dispatch(setUserDataThunkCreator())
-  }, [dispatch])
+    dispatch(setUserDataThunkCreator());
+  }, [dispatch]);
 
   const logoutOnClick = () => {
-    dispatch(logoutDataThunkCreator())
-    window.location.reload()
-  }
+    dispatch(logoutDataThunkCreator());
+    window.location.reload();
+  };
 
   return (
     <header className="header">
@@ -33,18 +35,18 @@ const Header: React.FC = () => {
           <span className="header-text-social">cацыяльная сетка беларусаў</span>
         </div>
         <div className="header-text">
-          {isAuth ? login : <NavLink to={"/login"}> Login</NavLink>}
+          {isAuth ? login : <NavLink to={'/login'}> Login</NavLink>}
         </div>
         <div className="header-text">
           {isAuth && (
-            <NavLink to={"/login"} onClick={logoutOnClick}>
+            <NavLink to={'/login'} onClick={logoutOnClick}>
               Logout
             </NavLink>
           )}
         </div>
       </div>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

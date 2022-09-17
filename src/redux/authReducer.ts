@@ -58,7 +58,7 @@ export const setUserDataThunkCreator = (): ThunkAction<
   unknown,
   setUserDataActionType
 > => {
-  return async (dispatch: Function) => {
+  return async (dispatch) => {
     const data = await usersApi.setLogin();
     if (data.resultCode === 0) {
       const { id, email, login } = data.data;
@@ -72,7 +72,7 @@ export const loginDataThunkCreator = (
   password: string | null,
   rememberMe: boolean | null
 ): ThunkAction<void, RootState, unknown, setUserDataActionType> => {
-  return (dispatch: any) => {
+  return (dispatch) => {
     usersApi.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataThunkCreator());
@@ -92,7 +92,7 @@ export const logoutDataThunkCreator = (): ThunkAction<
   unknown,
   setUserDataActionType
 > => {
-  return (dispatch: Function) => {
+  return (dispatch) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataActionCreator(null, null, null, true));

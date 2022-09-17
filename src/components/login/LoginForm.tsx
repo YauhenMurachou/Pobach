@@ -17,7 +17,7 @@ export type Props = {
     formikHelpers: FormikHelpers<{
       email: string;
       password: string;
-      rememberMe: boolean | null;
+      rememberMe: boolean;
     }>
   ) => void;
 };
@@ -26,12 +26,11 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   return (
     <>
       <Formik
-        // @ts-ignore
         onSubmit={onSubmit}
         initialValues={{
           email: '',
           password: '',
-          rememberMe: null,
+          rememberMe: false,
         }}
         validationSchema={LoginSchema}
       >
@@ -39,7 +38,6 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
           <Form>
             <div>
               <Field placeholder="login" name="email" id="email" />
-              {/* @ts-ignore */}
               {errors.email && touched.email ? <div>{errors.email}</div> : null}
             </div>
             <div>
@@ -49,7 +47,6 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 id="password"
                 type="password"
               />
-              {/* @ts-ignore */}
               {errors.password && touched.password ? (
                 <div>{errors.password}</div>
               ) : null}
