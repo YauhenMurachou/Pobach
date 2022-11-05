@@ -1,47 +1,58 @@
-import { setUserDataThunkCreator } from "./authReducer"
+import { ThunkAction } from 'redux-thunk';
+// import { setUserDataThunkCreator } from './authReducer';
+// import { ThunkDispatch } from 'redux-thunk';
+// import { RootState } from './redux-store';
 
-const INITIALIZED_SUCCESS = "INITIALIZED_SUCCESS"
+const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
 type initializedSuccessActionType = {
-  type: typeof INITIALIZED_SUCCESS
-}
+  type: typeof INITIALIZED_SUCCESS;
+};
 
-// type DispatchType = (dispatch: Function | TypeOfAction) => void
-// type DispatchType = Function;
+type ThunkType = ThunkAction<
+  Promise<void>,
+  InitialStateAppType,
+  unknown,
+  initializedSuccessActionType
+>;
 
-export type InitialStateType = {
-  isInitialized: boolean
-}
+export type InitialStateAppType = {
+  isInitialized: boolean;
+};
 
-let initialState: InitialStateType = {
-  isInitialized: false
-}
+const initialState: InitialStateAppType = {
+  isInitialized: false,
+};
 
 export const appReducer = (
   state = initialState,
   action: initializedSuccessActionType
   //строчка ниже - получаемое значение вызова функции
-): InitialStateType => {
+): InitialStateAppType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
       return {
         ...state,
-        isInitialized: true
-      }
+        isInitialized: true,
+      };
     }
 
     default:
-      return state
+      return state;
   }
-}
+};
 
 export const initializedSuccessAction = (): initializedSuccessActionType => ({
-  type: INITIALIZED_SUCCESS
-})
+  type: INITIALIZED_SUCCESS,
+});
 
-export const initializedThunkCreator = () => {
-  return (dispatch: Function) => {
-    const promise = dispatch(setUserDataThunkCreator())
-    promise.then(() => dispatch(initializedSuccessAction()))
-  }
-}
+export const initializedThunkCreator = (): ThunkType => {
+  return async (
+    dispatch
+    // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
+  ) => {
+    // dispatch(setUserDataThunkCreator());
+    // console.log('promise', promise);
+    await dispatch(initializedSuccessAction());
+  };
+};

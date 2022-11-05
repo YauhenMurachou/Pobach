@@ -2,7 +2,8 @@ import React from 'react';
 
 import Users from './Users';
 import Loader from '../loader/Loader';
-import { userType } from '../../redux/usersReducer';
+
+import { UserType } from '../../types';
 
 export type PropsType = {
   currentPage: number;
@@ -10,12 +11,12 @@ export type PropsType = {
   getUsers: (currentPage: number, pageSize: number) => void;
   pageNumber?: number;
   isFetching: boolean;
-  users: Array<userType>;
+  users: UserType[];
   totalUsersCount: number;
   unfollowUsers: (id: number) => void;
   followUsers: (id: number) => void;
-  followingInProgress: any;
-  setFollowingInProgress: any;
+  followingInProgress: number[];
+  // setFollowingInProgress: any;
 };
 
 class UsersClass extends React.Component<PropsType> {

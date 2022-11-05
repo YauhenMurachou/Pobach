@@ -6,7 +6,7 @@ import { RootState } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
-type setUserDataActionType = {
+export type setUserDataActionType = {
   type: typeof SET_USER_DATA;
   data: authInitialStateType;
 };

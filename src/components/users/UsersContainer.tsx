@@ -17,7 +17,7 @@ const mapStateToProps = (state?: RootStateOrAny) => {
     totalUsersCount: state.usersPage.totalUsersCount,
     currentPage: state.usersPage.currentPage,
     isFetching: state.usersPage.isFetching,
-    followingInProgress: state.usersPage.followingInProgress,
+    followingInProgress: state.usersPage.followingInProgressUsers,
   };
 };
 

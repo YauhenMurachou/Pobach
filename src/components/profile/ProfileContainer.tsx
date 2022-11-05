@@ -9,10 +9,28 @@ import {
   getStatusThunkCreator,
   updateStatusThunkCreator,
   sendPhotoThunkCreator,
+  profileType,
+  updateStatusActionType,
+  sendPhotoActionType,
 } from '../../redux/profilePageReducer';
 import withAuthRedirect from '../hoc/withAuthRedirect';
 
-class ProfileContainer extends React.Component {
+export type Props = {
+  userId: number;
+  setUserProfile: (userId: number) => void;
+  getStatus: (userId: number) => void;
+  match: { params: { userId: number } };
+  profile: profileType;
+  updateStatus: (
+    status: string
+  ) => (dispatch: React.Dispatch<updateStatusActionType>) => void;
+  sendPhoto: (
+    file: string | Blob
+  ) => (dispatch: React.Dispatch<sendPhotoActionType>) => void;
+  status: string;
+};
+
+class ProfileContainer extends React.Component<Props> {
   refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
@@ -27,7 +45,7 @@ class ProfileContainer extends React.Component {
     this.refreshProfile();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: { match: { params: { userId: number } } }) {
     if (this.props.match.params.userId !== prevProps.match.params.userId) {
       this.refreshProfile();
     }
@@ -35,18 +53,19 @@ class ProfileContainer extends React.Component {
 
   render() {
     return (
-      <>
-        <Profile
-          {...this.props}
-          profile={this.props.profile}
-          isOwner={!this.props.match.params.userId}
-        />
-      </>
+      <Profile
+        {...this.props}
+        profile={this.props.profile}
+        isOwner={!this.props.match.params.userId}
+      />
     );
   }
 }
 
-let mapStateToProps = (state) => ({
+const mapStateToProps = (state: {
+  profilePage: { profile: profileType; status: string };
+  auth: { userId: number };
+}) => ({
   profile: state.profilePage.profile,
   status: state.profilePage.status,
   userId: state.auth.userId,
@@ -62,4 +81,4 @@ export default compose(
   }),
   withRouter,
   withAuthRedirect
-)(ProfileContainer);
+)(ProfileContainer) as React.ComponentType;

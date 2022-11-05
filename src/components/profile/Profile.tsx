@@ -11,7 +11,7 @@ export type Props = {
   status: string;
   isOwner: boolean;
   updateStatus: (status: string) => void;
-  sendPhoto: (file: HTMLImageElement) => void;
+  sendPhoto: (file: string | Blob) => void;
 };
 
 const Profile: React.FC<Props> = memo(

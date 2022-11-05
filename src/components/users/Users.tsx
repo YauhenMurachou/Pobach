@@ -2,7 +2,7 @@ import React, { memo, useState, ChangeEvent } from 'react';
 import { NavLink } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import avatar from '../../../src/images/avatar.png';
-import { userType } from '../../redux/usersReducer';
+import { UserType } from '../../types';
 
 import classes from './Users.module.css';
 
@@ -10,8 +10,8 @@ export type Props = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
-  users: Array<userType>;
-  followingInProgress: Array<object>;
+  users: UserType[];
+  followingInProgress: number[];
   onPageChange: (value: number) => void;
   unfollowUsers: (id: number) => void;
   followUsers: (id: number) => void;
@@ -28,7 +28,6 @@ const Users: React.FC<Props> = memo(
     unfollowUsers,
     followUsers,
   }) => {
-    // console.log("Users", userType)
     const [page, setPage] = useState(1);
 
     const handleChange = (event: ChangeEvent<unknown>, page: number) => {
@@ -45,7 +44,7 @@ const Users: React.FC<Props> = memo(
     return (
       <>
         <div className={classes.itemWrapper}>
-          {users.map((user: userType, index) => (
+          {users.map((user: UserType, index) => (
             <div key={index + user.toString()} className={classes.item}>
               <NavLink to={'/profile/' + user.id}>
                 <img
@@ -67,7 +66,7 @@ const Users: React.FC<Props> = memo(
                 {user.followed ? (
                   <button
                     disabled={followingInProgress.some(
-                      (id: userType['id'] | object) => id === user.id
+                      (id: UserType['id'] | object) => id === user.id
                     )}
                     onClick={() => {
                       unfollowUsers(user.id);
@@ -78,7 +77,7 @@ const Users: React.FC<Props> = memo(
                 ) : (
                   <button
                     disabled={followingInProgress.some(
-                      (id: userType['id'] | object) => id === user.id
+                      (id: UserType['id'] | object) => id === user.id
                     )}
                     onClick={() => {
                       followUsers(user.id);

@@ -18,7 +18,7 @@ export type Props = {
   status: string;
   isOwner: boolean;
   updateStatus: (status: string) => void;
-  sendPhoto: (file: HTMLImageElement) => void;
+  sendPhoto: (file: string | Blob) => void;
 };
 
 const ProfileInfo: React.FC<Props> = ({
@@ -43,7 +43,6 @@ const ProfileInfo: React.FC<Props> = ({
 
   // let objProp = profile
   const info = Object.getOwnPropertyNames(profile);
-
   // const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   if (e?.target?.files?.length) {
   //     sendPhoto(e.target.files[0])
@@ -88,24 +87,23 @@ const ProfileInfo: React.FC<Props> = ({
             return <div> I am looking for a job</div>;
           } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
             return <div> I am NOT looking for a job</div>;
-          } 
-					// else {
-          //   return (
-          //     <div key={index}>
-          //       {item}:
-          //       {Object.keys(profile[item as keyof profileType]).map(
-          //         (elem, ind) => {
-          //           return (
-          //             <div key={ind}>
-          //               {elem}:
-          //               {profile[item as keyof profileType][elem] || 'No data'}
-          //             </div>
-          //           );
-          //         }
-          //       )}
-          //     </div>
-          //   );
-          // }
+          } else {
+            return (
+              <div key={index}>
+                {item}:
+                {Object.keys(profile['contacts']).map((elem, ind) => {
+                  return (
+                    <div key={ind}>
+                      {elem}:
+                      {profile['contacts'][
+                        elem as keyof typeof profile['contacts']
+                      ] || 'No data'}
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          }
         })}
 
       {editMode && (

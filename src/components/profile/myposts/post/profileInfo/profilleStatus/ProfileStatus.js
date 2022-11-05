@@ -1,31 +1,31 @@
-import React from "react"
+import React from 'react';
 
 class ProfileStatus extends React.Component {
   state = {
     editMode: false,
-    status: this.props.status
-  }
+    status: this.props.status,
+  };
 
   activeEditMode = () => {
     this.setState({
-      editMode: true
-    })
-  }
+      editMode: true,
+    });
+  };
 
   deActiveEditMode = () => {
     this.setState({
-      editMode: false
-    })
-    this.props.updateStatus(this.state.status)
-  }
+      editMode: false,
+    });
+    this.props.updateStatus(this.state.status);
+  };
 
   onStatusChange = (e) => {
-    this.setState({ status: e.currentTarget.value })
-  }
+    this.setState({ status: e.currentTarget.value });
+  };
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps) {
     if (prevProps.status !== this.props.status) {
-      this.setState({ status: this.props.status })
+      this.setState({ status: this.props.status });
     }
   }
 
@@ -36,9 +36,12 @@ class ProfileStatus extends React.Component {
 
         {!this.state.editMode && (
           <div>
-            <span onClick={this.props.isOwner ? this.activeEditMode : null}>
-              {" "}
-              {this.props.status}{" "}
+            <span
+              onClick={this.props.isOwner ? this.activeEditMode : null}
+              role="button"
+            >
+              {' '}
+              {this.props.status}{' '}
             </span>
           </div>
         )}
@@ -54,8 +57,8 @@ class ProfileStatus extends React.Component {
           </div>
         )}
       </div>
-    )
+    );
   }
 }
 
-export default ProfileStatus
+export default ProfileStatus;

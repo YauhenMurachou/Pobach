@@ -22,13 +22,13 @@ type getStatusActionType = {
 };
 
 const UPDATE_STATUS = 'UPDATE_STATUS';
-type updateStatusActionType = {
+export type updateStatusActionType = {
   type: typeof UPDATE_STATUS;
   status: string;
 };
 
 const SEND_PHOTO = 'SEND_PHOTO';
-type sendPhotoActionType = {
+export type sendPhotoActionType = {
   type: typeof SEND_PHOTO;
   file: HTMLImageElement;
 };
@@ -185,7 +185,7 @@ export const updateStatusThunkCreator = (status: string) => {
   };
 };
 
-export const sendPhotoThunkCreator = (file: HTMLImageElement) => {
+export const sendPhotoThunkCreator = (file: string | Blob) => {
   return (dispatch: Dispatch<sendPhotoActionType>) => {
     profileApi.sendPhoto(file).then((data) => {
       if (data.resultCode === 0) {
