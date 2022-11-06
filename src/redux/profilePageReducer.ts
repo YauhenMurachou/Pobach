@@ -2,67 +2,49 @@ import { profileApi } from '../api/api';
 import { ThunkAction } from 'redux-thunk';
 import { RootState } from './redux-store';
 import { Dispatch } from 'react';
+import { ProfileType } from '../types';
 
 const ADD_POST = 'ADD_POST';
-type addPostActionType = {
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const GET_STATUS = 'GET_STATUS';
+const UPDATE_STATUS = 'UPDATE_STATUS';
+const SEND_PHOTO = 'SEND_PHOTO';
+
+export type AddPostActionType = {
   type: typeof ADD_POST;
   newPost: string;
 };
 
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-type setUserProfileActionType = {
+type SetUserProfileActionType = {
   type: typeof SET_USER_PROFILE;
   profile: object;
 };
 
-const GET_STATUS = 'GET_STATUS';
-type getStatusActionType = {
+type GetStatusActionType = {
   type: typeof GET_STATUS;
   status: string;
 };
 
-const UPDATE_STATUS = 'UPDATE_STATUS';
-export type updateStatusActionType = {
+export type UpdateStatusActionType = {
   type: typeof UPDATE_STATUS;
   status: string;
 };
 
-const SEND_PHOTO = 'SEND_PHOTO';
-export type sendPhotoActionType = {
+export type SendPhotoActionType = {
   type: typeof SEND_PHOTO;
   file: HTMLImageElement;
 };
 
-type profileActionsTypes =
-  | sendPhotoActionType
-  | updateStatusActionType
-  | getStatusActionType
-  | setUserProfileActionType
-  | addPostActionType;
+type ProfileActionsTypes =
+  | SendPhotoActionType
+  | UpdateStatusActionType
+  | GetStatusActionType
+  | SetUserProfileActionType
+  | AddPostActionType;
 
-export type contactsType = {
-  github: string;
-  vk: string;
-  facebook: string;
-  instagram: string;
-  twitter: string;
-  website: string;
-  youtube: string;
-  mainLink: string;
-};
-
-export type profileType = {
-  userId: number | null;
-  lookingForAJob: boolean;
-  lookingForAJobDescription: boolean;
-  fullName: boolean;
-  contacts: contactsType;
-  photos: { small: string; large: string } | null;
-};
-
-type initialStateType = {
+export type InitialStateProfileType = {
   postsData: typeof initialState.postsData;
-  profile: profileType | null | {};
+  profile: ProfileType | null | {};
   status: string;
 };
 
@@ -78,8 +60,8 @@ const initialState = {
 
 const profilePageReducer = (
   state = initialState,
-  action: profileActionsTypes
-): initialStateType => {
+  action: ProfileActionsTypes
+): InitialStateProfileType => {
   switch (action.type) {
     case ADD_POST: {
       const newPost = {
@@ -116,29 +98,29 @@ const profilePageReducer = (
   }
 };
 
-export const addPostActionCreator = (newPost: string): addPostActionType => {
+export const addPostActionCreator = (newPost: string): AddPostActionType => {
   return { type: ADD_POST, newPost };
 };
 
 export const setUserProfileActionCreator = (
   profile: object
-): setUserProfileActionType => {
+): SetUserProfileActionType => {
   return { type: SET_USER_PROFILE, profile };
 };
 
-export const getStatusActionCreator = (status: string): getStatusActionType => {
+export const getStatusActionCreator = (status: string): GetStatusActionType => {
   return { type: GET_STATUS, status };
 };
 
 export const updateStatusActionCreator = (
   status: string
-): updateStatusActionType => {
+): UpdateStatusActionType => {
   return { type: UPDATE_STATUS, status };
 };
 
 export const sendPhotoActionCreator = (
   file: HTMLImageElement
-): sendPhotoActionType => {
+): SendPhotoActionType => {
   return { type: SEND_PHOTO, file };
 };
 
@@ -146,7 +128,7 @@ export const sendPhotoActionCreator = (
 
 export const setUserProfileThunkCreator = (
   userId: number | null
-): ThunkAction<void, RootState, unknown, setUserProfileActionType> => {
+): ThunkAction<void, RootState, unknown, SetUserProfileActionType> => {
   return (dispatch) => {
     profileApi.getProfile(userId).then((data) => {
       dispatch(setUserProfileActionCreator(data));
@@ -155,8 +137,8 @@ export const setUserProfileThunkCreator = (
 };
 
 export const editProfileThunkCreator = (
-  profile: object
-): ThunkAction<void, RootState, unknown, setUserProfileActionType> => {
+  profile: ProfileType
+): ThunkAction<void, RootState, unknown, SetUserProfileActionType> => {
   return (dispatch, getState) => {
     const userId = getState().auth.userId;
     profileApi.editProfileInfo(profile).then((data) => {
@@ -168,7 +150,7 @@ export const editProfileThunkCreator = (
 };
 
 export const getStatusThunkCreator = (userId: number) => {
-  return (dispatch: Dispatch<getStatusActionType>) => {
+  return (dispatch: Dispatch<GetStatusActionType>) => {
     profileApi.getStatus(userId).then((data) => {
       dispatch(getStatusActionCreator(data));
     });
@@ -176,7 +158,7 @@ export const getStatusThunkCreator = (userId: number) => {
 };
 
 export const updateStatusThunkCreator = (status: string) => {
-  return (dispatch: Dispatch<updateStatusActionType>) => {
+  return (dispatch: Dispatch<UpdateStatusActionType>) => {
     profileApi.updateStatus(status).then((data) => {
       if (data.resultCode === 0) {
         dispatch(updateStatusActionCreator(status));
@@ -186,7 +168,7 @@ export const updateStatusThunkCreator = (status: string) => {
 };
 
 export const sendPhotoThunkCreator = (file: string | Blob) => {
-  return (dispatch: Dispatch<sendPhotoActionType>) => {
+  return (dispatch: Dispatch<SendPhotoActionType>) => {
     profileApi.sendPhoto(file).then((data) => {
       if (data.resultCode === 0) {
         dispatch(sendPhotoActionCreator(data.data.photos));

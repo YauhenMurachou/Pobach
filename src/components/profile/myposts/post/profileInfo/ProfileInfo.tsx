@@ -6,15 +6,13 @@ import ProfileStatus from './profilleStatus/ProfileStatus';
 import avatar from '../../../../../images/avatar.png';
 import { Button } from '@mui/material';
 import ProfileInfoEditForm from './ProfileInfoEditForm';
-import {
-  editProfileThunkCreator,
-  profileType,
-} from '../../../../../redux/profilePageReducer';
+import { editProfileThunkCreator } from '../../../../../redux/profilePageReducer';
+import { ProfileType } from '../../../../../types';
 
 import classes from './ProfileInfo.module.css';
 
 export type Props = {
-  profile: profileType;
+  profile: ProfileType;
   status: string;
   isOwner: boolean;
   updateStatus: (status: string) => void;
@@ -32,7 +30,7 @@ const ProfileInfo: React.FC<Props> = ({
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
 
-  const handleProfileInfoEdit = (formData: profileType) => {
+  const handleProfileInfoEdit = (formData: ProfileType) => {
     dispatch(editProfileThunkCreator(formData));
     setEditMode(false);
   };

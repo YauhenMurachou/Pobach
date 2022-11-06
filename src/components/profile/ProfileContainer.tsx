@@ -9,24 +9,24 @@ import {
   getStatusThunkCreator,
   updateStatusThunkCreator,
   sendPhotoThunkCreator,
-  profileType,
-  updateStatusActionType,
-  sendPhotoActionType,
+  UpdateStatusActionType,
+  SendPhotoActionType,
 } from '../../redux/profilePageReducer';
 import withAuthRedirect from '../hoc/withAuthRedirect';
+import { ProfileType } from '../../types';
 
 export type Props = {
   userId: number;
   setUserProfile: (userId: number) => void;
   getStatus: (userId: number) => void;
   match: { params: { userId: number } };
-  profile: profileType;
+  profile: ProfileType;
   updateStatus: (
     status: string
-  ) => (dispatch: React.Dispatch<updateStatusActionType>) => void;
+  ) => (dispatch: React.Dispatch<UpdateStatusActionType>) => void;
   sendPhoto: (
     file: string | Blob
-  ) => (dispatch: React.Dispatch<sendPhotoActionType>) => void;
+  ) => (dispatch: React.Dispatch<SendPhotoActionType>) => void;
   status: string;
 };
 
@@ -63,7 +63,7 @@ class ProfileContainer extends React.Component<Props> {
 }
 
 const mapStateToProps = (state: {
-  profilePage: { profile: profileType; status: string };
+  profilePage: { profile: ProfileType; status: string };
   auth: { userId: number };
 }) => ({
   profile: state.profilePage.profile,

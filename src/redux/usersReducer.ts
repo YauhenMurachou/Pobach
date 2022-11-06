@@ -1,4 +1,4 @@
-import { usersApi } from '../api/api';
+import { usersApi, ResultCodeEnum } from '../api/api';
 import { ThunkAction } from 'redux-thunk';
 
 import { UserType } from '../types';
@@ -201,7 +201,7 @@ export const unfollowUsersThunkCreator = (userId: number): ThunkType => {
   return async (dispatch) => {
     dispatch(setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.unFollowUsers(userId);
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum) {
       dispatch(unfollowActionCreator(userId));
     }
     dispatch(setFollowingInProgressActionCreator(false, userId));

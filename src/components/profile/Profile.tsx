@@ -2,12 +2,12 @@ import React, { memo } from 'react';
 
 import MypostsContainer from './myposts/MypostsContainer';
 import ProfileInfo from './myposts/post/profileInfo/ProfileInfo';
-import { profileType } from '../../redux/profilePageReducer';
+import { ProfileType } from '../../types';
 
 import classes from './Profile.module.css';
 
 export type Props = {
-  profile: profileType;
+  profile: ProfileType;
   status: string;
   isOwner: boolean;
   updateStatus: (status: string) => void;
