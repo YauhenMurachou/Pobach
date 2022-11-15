@@ -1,13 +1,11 @@
 import { connect, RootStateOrAny } from 'react-redux';
 
 import {
-  setTotalUsersCountActionCreator,
-  setFollowingInProgressActionCreator,
   getUsersThunkCreator,
   unfollowUsersThunkCreator,
   followUsersThunkCreator,
+  actions,
 } from '../../redux/usersReducer';
-
 import UsersClass from './UsersClass';
 
 const mapStateToProps = (state?: RootStateOrAny) => {
@@ -22,8 +20,8 @@ const mapStateToProps = (state?: RootStateOrAny) => {
 };
 
 const UsersContainer = connect(mapStateToProps, {
-  setTotalUsersCount: setTotalUsersCountActionCreator,
-  setFollowingInProgress: setFollowingInProgressActionCreator,
+  setTotalUsersCount: actions.setTotalUsersCountActionCreator,
+  setFollowingInProgress: actions.setFollowingInProgressActionCreator,
   getUsers: getUsersThunkCreator,
   followUsers: followUsersThunkCreator,
   unfollowUsers: unfollowUsersThunkCreator,

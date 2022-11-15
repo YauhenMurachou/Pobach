@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
@@ -13,7 +13,7 @@ export type loginType = {
   rememberMe: boolean;
 };
 
-const Login: React.FC = () => {
+const Login: FC = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const LogInFunction = (values: loginType) => {
@@ -29,7 +29,6 @@ const Login: React.FC = () => {
   return (
     <>
       <h1>Login</h1>
-
       <LoginForm onSubmit={LogInFunction} />
     </>
   );

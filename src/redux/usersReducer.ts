@@ -1,7 +1,8 @@
 import { usersApi, ResultCodeEnum } from '../api/api';
-import { ThunkAction } from 'redux-thunk';
+// import { ThunkAction } from 'redux-thunk';
 
 import { UserType } from '../types';
+import { CommonActionTypes, CommonThunkType } from './redux-store';
 
 const FOLLOW = 'FOLLOW';
 const UNFOLLOW = 'UNFOLLOW';
@@ -10,42 +11,6 @@ const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT = 'SET_TOTAL_USERS_COUNT';
 const SET_IS_FETCHING = 'SET_IS_FETCHING';
 const FOLLOWING_IN_PROGRESS = 'FOLLOWING_IN_PROGRESS';
-
-type followType = {
-  type: typeof FOLLOW;
-  userId: number;
-};
-
-type unfollowType = {
-  type: typeof UNFOLLOW;
-  userId: number;
-};
-
-type setUsersType = {
-  type: typeof SET_USERS;
-  users: UserType[];
-};
-
-type setCurrentPageType = {
-  type: typeof SET_CURRENT_PAGE;
-  currentPage: number;
-};
-
-type setTotalUsersCountType = {
-  type: typeof SET_TOTAL_USERS_COUNT;
-  totalUsersCount: number;
-};
-
-type setIsFetchingType = {
-  type: typeof SET_IS_FETCHING;
-  isFetching: boolean;
-};
-
-type setFollowingInProgressType = {
-  type: typeof FOLLOWING_IN_PROGRESS;
-  followingInProgress: boolean;
-  userId: number;
-};
 
 type InitialStateUsersType = {
   users: UserType[];
@@ -66,16 +31,57 @@ const initialState: InitialStateUsersType = {
   followingInProgressUsers: [] as number[],
 };
 
-type CommonActionType =
-  | followType
-  | unfollowType
-  | setUsersType
-  | setCurrentPageType
-  | setTotalUsersCountType
-  | setIsFetchingType
-  | setFollowingInProgressType;
+type UserActionsType = CommonActionTypes<typeof actions>;
 
-const usersReducer = (state = initialState, action: CommonActionType) => {
+export const actions = {
+  followActionCreator: (userId: number) =>
+    ({
+      type: FOLLOW,
+      userId,
+    } as const),
+
+  unfollowActionCreator: (userId: number) =>
+    ({
+      type: UNFOLLOW,
+      userId,
+    } as const),
+
+  setUsersActionCreator: (users: UserType[]) =>
+    ({
+      type: SET_USERS,
+      users,
+    } as const),
+
+  setCurrentPageActionCreator: (currentPage: number) =>
+    ({
+      type: SET_CURRENT_PAGE,
+      currentPage,
+    } as const),
+
+  setTotalUsersCountActionCreator: (totalUsersCount: number) =>
+    ({
+      type: SET_TOTAL_USERS_COUNT,
+      totalUsersCount,
+    } as const),
+
+  setIsFetchingActionCreator: (isFetching: boolean) =>
+    ({
+      type: SET_IS_FETCHING,
+      isFetching,
+    } as const),
+
+  setFollowingInProgressActionCreator: (
+    followingInProgress: boolean,
+    userId: number
+  ) =>
+    ({
+      type: FOLLOWING_IN_PROGRESS,
+      followingInProgress,
+      userId,
+    } as const),
+};
+
+const usersReducer = (state = initialState, action: UserActionsType) => {
   switch (action.type) {
     case FOLLOW: {
       return {
@@ -131,91 +137,46 @@ const usersReducer = (state = initialState, action: CommonActionType) => {
   }
 };
 
-export const followActionCreator = (userId: number): followType => ({
-  type: FOLLOW,
-  userId,
-});
-
-export const unfollowActionCreator = (userId: number): unfollowType => ({
-  type: UNFOLLOW,
-  userId,
-});
-
-export const setUsersActionCreator = (users: UserType[]): setUsersType => ({
-  type: SET_USERS,
-  users,
-});
-
-export const setCurrentPageActionCreator = (
-  currentPage: number
-): setCurrentPageType => ({
-  type: SET_CURRENT_PAGE,
-  currentPage,
-});
-
-export const setTotalUsersCountActionCreator = (
-  totalUsersCount: number
-): setTotalUsersCountType => ({
-  type: SET_TOTAL_USERS_COUNT,
-  totalUsersCount,
-});
-
-export const setIsFetchingActionCreator = (
-  isFetching: boolean
-): setIsFetchingType => ({
-  type: SET_IS_FETCHING,
-  isFetching,
-});
-
-export const setFollowingInProgressActionCreator = (
-  followingInProgress: boolean,
-  userId: number
-): setFollowingInProgressType => ({
-  type: FOLLOWING_IN_PROGRESS,
-  followingInProgress,
-  userId,
-});
-
-type ThunkType = ThunkAction<
-  Promise<void>,
-  InitialStateUsersType,
-  unknown,
-  CommonActionType
->;
+// type ThunkType = ThunkAction<
+//   Promise<void>,
+//   InitialStateUsersType,
+//   unknown,
+//   UserActionsType
+// >;
 
 export const getUsersThunkCreator = (
   currentPage: number,
   pageSize: number
-): ThunkType => {
+): CommonThunkType<UserActionsType> => {
   return async (dispatch) => {
-    dispatch(setIsFetchingActionCreator(true));
+    dispatch(actions.setIsFetchingActionCreator(true));
     const data = await usersApi.getUsers(currentPage, pageSize);
-    dispatch(setCurrentPageActionCreator(currentPage));
-    dispatch(setIsFetchingActionCreator(false));
-    dispatch(setUsersActionCreator(data.items));
-    dispatch(setTotalUsersCountActionCreator(data.totalCount));
+    dispatch(actions.setCurrentPageActionCreator(currentPage));
+    dispatch(actions.setIsFetchingActionCreator(false));
+    dispatch(actions.setUsersActionCreator(data.items));
+    dispatch(actions.setTotalUsersCountActionCreator(data.totalCount));
   };
 };
 
-export const unfollowUsersThunkCreator = (userId: number): ThunkType => {
+export const unfollowUsersThunkCreator = (userId: number): CommonThunkType<UserActionsType> => {
   return async (dispatch) => {
-    dispatch(setFollowingInProgressActionCreator(true, userId));
+    dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.unFollowUsers(userId);
     if (data.resultCode === ResultCodeEnum) {
-      dispatch(unfollowActionCreator(userId));
+      dispatch(actions.unfollowActionCreator(userId));
     }
-    dispatch(setFollowingInProgressActionCreator(false, userId));
+    dispatch(actions.setFollowingInProgressActionCreator(false, userId));
   };
 };
 
-export const followUsersThunkCreator = (userId: number): ThunkType => {
+export const followUsersThunkCreator = (userId: number): CommonThunkType<UserActionsType> => {
   return async (dispatch) => {
-    dispatch(setFollowingInProgressActionCreator(true, userId));
+    dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.followUsers(userId);
     if (data.resultCode === 0) {
-      dispatch(followActionCreator(userId));
+      dispatch(actions.followActionCreator(userId));
     }
-    dispatch(setFollowingInProgressActionCreator(false, userId));
+    dispatch(actions.setFollowingInProgressActionCreator(false, userId));
   };
 };
 

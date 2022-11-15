@@ -1,20 +1,10 @@
-import { ThunkAction } from 'redux-thunk';
-// import { setUserDataThunkCreator } from './authReducer';
-// import { ThunkDispatch } from 'redux-thunk';
-// import { RootState } from './redux-store';
+import { CommonThunkType, CommonActionTypes } from './redux-store';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
-type initializedSuccessActionType = {
-  type: typeof INITIALIZED_SUCCESS;
-};
-
-type ThunkType = ThunkAction<
-  Promise<void>,
-  InitialStateAppType,
-  unknown,
-  initializedSuccessActionType
->;
+// type initializedSuccessActionType = {
+//   type: typeof INITIALIZED_SUCCESS;
+// };
 
 export type InitialStateAppType = {
   isInitialized: boolean;
@@ -24,9 +14,17 @@ const initialState: InitialStateAppType = {
   isInitialized: false,
 };
 
+export const actions = {
+  initializedSuccessAction: () => ({
+    type: INITIALIZED_SUCCESS,
+  }),
+};
+
+type AppActionsType = CommonActionTypes<typeof actions>;
+
 export const appReducer = (
   state = initialState,
-  action: initializedSuccessActionType
+  action: AppActionsType
   //строчка ниже - получаемое значение вызова функции
 ): InitialStateAppType => {
   switch (action.type) {
@@ -42,17 +40,17 @@ export const appReducer = (
   }
 };
 
-export const initializedSuccessAction = (): initializedSuccessActionType => ({
-  type: INITIALIZED_SUCCESS,
-});
+// export const initializedSuccessAction = (): initializedSuccessActionType => ({
+//   type: INITIALIZED_SUCCESS,
+// });
 
-export const initializedThunkCreator = (): ThunkType => {
+export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
   return async (
     dispatch
     // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
   ) => {
     // dispatch(setUserDataThunkCreator());
     // console.log('promise', promise);
-    await dispatch(initializedSuccessAction());
+    await dispatch(actions.initializedSuccessAction());
   };
 };
