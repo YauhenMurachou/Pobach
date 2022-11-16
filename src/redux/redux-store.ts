@@ -27,6 +27,8 @@ export type CommonThunkType<
   P = Promise<void>
 > = ThunkAction<P, RootState, unknown, ActionsType>;
 
+console.log('CommonThunkType');
+
 const store = createStore(reducers, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof reducers>;
