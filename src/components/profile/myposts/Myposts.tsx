@@ -5,13 +5,13 @@ import MyPostsForm from './MyPostsForm';
 
 import classes from './Myposts.module.css';
 import { InitialStateProfileType } from '../../../redux/profilePageReducer.js';
-import { AddPostActionType } from './../../../redux/profilePageReducer';
+import { ProfileActionsTypes } from './../../../redux/profilePageReducer';
 
 type Props = {
   postsData: InitialStateProfileType['postsData'];
   addPostButton: (
     newPost: string
-  ) => (dispatch: Dispatch<AddPostActionType>) => void;
+  ) => (dispatch: Dispatch<ProfileActionsTypes>) => void;
 };
 
 const Myposts: FC<Props> = ({ postsData, addPostButton }) => {

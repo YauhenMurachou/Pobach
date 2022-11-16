@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 
 import {
-  addPostActionCreator,
+  profileActions,
   InitialStateProfileType,
-  AddPostActionType,
+  ProfileActionsTypes,
 } from '../../../redux/profilePageReducer';
 
 import Myposts from './Myposts';
@@ -16,10 +16,10 @@ const mapStateToProps = (state: { profilePage: InitialStateProfileType }) => {
   };
 };
 
-const mapDispatchToProps = (dispatch: Dispatch<AddPostActionType>) => {
+const mapDispatchToProps = (dispatch: Dispatch<ProfileActionsTypes>) => {
   return {
     addPostButton: (newPost: string) => {
-      dispatch(addPostActionCreator(newPost));
+      dispatch(profileActions.addPostActionCreator(newPost));
     },
   };
 };

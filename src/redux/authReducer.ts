@@ -1,15 +1,7 @@
 import { usersApi } from '../api/api';
-import { ThunkAction } from 'redux-thunk';
-import { RootState } from './redux-store';
-
-// import { stopSubmit } from "redux-form"
+import { CommonActionTypes, CommonThunkType } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
-
-export type setUserDataActionType = {
-  type: typeof SET_USER_DATA;
-  data: authInitialStateType;
-};
 
 export type authInitialStateType = {
   isAuth: boolean | null;
@@ -25,9 +17,23 @@ const initialState: authInitialStateType = {
   login: null,
 };
 
+export const authActions = {
+  setUserDataActionCreator: (
+    userId: number | null,
+    email: string | null,
+    login: string | null,
+    isAuth: boolean | null
+  ) => ({
+    type: SET_USER_DATA,
+    data: { userId, email, login, isAuth },
+  }),
+};
+
+type AuthActionsType = CommonActionTypes<typeof authActions>;
+
 export const authReducer = (
   state = initialState,
-  action: setUserDataActionType
+  action: AuthActionsType
 ): authInitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
@@ -42,27 +48,12 @@ export const authReducer = (
   }
 };
 
-export const setUserDataActionCreator = (
-  userId: number | null,
-  email: string | null,
-  login: string | null,
-  isAuth: boolean | null
-): setUserDataActionType => ({
-  type: SET_USER_DATA,
-  data: { userId, email, login, isAuth },
-});
-
-export const setUserDataThunkCreator = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  setUserDataActionType
-> => {
+export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
   return async (dispatch) => {
     const data = await usersApi.setLogin();
     if (data.resultCode === 0) {
       const { id, email, login } = data.data;
-      dispatch(setUserDataActionCreator(id, email, login, true));
+      dispatch(authActions.setUserDataActionCreator(id, email, login, true));
     }
   };
 };
@@ -71,7 +62,7 @@ export const loginDataThunkCreator = (
   email: string | null,
   password: string | null,
   rememberMe: boolean | null
-): ThunkAction<void, RootState, unknown, setUserDataActionType> => {
+): CommonThunkType<AuthActionsType, void> => {
   return (dispatch) => {
     usersApi.login(email, password, rememberMe).then((data) => {
       if (data.resultCode === 0) {
@@ -86,16 +77,14 @@ export const loginDataThunkCreator = (
   };
 };
 
-export const logoutDataThunkCreator = (): ThunkAction<
-  void,
-  RootState,
-  unknown,
-  setUserDataActionType
+export const logoutDataThunkCreator = (): CommonThunkType<
+  AuthActionsType,
+  void
 > => {
   return (dispatch) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
-        dispatch(setUserDataActionCreator(null, null, null, true));
+        dispatch(authActions.setUserDataActionCreator(null, null, null, true));
       }
     });
   };

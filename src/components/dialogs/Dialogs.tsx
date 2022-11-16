@@ -5,10 +5,7 @@ import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
 import DialogItem from './dialogItem/DialogItem';
 import Message from './message/Message';
 import DialogsForm from './DialogsForm';
-import {
-  addMessageActionCreator,
-  addMessageActionType,
-} from '../../redux/dialogsPageReducer';
+import { dialogsActions } from '../../redux/dialogsPageReducer';
 
 import classes from './Dialogs.module.css';
 
@@ -33,8 +30,8 @@ const Dialogs: React.FC = () => {
   const { isAuth } = useSelector((state: RootStateOrAny) => state.auth);
   const dispatch = useDispatch();
 
-  const addNewMessageForm = (values: valuesType): addMessageActionType =>
-    dispatch(addMessageActionCreator(values.newMessage));
+  const addNewMessageForm = (values: valuesType) =>
+    dispatch(dialogsActions.addMessageActionCreator(values.newMessage));
 
   const dialogsItemsCopy = dialogsData.map((dialog: dialogType) => (
     <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />

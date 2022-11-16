@@ -1,9 +1,6 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
+import { CommonActionTypes } from './redux-store';
 
-export type addMessageActionType = {
-  type: typeof ADD_MESSAGE;
-  newMessageText: string;
-};
+const ADD_MESSAGE = 'ADD_MESSAGE';
 
 export type initialStateType = typeof initialState;
 
@@ -26,9 +23,17 @@ const initialState = {
   ],
 };
 
+export const dialogsActions = {
+  addMessageActionCreator: (newMessageText: string) => {
+    return { type: ADD_MESSAGE, newMessageText };
+  },
+};
+
+type DialogsActionsType = CommonActionTypes<typeof dialogsActions>;
+
 const dialogsPageReducer = (
   state = initialState,
-  action: addMessageActionType
+  action: DialogsActionsType
 ): initialStateType => {
   switch (action.type) {
     case ADD_MESSAGE: {
@@ -42,12 +47,6 @@ const dialogsPageReducer = (
     default:
       return state;
   }
-};
-
-export const addMessageActionCreator = (
-  newMessageText: string
-): addMessageActionType => {
-  return { type: ADD_MESSAGE, newMessageText };
 };
 
 export default dialogsPageReducer;

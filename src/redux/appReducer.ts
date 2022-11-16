@@ -2,10 +2,6 @@ import { CommonThunkType, CommonActionTypes } from './redux-store';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
-// type initializedSuccessActionType = {
-//   type: typeof INITIALIZED_SUCCESS;
-// };
-
 export type InitialStateAppType = {
   isInitialized: boolean;
 };
@@ -39,10 +35,6 @@ export const appReducer = (
       return state;
   }
 };
-
-// export const initializedSuccessAction = (): initializedSuccessActionType => ({
-//   type: INITIALIZED_SUCCESS,
-// });
 
 export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
   return async (

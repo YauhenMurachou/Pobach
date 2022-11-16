@@ -15,19 +15,17 @@ const reducers = combineReducers({
   appReducer: appReducer,
 });
 
-type InferValueTypes<T> = T extends { [key: string]: infer U } ? U : never;
-
-export type CommonActionTypes<
+export type CommonActionTypes<T> = T extends {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  T extends { [key: string]: (...args: any[]) => any }
-> = ReturnType<InferValueTypes<T>>;
+  [key: string]: (...args: any[]) => infer U;
+}
+  ? U
+  : never;
 
-export type CommonThunkType<ActionsType extends Action> = ThunkAction<
-  Promise<void>,
-  RootState,
-  unknown,
-  ActionsType
->;
+export type CommonThunkType<
+  ActionsType extends Action,
+  P = Promise<void>
+> = ThunkAction<P, RootState, unknown, ActionsType>;
 
 const store = createStore(reducers, applyMiddleware(thunk));
 

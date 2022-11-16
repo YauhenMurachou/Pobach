@@ -9,8 +9,7 @@ import {
   getStatusThunkCreator,
   updateStatusThunkCreator,
   sendPhotoThunkCreator,
-  UpdateStatusActionType,
-  SendPhotoActionType,
+  ProfileActionsTypes,
 } from '../../redux/profilePageReducer';
 import withAuthRedirect from '../hoc/withAuthRedirect';
 import { ProfileType } from '../../types';
@@ -23,10 +22,10 @@ export type Props = {
   profile: ProfileType;
   updateStatus: (
     status: string
-  ) => (dispatch: React.Dispatch<UpdateStatusActionType>) => void;
+  ) => (dispatch: React.Dispatch<ProfileActionsTypes>) => void;
   sendPhoto: (
     file: string | Blob
-  ) => (dispatch: React.Dispatch<SendPhotoActionType>) => void;
+  ) => (dispatch: React.Dispatch<ProfileActionsTypes>) => void;
   status: string;
 };
 

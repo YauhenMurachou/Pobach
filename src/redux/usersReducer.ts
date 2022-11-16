@@ -1,5 +1,4 @@
 import { usersApi, ResultCodeEnum } from '../api/api';
-// import { ThunkAction } from 'redux-thunk';
 
 import { UserType } from '../types';
 import { CommonActionTypes, CommonThunkType } from './redux-store';
@@ -136,13 +135,6 @@ const usersReducer = (state = initialState, action: UserActionsType) => {
       return state;
   }
 };
-
-// type ThunkType = ThunkAction<
-//   Promise<void>,
-//   InitialStateUsersType,
-//   unknown,
-//   UserActionsType
-// >;
 
 export const getUsersThunkCreator = (
   currentPage: number,
