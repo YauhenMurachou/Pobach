@@ -27,7 +27,7 @@ const MyPostsForm: FC<Props> = ({ onSubmit }) => {
         <Form>
           <div>
             <Field
-              component="Textarea"
+              component="textarea"
               name="newPost"
               id="newPost"
               placeholder="newPost"

@@ -33,6 +33,6 @@ const store = createStore(reducers, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof reducers>;
 
-window.store = store;
+// window.store = store;
 
 export default store;

@@ -1,14 +1,25 @@
-import React from 'react';
-import { Formik, Field, Form } from 'formik';
+import { FC } from 'react';
+import { Formik, Field, Form, FormikHelpers } from 'formik';
 // import * as Yup from "yup"
 
 // import { Button } from "@mui/material"
 // import TextField from "@mui/material/TextField"
 
 import classes from './ProfileInfo.module.css';
+import { ProfileType } from '../../../../../types';
 
-const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
-  let objProp = profile;
+type Props = {
+  info: string[];
+  onSubmit: (
+    values: ProfileType,
+    formikHelpers: FormikHelpers<ProfileType>
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  ) => void | Promise<any>;
+  profile: ProfileType;
+};
+
+const ProfileInfoEditForm: FC<Props> = ({ info, onSubmit, profile }) => {
+  const objProp = profile;
   return (
     <>
       <Formik
@@ -24,8 +35,10 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
           <Form>
             {info.map((item, index) => {
               if (item === 'photos') {
-                return <span key={index}></span>;
-              } else if (typeof objProp[item] === 'boolean') {
+                return <span key={item + index.toString()}></span>;
+              } else if (
+                typeof objProp[item as keyof typeof objProp] === 'boolean'
+              ) {
                 return (
                   <div style={{ display: 'flex' }}>
                     <div> {item}</div>
@@ -38,7 +51,9 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
                     />
                   </div>
                 );
-              } else if (typeof objProp[item] !== 'object') {
+              } else if (
+                typeof objProp[item as keyof typeof objProp] !== 'object'
+              ) {
                 return (
                   <div>
                     {item}
@@ -55,7 +70,7 @@ const ProfileInfoEditForm = ({ info, onSubmit, profile }) => {
                 return (
                   <div key={index}>
                     {item}:
-                    {Object.keys(objProp[item]).map((elem, ind) => {
+                    {Object.keys(objProp['contacts']).map((elem, ind) => {
                       return (
                         <div key={ind}>
                           {elem}
