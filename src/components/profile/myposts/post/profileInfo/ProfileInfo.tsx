@@ -61,7 +61,7 @@ const ProfileInfo: React.FC<Props> = ({
         <ProfileStatus
           isOwner={isOwner}
           status={status}
-          updateStatus={isOwner ? updateStatus : null}
+          updateStatus={isOwner ? updateStatus : undefined}
         />
       </div>
 
