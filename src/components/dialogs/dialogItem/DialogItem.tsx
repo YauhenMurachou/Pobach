@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom"
 
 import classes from "./DialogItem.module.css"
 
-export type Props = {
+type Props = {
   name: string
   id: number
 }

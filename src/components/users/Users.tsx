@@ -66,7 +66,7 @@ const Users: React.FC<Props> = memo(
                 {user.followed ? (
                   <button
                     disabled={followingInProgress.some(
-                      (id: UserType['id'] | object) => id === user.id
+                      (id: UserType['id'] | UserType) => id === user.id
                     )}
                     onClick={() => {
                       unfollowUsers(user.id);
@@ -77,7 +77,7 @@ const Users: React.FC<Props> = memo(
                 ) : (
                   <button
                     disabled={followingInProgress.some(
-                      (id: UserType['id'] | object) => id === user.id
+                      (id: UserType['id'] | UserType) => id === user.id
                     )}
                     onClick={() => {
                       followUsers(user.id);

@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { ChangeEvent, MouseEventHandler } from 'react';
 
-class ProfileStatus extends React.Component {
+type Props = {
+  status: string;
+  updateStatus?: (status: string) => void;
+  isOwner: boolean;
+};
+
+class ProfileStatus extends React.Component<Props> {
   state = {
     editMode: false,
     status: this.props.status,
@@ -16,14 +22,15 @@ class ProfileStatus extends React.Component {
     this.setState({
       editMode: false,
     });
-    this.props.updateStatus(this.state.status);
+    this.props.updateStatus && this.props.updateStatus(this.state.status);
   };
 
-  onStatusChange = (e) => {
-    this.setState({ status: e.currentTarget.value });
+  onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const currentTarget = e.currentTarget as HTMLInputElement;
+    this.setState({ status: currentTarget.value });
   };
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: { status: string }) {
     if (prevProps.status !== this.props.status) {
       this.setState({ status: this.props.status });
     }
@@ -37,7 +44,11 @@ class ProfileStatus extends React.Component {
         {!this.state.editMode && (
           <div>
             <span
-              onClick={this.props.isOwner ? this.activeEditMode : null}
+              onClick={
+                this.props.isOwner
+                  ? (this.activeEditMode as MouseEventHandler<HTMLSpanElement>)
+                  : undefined
+              }
               role="button"
             >
               {' '}

@@ -1,6 +1,6 @@
 import { Dispatch, FC } from 'react';
 
-import Post from './post/Post.js';
+import Post from './post/Post';
 import MyPostsForm from './MyPostsForm';
 
 import classes from './Myposts.module.css';
@@ -20,12 +20,7 @@ const Myposts: FC<Props> = ({ postsData, addPostButton }) => {
   };
 
   const posts = postsData.map((post) => (
-    <Post
-      message={post.message}
-      likesCount={post.likesCount}
-      id={post.id}
-      key={post.id}
-    />
+    <Post message={post.message} likesCount={post.likesCount} key={post.id} />
   ));
 
   return (

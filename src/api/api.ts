@@ -9,7 +9,7 @@ export enum ResultCodeEnum {
 const instance = axios.create({
   withCredentials: true,
   baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-  headers: { 'API-KEY': '60aadf49-7825-4eda-b506-0152959e7f73' },
+  headers: { 'API-KEY': 'dfa9082f-57f9-4359-8c49-339d0a7e601b3' },
 });
 
 export const usersApi = {

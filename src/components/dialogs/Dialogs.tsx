@@ -9,16 +9,16 @@ import { dialogsActions } from '../../redux/dialogsPageReducer';
 
 import classes from './Dialogs.module.css';
 
-export type valuesType = {
+type valuesType = {
   newMessage: string;
 };
 
-export type dialogType = {
+type dialogType = {
   name: string;
   id: number;
 };
 
-export type messageType = {
+type messageType = {
   message: string;
   id: number;
 };
