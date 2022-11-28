@@ -1,6 +1,6 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
-import classes from "./Navbar.module.css"
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import classes from './Navbar.module.css';
 
 const Navbar: React.FC = () => {
   return (
@@ -41,7 +41,7 @@ const Navbar: React.FC = () => {
         </NavLink>
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
