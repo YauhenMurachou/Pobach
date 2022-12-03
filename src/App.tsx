@@ -26,10 +26,6 @@ const App: React.FC = () => {
     dispatch(initializedThunkCreator());
   }, [dispatch]);
 
-  useEffect(() => {
-    console.log('i fire once');
-  }, []);
-
   return (
     <>
       {isInitialized && (
