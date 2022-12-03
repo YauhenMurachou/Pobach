@@ -16,11 +16,11 @@ const root = ReactDOM.createRoot(
 );
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <Provider store={store}>
+    <App />
+  </Provider>
+  // </React.StrictMode>
 );
 
 // Для рендеринга React-элемента в корневой узел DOM вызовите ReactDOM.render()

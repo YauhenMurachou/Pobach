@@ -6,6 +6,7 @@ import usersReducer from './usersReducer';
 import { authReducer } from './authReducer';
 import { appReducer } from './appReducer';
 import thunk, { ThunkAction } from 'redux-thunk';
+import { chatReducer } from './chatReducer';
 
 const reducers = combineReducers({
   profilePage: profilePageReducer,
@@ -13,6 +14,7 @@ const reducers = combineReducers({
   usersPage: usersReducer,
   auth: authReducer,
   appReducer: appReducer,
+  chatReducer: chatReducer,
 });
 
 export type CommonActionTypes<T> = T extends {
@@ -27,12 +29,8 @@ export type CommonThunkType<
   P = Promise<void>
 > = ThunkAction<P, RootState, unknown, ActionsType>;
 
-console.log('CommonThunkType');
-
 const store = createStore(reducers, applyMiddleware(thunk));
 
 export type RootState = ReturnType<typeof reducers>;
-
-// window.store = store;
 
 export default store;
