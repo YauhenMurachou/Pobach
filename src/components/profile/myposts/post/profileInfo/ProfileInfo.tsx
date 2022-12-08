@@ -82,9 +82,9 @@ const ProfileInfo: React.FC<Props> = ({
           } else if (item === 'photos') {
             return <span key={index}></span>;
           } else if (item === 'lookingForAJob' && profile.lookingForAJob) {
-            return <div> I am looking for a job</div>;
+            return <div key={index}> I am looking for a job</div>;
           } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
-            return <div> I am NOT looking for a job</div>;
+            return <div key={index}> I am NOT looking for a job</div>;
           } else {
             return (
               <div key={index}>

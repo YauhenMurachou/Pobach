@@ -1,16 +1,19 @@
 import { CommonActionTypes, CommonThunkType } from './redux-store';
-import { chatApi, MessageType } from './../api/chat-api';
+import { chatApi, MessageType, StatusType } from './../api/chat-api';
 import { Dispatch } from 'redux';
 
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
+const SET_STATUS = 'SET_STATUS';
 
 export type chatInitialStateType = {
   messages: MessageType[];
+  status: StatusType;
 };
 
 const initialState: chatInitialStateType = {
   messages: [] as MessageType[],
+  status: 'pending',
 };
 
 export const chatActions = {
@@ -23,6 +26,11 @@ export const chatActions = {
     ({
       type: CLEAR_MESSAGES,
       data: [],
+    } as const),
+  setStatusActionCreator: (status: StatusType) =>
+    ({
+      type: SET_STATUS,
+      data: { status },
     } as const),
 };
 
@@ -45,6 +53,12 @@ export const chatReducer = (
         messages: [],
       };
     }
+    case SET_STATUS: {
+      return {
+        ...state,
+        status: action.data.status,
+      };
+    }
 
     default:
       return state;
@@ -62,18 +76,31 @@ const newMessageHandler = (dispatch: Dispatch) => {
   return _newMessageHandler;
 };
 
+let _statusHandler: ((status: StatusType) => void) | null = null;
+
+const changeStatusHandler = (dispatch: Dispatch) => {
+  if (_statusHandler === null) {
+    _statusHandler = (status: StatusType) => {
+      dispatch(chatActions.setStatusActionCreator(status));
+    };
+  }
+  return _statusHandler;
+};
+
 export const startMessagesThunkCreator =
   (): CommonThunkType<ChatActionsType> => {
     return async (dispatch) => {
       chatApi.start();
-      chatApi.subscribe(newMessageHandler(dispatch));
+      chatApi.subscribe('message', newMessageHandler(dispatch));
+      chatApi.subscribe('status', changeStatusHandler(dispatch));
     };
   };
 
 export const stopMessagesThunkCreator =
   (): CommonThunkType<ChatActionsType> => {
     return async (dispatch) => {
-      chatApi.unsubscribe();
+      chatApi.unsubscribe('message');
+      chatApi.unsubscribe('status');
       chatApi.stop();
       dispatch(chatActions.clearMessagesActionCreator());
     };
