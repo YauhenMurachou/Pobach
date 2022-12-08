@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, memo } from 'react';
+import { FC, useEffect, useState, memo, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   sendMessageThunkCreator,
@@ -23,30 +23,51 @@ export const ChatPage: FC = memo(() => {
 
   return (
     <div>
-      <AddMessageForm />
       <Messages />
+      <AddMessageForm />
     </div>
   );
 });
 
-export const Messages: FC = () => {
+export const Messages: FC = memo(() => {
   const messages = useSelector(
     (state: RootState) => state.chatReducer.messages
-  ).reverse();
+  );
+  const [autoScroll, setAutoScroll] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
+    const element = e.currentTarget;
+    if (
+      Math.abs(element.scrollHeight - element.scrollTop) -
+        element.clientHeight <
+      250
+    ) {
+      !autoScroll && setAutoScroll(true);
+    } else {
+      autoScroll && setAutoScroll(false);
+    }
+  };
+
+  useEffect(() => {
+    autoScroll && scrollRef.current?.scrollIntoView();
+  }, [messages]);
 
   return (
-    <div>
-      {messages.map((item, index) => (
-        <Message
-          key={item.userName + index.toString()}
-          message={item.message}
-          photo={item.photo}
-          userName={item.userName}
-        />
-      ))}
-    </div>
+    <>
+      <div onScroll={scrollHandler}>
+        {messages.map((item, index) => (
+          <Message
+            key={item.userName + index.toString()}
+            message={item.message}
+            photo={item.photo}
+            userName={item.userName}
+          />
+        ))}
+      </div>
+      <div ref={scrollRef}></div>
+    </>
   );
-};
+});
 
 export const Message: FC<MessageType> = ({ message, userName, photo }) => {
   return (
@@ -60,18 +81,8 @@ export const Message: FC<MessageType> = ({ message, userName, photo }) => {
 
 export const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
-  // const [status, setStatus] = useState<'pending' | 'ready'>('pending');
-
+  const status = useSelector((state: RootState) => state.chatReducer.status);
   const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   const openHandler = () => setStatus('ready');
-  //   wsChannel?.addEventListener('open', openHandler);
-  //   return () => {
-  //     wsChannel?.removeEventListener('open', openHandler);
-  //     wsChannel?.close();
-  //   };
-  // }, [wsChannel]);
 
   const sendMessage = () => {
     if (!message) {
@@ -87,7 +98,7 @@ export const AddMessageForm: FC = () => {
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
       ></textarea>
-      <button type="submit" onClick={sendMessage}>
+      <button type="submit" onClick={sendMessage} disabled={status !== 'ready'}>
         send
       </button>
     </div>
