@@ -3,11 +3,15 @@ import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
 import { loginType } from './Login';
-
-//TODO need for style this form and using Material
+import { TextField, CheckboxWithLabel } from 'formik-mui';
+import styles from './Login.module.css';
+import { Button } from '@mui/material';
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().max(20, 'Too Long!').required('Required'),
+  email: Yup.string()
+    .max(20, 'Too Long!')
+    .required('Required')
+    .email('Invalid email format'),
   password: Yup.string().max(15, 'Too Long!').required('Required'),
 });
 
@@ -34,29 +38,53 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
         }}
         validationSchema={LoginSchema}
       >
-        {({ errors, touched }) => (
+        {({ errors, dirty }) => (
           <Form>
-            <div>
-              <Field placeholder="login" name="email" id="email" />
-              {errors.email && touched.email ? <div>{errors.email}</div> : null}
-            </div>
-            <div>
+            <div className={styles.field}>
               <Field
-                placeholder="password"
+                fullWidth
+                id="email"
+                name="email"
+                label="Email"
+                placeholder="Email"
+                component={TextField}
+              />
+            </div>
+            <div className={styles.field}>
+              <Field
+                fullWidth
+                placeholder="Password"
                 name="password"
                 id="password"
                 type="password"
+                label="Password"
+                component={TextField}
               />
-              {errors.password && touched.password ? (
-                <div>{errors.password}</div>
-              ) : null}
             </div>
-            <div>
-              <Field type="checkbox" name="rememberMe" />
-              remember me
+            <div className={styles.field}>
+              <Field
+                type="checkbox"
+                component={CheckboxWithLabel}
+                name="rememberMe"
+                Label={{ label: 'remember me' }}
+              />
             </div>
-            <div>
-              <button type="submit">Login </button>
+            <div className={styles.buttons}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={!!errors.email || !!errors.password || !dirty}
+              >
+                Войти
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                href="https://social-network.samuraijs.com/login"
+              >
+                Зарегистрироваться
+              </Button>
             </div>
           </Form>
         )}

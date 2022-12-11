@@ -25,6 +25,7 @@ export const appReducer = (
 ): InitialStateAppType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
+			console.log('INITIALIZED_SUCCESS')
       return {
         ...state,
         isInitialized: true,
@@ -43,6 +44,6 @@ export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
   ) => {
     // dispatch(setUserDataThunkCreator());
     // console.log('promise', promise);
-    await dispatch(actions.initializedSuccessAction());
+    dispatch(actions.initializedSuccessAction());
   };
 };
