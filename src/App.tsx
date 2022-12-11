@@ -16,11 +16,12 @@ import Loader from './components/loader/Loader';
 import { ChatPage } from './components/chat/ChatPage';
 import { RootState } from './redux/redux-store';
 
-import './App.css';
+import styles from './App.module.css';
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { isInitialized } = useSelector((state: RootState) => state.appReducer);
+  const { isAuth } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(initializedThunkCreator());
@@ -28,12 +29,12 @@ const App: React.FC = () => {
 
   return (
     <>
-      {isInitialized && (
+      {isInitialized && isAuth && (
         <HashRouter>
-          <div className="app-wrapper">
+          <div className={styles.appWrapper}>
             <Header />
             <Navbar />
-            <div className="app-wrapper-content">
+            <div className={styles.appWrapperContent}>
               <Route path="/Dialogs" render={() => <Dialogs />} />
               <Route
                 path="/Profile/:userId?"
@@ -43,10 +44,15 @@ const App: React.FC = () => {
               <Route path="/Photos" component={Photos} />
               <Route path="/Settings" component={Settings} />
               <Route path="/Users" render={() => <UsersContainer />} />
-              <Route path="/Login" render={() => <Login />} />
               <Route path="/Chat" render={() => <ChatPage />} />
             </div>
           </div>
+        </HashRouter>
+      )}
+
+      {isInitialized && !isAuth && (
+        <HashRouter>
+          <Route path="*" render={() => <Login />} />
         </HashRouter>
       )}
       {!isInitialized && <Loader isFetching={!isInitialized} />}

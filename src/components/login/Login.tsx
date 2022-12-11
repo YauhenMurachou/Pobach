@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 import { RootState } from '../../redux/redux-store';
 
 import { loginDataThunkCreator } from '../../redux/authReducer';
-// import { FormikHelpers } from 'formik';
+import styles from './Login.module.css';
 
 export type loginType = {
   email: string;
@@ -27,15 +27,15 @@ const Login: FC = () => {
   }
 
   return (
-    <>
-      <h1>Login</h1>
-      <LoginForm onSubmit={LogInFunction} />
-    </>
+    <div className={styles.container}>
+      <div className={styles.login}>
+        <div className={styles.loginForm}>
+          <h1 className={styles.title}>Вход в аккаунт</h1>
+          <LoginForm onSubmit={LogInFunction} />
+        </div>
+      </div>
+    </div>
   );
 };
 
 export default Login;
-
-/* <div>
-			<a href="https://social-network.samuraijs.com/login" target="_blank" rel="noreferrer">Войдите в свой аккаунт</a>
-		</div> */

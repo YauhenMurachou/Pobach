@@ -43,6 +43,6 @@ export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
   ) => {
     // dispatch(setUserDataThunkCreator());
     // console.log('promise', promise);
-    await dispatch(actions.initializedSuccessAction());
+    dispatch(actions.initializedSuccessAction());
   };
 };
