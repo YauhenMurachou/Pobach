@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 
@@ -6,6 +7,7 @@ import { loginType } from './Login';
 import { TextField, CheckboxWithLabel } from 'formik-mui';
 import styles from './Login.module.css';
 import { Button } from '@mui/material';
+import { RootState } from '../../redux/redux-store';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -27,6 +29,7 @@ export type Props = {
 };
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
+  const { error } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <Formik
@@ -61,6 +64,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 component={TextField}
               />
             </div>
+            {errors && <div className={styles.error}>{error}</div>}
             <div className={styles.field}>
               <Field
                 type="checkbox"

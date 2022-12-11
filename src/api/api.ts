@@ -2,9 +2,9 @@ import axios from 'axios';
 import { ProfileType } from '../types';
 
 export enum ResultCodeEnum {
-	Success = 0,
-	Error = 1
-};
+  Success = 0,
+  Error = 1,
+}
 
 const instance = axios.create({
   withCredentials: true,
@@ -71,9 +71,7 @@ export const profileApi = {
   },
 
   async editProfileInfo(profile: ProfileType) {
-    console.log('editProfileInfo', profile);
     const response = await instance.put(`profile`, profile);
-    console.log('response', response);
     return response.data;
   },
 

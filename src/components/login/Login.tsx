@@ -16,6 +16,7 @@ export type loginType = {
 const Login: FC = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
+
   const LogInFunction = (values: loginType) => {
     dispatch(
       loginDataThunkCreator(values.email, values.password, values.rememberMe)
