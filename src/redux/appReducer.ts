@@ -25,7 +25,6 @@ export const appReducer = (
 ): InitialStateAppType => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
-			console.log('INITIALIZED_SUCCESS')
       return {
         ...state,
         isInitialized: true,

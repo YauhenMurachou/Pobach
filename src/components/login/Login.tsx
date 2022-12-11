@@ -17,7 +17,6 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const LogInFunction = (values: loginType) => {
-    console.log('values', values);
     dispatch(
       loginDataThunkCreator(values.email, values.password, values.rememberMe)
     );
