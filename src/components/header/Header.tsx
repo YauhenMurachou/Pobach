@@ -1,25 +1,18 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import {
-  logoutDataThunkCreator,
-  setUserDataThunkCreator,
-} from '../../redux/authReducer';
+import { logoutDataThunkCreator } from '../../redux/authReducer';
+import { RootState } from '../../redux/redux-store';
 
 import './Header.css';
 
 const Header: React.FC = () => {
   const dispatch = useDispatch();
-  const { isAuth, login } = useSelector((state: RootStateOrAny) => state.auth);
-
-  useEffect(() => {
-    dispatch(setUserDataThunkCreator());
-  }, [dispatch]);
+  const { isAuth, login } = useSelector((state: RootState) => state.auth);
 
   const logoutOnClick = () => {
     dispatch(logoutDataThunkCreator());
-    window.location.reload();
   };
 
   return (

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import { useDispatch, useSelector, RootStateOrAny } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import DialogItem from './dialogItem/DialogItem';
 import Message from './message/Message';
 import DialogsForm from './DialogsForm';
 import { dialogsActions } from '../../redux/dialogsPageReducer';
+import { RootState } from '../../redux/redux-store';
 
 import classes from './Dialogs.module.css';
 
@@ -25,9 +26,9 @@ type messageType = {
 
 const Dialogs: React.FC = () => {
   const { dialogsData, messageData } = useSelector(
-    (state: RootStateOrAny) => state.dialogsPage
+    (state: RootState) => state.dialogsPage
   );
-  const { isAuth } = useSelector((state: RootStateOrAny) => state.auth);
+  const { isAuth } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
   const addNewMessageForm = (values: valuesType) =>

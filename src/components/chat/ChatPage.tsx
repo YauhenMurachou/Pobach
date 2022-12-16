@@ -1,4 +1,5 @@
 import { FC, useEffect, useState, memo, useRef } from 'react';
+import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   sendMessageThunkCreator,
@@ -10,6 +11,7 @@ import { MessageType } from '../../api/chat-api';
 
 export const ChatPage: FC = memo(() => {
   const dispatch = useDispatch();
+  const { isAuth } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(startMessagesThunkCreator());
@@ -20,6 +22,10 @@ export const ChatPage: FC = memo(() => {
       dispatch(stopMessagesThunkCreator());
     };
   }, []);
+
+  if (!isAuth) {
+    return <Redirect to="/Login" />;
+  }
 
   return (
     <div>

@@ -98,7 +98,7 @@ export const logoutDataThunkCreator = (): CommonThunkType<
   return (dispatch) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
-        dispatch(authActions.setUserDataActionCreator(null, null, null, true));
+        dispatch(authActions.setUserDataActionCreator(null, null, null, null));
       }
     });
   };
