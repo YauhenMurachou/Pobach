@@ -21,15 +21,14 @@ import styles from './App.module.css';
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { isInitialized } = useSelector((state: RootState) => state.appReducer);
-  const { isAuth } = useSelector((state: RootState) => state.auth);
 
   useEffect(() => {
     dispatch(initializedThunkCreator());
-  }, [dispatch]);
+  }, []);
 
   return (
     <>
-      {isInitialized && isAuth && (
+      {isInitialized && (
         <HashRouter>
           <div className={styles.appWrapper}>
             <Header />
@@ -47,14 +46,10 @@ const App: React.FC = () => {
               <Route path="/Chat" render={() => <ChatPage />} />
             </div>
           </div>
+          <Route path="/login" render={() => <Login />} />
         </HashRouter>
       )}
 
-      {isInitialized && !isAuth && (
-        <HashRouter>
-          <Route path="*" render={() => <Login />} />
-        </HashRouter>
-      )}
       {!isInitialized && <Loader isFetching={!isInitialized} />}
     </>
   );

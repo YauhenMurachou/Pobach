@@ -1,8 +1,10 @@
-import React, { memo, useState, ChangeEvent } from 'react';
-import { NavLink } from 'react-router-dom';
+import React, { memo, useState, ChangeEvent, FC } from 'react';
+import { NavLink, Redirect } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
 import avatar from '../../../src/images/avatar.png';
 import { UserType } from '../../types';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/redux-store';
 
 import classes from './Users.module.css';
 
@@ -17,7 +19,7 @@ export type Props = {
   followUsers: (id: number) => void;
 };
 
-const Users: React.FC<Props> = memo(
+const Users: FC<Props> = memo(
   ({
     totalUsersCount,
     pageSize,
@@ -39,6 +41,10 @@ const Users: React.FC<Props> = memo(
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
       pages.push(i);
+    }
+    const { isAuth } = useSelector((state: RootState) => state.auth);
+    if (!isAuth) {
+      return <Redirect to="/Login" />;
     }
 
     return (

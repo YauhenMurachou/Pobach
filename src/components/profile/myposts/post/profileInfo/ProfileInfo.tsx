@@ -50,19 +50,20 @@ const ProfileInfo: React.FC<Props> = ({
   return (
     <>
       <div>
-        <img alt="photos" src={avatar} />
-        {/* <img alt="photos" src={profile?.photos?.large ?? avatar} /> */}
-        {isOwner && (
-          <div>{/* <input type="file" onChange={loadFile} /> */}</div>
-        )}
-      </div>
-
-      <div className={classes.item}>
-        <ProfileStatus
-          isOwner={isOwner}
-          status={status}
-          updateStatus={isOwner ? updateStatus : undefined}
-        />
+        <div className={classes.avatarContainer}>
+          <img alt="photos" src={avatar} />
+          {/* <img alt="photos" src={profile?.photos?.large ?? avatar} /> */}
+          {isOwner && (
+            <div>{/* <input type="file" onChange={loadFile} /> */}</div>
+          )}
+        </div>
+        <div className={classes.item}>
+          <ProfileStatus
+            isOwner={isOwner}
+            status={status}
+            updateStatus={isOwner ? updateStatus : undefined}
+          />
+        </div>
       </div>
 
       {!editMode &&

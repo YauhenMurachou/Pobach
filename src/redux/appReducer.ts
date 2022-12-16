@@ -1,3 +1,4 @@
+import { setUserDataThunkCreator } from './authReducer';
 import { CommonThunkType, CommonActionTypes } from './redux-store';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
@@ -37,12 +38,21 @@ export const appReducer = (
 };
 
 export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
-  return async (
-    dispatch
-    // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
-  ) => {
-    // dispatch(setUserDataThunkCreator());
-    // console.log('promise', promise);
-    dispatch(actions.initializedSuccessAction());
+  return async (dispatch) => {
+    const dispatchResult = dispatch(setUserDataThunkCreator());
+    dispatchResult.then(() => {
+      dispatch(actions.initializedSuccessAction());
+    });
   };
 };
+
+// export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
+//   return async (
+//     dispatch
+//     // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
+//   ) => {
+//     // dispatch(setUserDataThunkCreator());
+//     // console.log('promise', promise);
+//     await dispatch(actions.initializedSuccessAction());
+//   };
+// };
