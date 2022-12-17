@@ -17,11 +17,11 @@ const Header: React.FC = () => {
 
   return (
     <header className="header">
-      <img
+      {/* <img
         className="header-image"
         alt="label"
         src="https://st2.depositphotos.com/5378240/8287/v/600/depositphotos_82877606-stock-illustration-belorussian-sacred-ethnic-ornament-seamless.jpg"
-      />
+      /> */}
       <div className="header-text-wrapper">
         <div className="header-text">
           <span className="header-text-near">Побач</span>

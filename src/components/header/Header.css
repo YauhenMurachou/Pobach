@@ -4,17 +4,20 @@
 	font-weight: 500;
 	/* Браузер сначала попробует найти шрифт локально */
 	src: local("Skaryna 2017 Title"),
-		/* Если не получилось, загрузит woff2 */ url("../../fonts/skaryna-title-2017-CC-v20200624-1052.ttf");
+		/* Если не получилось, загрузит woff2 */
+		url("../../fonts/skaryna-title-2017-CC-v20200624-1052.ttf");
 }
 
 .header {
 	grid-area: h;
-	background-color: white;
 	color: red;
+	background-color: #F5F5F5;
+
 }
 
 .header-image {
 	height: 127px;
+	background-color: #F5F5F5;
 }
 
 .header-text-wrapper {

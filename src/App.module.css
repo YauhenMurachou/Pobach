@@ -6,10 +6,9 @@
 		"h h"
 		"n c";
 	grid-template-columns: 200px 2fr;
-	grid-template-rows: 127px 1fr;
+	grid-template-rows: 6rem 1fr;
 }
 
 .appWrapperContent {
-	background-color: rgb(231, 195, 217);
+	background-color: rgb(239, 231, 236);
 }
-

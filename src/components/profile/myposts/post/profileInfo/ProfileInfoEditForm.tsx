@@ -1,9 +1,8 @@
 import { FC } from 'react';
 import { Formik, Field, Form, FormikHelpers } from 'formik';
-// import * as Yup from "yup"
+import { TextField, CheckboxWithLabel } from 'formik-mui';
 
-// import { Button } from "@mui/material"
-// import TextField from "@mui/material/TextField"
+import { Button } from '@mui/material';
 
 import classes from './ProfileInfo.module.css';
 import { ProfileType } from '../../../../../types';
@@ -16,38 +15,38 @@ type Props = {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   ) => void | Promise<any>;
   profile: ProfileType;
+  toggleEditMode: () => void;
 };
 
-const ProfileInfoEditForm: FC<Props> = ({ info, onSubmit, profile }) => {
+const ProfileInfoEditForm: FC<Props> = ({
+  info,
+  onSubmit,
+  profile,
+  toggleEditMode,
+}) => {
   const objProp = profile;
   return (
     <>
-      <Formik
-        onSubmit={onSubmit}
-        // initialValues={{
-        //   newMessage: ""
-        // }}
-        initialValues={profile}
-      >
-        {() => (
-          /*{errors, touched}*/
-
+      <Formik onSubmit={onSubmit} initialValues={profile}>
+        {({ dirty }) => (
           <Form>
             {info.map((item, index) => {
-              if (item === 'photos') {
-                return <span key={item + index.toString()}></span>;
+              if (item === 'photos' || item === 'userId') {
+                return undefined;
               } else if (
                 typeof objProp[item as keyof typeof objProp] === 'boolean'
               ) {
                 return (
-                  <div style={{ display: 'flex' }}>
-                    <div> {item}</div>
+                  <div
+                    style={{ display: 'flex' }}
+                    key={(item + index).toString()}
+                  >
                     <Field
-                      label={item}
+                      Label={{ label: item }}
                       name={item}
                       id={(item + index).toString()}
                       type="checkbox"
-                      key={(item + index).toString()}
+                      component={CheckboxWithLabel}
                     />
                   </div>
                 );
@@ -55,32 +54,36 @@ const ProfileInfoEditForm: FC<Props> = ({ info, onSubmit, profile }) => {
                 typeof objProp[item as keyof typeof objProp] !== 'object'
               ) {
                 return (
-                  <div>
-                    {item}
+                  <div
+                    className={classes.property}
+                    key={(item + index).toString()}
+                  >
                     <Field
-                      label={item}
                       name={item}
                       id={(item + index).toString()}
-                      component="input"
-                      key={(item + index).toString()}
+                      component={TextField}
+                      variant="standard"
+                      helperText={item}
                     />
                   </div>
                 );
               } else {
                 return (
-                  <div key={index}>
-                    {item}:
+                  <div key={(item + index).toString()}>
+                    <span className={classes.property}>{item}</span>:
                     {Object.keys(objProp['contacts']).map((elem, ind) => {
                       return (
-                        <div key={ind}>
-                          {elem}
+                        <div
+                          key={(elem + ind).toString()}
+                          className={classes.contact}
+                        >
                           <Field
                             name={`contacts.${elem}`}
                             id={(elem + index).toString()}
-                            component="input"
-                            key={(elem + index).toString()}
+                            component={TextField}
+                            variant="standard"
+                            helperText={elem}
                           />
-                          {/* {elem}: {objProp[item][elem] || "No data"} */}
                         </div>
                       );
                     })}
@@ -88,9 +91,23 @@ const ProfileInfoEditForm: FC<Props> = ({ info, onSubmit, profile }) => {
                 );
               }
             })}
-            <button className={classes.addButton} type="submit">
-              Save changes
-            </button>
+            <div className={classes.buttons}>
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                disabled={!dirty}
+              >
+                Save changes
+              </Button>
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={toggleEditMode}
+              >
+                Back to profile
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>
@@ -99,8 +116,3 @@ const ProfileInfoEditForm: FC<Props> = ({ info, onSubmit, profile }) => {
 };
 
 export default ProfileInfoEditForm;
-
-// <div style={{ display: "flex" }}>
-// <input type="checkbox" key={index} />
-// <div> I am looking for a job</div>
-// </div>
