@@ -68,7 +68,6 @@ class ProfileStatus extends React.Component<Props> {
               value={this.state.status}
               autoFocus={true}
               variant="standard"
-              sx={{ height: '22px' }}
             />
           </div>
         )}
