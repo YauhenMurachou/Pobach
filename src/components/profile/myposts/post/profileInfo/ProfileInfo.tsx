@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import Loader from '../../../../loader/Loader';
@@ -39,7 +39,6 @@ const ProfileInfo: React.FC<Props> = ({
     return <Loader />;
   }
 
-  // let objProp = profile
   const info = Object.getOwnPropertyNames(profile);
   // const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   if (e?.target?.files?.length) {
@@ -48,16 +47,17 @@ const ProfileInfo: React.FC<Props> = ({
   // }
 
   return (
-    <>
-      <div>
-        <div className={classes.avatarContainer}>
+    <div className={classes.container}>
+      <div className={classes.avatarContainer}>
+        <div>
           <img alt="photos" src={avatar} />
           {/* <img alt="photos" src={profile?.photos?.large ?? avatar} /> */}
           {isOwner && (
             <div>{/* <input type="file" onChange={loadFile} /> */}</div>
           )}
         </div>
-        <div className={classes.item}>
+        <div className={classes.statusContainer}>
+          <div className={classes.fullName}>{profile.fullName}</div>
           <ProfileStatus
             isOwner={isOwner}
             status={status}
@@ -65,59 +65,71 @@ const ProfileInfo: React.FC<Props> = ({
           />
         </div>
       </div>
-
-      {!editMode &&
-        info.map((item, index) => {
-          if (
-            profile[item as keyof typeof profile] &&
-            typeof profile[item as keyof typeof profile] !== 'object' &&
-            typeof profile[item as keyof typeof profile] !== 'boolean'
-          ) {
-            return (
-              <div key={index}>
-                <>
-                  {item}: {profile[item as keyof typeof profile]}
-                </>
-              </div>
-            );
-          } else if (item === 'photos') {
-            return <span key={index}></span>;
-          } else if (item === 'lookingForAJob' && profile.lookingForAJob) {
-            return <div key={index}> I am looking for a job</div>;
-          } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
-            return <div key={index}> I am NOT looking for a job</div>;
-          } else {
-            return (
-              <div key={index}>
-                {item}:
-                {Object.keys(profile['contacts']).map((elem, ind) => {
-                  return (
-                    <div key={ind}>
-                      {elem}:
-                      {profile['contacts'][
-                        elem as keyof typeof profile['contacts']
-                      ] || 'No data'}
-                    </div>
-                  );
-                })}
-              </div>
-            );
-          }
-        })}
-
-      {editMode && (
-        <ProfileInfoEditForm
-          info={info}
-          profile={profile}
-          onSubmit={handleProfileInfoEdit}
-        />
-      )}
-      {isOwner && !editMode && (
-        <Button variant="contained" onClick={toggleEditMode}>
-          Edit info
-        </Button>
-      )}
-    </>
+      <div className={classes.infoContainer}>
+        {!editMode &&
+          info.map((item, index) => {
+            if (item === 'photos' || item === 'fullName') {
+              return undefined;
+            } else if (
+              profile[item as keyof typeof profile] &&
+              typeof profile[item as keyof typeof profile] !== 'object' &&
+              typeof profile[item as keyof typeof profile] !== 'boolean'
+            ) {
+              return (
+                <div key={(item + index).toString()}>
+                  <>
+                    <span className={classes.property}>{item}: </span>
+                    <span className={classes.value}>
+                      {profile[item as keyof typeof profile] as ReactNode}
+                    </span>
+                  </>
+                </div>
+              );
+            } else if (item === 'lookingForAJob' && profile.lookingForAJob) {
+              return (
+                <div
+                  key={(item + index).toString()}
+                  className={classes.lookingJob}
+                >
+                  {' '}
+                  I am looking for a job!
+                </div>
+              );
+            } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
+              return <div key={index}> I am NOT looking for a job</div>;
+            } else {
+              return (
+                <div key={(item + index).toString()}>
+                  <span className={classes.property}>{item}</span>:
+                  {Object.keys(profile['contacts']).map((elem, ind) => {
+                    return (
+                      <div key={(elem + ind).toString()}>
+                        <span className={classes.contact}>{elem}: </span>
+                        {profile['contacts'][
+                          elem as keyof typeof profile['contacts']
+                        ] || ' - '}
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+            }
+          })}
+        {editMode && (
+          <ProfileInfoEditForm
+            info={info}
+            profile={profile}
+            onSubmit={handleProfileInfoEdit}
+            toggleEditMode={toggleEditMode}
+          />
+        )}
+        {isOwner && !editMode && (
+          <Button variant="contained" onClick={toggleEditMode}>
+            Edit info
+          </Button>
+        )}
+      </div>
+    </div>
   );
 };
 

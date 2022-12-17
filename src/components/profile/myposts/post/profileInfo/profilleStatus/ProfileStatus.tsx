@@ -1,4 +1,7 @@
 import React, { ChangeEvent, MouseEventHandler } from 'react';
+import TextField from '@mui/material/TextField';
+
+import styles from './ProfileStatus.module.css';
 
 type Props = {
   status: string;
@@ -39,7 +42,7 @@ class ProfileStatus extends React.Component<Props> {
   render() {
     return (
       <div>
-        <div> Status: </div>
+        <div className={styles.subtitle}>status</div>
 
         {!this.state.editMode && (
           <div>
@@ -50,20 +53,22 @@ class ProfileStatus extends React.Component<Props> {
                   : undefined
               }
               role="button"
+              className={styles.status}
             >
-              {' '}
-              {this.props.status}{' '}
+              {this.props.status}
             </span>
           </div>
         )}
 
         {this.props.isOwner && (this.state.editMode || !this.props.status) && (
-          <div>
-            <input
+          <div className={styles.field}>
+            <TextField
               onBlur={this.deActiveEditMode}
               onChange={this.onStatusChange}
               value={this.state.status}
               autoFocus={true}
+              variant="standard"
+              sx={{ height: '22px' }}
             />
           </div>
         )}

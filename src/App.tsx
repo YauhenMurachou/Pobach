@@ -47,6 +47,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <Route path="/login" render={() => <Login />} />
+          {/* <Route path="*" render={() => <Login />} /> */}
         </HashRouter>
       )}
 
