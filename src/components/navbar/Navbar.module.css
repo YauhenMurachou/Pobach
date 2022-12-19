@@ -1,15 +1,25 @@
 .nav {
 	grid-area: n;
-	background-color: rgb(243, 52, 52);
-	font-size: 26px;
+	background-color: var(--red-main);
+	font-size: 1.625REM;
+	display: flex;
+	flex-direction: column;
+	row-gap: 0.5rem;
 }
 
 .item {
 	color: white;
-	margin-bottom: 20px;
+	padding: 0.5rem 1.5rem;
+	cursor: pointer;
+}
+
+.item:hover {
+	background-color: white;
+	color: var(--red-main);
 }
 
 .nav .activeLink {
-	color: gold;
+	color: var(--red-main);
+	background-color: white;
 	font-weight: 600;
 }
