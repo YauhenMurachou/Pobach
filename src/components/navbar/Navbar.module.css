@@ -1,7 +1,7 @@
 .nav {
 	grid-area: n;
 	background-color: var(--red-main);
-	font-size: 1.625REM;
+	font-size: 1.625rem;
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5rem;
