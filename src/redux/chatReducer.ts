@@ -1,6 +1,7 @@
 import { CommonActionTypes, CommonThunkType } from './redux-store';
 import { chatApi, MessageType, StatusType } from './../api/chat-api';
 import { Dispatch } from 'redux';
+import { v4 as uuidv4 } from 'uuid';
 
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
@@ -44,9 +45,17 @@ export const chatReducer = (
     case SET_MESSAGES: {
       return {
         ...state,
-        messages: [...state.messages, ...action.data.messages],
+        messages: [
+          ...state.messages,
+          ...action.data.messages.map((message) => ({
+            ...message,
+            id: uuidv4(),
+          })),
+        ].filter((_message, index, array) => index >= array.length - 100),
+        // id to every message for prevent rerender after new message sending
       };
     }
+
     case CLEAR_MESSAGES: {
       return {
         ...state,
