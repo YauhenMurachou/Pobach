@@ -61,9 +61,9 @@ export const Messages: FC = memo(() => {
   return (
     <>
       <div onScroll={scrollHandler}>
-        {messages.map((item, index) => (
+        {messages.map((item) => (
           <Message
-            key={item.userName + index.toString()}
+            key={item.id}
             message={item.message}
             photo={item.photo}
             userName={item.userName}
@@ -75,7 +75,7 @@ export const Messages: FC = memo(() => {
   );
 });
 
-export const Message: FC<MessageType> = ({ message, userName, photo }) => {
+export const Message: FC<MessageType> = memo(({ message, userName, photo }) => {
   return (
     <div>
       <img src={photo} alt={userName} />
@@ -83,7 +83,7 @@ export const Message: FC<MessageType> = ({ message, userName, photo }) => {
       <div>{message}</div>
     </div>
   );
-};
+});
 
 export const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
