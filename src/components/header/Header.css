@@ -33,7 +33,7 @@
 }
 
 .header-text {
-	color: rgb(243, 52, 52);
+	color: var(--red-main);
 	text-align: center;
 	margin: auto 0 auto 60px;
 	display: inline-block;
@@ -42,7 +42,7 @@
 }
 
 .header-text a {
-	color: rgb(243, 52, 52);
+	color: var(--red-main);
 	text-align: center;
 	margin: auto 0 auto 60px;
 	display: inline-block;
