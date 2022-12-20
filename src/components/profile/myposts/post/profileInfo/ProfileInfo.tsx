@@ -21,7 +21,7 @@ export type Props = {
 
 const ProfileInfo: React.FC<Props> = ({
   profile,
-  // sendPhoto,
+  sendPhoto,
   isOwner,
   status,
   updateStatus,
@@ -40,20 +40,25 @@ const ProfileInfo: React.FC<Props> = ({
   }
 
   const info = Object.getOwnPropertyNames(profile);
-  // const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   if (e?.target?.files?.length) {
-  //     sendPhoto(e.target.files[0])
-  //   }
-  // }
+  const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e?.target?.files?.length) {
+      sendPhoto(e.target.files[0]);
+    }
+  };
 
   return (
     <div className={classes.container}>
       <div className={classes.avatarContainer}>
         <div>
-          <img alt="photos" src={avatar} />
-          {/* <img alt="photos" src={profile?.photos?.large ?? avatar} /> */}
+          <img
+            alt="photos"
+            src={profile?.photos?.large ?? avatar}
+            className={classes.avatar}
+          />
           {isOwner && (
-            <div>{/* <input type="file" onChange={loadFile} /> */}</div>
+            <div>
+              <input type="file" onChange={loadFile} />
+            </div>
           )}
         </div>
         <div className={classes.statusContainer}>
@@ -68,7 +73,7 @@ const ProfileInfo: React.FC<Props> = ({
       <div className={classes.infoContainer}>
         {!editMode &&
           info.map((item, index) => {
-            if (item === 'photos' || item === 'fullName') {
+            if (item === 'fullName' || item === 'photos') {
               return undefined;
             } else if (
               profile[item as keyof typeof profile] &&

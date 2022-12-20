@@ -21,7 +21,7 @@ const initialState = {
     { message: 'Hi! How are you?', id: 2, likesCount: 21 },
     { message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 },
   ],
-  profile: null,
+  profile: {},
   status: '',
 };
 
@@ -81,7 +81,7 @@ const profilePageReducer = (
 
     case SEND_PHOTO: {
       const profileCopy = state.profile;
-      return { ...state, profile: { profileCopy, photos: action.file } };
+      return { ...state, profile: { ...profileCopy, photos: action.file } };
     }
 
     default:
