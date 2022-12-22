@@ -64,9 +64,9 @@ export const chatApi = {
     event: EventType,
     callback: MessageSubscriberType | StatusSubscriberType
   ) {
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    subscribers[event].push(callback);
+    subscribers[event].push(
+      callback as MessageSubscriberType & StatusSubscriberType
+    );
   },
   unsubscribe(event: EventType) {
     subscribers[event] = [];

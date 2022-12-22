@@ -41,6 +41,7 @@ export const Messages: FC = memo(() => {
   );
   const [autoScroll, setAutoScroll] = useState(true);
   const scrollRef = useRef<HTMLDivElement>(null);
+
   const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
     const element = e.currentTarget;
     if (
