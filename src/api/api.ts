@@ -38,18 +38,25 @@ export const usersApi = {
   async login(
     email: string | null,
     password: string | null,
-    rememberMe: boolean | null
+    rememberMe: boolean | null,
+    captcha: string | null
   ) {
     const response = await instance.post(`auth/login`, {
       email,
       password,
       rememberMe,
+      captcha,
     });
     return response.data;
   },
 
   async logout() {
     const response = await instance.delete(`auth/login`);
+    return response.data;
+  },
+
+  async getCaptchaUrl() {
+    const response = await instance.get(`/security/get-captcha-url`);
     return response.data;
   },
 };
@@ -88,7 +95,7 @@ export const profileApi = {
 };
 
 export const registrationApi = {
-  async getRegistration(userId: NumberConstructor) {
+  async getRegistration(userId: number) {
     const response = await instance.get(`profile/${userId}`);
     return response.data;
   },
