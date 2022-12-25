@@ -11,6 +11,7 @@ export type loginType = {
   email: string;
   password: string;
   rememberMe: boolean;
+  captcha: string | null;
 };
 
 const Login: FC = () => {
@@ -19,7 +20,12 @@ const Login: FC = () => {
 
   const LogInFunction = (values: loginType) => {
     dispatch(
-      loginDataThunkCreator(values.email, values.password, values.rememberMe)
+      loginDataThunkCreator(
+        values.email,
+        values.password,
+        values.rememberMe,
+        values.captcha
+      )
     );
   };
 

@@ -24,12 +24,13 @@ export type Props = {
       email: string;
       password: string;
       rememberMe: boolean;
+      captcha: string;
     }>
   ) => void;
 };
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
-  const { error } = useSelector((state: RootState) => state.auth);
+  const { error, captcha } = useSelector((state: RootState) => state.auth);
   return (
     <>
       <Formik
@@ -38,6 +39,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
           email: '',
           password: '',
           rememberMe: false,
+          captcha: '',
         }}
         validationSchema={LoginSchema}
       >
@@ -51,6 +53,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 label="Email"
                 placeholder="Email"
                 component={TextField}
+                disabled={false}
               />
             </div>
             <div className={styles.field}>
@@ -62,8 +65,25 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 type="password"
                 label="Password"
                 component={TextField}
+                disabled={false}
               />
             </div>
+            {captcha && (
+              <>
+                <img src={captcha} alt="captcha" width="180px" height="90px" />
+                <Field
+                  fullWidth
+                  placeholder="captcha"
+                  name="captcha"
+                  id="captcha"
+                  type="text"
+                  label="captcha"
+                  component={TextField}
+                  disabled={false}
+                />
+              </>
+            )}
+
             {errors && <div className={styles.error}>{error}</div>}
             <div className={styles.field}>
               <Field

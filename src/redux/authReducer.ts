@@ -3,6 +3,7 @@ import { CommonActionTypes, CommonThunkType } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const STOP_SUBMIT = 'STOP_SUBMIT';
+const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
 export type authInitialStateType = {
   isAuth: boolean | null;
@@ -10,6 +11,7 @@ export type authInitialStateType = {
   email: string | null;
   login: string | null;
   error: string | null;
+  captcha: string | null;
 };
 
 const initialState: authInitialStateType = {
@@ -18,6 +20,7 @@ const initialState: authInitialStateType = {
   email: null,
   login: null,
   error: null,
+  captcha: null,
 };
 
 export const authActions = {
@@ -25,16 +28,23 @@ export const authActions = {
     userId: number | null,
     email: string | null,
     login: string | null,
-    isAuth: boolean | null
+    isAuth: boolean | null,
+    error: null,
+    captcha: null
   ) =>
     ({
       type: SET_USER_DATA,
-      data: { userId, email, login, isAuth },
+      data: { userId, email, login, isAuth, error, captcha },
     } as const),
   stopSubmitActionCreator: (error: string) =>
     ({
       type: STOP_SUBMIT,
       data: { error },
+    } as const),
+  setCaptchaActionCreator: (captcha: string) =>
+    ({
+      type: SET_CAPTCHA_URL,
+      data: { captcha },
     } as const),
 };
 
@@ -57,6 +67,12 @@ export const authReducer = (
         ...action.data,
       };
     }
+    case SET_CAPTCHA_URL: {
+      return {
+        ...state,
+        ...action.data,
+      };
+    }
 
     default:
       return state;
@@ -68,7 +84,9 @@ export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
     const data = await usersApi.setLogin();
     if (data.resultCode === 0) {
       const { id, email, login } = data.data;
-      dispatch(authActions.setUserDataActionCreator(id, email, login, true));
+      dispatch(
+        authActions.setUserDataActionCreator(id, email, login, true, null, null)
+      );
     }
   };
 };
@@ -76,17 +94,33 @@ export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
 export const loginDataThunkCreator = (
   email: string | null,
   password: string | null,
-  rememberMe: boolean | null
+  rememberMe: boolean | null,
+  captcha: string | null
 ): CommonThunkType<AuthActionsType, void> => {
   return (dispatch) => {
-    usersApi.login(email, password, rememberMe).then((data) => {
+    usersApi.login(email, password, rememberMe, captcha).then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataThunkCreator());
       } else {
         const message =
           data.messages.length > 0 ? data.messages[0] : 'Неизвестная ошибка';
         dispatch(authActions.stopSubmitActionCreator(message));
+        if (data.resultCode === 10) {
+          dispatch(getCaptchaUrlThunkCreator());
+        }
       }
+    });
+  };
+};
+
+export const getCaptchaUrlThunkCreator = (): CommonThunkType<
+  AuthActionsType,
+  void
+> => {
+  return (dispatch) => {
+    usersApi.getCaptchaUrl().then((data) => {
+      const captchaUrl = data.url;
+      dispatch(authActions.setCaptchaActionCreator(captchaUrl));
     });
   };
 };
@@ -98,7 +132,16 @@ export const logoutDataThunkCreator = (): CommonThunkType<
   return (dispatch) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
-        dispatch(authActions.setUserDataActionCreator(null, null, null, null));
+        dispatch(
+          authActions.setUserDataActionCreator(
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
+          )
+        );
       }
     });
   };
