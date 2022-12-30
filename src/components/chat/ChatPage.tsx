@@ -8,6 +8,7 @@ import {
 } from '../../redux/chatReducer';
 import { RootState } from '../../redux/redux-store';
 import { MessageType } from '../../api/chat-api';
+import { TextField } from '@mui/material';
 
 export const ChatPage: FC = memo(() => {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export const Messages: FC = memo(() => {
 
   useEffect(() => {
     autoScroll && scrollRef.current?.scrollIntoView();
-  }, [messages]);
+  }, [autoScroll, messages]);
 
   return (
     <>
@@ -105,6 +106,12 @@ export const AddMessageForm: FC = () => {
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
       ></textarea>
+      <TextField
+        placeholder="MultiLine with rows: 2 and rowsMax: 4"
+        multiline
+        rows={2}
+        maxRows={4}
+      />
       <button type="submit" onClick={sendMessage} disabled={status !== 'ready'}>
         send
       </button>
