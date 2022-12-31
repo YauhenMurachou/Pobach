@@ -48,7 +48,7 @@ export const authActions = {
     } as const),
 };
 
-type AuthActionsType = CommonActionTypes<typeof authActions>;
+export type AuthActionsType = CommonActionTypes<typeof authActions>;
 
 export const authReducer = (
   state = initialState,

@@ -16,7 +16,8 @@ export type loginType = {
 
 const Login: FC = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+  const { isAuth, userId } = useSelector((state: RootState) => state.auth);
+  const profilePath = `/Profile/${userId}`;
 
   const LogInFunction = (values: loginType) => {
     dispatch(
@@ -30,7 +31,7 @@ const Login: FC = () => {
   };
 
   if (isAuth) {
-    return <Redirect to="/profile" />;
+    return <Redirect to={profilePath} />;
   }
 
   return (
