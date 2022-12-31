@@ -21,7 +21,9 @@ const UsersContainer = React.lazy(
   () => import('./components/users/UsersContainer')
 );
 const Login = React.lazy(() => import('./components/login/Login'));
-const ChatPage = React.lazy(() => import('./components/chat/ChatPageDefaultExport'));
+const ChatPage = React.lazy(
+  () => import('./components/chat/ChatPageDefaultExport')
+);
 
 const App: React.FC = () => {
   const dispatch = useDispatch();

@@ -13,6 +13,11 @@ import {
 } from '../../redux/profilePageReducer';
 import withAuthRedirect from '../hoc/withAuthRedirect';
 import { ProfileType } from '../../types';
+import {
+  // setUserDataThunkCreator,
+  AuthActionsType,
+} from '../../redux/authReducer';
+import { CommonThunkType } from '../../redux/redux-store';
 
 export type Props = {
   userId: number;
@@ -27,6 +32,7 @@ export type Props = {
     file: string | Blob
   ) => (dispatch: React.Dispatch<ProfileActionsTypes>) => void;
   status: string;
+  setMyProfile: () => CommonThunkType<AuthActionsType>;
 };
 
 class ProfileContainer extends React.Component<Props> {
@@ -40,8 +46,9 @@ class ProfileContainer extends React.Component<Props> {
   }
 
   componentDidMount() {
-    // this.props.setMyProfile()
+    // this.props.setMyProfile();
     this.refreshProfile();
+    console.log('componentDidMount', this.props.userId);
   }
 
   componentDidUpdate(prevProps: { match: { params: { userId: number } } }) {
@@ -55,7 +62,7 @@ class ProfileContainer extends React.Component<Props> {
       <Profile
         {...this.props}
         profile={this.props.profile}
-        isOwner={!this.props.match.params.userId}
+        isOwner={+this.props.match.params.userId === this.props.userId}
       />
     );
   }
@@ -76,7 +83,7 @@ export default compose(
     getStatus: getStatusThunkCreator,
     updateStatus: updateStatusThunkCreator,
     sendPhoto: sendPhotoThunkCreator,
-    // setMyProfile: setUserDataThunkCreator
+    // setMyProfile: setUserDataThunkCreator,
   }),
   withRouter,
   withAuthRedirect
