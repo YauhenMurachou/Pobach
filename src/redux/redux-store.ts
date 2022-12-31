@@ -1,4 +1,5 @@
 import { combineReducers, createStore, applyMiddleware, Action } from 'redux';
+import { composeWithDevTools } from '@redux-devtools/extension';
 
 import profilePageReducer from './profilePageReducer';
 import dialogsPageReducer from './dialogsPageReducer';
@@ -29,7 +30,10 @@ export type CommonThunkType<
   P = Promise<void>
 > = ThunkAction<P, RootState, unknown, ActionsType>;
 
-const store = createStore(reducers, applyMiddleware(thunk));
+const store = createStore(
+  reducers,
+  composeWithDevTools(applyMiddleware(thunk))
+);
 
 export type RootState = ReturnType<typeof reducers>;
 
