@@ -1,0 +1,15 @@
+.container {
+	padding: 1rem;
+}
+
+.messages {
+	padding-bottom: 1rem;
+}
+
+.addMessageForm {
+	border-top: 2px solid #b6c3d1;
+}
+
+.addMessageForm :global .MuiOutlinedInput-root {
+	background-color: white;
+}

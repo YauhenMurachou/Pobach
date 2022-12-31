@@ -8,6 +8,9 @@ import {
 } from '../../redux/chatReducer';
 import { RootState } from '../../redux/redux-store';
 import { MessageType } from '../../api/chat-api';
+import { TextField } from '@mui/material';
+
+import classes from './ChatPage.module.css';
 
 export const ChatPage: FC = memo(() => {
   const dispatch = useDispatch();
@@ -28,7 +31,7 @@ export const ChatPage: FC = memo(() => {
   }
 
   return (
-    <div>
+    <div className={classes.container}>
       <Messages />
       <AddMessageForm />
     </div>
@@ -57,10 +60,10 @@ export const Messages: FC = memo(() => {
 
   useEffect(() => {
     autoScroll && scrollRef.current?.scrollIntoView();
-  }, [messages]);
+  }, [autoScroll, messages]);
 
   return (
-    <>
+    <div className={classes.messages}>
       <div onScroll={scrollHandler}>
         {messages.map((item) => (
           <Message
@@ -72,7 +75,7 @@ export const Messages: FC = memo(() => {
         ))}
       </div>
       <div ref={scrollRef}></div>
-    </>
+    </div>
   );
 });
 
@@ -100,11 +103,24 @@ export const AddMessageForm: FC = () => {
   };
 
   return (
-    <div>
-      <textarea
+    <div className={classes.addMessageForm}>
+      <TextField
+        placeholder="Введите сообщение..."
+        multiline
+        maxRows={4}
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
-      ></textarea>
+        fullWidth
+        margin="normal"
+        onKeyDown={(e) => {
+          if (e.ctrlKey && e.key === 'Enter') {
+            setMessage(`${message}\r\n`);
+          } else if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendMessage();
+          }
+        }}
+      />
       <button type="submit" onClick={sendMessage} disabled={status !== 'ready'}>
         send
       </button>
