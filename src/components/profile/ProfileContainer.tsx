@@ -48,7 +48,6 @@ class ProfileContainer extends React.Component<Props> {
   componentDidMount() {
     // this.props.setMyProfile();
     this.refreshProfile();
-    console.log('componentDidMount', this.props.userId);
   }
 
   componentDidUpdate(prevProps: { match: { params: { userId: number } } }) {

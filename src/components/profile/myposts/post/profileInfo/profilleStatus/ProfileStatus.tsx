@@ -55,7 +55,7 @@ class ProfileStatus extends React.Component<Props> {
                   : undefined
               }
               role="button"
-              className={styles.status}
+              className={this.props.isOwner ? styles.status : undefined}
             >
               {this.props.status}
             </span>
