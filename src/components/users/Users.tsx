@@ -32,8 +32,7 @@ const Users: FC<Props> = memo(
   }) => {
     const [page, setPage] = useState(1);
 
-    const handleChange = (event: ChangeEvent<unknown>, page: number) => {
-      console.log(event, page);
+    const handleChange = (_event: ChangeEvent<unknown>, page: number) => {
       setPage(page);
       onPageChange(page);
     };
@@ -94,6 +93,45 @@ const Users: FC<Props> = memo(
                 )}
               </div>
             </div>
+          ))}
+        </div>
+        <div>
+          <div>Followers:</div>
+          {users.map((user: UserType, index) => (
+            // <div key={index + user.toString()} className={classes.item}>
+            <div key={index + user.toString()}>
+              {user.followed && (
+                <div>
+                  <NavLink to={'/profile/' + user.id}>
+                    <img
+                      src={
+                        user.photos && user.photos.small != null
+                          ? user.photos.small
+                          : avatar
+                      }
+                      className={classes.avatar}
+                      alt="avatar"
+                    />
+                  </NavLink>
+                  <span> {user.name} </span>
+                  <span> id: {user.id} </span>
+                  <span> {user.city} </span>
+                  <span> {user.country}</span>
+                  <span> {user.status}</span>
+                  <button
+                    disabled={followingInProgress.some(
+                      (id: UserType['id'] | UserType) => id === user.id
+                    )}
+                    onClick={() => {
+                      unfollowUsers(user.id);
+                    }}
+                  >
+                    unfollow
+                  </button>
+                </div>
+              )}
+            </div>
+            // </div>
           ))}
         </div>
         <div>

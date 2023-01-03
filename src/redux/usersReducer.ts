@@ -22,7 +22,7 @@ type InitialStateUsersType = {
 };
 
 const initialState: InitialStateUsersType = {
-  users: [],
+  users: [] as UserType[],
   pageSize: 30,
   totalUsersCount: 0,
   currentPage: 1,
@@ -50,6 +50,7 @@ export const actions = {
       type: SET_USERS,
       users,
     } as const),
+
 
   setCurrentPageActionCreator: (currentPage: number) =>
     ({
@@ -97,7 +98,7 @@ const usersReducer = (state = initialState, action: UserActionsType) => {
     case UNFOLLOW: {
       return {
         ...state,
-        users: state.users.map((user: { id: number }) => {
+        users: state.users.map((user: UserType) => {
           if (user.id === action.userId) {
             return { ...user, followed: false };
           }
@@ -150,7 +151,9 @@ export const getUsersThunkCreator = (
   };
 };
 
-export const unfollowUsersThunkCreator = (userId: number): CommonThunkType<UserActionsType> => {
+export const unfollowUsersThunkCreator = (
+  userId: number
+): CommonThunkType<UserActionsType> => {
   return async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.unFollowUsers(userId);
@@ -161,7 +164,9 @@ export const unfollowUsersThunkCreator = (userId: number): CommonThunkType<UserA
   };
 };
 
-export const followUsersThunkCreator = (userId: number): CommonThunkType<UserActionsType> => {
+export const followUsersThunkCreator = (
+  userId: number
+): CommonThunkType<UserActionsType> => {
   return async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.followUsers(userId);
