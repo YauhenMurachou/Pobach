@@ -169,7 +169,7 @@ export const followUsersThunkCreator = (
   return async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.followUsers(userId);
-    if (data.resultCode === 0) {
+    if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(actions.followActionCreator(userId));
     }
     dispatch(actions.setFollowingInProgressActionCreator(false, userId));
