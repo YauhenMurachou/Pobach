@@ -1,10 +1,10 @@
 import React, { memo, useState, ChangeEvent, FC } from 'react';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
-import avatar from '../../../src/images/avatar.png';
 import { UserType } from '../../types';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/redux-store';
+import UserItem from './UserItem';
 
 import classes from './Users.module.css';
 
@@ -46,94 +46,39 @@ const Users: FC<Props> = memo(
       return <Redirect to="/Login" />;
     }
 
+    const hasFollowed = users.some((user) => user.followed);
+
     return (
       <>
         <div className={classes.itemWrapper}>
           {users.map((user: UserType, index) => (
-            <div key={index + user.toString()} className={classes.item}>
-              <NavLink to={'/profile/' + user.id}>
-                <img
-                  src={
-                    user.photos && user.photos.small != null
-                      ? user.photos.small
-                      : avatar
-                  }
-                  className={classes.avatar}
-                  alt="avatar"
-                />
-              </NavLink>
-              <span> {user.name} </span>
-              <span> id: {user.id} </span>
-              <span> {user.city} </span>
-              <span> {user.country}</span>
-              <span> {user.status}</span>
-              <div>
-                {user.followed ? (
-                  <button
-                    disabled={followingInProgress.some(
-                      (id: UserType['id'] | UserType) => id === user.id
-                    )}
-                    onClick={() => {
-                      unfollowUsers(user.id);
-                    }}
-                  >
-                    unfollow
-                  </button>
-                ) : (
-                  <button
-                    disabled={followingInProgress.some(
-                      (id: UserType['id'] | UserType) => id === user.id
-                    )}
-                    onClick={() => {
-                      followUsers(user.id);
-                    }}
-                  >
-                    follow
-                  </button>
+            <UserItem
+              user={user}
+              followUsers={followUsers}
+              unfollowUsers={unfollowUsers}
+              followingInProgress={followingInProgress}
+              key={index + user.toString()}
+            />
+          ))}
+        </div>
+        {hasFollowed && (
+          <>
+            <div>Followers:</div>
+            {users.map((user: UserType, index) => (
+              <>
+                {user.followed && (
+                  <UserItem
+                    user={user}
+                    followUsers={followUsers}
+                    unfollowUsers={unfollowUsers}
+                    followingInProgress={followingInProgress}
+                    key={index + user.toString()}
+                  />
                 )}
-              </div>
-            </div>
-          ))}
-        </div>
-        <div>
-          <div>Followers:</div>
-          {users.map((user: UserType, index) => (
-            // <div key={index + user.toString()} className={classes.item}>
-            <div key={index + user.toString()}>
-              {user.followed && (
-                <div>
-                  <NavLink to={'/profile/' + user.id}>
-                    <img
-                      src={
-                        user.photos && user.photos.small != null
-                          ? user.photos.small
-                          : avatar
-                      }
-                      className={classes.avatar}
-                      alt="avatar"
-                    />
-                  </NavLink>
-                  <span> {user.name} </span>
-                  <span> id: {user.id} </span>
-                  <span> {user.city} </span>
-                  <span> {user.country}</span>
-                  <span> {user.status}</span>
-                  <button
-                    disabled={followingInProgress.some(
-                      (id: UserType['id'] | UserType) => id === user.id
-                    )}
-                    onClick={() => {
-                      unfollowUsers(user.id);
-                    }}
-                  >
-                    unfollow
-                  </button>
-                </div>
-              )}
-            </div>
-            // </div>
-          ))}
-        </div>
+              </>
+            ))}
+          </>
+        )}
         <div>
           <Pagination
             count={pagesCount}
