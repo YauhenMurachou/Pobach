@@ -51,7 +51,6 @@ export const actions = {
       users,
     } as const),
 
-
   setCurrentPageActionCreator: (currentPage: number) =>
     ({
       type: SET_CURRENT_PAGE,
@@ -157,7 +156,7 @@ export const unfollowUsersThunkCreator = (
   return async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.unFollowUsers(userId);
-    if (data.resultCode === ResultCodeEnum) {
+    if (data.resultCode === ResultCodeEnum.Success) {
       dispatch(actions.unfollowActionCreator(userId));
     }
     dispatch(actions.setFollowingInProgressActionCreator(false, userId));
