@@ -6,6 +6,7 @@ export type UserType = {
   followed?: boolean;
   city?: boolean;
   country?: boolean;
+  uniqueUrlName?: null | string;
 };
 
 export type ProfileType = {

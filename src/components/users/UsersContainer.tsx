@@ -7,17 +7,16 @@ import {
   followUsersThunkCreator,
   actions,
 } from '../../redux/usersReducer';
-import { UserType } from '../../types';
 import UsersClass from './UsersClass';
 
-const mapStateToProps = (state?: RootState) => {
+const mapStateToProps = (state: RootState) => {
   return {
-    users: state?.usersPage.users as UserType[],
-    pageSize: state?.usersPage.pageSize as number,
-    totalUsersCount: state?.usersPage.totalUsersCount as number,
-    currentPage: state?.usersPage.currentPage as number,
-    isFetching: state?.usersPage.isFetching as boolean,
-    followingInProgress: state?.usersPage.followingInProgressUsers as number[],
+    users: state.usersPage.users,
+    pageSize: state.usersPage.pageSize,
+    totalUsersCount: state.usersPage.totalUsersCount,
+    currentPage: state.usersPage.currentPage,
+    isFetching: state.usersPage.isFetching,
+    followingInProgress: state.usersPage.followingInProgressUsers,
   };
 };
 

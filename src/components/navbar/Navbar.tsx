@@ -15,7 +15,7 @@ const Navbar: React.FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Profile
+        My profile
       </NavLink>
       <NavLink
         to="/Dialogs"
