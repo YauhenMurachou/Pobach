@@ -6,7 +6,7 @@
 		"h h"
 		"n c";
 	grid-template-columns: 200px 2fr;
-	grid-template-rows: 6rem 1fr;
+	grid-template-rows: 5rem 1fr;
 	height: 100vh;
 }
 

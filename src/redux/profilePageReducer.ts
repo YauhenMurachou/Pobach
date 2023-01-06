@@ -9,19 +9,25 @@ const GET_STATUS = 'GET_STATUS';
 const UPDATE_STATUS = 'UPDATE_STATUS';
 const SEND_PHOTO = 'SEND_PHOTO';
 
+type Post = {
+  message: string;
+  id: number;
+  likesCount: number;
+};
+
 export type InitialStateProfileType = {
-  postsData: typeof initialState.postsData;
-  profile: ProfileType | null | {};
+  postsData: Post[];
+  profile: ProfileType;
   status: string;
 };
 
-const initialState = {
+const initialState: InitialStateProfileType = {
   postsData: [
     { message: 'Привет, как дела?', id: 1, likesCount: 0 },
     { message: 'Hi! How are you?', id: 2, likesCount: 21 },
     { message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 },
   ],
-  profile: {},
+  profile: {} as ProfileType,
   status: '',
 };
 
@@ -42,14 +48,14 @@ export const profileActions = {
     return { type: UPDATE_STATUS, status } as const;
   },
 
-  sendPhotoActionCreator: (file: HTMLImageElement) => {
+  sendPhotoActionCreator: (file: ProfileType['photos']) => {
     return { type: SEND_PHOTO, file } as const;
   },
 };
 
 export type ProfileActionsTypes = CommonActionTypes<typeof profileActions>;
 
-const profilePageReducer = (
+export const profilePageReducer = (
   state = initialState,
   action: ProfileActionsTypes
 ): InitialStateProfileType => {
@@ -81,7 +87,13 @@ const profilePageReducer = (
 
     case SEND_PHOTO: {
       const profileCopy = state.profile;
-      return { ...state, profile: { ...profileCopy, photos: action.file } };
+      return {
+        ...state,
+        profile: {
+          ...profileCopy,
+          photos: action.file,
+        },
+      };
     }
 
     default:
@@ -147,5 +159,3 @@ export const sendPhotoThunkCreator = (
     });
   };
 };
-
-export default profilePageReducer;
