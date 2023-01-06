@@ -1,7 +1,7 @@
 import { combineReducers, createStore, applyMiddleware, Action } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
-import profilePageReducer from './profilePageReducer';
+import { profilePageReducer } from './profilePageReducer';
 import dialogsPageReducer from './dialogsPageReducer';
 import usersReducer from './usersReducer';
 import { authReducer } from './authReducer';
