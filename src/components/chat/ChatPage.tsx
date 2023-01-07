@@ -42,29 +42,16 @@ export const Messages: FC = memo(() => {
   const messages = useSelector(
     (state: RootState) => state.chatReducer.messages
   );
-  const [autoScroll, setAutoScroll] = useState(true);
+
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  const scrollHandler = (e: React.UIEvent<HTMLDivElement, UIEvent>) => {
-    const element = e.currentTarget;
-    if (
-      Math.abs(element.scrollHeight - element.scrollTop) -
-        element.clientHeight <
-      250
-    ) {
-      !autoScroll && setAutoScroll(true);
-    } else {
-      autoScroll && setAutoScroll(false);
-    }
-  };
-
   useEffect(() => {
-    autoScroll && scrollRef.current?.scrollIntoView();
-  }, [autoScroll, messages]);
+    scrollRef.current?.scrollIntoView();
+  }, [messages]);
 
   return (
-    <div className={classes.messages}>
-      <div onScroll={scrollHandler}>
+    <>
+      <div className={classes.messagesWrapper}>
         {messages.map((item) => (
           <Message
             key={item.id}
@@ -73,9 +60,9 @@ export const Messages: FC = memo(() => {
             userName={item.userName}
           />
         ))}
+        <div ref={scrollRef}></div>
       </div>
-      <div ref={scrollRef}></div>
-    </div>
+    </>
   );
 });
 
