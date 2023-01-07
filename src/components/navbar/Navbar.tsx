@@ -25,13 +25,6 @@ const Navbar: React.FC = () => {
         Dialogs
       </NavLink>
       <NavLink
-        to="/Feed"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        Feed
-      </NavLink>
-      <NavLink
         to="/Photos"
         activeClassName={classes.activeLink}
         className={classes.item}

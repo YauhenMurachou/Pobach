@@ -14,7 +14,7 @@ const ProfileContainer = React.lazy(
   () => import('./components/profile/ProfileContainer')
 );
 const Dialogs = React.lazy(() => import('./components/dialogs/Dialogs'));
-const Feed = React.lazy(() => import('./components/feed/Feed'));
+const StartPage = React.lazy(() => import('./components/startPage/StartPage'));
 const Photos = React.lazy(() => import('./components/photos/Photos'));
 const Settings = React.lazy(() => import('./components/settings/Settings'));
 const UsersContainer = React.lazy(
@@ -28,7 +28,7 @@ const ChatPage = React.lazy(
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { isInitialized } = useSelector((state: RootState) => state.appReducer);
-
+ 
   useEffect(() => {
     dispatch(initializedThunkCreator());
   }, []);
@@ -47,11 +47,11 @@ const App: React.FC = () => {
                   path="/Profile/:userId?"
                   render={() => <ProfileContainer />}
                 />
-                <Route path="/Feed" component={Feed} />
                 <Route path="/Photos" component={Photos} />
                 <Route path="/Settings" component={Settings} />
                 <Route path="/Users" render={() => <UsersContainer />} />
                 <Route path="/Chat" render={() => <ChatPage />} />
+                <Route exact path="/" render={() => <StartPage />} />
               </div>
             </div>
             <Route path="/login" render={() => <Login />} />
