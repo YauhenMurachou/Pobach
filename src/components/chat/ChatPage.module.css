@@ -1,13 +1,17 @@
 .container {
-	padding: 1rem;
+	padding: 0 0 0 1rem;
 }
 
-.messages {
-	padding-bottom: 1rem;
+.messagesWrapper {
+	overflow-y: scroll;
+	overscroll-behavior: contain;
+	max-height: calc(100vh - 14.475rem);
+	padding: 1rem 0;
 }
 
 .addMessageForm {
 	border-top: 2px solid #b6c3d1;
+	padding-right: 1rem;
 }
 
 .addMessageForm :global .MuiOutlinedInput-root {
