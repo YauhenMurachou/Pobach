@@ -49,16 +49,6 @@ export const Messages: FC = memo(() => {
     scrollRef.current?.scrollIntoView();
   }, [messages]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      scrollRef.current?.scrollIntoView({
-        behavior: 'smooth',
-        block: 'nearest',
-        inline: 'start',
-      });
-    }, 0);
-  }, []);
-
   return (
     <>
       <div className={classes.messagesWrapper}>

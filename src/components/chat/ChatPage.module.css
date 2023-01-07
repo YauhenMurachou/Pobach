@@ -4,8 +4,7 @@
 
 .messagesWrapper {
 	overflow-y: scroll;
-	overscroll-behavior: contain;
-	max-height: calc(100vh - 14.475rem);
+	max-height: calc(100vh - 13.475rem);
 	padding: 1rem 0;
 }
 
