@@ -1,0 +1,18 @@
+.logo {
+	display: flex;
+	align-items: center;
+	color: #F5F5F5;
+	position: fixed;
+	bottom: 2rem;
+	left: 1.5rem;
+}
+
+.image {
+	margin-right: 0.25rem;
+}
+
+.tradeMark {
+	font-size: 0.75rem;
+	display: flex;
+	align-self: flex-end;
+}
