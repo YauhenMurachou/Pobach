@@ -1,10 +1,11 @@
-import React from 'react';
+import { FC } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { RootState } from '../../redux/redux-store';
 import classes from './Navbar.module.css';
+import Logo from '../common/logo/Logo';
 
-const Navbar: React.FC = () => {
+const Navbar: FC = () => {
   const { userId } = useSelector((state: RootState) => state.auth);
   const profilePath = `/Profile/${userId}`;
 
@@ -52,6 +53,7 @@ const Navbar: React.FC = () => {
       >
         Chat
       </NavLink>
+      <Logo />
     </nav>
   );
 };

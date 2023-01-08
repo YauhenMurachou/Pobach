@@ -5,6 +5,8 @@
 	display: flex;
 	flex-direction: column;
 	row-gap: 0.5rem;
+	position: relative;
+	height: calc(100vh - 5rem);
 }
 
 .item {

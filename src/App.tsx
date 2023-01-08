@@ -28,7 +28,7 @@ const ChatPage = React.lazy(
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const { isInitialized } = useSelector((state: RootState) => state.appReducer);
- 
+
   useEffect(() => {
     dispatch(initializedThunkCreator());
   }, []);
