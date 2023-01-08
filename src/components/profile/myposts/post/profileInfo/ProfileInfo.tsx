@@ -75,6 +75,13 @@ const ProfileInfo: React.FC<Props> = ({
           info.map((item, index) => {
             if (item === 'fullName' || item === 'photos') {
               return undefined;
+            } else if (profile[item as keyof typeof profile] === null) {
+              return (
+                <div key={(item + index).toString()}>
+                  <span className={classes.property}>{item}: </span>
+                  <span className={classes.value}>-</span>
+                </div>
+              );
             } else if (
               profile[item as keyof typeof profile] &&
               typeof profile[item as keyof typeof profile] !== 'object' &&
@@ -82,12 +89,10 @@ const ProfileInfo: React.FC<Props> = ({
             ) {
               return (
                 <div key={(item + index).toString()}>
-                  <>
-                    <span className={classes.property}>{item}: </span>
-                    <span className={classes.value}>
-                      {profile[item as keyof typeof profile] as ReactNode}
-                    </span>
-                  </>
+                  <span className={classes.property}>{item}: </span>
+                  <span className={classes.value}>
+                    {profile[item as keyof typeof profile] as ReactNode}
+                  </span>
                 </div>
               );
             } else if (item === 'lookingForAJob' && profile.lookingForAJob) {
