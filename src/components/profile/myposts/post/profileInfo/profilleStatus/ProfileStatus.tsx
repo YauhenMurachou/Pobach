@@ -43,37 +43,40 @@ class ProfileStatus extends React.Component<Props> {
 
   render() {
     return (
-      <div>
-        <div className={styles.subtitle}>status</div>
-
-        {!this.state.editMode && (
-          <div>
-            <span
-              onClick={
-                this.props.isOwner
-                  ? (this.activeEditMode as MouseEventHandler<HTMLSpanElement>)
-                  : undefined
-              }
-              role="button"
-              className={this.props.isOwner ? styles.status : undefined}
-            >
-              {this.props.status}
-            </span>
-          </div>
+      <>
+        {this.props.status && (
+          <>
+            <div className={styles.subtitle}>status</div>
+            {!this.state.editMode && (
+              <div>
+                <span
+                  onClick={
+                    this.props.isOwner
+                      ? (this
+                          .activeEditMode as MouseEventHandler<HTMLSpanElement>)
+                      : undefined
+                  }
+                  role="button"
+                  className={this.props.isOwner ? styles.status : undefined}
+                >
+                  {this.props.status}
+                </span>
+              </div>
+            )}
+            {this.props.isOwner && (this.state.editMode || !this.props.status) && (
+              <div className={styles.field}>
+                <TextField
+                  onBlur={this.deActiveEditMode}
+                  onChange={this.onStatusChange}
+                  value={this.state.status}
+                  autoFocus={true}
+                  variant="standard"
+                />
+              </div>
+            )}
+          </>
         )}
-
-        {this.props.isOwner && (this.state.editMode || !this.props.status) && (
-          <div className={styles.field}>
-            <TextField
-              onBlur={this.deActiveEditMode}
-              onChange={this.onStatusChange}
-              value={this.state.status}
-              autoFocus={true}
-              variant="standard"
-            />
-          </div>
-        )}
-      </div>
+      </>
     );
   }
 }
