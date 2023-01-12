@@ -8,6 +8,7 @@ import { Button } from '@mui/material';
 import ProfileInfoEditForm from './ProfileInfoEditForm';
 import { editProfileThunkCreator } from '../../../../../redux/profilePageReducer';
 import { ProfileType } from '../../../../../types';
+import ChangeAvatar from './changeAvatar/ChangeAvatar';
 
 import classes from './ProfileInfo.module.css';
 
@@ -40,11 +41,6 @@ const ProfileInfo: React.FC<Props> = ({
   }
 
   const info = Object.getOwnPropertyNames(profile);
-  const loadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e?.target?.files?.length) {
-      sendPhoto(e.target.files[0]);
-    }
-  };
 
   return (
     <div className={classes.container}>
@@ -55,11 +51,7 @@ const ProfileInfo: React.FC<Props> = ({
             src={profile?.photos?.large ?? avatar}
             className={classes.avatar}
           />
-          {isOwner && (
-            <div>
-              <input type="file" onChange={loadFile} />
-            </div>
-          )}
+          {isOwner && <ChangeAvatar sendPhoto={sendPhoto} />}
         </div>
         <div className={classes.statusContainer}>
           <div className={classes.fullName}>{profile.fullName}</div>

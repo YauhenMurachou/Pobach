@@ -1,0 +1,27 @@
+.changeAvatar :global .MuiButton-root {
+	background-color: rgba(0, 0, 0, 0.36);
+	text-transform: none;
+}
+
+.changeAvatar :global .MuiButton-root:hover {
+	background-color: rgba(0, 0, 0, 0.40);
+}
+
+.popoverWrapper {
+	display: flex;
+	flex-direction: column;
+	background-color: #F5F5F5;
+	padding: 0.25rem;
+}
+
+.popoverWrapper :global .MuiButton-root {
+	background-color: #F5F5F5;
+	text-transform: none;
+	color: #293138;
+	box-shadow: none;
+}
+
+.popoverWrapper :global .MuiButton-root:hover {
+	background-color: #e6e4e9;
+	box-shadow: none;
+}

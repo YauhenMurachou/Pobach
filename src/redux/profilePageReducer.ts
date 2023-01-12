@@ -151,11 +151,17 @@ export const updateStatusThunkCreator = (
 export const sendPhotoThunkCreator = (
   file: string | Blob
 ): CommonThunkType<ProfileActionsTypes, void> => {
-  return (dispatch) => {
-    profileApi.sendPhoto(file).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(profileActions.sendPhotoActionCreator(data.data.photos));
-      }
-    });
-  };
+  if (file === 'delete') {
+    return (dispatch) => {
+      dispatch(profileActions.sendPhotoActionCreator(null));
+    };
+  } else {
+    return (dispatch) => {
+      profileApi.sendPhoto(file).then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(profileActions.sendPhotoActionCreator(data.data.photos));
+        }
+      });
+    };
+  }
 };
