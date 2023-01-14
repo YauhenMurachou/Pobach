@@ -9,9 +9,10 @@ import classes from './ChangeAvatar.module.css';
 
 export type Props = {
   sendPhoto: (file: string | Blob) => void;
+  isAvatar: boolean;
 };
 
-const ChangeAvatar: React.FC<Props> = ({ sendPhoto }) => {
+const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLElement) | null>(
     null
   );
@@ -81,6 +82,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto }) => {
             component="label"
             startIcon={<DeleteIcon />}
             onClick={deleteAvatar}
+            disabled={!isAvatar}
           >
             Удалить
           </Button>

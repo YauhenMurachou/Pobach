@@ -48,10 +48,15 @@ const ProfileInfo: React.FC<Props> = ({
         <div>
           <img
             alt="photos"
-            src={profile?.photos?.large ?? avatar}
+            src={profile.photos?.large ?? avatar}
             className={classes.avatar}
           />
-          {isOwner && <ChangeAvatar sendPhoto={sendPhoto} />}
+          {isOwner && (
+            <ChangeAvatar
+              sendPhoto={sendPhoto}
+              isAvatar={!!profile.photos?.large}
+            />
+          )}
         </div>
         <div className={classes.statusContainer}>
           <div className={classes.fullName}>{profile.fullName}</div>
