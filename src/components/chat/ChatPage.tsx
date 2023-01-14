@@ -1,5 +1,5 @@
 import { FC, useEffect, useState, memo, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, NavLink } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   sendMessageThunkCreator,
@@ -52,12 +52,13 @@ export const Messages: FC = memo(() => {
   return (
     <>
       <div className={classes.messagesWrapper}>
-        {messages.map((item) => (
+        {messages.map((message) => (
           <Message
-            key={item.id}
-            message={item.message}
-            photo={item.photo}
-            userName={item.userName}
+            key={message.id}
+            userId={message.userId}
+            message={message.message}
+            photo={message.photo}
+            userName={message.userName}
           />
         ))}
         <div ref={scrollRef}></div>
@@ -66,15 +67,21 @@ export const Messages: FC = memo(() => {
   );
 });
 
-export const Message: FC<MessageType> = memo(({ message, userName, photo }) => {
-  return (
-    <div>
-      <img src={photo} alt={userName} />
-      <div>{userName}</div>
-      <div>{message}</div>
-    </div>
-  );
-});
+export const Message: FC<MessageType> = memo(
+  ({ message, userName, photo, userId }) => {
+    return (
+      <div>
+        <NavLink to={'/profile/' + userId}>
+          <img src={photo} alt={userName} />
+        </NavLink>
+        <NavLink to={'/profile/' + userId}>
+          <div>{userName}</div>
+        </NavLink>
+        <div>{message}</div>
+      </div>
+    );
+  }
+);
 
 export const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
