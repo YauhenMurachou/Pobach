@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import mockAvatar from '../../images/avatar.png';
 
 import { logoutDataThunkCreator } from '../../redux/authReducer';
 import { RootState } from '../../redux/redux-store';
@@ -14,9 +15,7 @@ const Header: React.FC = () => {
   const { isAuth, login, userId } = useSelector(
     (state: RootState) => state.auth
   );
-  const avatar = useSelector(
-    (state: RootState) => state.profilePage.profile.photos?.small
-  );
+  const ownerAvatar = useSelector((state: RootState) => state.auth.ownerAvatar);
   const profilePath = `/Profile/${userId}`;
 
   const logoutOnClick = () => {
@@ -38,7 +37,11 @@ const Header: React.FC = () => {
                 <div className={classes.sign}>You signed in as </div>
                 <div className={classes.name}>
                   <NavLink to={profilePath}>
-                    <img alt="avatar" src={avatar} className={classes.avatar} />
+                    <img
+                      alt="avatar"
+                      src={ownerAvatar ?? mockAvatar}
+                      className={classes.avatar}
+                    />
                     <span> {login}</span>
                   </NavLink>
                 </div>
