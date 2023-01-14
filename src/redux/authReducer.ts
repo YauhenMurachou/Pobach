@@ -1,9 +1,10 @@
-import { usersApi } from '../api/api';
+import { profileApi, usersApi } from '../api/api';
 import { CommonActionTypes, CommonThunkType } from './redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const STOP_SUBMIT = 'STOP_SUBMIT';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
+const SET_OWNER_AVATAR = 'SET_OWNER_AVATAR';
 
 export type authInitialStateType = {
   isAuth: boolean | null;
@@ -12,6 +13,7 @@ export type authInitialStateType = {
   login: string | null;
   error: string | null;
   captcha: string | null;
+  ownerAvatar?: string | null;
 };
 
 const initialState: authInitialStateType = {
@@ -21,6 +23,7 @@ const initialState: authInitialStateType = {
   login: null,
   error: null,
   captcha: null,
+  ownerAvatar: null,
 };
 
 export const authActions = {
@@ -45,6 +48,11 @@ export const authActions = {
     ({
       type: SET_CAPTCHA_URL,
       data: { captcha },
+    } as const),
+  setAvatarActionCreator: (ownerAvatar: string) =>
+    ({
+      type: SET_OWNER_AVATAR,
+      data: { ownerAvatar },
     } as const),
 };
 
@@ -73,6 +81,12 @@ export const authReducer = (
         ...action.data,
       };
     }
+    case SET_OWNER_AVATAR: {
+      return {
+        ...state,
+        ...action.data,
+      };
+    }
 
     default:
       return state;
@@ -87,6 +101,9 @@ export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
       dispatch(
         authActions.setUserDataActionCreator(id, email, login, true, null, null)
       );
+      profileApi.getProfile(id).then((data) => {
+        dispatch(authActions.setAvatarActionCreator(data.photos.small));
+      });
     }
   };
 };
