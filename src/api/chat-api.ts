@@ -2,6 +2,7 @@ export type MessageType = {
   userName: string;
   photo: string;
   message: string;
+  userId: number;
   id?: string;
 };
 
