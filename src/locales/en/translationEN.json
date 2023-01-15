@@ -1,0 +1,11 @@
+{
+  "header": {
+    "near": "near",
+    "social": "social network",
+    "english": "english",
+    "belarusian": "belarusian",
+    "signin": "You signed in as",
+    "signout": "Sign out",
+    "choose": "Choose languge"
+  }
+}

@@ -6,6 +6,8 @@ import { Provider } from 'react-redux';
 // Компонент <Provider> делает хранилище Redux доступным
 // для любых вложенных компонентов, которым требуется доступ к хранилищу Redux.
 
+import './i18n';
+
 import './index.css';
 
 import store from './redux/redux-store';
