@@ -1,0 +1,35 @@
+{
+  "header": {
+    "near": "near",
+    "social": "social network",
+    "english": "english",
+    "belarusian": "belarusian",
+    "signin": "You signed in as",
+    "signout": "Sign out",
+    "choose": "Choose language"
+  },
+  "navbar": {
+    "profile": "My profile",
+    "dialogs": "Dialogs",
+    "photos": "Photos",
+    "settings": "Settings",
+    "users": "Users",
+    "chat": "Chat"
+  },
+  "profile": {
+    "posts": "My posts",
+    "addPost": "Add post",
+    "removePost": "Remove post",
+    "newPost": "New post",
+    "looking": "I am looking for a job!",
+    "notLooking": "I am NOT looking for a job",
+    "edit": "Edit info",
+    "save": "Save changes",
+    "back": "Back to profile"
+  },
+  "avatar": {
+    "change": "Change photo",
+    "new": "Add new",
+    "delete": "Delete"
+  }
+}

@@ -4,10 +4,12 @@ import { NavLink } from 'react-router-dom';
 import { RootState } from '../../redux/redux-store';
 import classes from './Navbar.module.css';
 import Logo from '../common/logo/Logo';
+import { useTranslation } from 'react-i18next';
 
 const Navbar: FC = () => {
   const { userId } = useSelector((state: RootState) => state.auth);
   const profilePath = `/Profile/${userId}`;
+  const { t } = useTranslation();
 
   return (
     <nav className={classes.nav}>
@@ -16,42 +18,42 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        My profile
+        {t('navbar.profile')}
       </NavLink>
       <NavLink
         to="/Dialogs"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Dialogs
+        {t('navbar.dialogs')}
       </NavLink>
       <NavLink
         to="/Photos"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Photos
+        {t('navbar.photos')}
       </NavLink>
       <NavLink
         to="/Settings"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Settings
+        {t('navbar.settings')}
       </NavLink>
       <NavLink
         to="/Users"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Users
+        {t('navbar.users')}
       </NavLink>
       <NavLink
         to="/Chat"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
-        Chat
+        {t('navbar.chat')}
       </NavLink>
       <Logo />
     </nav>

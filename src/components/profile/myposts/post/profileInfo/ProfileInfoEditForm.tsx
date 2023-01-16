@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 
 import classes from './ProfileInfo.module.css';
 import { ProfileType } from '../../../../../types';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   info: string[];
@@ -25,6 +26,7 @@ const ProfileInfoEditForm: FC<Props> = ({
   toggleEditMode,
 }) => {
   const objProp = profile;
+  const { t } = useTranslation();
   return (
     <>
       <Formik onSubmit={onSubmit} initialValues={profile}>
@@ -98,14 +100,14 @@ const ProfileInfoEditForm: FC<Props> = ({
                 type="submit"
                 disabled={!dirty}
               >
-                Save changes
+                {t('profile.save')}
               </Button>
               <Button
                 variant="contained"
                 color="secondary"
                 onClick={toggleEditMode}
               >
-                Back to profile
+                {t('profile.back')}
               </Button>
             </div>
           </Form>

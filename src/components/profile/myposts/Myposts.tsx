@@ -1,4 +1,5 @@
 import { Dispatch, FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import Post from './post/Post';
 import MyPostsForm from './MyPostsForm';
@@ -19,16 +20,16 @@ const Myposts: FC<Props> = ({ postsData, addPostButton }) => {
     addPostButton(values.newPost);
   };
 
+  const { t } = useTranslation();
+
   const posts = postsData.map((post) => (
     <Post message={post.message} likesCount={post.likesCount} key={post.id} />
   ));
 
   return (
     <div>
-      <h3 className={classes.item}>My posts</h3>
-
+      <h3 className={classes.item}>{t('profile.posts')}</h3>
       <MyPostsForm onSubmit={addPostButtonFunction} />
-
       <div className={classes.item}>{posts}</div>
     </div>
   );
