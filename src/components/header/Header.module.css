@@ -87,6 +87,14 @@
 	height: 1.5rem;
 }
 
+.rightBlock {
+	display: flex;
+	align-items: center;
+}
+
+.language {
+	padding-top: 1rem;
+}
 
 .popoverWrapper {
 	display: flex;

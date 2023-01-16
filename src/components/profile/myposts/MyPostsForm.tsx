@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Formik, Field, Form } from 'formik';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
 
 import classes from './Myposts.module.css';
 
@@ -15,6 +16,7 @@ type Props = {
 };
 
 const MyPostsForm: FC<Props> = ({ onSubmit }) => {
+  const { t } = useTranslation();
   return (
     <Formik
       onSubmit={onSubmit}
@@ -30,7 +32,7 @@ const MyPostsForm: FC<Props> = ({ onSubmit }) => {
               component="textarea"
               name="newPost"
               id="newPost"
-              placeholder="newPost"
+              placeholder={t('profile.newPost')}
             />
             {errors.newPost && touched.newPost ? (
               <div>{errors.newPost}</div>
@@ -42,9 +44,9 @@ const MyPostsForm: FC<Props> = ({ onSubmit }) => {
               type="submit"
               disabled={!dirty || !isValid}
             >
-              Add post
+              {t('profile.addPost')}
             </button>
-            <button>Remove post</button>
+            <button>{t('profile.removePost')}</button>
           </div>
         </Form>
       )}

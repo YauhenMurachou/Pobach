@@ -4,6 +4,7 @@ import { Button, Popover } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import UploadIcon from '@mui/icons-material/Upload';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { useTranslation } from 'react-i18next';
 
 import classes from './ChangeAvatar.module.css';
 
@@ -17,6 +18,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
     null
   );
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   const handleClick = (
     event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
@@ -50,7 +52,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
           startIcon={<EditIcon />}
           onClick={handleClick}
         >
-          Изменить аватарку
+          {t('avatar.change')}
         </Button>
       </div>
       <Popover
@@ -68,7 +70,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
             component="label"
             startIcon={<UploadIcon />}
           >
-            Загрузить новую
+            {t('avatar.new')}
             <input
               hidden
               accept="image/*"
@@ -84,7 +86,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
             onClick={deleteAvatar}
             disabled={!isAvatar}
           >
-            Удалить
+            {t('avatar.delete')}
           </Button>
         </div>
       </Popover>

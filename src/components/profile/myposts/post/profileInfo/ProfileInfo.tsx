@@ -9,6 +9,7 @@ import ProfileInfoEditForm from './ProfileInfoEditForm';
 import { editProfileThunkCreator } from '../../../../../redux/profilePageReducer';
 import { ProfileType } from '../../../../../types';
 import ChangeAvatar from './changeAvatar/ChangeAvatar';
+import { useTranslation } from 'react-i18next';
 
 import classes from './ProfileInfo.module.css';
 
@@ -30,6 +31,7 @@ const ProfileInfo: React.FC<Props> = ({
   const [editMode, setEditMode] = useState(false);
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const handleProfileInfoEdit = (formData: ProfileType) => {
     dispatch(editProfileThunkCreator(formData));
@@ -98,12 +100,11 @@ const ProfileInfo: React.FC<Props> = ({
                   key={(item + index).toString()}
                   className={classes.lookingJob}
                 >
-                  {' '}
-                  I am looking for a job!
+                  {t('profile.looking')}
                 </div>
               );
             } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
-              return <div key={index}> I am NOT looking for a job</div>;
+              return <div key={index}>{t('profile.notLooking')}</div>;
             } else {
               return (
                 <div key={(item + index).toString()}>
@@ -132,7 +133,7 @@ const ProfileInfo: React.FC<Props> = ({
         )}
         {isOwner && !editMode && (
           <Button variant="contained" onClick={toggleEditMode}>
-            Edit info
+            {t('profile.edit')}
           </Button>
         )}
       </div>

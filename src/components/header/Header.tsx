@@ -43,6 +43,7 @@ const Header: React.FC = () => {
 
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
+    handleClose();
   };
 
   const logoutOnClick = () => {
@@ -57,8 +58,12 @@ const Header: React.FC = () => {
           <span className={classes.near}>побач</span>
           <span className={classes.social}>{t('header.social')}</span>
         </div>
-        <div>
-          <span onClick={handleClick} role="button">
+        <div className={classes.rightBlock}>
+          <span
+            onClick={handleClick}
+            role="button"
+            className={classes.language}
+          >
             <LanguageIcon />
           </span>
 
