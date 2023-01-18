@@ -34,7 +34,7 @@ class UsersClass extends React.Component<PropsType> {
   render() {
     return (
       <>
-        <Loader isFetching={this.props.isFetching} />
+        {this.props.isFetching && <Loader isFetching={this.props.isFetching} />}
         <Users
           totalUsersCount={this.props.totalUsersCount}
           pageSize={this.props.pageSize}

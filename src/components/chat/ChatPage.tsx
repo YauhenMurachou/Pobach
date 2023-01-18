@@ -9,12 +9,14 @@ import {
 import { RootState } from '../../redux/redux-store';
 import { MessageType } from '../../api/chat-api';
 import { TextField } from '@mui/material';
+import Loader from '../loader/Loader';
 
 import classes from './ChatPage.module.css';
 
 export const ChatPage: FC = memo(() => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
+  const status = useSelector((state: RootState) => state.chatReducer.status);
 
   useEffect(() => {
     dispatch(startMessagesThunkCreator());
@@ -31,9 +33,14 @@ export const ChatPage: FC = memo(() => {
   }
 
   return (
-    <div className={classes.container}>
-      <Messages />
-      <AddMessageForm />
+    <div>
+      {status === 'pending' && <Loader isFetching={status === 'pending'} />}
+      {status === 'ready' && (
+        <div className={classes.container}>
+          <Messages />
+          <AddMessageForm />
+        </div>
+      )}
     </div>
   );
 });
