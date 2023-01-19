@@ -1,13 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
+import { Button } from '@mui/material';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { CheckboxWithLabel, TextField } from 'formik-mui';
+import { LoginType } from 'src/components/login/Login';
+import { RootState } from 'src/redux/redux-store';
 import * as Yup from 'yup';
 
-import { loginType } from './Login';
-import { TextField, CheckboxWithLabel } from 'formik-mui';
 import styles from './Login.module.css';
-import { Button } from '@mui/material';
-import { RootState } from '../../redux/redux-store';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
@@ -19,7 +19,7 @@ const LoginSchema = Yup.object().shape({
 
 export type Props = {
   onSubmit: (
-    values: loginType,
+    values: LoginType,
     formikHelpers: FormikHelpers<{
       email: string;
       password: string;

@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import classes from './Post.module.css';
 
 type Props = {
@@ -6,8 +7,7 @@ type Props = {
   likesCount: number;
 };
 
-const Post: FC<Props> = ({ message, likesCount }) => {
-  return (
+const Post: FC<Props> = ({ message, likesCount }) => (
     <div>
       <div className={classes.item}>
         <img
@@ -22,6 +22,5 @@ const Post: FC<Props> = ({ message, likesCount }) => {
       </div>
     </div>
   );
-};
 
 export default Post;

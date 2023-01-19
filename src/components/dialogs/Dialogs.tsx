@@ -1,25 +1,24 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-
-import DialogItem from './dialogItem/DialogItem';
-import Message from './message/Message';
-import DialogsForm from './DialogsForm';
-import { dialogsActions } from '../../redux/dialogsPageReducer';
-import { RootState } from '../../redux/redux-store';
+import { Redirect } from 'react-router-dom';
+import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
+import DialogsForm from 'src/components/dialogs/DialogsForm';
+import Message from 'src/components/dialogs/message/Message';
+import { dialogsActions } from 'src/redux/dialogsPageReducer';
+import { RootState } from 'src/redux/redux-store';
 
 import classes from './Dialogs.module.css';
 
-type valuesType = {
+type ValuesType = {
   newMessage: string;
 };
 
-type dialogType = {
+type DialogType = {
   name: string;
   id: number;
 };
 
-type messageType = {
+type MessageType = {
   message: string;
   id: number;
 };
@@ -31,14 +30,14 @@ const Dialogs: React.FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const dispatch = useDispatch();
 
-  const addNewMessageForm = (values: valuesType) =>
+  const addNewMessageForm = (values: ValuesType) =>
     dispatch(dialogsActions.addMessageActionCreator(values.newMessage));
 
-  const dialogsItemsCopy = dialogsData.map((dialog: dialogType) => (
+  const dialogsItemsCopy = dialogsData.map((dialog: DialogType) => (
     <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />
   ));
 
-  const messagesItemsCopy = messageData.map((message: messageType) => (
+  const messagesItemsCopy = messageData.map((message: MessageType) => (
     <Message message={message.message} id={message.id} key={message.id} />
   ));
 

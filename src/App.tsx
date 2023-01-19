@@ -1,10 +1,9 @@
-import React, { useEffect, Suspense } from 'react';
-import { HashRouter, Route } from 'react-router-dom';
+import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
-import { initializedThunkCreator } from './redux/appReducer';
-import Loader from './components/loader/Loader';
-import { RootState } from './redux/redux-store';
+import { HashRouter, Route } from 'react-router-dom';
+import Loader from 'src/components/loader/Loader';
+import { initializedThunkCreator } from 'src/redux/appReducer';
+import { RootState } from 'src/redux/redux-store';
 
 import styles from './App.module.css';
 

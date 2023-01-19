@@ -1,7 +1,7 @@
 import { FC } from 'react';
-import { Formik, Field, Form } from 'formik';
-import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { Field, Form,Formik } from 'formik';
+import * as Yup from 'yup';
 
 import classes from './Myposts.module.css';
 
@@ -46,7 +46,7 @@ const MyPostsForm: FC<Props> = ({ onSubmit }) => {
             >
               {t('profile.addPost')}
             </button>
-            <button>{t('profile.removePost')}</button>
+            <button type="submit">{t('profile.removePost')}</button>
           </div>
         </Form>
       )}

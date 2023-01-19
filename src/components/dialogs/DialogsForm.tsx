@@ -1,5 +1,5 @@
 import React from "react"
-import { Formik, Field, Form, FormikHelpers } from "formik"
+import { Field, Form, Formik, FormikHelpers } from "formik"
 import * as Yup from "yup"
 
 import classes from "./Dialogs.module.css"
@@ -18,8 +18,7 @@ export type Props = {
   ) => void
 }
 
-const DialogsForm: React.FC<Props> = ({ onSubmit }) => {
-  return (
+const DialogsForm: React.FC<Props> = ({ onSubmit }) => (
     <>
       <Formik
         onSubmit={onSubmit}
@@ -42,6 +41,5 @@ const DialogsForm: React.FC<Props> = ({ onSubmit }) => {
       </Formik>
     </>
   )
-}
 
 export default DialogsForm

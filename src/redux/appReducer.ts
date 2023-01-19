@@ -1,5 +1,5 @@
-import { setUserDataThunkCreator } from './authReducer';
-import { CommonThunkType, CommonActionTypes } from './redux-store';
+import { setUserDataThunkCreator } from 'src/redux/authReducer';
+import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 
@@ -37,14 +37,13 @@ export const appReducer = (
   }
 };
 
-export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
-  return async (dispatch) => {
+export const initializedThunkCreator =
+  (): CommonThunkType<AppActionsType> => async (dispatch) => {
     const dispatchResult = dispatch(setUserDataThunkCreator());
     dispatchResult.then(() => {
       dispatch(actions.initializedSuccessAction());
     });
   };
-};
 
 // export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
 //   return async (

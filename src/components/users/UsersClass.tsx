@@ -1,7 +1,6 @@
 import React from 'react';
-
-import Users from './Users';
-import Loader from '../loader/Loader';
+import Loader from 'src/components/loader/Loader';
+import Users from 'src/components/users/Users';
 
 import { UserType } from '../../types';
 

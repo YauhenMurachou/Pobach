@@ -1,12 +1,11 @@
 import { FC } from 'react';
-import { Formik, Field, Form, FormikHelpers } from 'formik';
-import { TextField, CheckboxWithLabel } from 'formik-mui';
-
+import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { CheckboxWithLabel, TextField } from 'formik-mui';
+import { ProfileType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
-import { ProfileType } from '../../../../../types';
-import { useTranslation } from 'react-i18next';
 
 type Props = {
   info: string[];
@@ -73,22 +72,20 @@ const ProfileInfoEditForm: FC<Props> = ({
                 return (
                   <div key={(item + index).toString()}>
                     <span className={classes.property}>{item}</span>:
-                    {Object.keys(objProp['contacts']).map((elem, ind) => {
-                      return (
-                        <div
-                          key={(elem + ind).toString()}
-                          className={classes.contact}
-                        >
-                          <Field
-                            name={`contacts.${elem}`}
-                            id={(elem + index).toString()}
-                            component={TextField}
-                            variant="standard"
-                            helperText={elem}
-                          />
-                        </div>
-                      );
-                    })}
+                    {Object.keys(objProp['contacts']).map((elem, ind) => (
+                      <div
+                        key={(elem + ind).toString()}
+                        className={classes.contact}
+                      >
+                        <Field
+                          name={`contacts.${elem}`}
+                          id={(elem + index).toString()}
+                          component={TextField}
+                          variant="standard"
+                          helperText={elem}
+                        />
+                      </div>
+                    ))}
                   </div>
                 );
               }

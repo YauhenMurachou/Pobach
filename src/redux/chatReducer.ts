@@ -1,18 +1,18 @@
-import { CommonActionTypes, CommonThunkType } from './redux-store';
-import { chatApi, MessageType, StatusType } from './../api/chat-api';
 import { Dispatch } from 'redux';
+import { chatApi, MessageType, StatusType } from 'src/api/chat-api';
+import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 import { v4 as uuidv4 } from 'uuid';
 
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
 
-export type chatInitialStateType = {
+export type ChatInitialStateType = {
   messages: MessageType[];
   status: StatusType;
 };
 
-const initialState: chatInitialStateType = {
+const initialState: ChatInitialStateType = {
   messages: [] as MessageType[],
   status: 'pending',
 };
@@ -40,7 +40,7 @@ type ChatActionsType = CommonActionTypes<typeof chatActions>;
 export const chatReducer = (
   state = initialState,
   action: ChatActionsType
-): chatInitialStateType => {
+): ChatInitialStateType => {
   switch (action.type) {
     case SET_MESSAGES: {
       return {
@@ -97,28 +97,22 @@ const changeStatusHandler = (dispatch: Dispatch) => {
 };
 
 export const startMessagesThunkCreator =
-  (): CommonThunkType<ChatActionsType> => {
-    return async (dispatch) => {
-      chatApi.start();
-      chatApi.subscribe('message', newMessageHandler(dispatch));
-      chatApi.subscribe('status', changeStatusHandler(dispatch));
-    };
+  (): CommonThunkType<ChatActionsType> => async (dispatch) => {
+    chatApi.start();
+    chatApi.subscribe('message', newMessageHandler(dispatch));
+    chatApi.subscribe('status', changeStatusHandler(dispatch));
   };
 
 export const stopMessagesThunkCreator =
-  (): CommonThunkType<ChatActionsType> => {
-    return async (dispatch) => {
-      chatApi.unsubscribe('message');
-      chatApi.unsubscribe('status');
-      chatApi.stop();
-      dispatch(chatActions.clearMessagesActionCreator());
-    };
+  (): CommonThunkType<ChatActionsType> => async (dispatch) => {
+    chatApi.unsubscribe('message');
+    chatApi.unsubscribe('status');
+    chatApi.stop();
+    dispatch(chatActions.clearMessagesActionCreator());
   };
 
-export const sendMessageThunkCreator = (
-  message: MessageType['message']
-): CommonThunkType<ChatActionsType> => {
-  return async (_dispatch) => {
+export const sendMessageThunkCreator =
+  (message: MessageType['message']): CommonThunkType<ChatActionsType> =>
+  async (_dispatch) => {
     chatApi.send(message);
   };
-};

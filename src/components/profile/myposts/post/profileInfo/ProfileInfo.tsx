@@ -1,15 +1,14 @@
 import React, { ReactNode, useState } from 'react';
-import { useDispatch } from 'react-redux';
-
-import Loader from '../../../../loader/Loader';
-import ProfileStatus from './profilleStatus/ProfileStatus';
-import avatar from '../../../../../images/avatar.png';
-import { Button } from '@mui/material';
-import ProfileInfoEditForm from './ProfileInfoEditForm';
-import { editProfileThunkCreator } from '../../../../../redux/profilePageReducer';
-import { ProfileType } from '../../../../../types';
-import ChangeAvatar from './changeAvatar/ChangeAvatar';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { Button } from '@mui/material';
+import Loader from 'src/components/loader/Loader';
+import ChangeAvatar from 'src/components/profile/myposts/post/profileInfo/changeAvatar/ChangeAvatar';
+import ProfileInfoEditForm from 'src/components/profile/myposts/post/profileInfo/ProfileInfoEditForm';
+import ProfileStatus from 'src/components/profile/myposts/post/profileInfo/profilleStatus/ProfileStatus';
+import avatar from 'src/images/avatar.png';
+import { editProfileThunkCreator } from 'src/redux/profilePageReducer';
+import { ProfileType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
 
@@ -109,16 +108,14 @@ const ProfileInfo: React.FC<Props> = ({
               return (
                 <div key={(item + index).toString()}>
                   <span className={classes.property}>{item}</span>:
-                  {Object.keys(profile['contacts']).map((elem, ind) => {
-                    return (
-                      <div key={(elem + ind).toString()}>
-                        <span className={classes.contact}>{elem}: </span>
-                        {profile['contacts'][
-                          elem as keyof typeof profile['contacts']
-                        ] || ' - '}
-                      </div>
-                    );
-                  })}
+                  {Object.keys(profile['contacts']).map((elem, ind) => (
+                    <div key={(elem + ind).toString()}>
+                      <span className={classes.contact}>{elem}: </span>
+                      {profile['contacts'][
+                        elem as keyof typeof profile['contacts']
+                      ] || ' - '}
+                    </div>
+                  ))}
                 </div>
               );
             }

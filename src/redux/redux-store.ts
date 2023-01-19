@@ -1,13 +1,12 @@
-import { combineReducers, createStore, applyMiddleware, Action } from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
-
-import { profilePageReducer } from './profilePageReducer';
-import dialogsPageReducer from './dialogsPageReducer';
-import usersReducer from './usersReducer';
-import { authReducer } from './authReducer';
-import { appReducer } from './appReducer';
+import { Action, applyMiddleware, combineReducers, createStore } from 'redux';
 import thunk, { ThunkAction } from 'redux-thunk';
-import { chatReducer } from './chatReducer';
+import { appReducer } from 'src/redux/appReducer';
+import { authReducer } from 'src/redux/authReducer';
+import { chatReducer } from 'src/redux/chatReducer';
+import dialogsPageReducer from 'src/redux/dialogsPageReducer';
+import { profilePageReducer } from 'src/redux/profilePageReducer';
+import usersReducer from 'src/redux/usersReducer';
 
 const reducers = combineReducers({
   profilePage: profilePageReducer,

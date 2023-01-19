@@ -1,7 +1,6 @@
-import { profileApi } from '../api/api';
-import { CommonActionTypes, CommonThunkType } from './redux-store';
-
-import { ProfileType } from '../types';
+import { profileApi } from 'src/api/api';
+import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
+import { ProfileType } from 'src/types';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -32,25 +31,20 @@ const initialState: InitialStateProfileType = {
 };
 
 export const profileActions = {
-  addPostActionCreator: (newPost: string) => {
-    return { type: ADD_POST, newPost } as const;
-  },
+  addPostActionCreator: (newPost: string) =>
+    ({ type: ADD_POST, newPost } as const),
 
-  setUserProfileActionCreator: (profile: ProfileType) => {
-    return { type: SET_USER_PROFILE, profile } as const;
-  },
+  setUserProfileActionCreator: (profile: ProfileType) =>
+    ({ type: SET_USER_PROFILE, profile } as const),
 
-  getStatusActionCreator: (status: string) => {
-    return { type: GET_STATUS, status } as const;
-  },
+  getStatusActionCreator: (status: string) =>
+    ({ type: GET_STATUS, status } as const),
 
-  updateStatusActionCreator: (status: string) => {
-    return { type: UPDATE_STATUS, status } as const;
-  },
+  updateStatusActionCreator: (status: string) =>
+    ({ type: UPDATE_STATUS, status } as const),
 
-  sendPhotoActionCreator: (file: ProfileType['photos']) => {
-    return { type: SEND_PHOTO, file } as const;
-  },
+  sendPhotoActionCreator: (file: ProfileType['photos']) =>
+    ({ type: SEND_PHOTO, file } as const),
 };
 
 export type ProfileActionsTypes = CommonActionTypes<typeof profileActions>;
@@ -103,20 +97,17 @@ export const profilePageReducer = (
 
 //thunk-creatorы
 
-export const setUserProfileThunkCreator = (
-  userId: number | null
-): CommonThunkType<ProfileActionsTypes, void> => {
-  return (dispatch) => {
+export const setUserProfileThunkCreator =
+  (userId: number | null): CommonThunkType<ProfileActionsTypes, void> =>
+  (dispatch) => {
     profileApi.getProfile(userId).then((data) => {
       dispatch(profileActions.setUserProfileActionCreator(data));
     });
   };
-};
 
-export const editProfileThunkCreator = (
-  profile: ProfileType
-): CommonThunkType<ProfileActionsTypes, void> => {
-  return (dispatch, getState) => {
+export const editProfileThunkCreator =
+  (profile: ProfileType): CommonThunkType<ProfileActionsTypes, void> =>
+  (dispatch, getState) => {
     const userId = getState().auth.userId;
     profileApi.editProfileInfo(profile).then((data) => {
       if (data.resultCode === 0) {
@@ -124,29 +115,24 @@ export const editProfileThunkCreator = (
       }
     });
   };
-};
 
-export const getStatusThunkCreator = (
-  userId: number
-): CommonThunkType<ProfileActionsTypes, void> => {
-  return (dispatch) => {
+export const getStatusThunkCreator =
+  (userId: number): CommonThunkType<ProfileActionsTypes, void> =>
+  (dispatch) => {
     profileApi.getStatus(userId).then((data) => {
       dispatch(profileActions.getStatusActionCreator(data));
     });
   };
-};
 
-export const updateStatusThunkCreator = (
-  status: string
-): CommonThunkType<ProfileActionsTypes, void> => {
-  return (dispatch) => {
+export const updateStatusThunkCreator =
+  (status: string): CommonThunkType<ProfileActionsTypes, void> =>
+  (dispatch) => {
     profileApi.updateStatus(status).then((data) => {
       if (data.resultCode === 0) {
         dispatch(profileActions.updateStatusActionCreator(status));
       }
     });
   };
-};
 
 export const sendPhotoThunkCreator = (
   file: string | Blob

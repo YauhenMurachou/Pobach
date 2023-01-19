@@ -1,28 +1,22 @@
 import { FC } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-
+import Myposts from 'src/components/profile/myposts/Myposts';
 import {
-  profileActions,
   InitialStateProfileType,
+  profileActions,
   ProfileActionsTypes,
-} from '../../../redux/profilePageReducer';
+} from 'src/redux/profilePageReducer';
 
-import Myposts from './Myposts';
+const mapStateToProps = (state: { profilePage: InitialStateProfileType }) => ({
+  postsData: state.profilePage.postsData,
+});
 
-const mapStateToProps = (state: { profilePage: InitialStateProfileType }) => {
-  return {
-    postsData: state.profilePage.postsData,
-  };
-};
-
-const mapDispatchToProps = (dispatch: Dispatch<ProfileActionsTypes>) => {
-  return {
-    addPostButton: (newPost: string) => {
-      dispatch(profileActions.addPostActionCreator(newPost));
-    },
-  };
-};
+const mapDispatchToProps = (dispatch: Dispatch<ProfileActionsTypes>) => ({
+  addPostButton: (newPost: string) => {
+    dispatch(profileActions.addPostActionCreator(newPost));
+  },
+});
 
 const MypostsContainer = connect(
   mapStateToProps,
