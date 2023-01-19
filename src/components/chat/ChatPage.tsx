@@ -1,15 +1,15 @@
-import { FC, useEffect, useState, memo, useRef } from 'react';
-import { Redirect, NavLink } from 'react-router-dom';
+import { FC, memo, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, Redirect } from 'react-router-dom';
+import { TextField } from '@mui/material';
+import { MessageType } from 'src/api/chat-api';
+import Loader from 'src/components/loader/Loader';
 import {
   sendMessageThunkCreator,
   startMessagesThunkCreator,
   stopMessagesThunkCreator,
-} from '../../redux/chatReducer';
-import { RootState } from '../../redux/redux-store';
-import { MessageType } from '../../api/chat-api';
-import { TextField } from '@mui/material';
-import Loader from '../loader/Loader';
+} from 'src/redux/chatReducer';
+import { RootState } from 'src/redux/redux-store';
 
 import classes from './ChatPage.module.css';
 
@@ -22,11 +22,12 @@ export const ChatPage: FC = memo(() => {
     dispatch(startMessagesThunkCreator());
   }, []);
 
-  useEffect(() => {
-    return () => {
+  useEffect(
+    () => () => {
       dispatch(stopMessagesThunkCreator());
-    };
-  }, []);
+    },
+    []
+  );
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
@@ -75,19 +76,17 @@ export const Messages: FC = memo(() => {
 });
 
 export const Message: FC<MessageType> = memo(
-  ({ message, userName, photo, userId }) => {
-    return (
-      <div>
-        <NavLink to={'/profile/' + userId}>
-          <img src={photo} alt={userName} />
-        </NavLink>
-        <NavLink to={'/profile/' + userId}>
-          <div>{userName}</div>
-        </NavLink>
-        <div>{message}</div>
-      </div>
-    );
-  }
+  ({ message, userName, photo, userId }) => (
+    <div>
+      <NavLink to={'/profile/' + userId}>
+        <img src={photo} alt={userName} />
+      </NavLink>
+      <NavLink to={'/profile/' + userId}>
+        <div>{userName}</div>
+      </NavLink>
+      <div>{message}</div>
+    </div>
+  )
 );
 
 export const AddMessageForm: FC = () => {

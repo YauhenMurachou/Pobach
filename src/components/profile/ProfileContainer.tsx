@@ -1,23 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import { withRouter } from 'react-router-dom';
-
-import Profile from './Profile';
-import {
-  setUserProfileThunkCreator,
-  getStatusThunkCreator,
-  updateStatusThunkCreator,
-  sendPhotoThunkCreator,
-  ProfileActionsTypes,
-} from '../../redux/profilePageReducer';
-import withAuthRedirect from '../hoc/withAuthRedirect';
-import { ProfileType } from '../../types';
+import { compose } from 'redux';
+import withAuthRedirect from 'src/components/hoc/withAuthRedirect';
 import {
   // setUserDataThunkCreator,
   AuthActionsType,
-} from '../../redux/authReducer';
-import { CommonThunkType } from '../../redux/redux-store';
+} from 'src/redux/authReducer';
+import {
+  getStatusThunkCreator,
+  ProfileActionsTypes,
+  sendPhotoThunkCreator,
+  setUserProfileThunkCreator,
+  updateStatusThunkCreator,
+} from 'src/redux/profilePageReducer';
+import { CommonThunkType } from 'src/redux/redux-store';
+import { ProfileType } from 'src/types';
+
+import Profile from './Profile';
 
 export type Props = {
   userId: number;

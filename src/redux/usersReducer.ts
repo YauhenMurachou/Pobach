@@ -1,6 +1,6 @@
-import { usersApi, ResultCodeEnum } from '../api/api';
+import { ResultCodeEnum, usersApi } from 'src/api/api';
+import { UserType } from 'src/types';
 
-import { UserType } from '../types';
 import { CommonActionTypes, CommonThunkType } from './redux-store';
 
 const FOLLOW = 'FOLLOW';
@@ -136,11 +136,9 @@ const usersReducer = (state = initialState, action: UserActionsType) => {
   }
 };
 
-export const getUsersThunkCreator = (
-  currentPage: number,
-  pageSize: number
-): CommonThunkType<UserActionsType> => {
-  return async (dispatch) => {
+export const getUsersThunkCreator =
+  (currentPage: number, pageSize: number): CommonThunkType<UserActionsType> =>
+  async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
     const data = await usersApi.getUsers(currentPage, pageSize);
     dispatch(actions.setCurrentPageActionCreator(currentPage));
@@ -148,12 +146,10 @@ export const getUsersThunkCreator = (
     dispatch(actions.setUsersActionCreator(data.items));
     dispatch(actions.setTotalUsersCountActionCreator(data.totalCount));
   };
-};
 
-export const unfollowUsersThunkCreator = (
-  userId: number
-): CommonThunkType<UserActionsType> => {
-  return async (dispatch) => {
+export const unfollowUsersThunkCreator =
+  (userId: number): CommonThunkType<UserActionsType> =>
+  async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.unFollowUsers(userId);
     if (data.resultCode === ResultCodeEnum.Success) {
@@ -161,12 +157,10 @@ export const unfollowUsersThunkCreator = (
     }
     dispatch(actions.setFollowingInProgressActionCreator(false, userId));
   };
-};
 
-export const followUsersThunkCreator = (
-  userId: number
-): CommonThunkType<UserActionsType> => {
-  return async (dispatch) => {
+export const followUsersThunkCreator =
+  (userId: number): CommonThunkType<UserActionsType> =>
+  async (dispatch) => {
     dispatch(actions.setFollowingInProgressActionCreator(true, userId));
     const data = await usersApi.followUsers(userId);
     if (data.resultCode === ResultCodeEnum.Success) {
@@ -174,6 +168,5 @@ export const followUsersThunkCreator = (
     }
     dispatch(actions.setFollowingInProgressActionCreator(false, userId));
   };
-};
 
 export default usersReducer;

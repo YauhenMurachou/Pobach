@@ -1,10 +1,12 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import { RootState } from '../../redux/redux-store';
-import classes from './Navbar.module.css';
 import Logo from '../common/logo/Logo';
-import { useTranslation } from 'react-i18next';
+
+import classes from './Navbar.module.css';
 
 const Navbar: FC = () => {
   const { userId } = useSelector((state: RootState) => state.auth);

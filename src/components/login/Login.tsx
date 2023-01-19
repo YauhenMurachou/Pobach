@@ -1,13 +1,13 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import LoginForm from './LoginForm';
-import { RootState } from '../../redux/redux-store';
+import LoginForm from 'src/components/login/LoginForm';
+import { loginDataThunkCreator } from 'src/redux/authReducer';
+import { RootState } from 'src/redux/redux-store';
 
-import { loginDataThunkCreator } from '../../redux/authReducer';
 import styles from './Login.module.css';
 
-export type loginType = {
+export type LoginType = {
   email: string;
   password: string;
   rememberMe: boolean;
@@ -19,7 +19,7 @@ const Login: FC = () => {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const profilePath = `/Profile/${userId}`;
 
-  const LogInFunction = (values: loginType) => {
+  const LogInFunction = (values: LoginType) => {
     dispatch(
       loginDataThunkCreator(
         values.email,

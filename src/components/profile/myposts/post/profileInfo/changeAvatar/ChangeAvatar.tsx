@@ -1,10 +1,9 @@
-import React, { useState, MouseEvent } from 'react';
-
-import { Button, Popover } from '@mui/material';
+import React, { MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import UploadIcon from '@mui/icons-material/Upload';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { useTranslation } from 'react-i18next';
+import { Button, Popover } from '@mui/material';
 
 import classes from './ChangeAvatar.module.css';
 

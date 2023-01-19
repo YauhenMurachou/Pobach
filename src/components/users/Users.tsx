@@ -1,10 +1,10 @@
-import React, { memo, useState, ChangeEvent, FC } from 'react';
+import { ChangeEvent, FC, memo, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
-import { UserType } from '../../types';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/redux-store';
-import UserItem from './UserItem';
+import UserItem from 'src/components/users/UserItem';
+import { RootState } from 'src/redux/redux-store';
+import { UserType } from 'src/types';
 
 import classes from './Users.module.css';
 

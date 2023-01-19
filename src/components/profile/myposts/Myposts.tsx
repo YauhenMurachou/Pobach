@@ -1,12 +1,13 @@
 import { Dispatch, FC } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import Post from './post/Post';
-import MyPostsForm from './MyPostsForm';
+import MyPostsForm from 'src/components/profile/myposts/MyPostsForm';
+import Post from 'src/components/profile/myposts/post/Post';
+import {
+  InitialStateProfileType,
+  ProfileActionsTypes,
+} from 'src/redux/profilePageReducer';
 
 import classes from './Myposts.module.css';
-import { InitialStateProfileType } from '../../../redux/profilePageReducer.js';
-import { ProfileActionsTypes } from './../../../redux/profilePageReducer';
 
 type Props = {
   postsData: InitialStateProfileType['postsData'];

@@ -1,12 +1,12 @@
-import { profileApi, usersApi } from '../api/api';
-import { CommonActionTypes, CommonThunkType } from './redux-store';
+import { profileApi, usersApi } from 'src/api/api';
+import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const STOP_SUBMIT = 'STOP_SUBMIT';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 const SET_OWNER_AVATAR = 'SET_OWNER_AVATAR';
 
-export type authInitialStateType = {
+export type AuthInitialStateType = {
   isAuth: boolean | null;
   userId: number | null;
   email: string | null;
@@ -16,7 +16,7 @@ export type authInitialStateType = {
   ownerAvatar?: string | null;
 };
 
-const initialState: authInitialStateType = {
+const initialState: AuthInitialStateType = {
   isAuth: null,
   userId: null,
   email: null,
@@ -61,7 +61,7 @@ export type AuthActionsType = CommonActionTypes<typeof authActions>;
 export const authReducer = (
   state = initialState,
   action: AuthActionsType
-): authInitialStateType => {
+): AuthInitialStateType => {
   switch (action.type) {
     case SET_USER_DATA: {
       return {
@@ -93,8 +93,8 @@ export const authReducer = (
   }
 };
 
-export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
-  return async (dispatch) => {
+export const setUserDataThunkCreator =
+  (): CommonThunkType<AuthActionsType> => async (dispatch) => {
     const data = await usersApi.setLogin();
     if (data.resultCode === 0) {
       const { id, email, login } = data.data;
@@ -106,15 +106,15 @@ export const setUserDataThunkCreator = (): CommonThunkType<AuthActionsType> => {
       });
     }
   };
-};
 
-export const loginDataThunkCreator = (
-  email: string | null,
-  password: string | null,
-  rememberMe: boolean | null,
-  captcha: string | null
-): CommonThunkType<AuthActionsType, void> => {
-  return (dispatch) => {
+export const loginDataThunkCreator =
+  (
+    email: string | null,
+    password: string | null,
+    rememberMe: boolean | null,
+    captcha: string | null
+  ): CommonThunkType<AuthActionsType, void> =>
+  (dispatch) => {
     usersApi.login(email, password, rememberMe, captcha).then((data) => {
       if (data.resultCode === 0) {
         dispatch(setUserDataThunkCreator());
@@ -128,25 +128,17 @@ export const loginDataThunkCreator = (
       }
     });
   };
-};
 
-export const getCaptchaUrlThunkCreator = (): CommonThunkType<
-  AuthActionsType,
-  void
-> => {
-  return (dispatch) => {
+export const getCaptchaUrlThunkCreator =
+  (): CommonThunkType<AuthActionsType, void> => (dispatch) => {
     usersApi.getCaptchaUrl().then((data) => {
       const captchaUrl = data.url;
       dispatch(authActions.setCaptchaActionCreator(captchaUrl));
     });
   };
-};
 
-export const logoutDataThunkCreator = (): CommonThunkType<
-  AuthActionsType,
-  void
-> => {
-  return (dispatch) => {
+export const logoutDataThunkCreator =
+  (): CommonThunkType<AuthActionsType, void> => (dispatch) => {
     usersApi.logout().then((data) => {
       if (data.resultCode === 0) {
         dispatch(
@@ -162,4 +154,3 @@ export const logoutDataThunkCreator = (): CommonThunkType<
       }
     });
   };
-};

@@ -1,15 +1,14 @@
 import React, { MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
-import mockAvatar from '../../images/avatar.png';
-import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { Button, Popover } from '@mui/material';
-
-import { logoutDataThunkCreator } from '../../redux/authReducer';
-import { RootState } from '../../redux/redux-store';
+import mockAvatar from 'src/images/avatar.png';
+import { logoutDataThunkCreator } from 'src/redux/authReducer';
+import { RootState } from 'src/redux/redux-store';
 
 import classes from './Header.module.css';
 
@@ -88,7 +87,6 @@ const Header: React.FC = () => {
                 variant="contained"
                 component="label"
                 onClick={() => changeLanguage('en')}
-                // disabled={!isAvatar}
               >
                 {t('header.english')}
               </Button>

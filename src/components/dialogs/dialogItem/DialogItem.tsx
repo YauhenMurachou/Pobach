@@ -8,14 +8,12 @@ type Props = {
   id: number
 }
 
-const DialogItem: React.FC<Props> = ({ name, id }) => {
-  return (
+const DialogItem: React.FC<Props> = ({ name, id }) => (
     <div className={classes.dialog}>
       <NavLink to={"/Dialogs/" + id} activeClassName={classes.activeLink}>
         {name}
       </NavLink>
     </div>
   )
-}
 
 export default DialogItem

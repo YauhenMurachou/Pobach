@@ -19,7 +19,6 @@ const subscribers = {
 let ws: WebSocket;
 
 const closeHandler = () => {
-  console.log('closeHandler');
   setTimeout(createWsChannel, 3000);
 };
 
