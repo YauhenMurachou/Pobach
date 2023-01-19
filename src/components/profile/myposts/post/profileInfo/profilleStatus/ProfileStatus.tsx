@@ -48,32 +48,29 @@ class ProfileStatus extends React.Component<Props> {
           <>
             <div className={styles.subtitle}>status</div>
             {!this.state.editMode && (
-              <div>
-                <span
-                  onClick={
-                    this.props.isOwner
-                      ? (this
-                          .activeEditMode as MouseEventHandler<HTMLSpanElement>)
-                      : undefined
-                  }
-                  role="button"
-                  className={this.props.isOwner ? styles.status : undefined}
-                >
-                  {this.props.status}
-                </span>
-              </div>
+              <span
+                onClick={
+                  this.props.isOwner
+                    ? (this
+                        .activeEditMode as MouseEventHandler<HTMLSpanElement>)
+                    : undefined
+                }
+                role="button"
+                className={this.props.isOwner ? styles.status : undefined}
+              >
+                {this.props.status}
+              </span>
             )}
-            {this.props.isOwner && (this.state.editMode || !this.props.status) && (
-              <div className={styles.field}>
+            {this.props.isOwner &&
+              (this.state.editMode || !this.props.status) && (
                 <TextField
                   onBlur={this.deActiveEditMode}
                   onChange={this.onStatusChange}
                   value={this.state.status}
-                  autoFocus={true}
+                  autoFocus
                   variant="standard"
                 />
-              </div>
-            )}
+              )}
           </>
         )}
       </>
