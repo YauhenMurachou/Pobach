@@ -16,7 +16,7 @@ type Post = {
 
 export type InitialStateProfileType = {
   postsData: Post[];
-  profile: ProfileType;
+  profile: ProfileType | null;
   status: string;
 };
 
@@ -26,7 +26,7 @@ const initialState: InitialStateProfileType = {
     { message: 'Hi! How are you?', id: 2, likesCount: 21 },
     { message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 },
   ],
-  profile: {} as ProfileType,
+  profile: null,
   status: '',
 };
 
@@ -86,7 +86,7 @@ export const profilePageReducer = (
         profile: {
           ...profileCopy,
           photos: action.file,
-        },
+        } as ProfileType,
       };
     }
 
