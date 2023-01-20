@@ -9,13 +9,40 @@ import * as Yup from 'yup';
 
 import styles from './Login.module.css';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .max(20, 'Too Long!')
-    .required('Required')
-    .email('Invalid email format'),
-  password: Yup.string().max(15, 'Too Long!').required('Required'),
-});
+const LoginSchema = Yup.object().shape(
+  {
+    email: Yup.string()
+      .max(20, 'Too Long!')
+      .required('Required')
+      .email('Invalid email format'),
+    password: Yup.string().max(15, 'Too Long!').required('Required'),
+    // captcha: Yup.string()
+    //   .nullable()
+    //   .notRequired()
+    //   .required('Required')
+    // .when('captcha', {
+    //   is: (value: string) => !!value,
+    //   then: () => Yup.string().required('Required'),
+    // }),
+    captcha: Yup.string().when('captcha', (val) => {
+      if (val.length === 0) {
+        return (
+          Yup.string()
+            // .min(4, 'min 4')
+            // .max(20, 'max 255')
+            .required('Required')
+        );
+      }
+      // else if (val?.length === 0) {
+      //   return Yup.string().required('Required');
+      // }
+      else {
+        return Yup.string().notRequired();
+      }
+    }),
+  },
+  [['captcha', 'captcha']]
+);
 
 export type Props = {
   onSubmit: (
@@ -31,6 +58,7 @@ export type Props = {
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   const { error, captcha } = useSelector((state: RootState) => state.auth);
+  // const [value, setValue] = useState('');
   return (
     <>
       <Formik
@@ -80,6 +108,9 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                   label="captcha"
                   component={TextField}
                   disabled={false}
+                  // onChange={(e: {
+                  //   target: { value: React.SetStateAction<string> };
+                  // }) => setValue(e.target.value)}
                 />
               </>
             )}
@@ -98,7 +129,13 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 variant="contained"
                 color="primary"
                 type="submit"
-                disabled={!!errors.email || !!errors.password || !dirty}
+                disabled={
+                  !!errors.email ||
+                  !!errors.password ||
+                  !dirty ||
+                  // (!!captcha && !value)
+                  !!errors.captcha
+                }
               >
                 Войти
               </Button>
