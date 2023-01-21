@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
@@ -31,6 +32,7 @@ export type Props = {
 
 const LoginForm: React.FC<Props> = ({ onSubmit }) => {
   const { error, captcha } = useSelector((state: RootState) => state.auth);
+  const { t } = useTranslation();
   return (
     <>
       <Formik
@@ -100,14 +102,14 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 type="submit"
                 disabled={!!errors.email || !!errors.password || !dirty}
               >
-                Войти
+                {t('login.enter')}
               </Button>
               <Button
                 variant="contained"
                 color="secondary"
                 href="https://social-network.samuraijs.com/login"
               >
-                Зарегистрироваться
+                {t('login.registration')}
               </Button>
             </div>
           </Form>

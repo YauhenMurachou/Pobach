@@ -31,5 +31,13 @@
     "change": "Change photo",
     "new": "Add new",
     "delete": "Delete"
+  },
+  "chat": {
+    "send": "send",
+    "enter": "Enter your message"
+  },
+  "login": {
+    "registration": "Sign up",
+    "enter": "Log in"
   }
 }

@@ -1,7 +1,9 @@
 import { FC, memo, useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
-import { TextField } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
+import { Button, TextField } from '@mui/material';
 import { MessageType } from 'src/api/chat-api';
 import Loader from 'src/components/loader/Loader';
 import {
@@ -93,6 +95,7 @@ export const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
   const status = useSelector((state: RootState) => state.chatReducer.status);
   const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const sendMessage = () => {
     if (!message) {
@@ -105,7 +108,9 @@ export const AddMessageForm: FC = () => {
   return (
     <div className={classes.addMessageForm}>
       <TextField
-        placeholder="Введите сообщение..."
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        //@ts-ignore
+        placeholder={t('chat.enter')}
         multiline
         maxRows={4}
         value={message}
@@ -120,10 +125,16 @@ export const AddMessageForm: FC = () => {
             sendMessage();
           }
         }}
+        autoFocus
       />
-      <button type="submit" onClick={sendMessage} disabled={status !== 'ready'}>
-        send
-      </button>
+      <Button
+        onClick={sendMessage}
+        disabled={status !== 'ready' || !message.trim().length}
+        variant="contained"
+        endIcon={<SendIcon />}
+      >
+        {t('chat.send')}
+      </Button>
     </div>
   );
 };
