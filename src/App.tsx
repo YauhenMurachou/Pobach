@@ -2,6 +2,7 @@ import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HashRouter, Route } from 'react-router-dom';
 import Loader from 'src/components/loader/Loader';
+import { MaterialProvider } from 'src/providers/MaterialProvider';
 import { initializedThunkCreator } from 'src/redux/appReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -33,7 +34,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <MaterialProvider>
       {isInitialized && (
         <HashRouter>
           <Suspense fallback={<Loader isFetching />}>
@@ -53,14 +54,16 @@ const App: React.FC = () => {
                 <Route exact path="/" render={() => <StartPage />} />
               </div>
             </div>
+
             <Route path="/login" render={() => <Login />} />
+
             {/* <Route path="*" render={() => <Login />} /> */}
           </Suspense>
         </HashRouter>
       )}
 
       {!isInitialized && <Loader isFetching={!isInitialized} />}
-    </>
+    </MaterialProvider>
   );
 };
 

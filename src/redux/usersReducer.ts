@@ -23,7 +23,7 @@ type InitialStateUsersType = {
 
 const initialState: InitialStateUsersType = {
   users: [] as UserType[],
-  pageSize: 30,
+  pageSize: 100,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,

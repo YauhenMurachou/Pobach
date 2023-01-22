@@ -39,5 +39,13 @@
   "login": {
     "registration": "Sign up",
     "enter": "Log in"
+  },
+  "users": {
+    "message": "Message",
+    "unfollow": "Unfollow",
+    "follow": "Follow",
+    "showing": "Showing",
+    "users": "users out of",
+    "registered": " registered in the system"
   }
 }

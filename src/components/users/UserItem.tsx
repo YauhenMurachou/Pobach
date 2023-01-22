@@ -1,5 +1,10 @@
 import { FC, memo } from 'react';
+import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import ThreePIcon from '@mui/icons-material/ThreeP';
+import { Button } from '@mui/material';
 import avatar from 'src/images/avatar.png';
 import { UserType } from 'src/types';
 
@@ -13,53 +18,71 @@ export type Props = {
 };
 
 const UserItem: FC<Props> = memo(
-  ({ followingInProgress, unfollowUsers, followUsers, user }) => (
-    <div className={classes.item}>
-      <NavLink to={'/profile/' + user.id}>
-        <img
-          src={
-            user.photos && user.photos.small != null
-              ? user.photos.small
-              : avatar
-          }
-          className={classes.avatar}
-          alt="avatar"
-        />
-      </NavLink>
-      <span> {user.name} </span>
-      <span> id: {user.id} </span>
-      <span> {user.city} </span>
-      <span> {user.country}</span>
-      <span> {user.status}</span>
-      <div>
-        {user.followed ? (
-          <button
-            disabled={followingInProgress.some(
-              (id: UserType['id']) => id === user.id
+  ({ followingInProgress, unfollowUsers, followUsers, user }) => {
+    const { t } = useTranslation();
+    return (
+      <div className={classes.item}>
+        <div className={classes.avatarWrapper}>
+          <NavLink to={'/profile/' + user.id}>
+            <img
+              src={
+                user.photos && user.photos.small != null
+                  ? user.photos.small
+                  : avatar
+              }
+              className={classes.avatar}
+              alt="avatar"
+            />
+          </NavLink>
+          <div className={classes.infoWrapper}>
+            <NavLink to={'/profile/' + user.id} className={classes.name}>
+              {user.name}
+            </NavLink>
+            {user.status && (
+              <div className={classes.status}>
+                <ThreePIcon />
+                <div>{user.status}</div>
+              </div>
             )}
-            onClick={() => {
-              unfollowUsers(user.id);
-            }}
-            type="submit"
-          >
-            unfollow
-          </button>
-        ) : (
-          <button
-            disabled={followingInProgress.some(
-              (id: UserType['id']) => id === user.id
-            )}
-            onClick={() => {
-              followUsers(user.id);
-            }}
-            type="submit"
-          >
-            follow
-          </button>
-        )}
+            <span className={classes.id}> id: {user.id} </span>
+            <NavLink to={'#'} className={classes.message}>
+              {t('users.message')}
+            </NavLink>
+          </div>
+        </div>
+        <div>
+          {user.followed ? (
+            <Button
+              variant="contained"
+              startIcon={<PersonRemoveIcon />}
+              disabled={followingInProgress.some(
+                (id: UserType['id']) => id === user.id
+              )}
+              onClick={() => {
+                unfollowUsers(user.id);
+              }}
+              color="info"
+            >
+              {t('users.unfollow')}
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              startIcon={<PersonAddIcon />}
+              disabled={followingInProgress.some(
+                (id: UserType['id']) => id === user.id
+              )}
+              onClick={() => {
+                followUsers(user.id);
+              }}
+            >
+              {t('users.follow')}
+            </Button>
+          )}
+        </div>
       </div>
-    </div>
-  )
+    );
+  }
 );
 
 export default UserItem;

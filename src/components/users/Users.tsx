@@ -1,4 +1,5 @@
 import { ChangeEvent, FC, memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
@@ -31,7 +32,7 @@ const Users: FC<Props> = memo(
     followUsers,
   }) => {
     const [page, setPage] = useState(1);
-
+    const { t } = useTranslation();
     const handleChange = (_event: ChangeEvent<unknown>, page: number) => {
       setPage(page);
       onPageChange(page);
@@ -46,10 +47,15 @@ const Users: FC<Props> = memo(
       return <Redirect to="/Login" />;
     }
 
-    const hasFollowed = users.some((user) => user.followed);
-
     return (
-      <>
+      <div className={classes.wrapper}>
+        <div className={classes.header}>
+          {t('users.showing')}{' '}
+          <span className={classes.number}>{users.length}</span>{' '}
+          {t('users.users')}{' '}
+          <span className={classes.number}>{totalUsersCount}</span>
+          {t('users.registered')}
+        </div>
         <div className={classes.itemWrapper}>
           {users.map((user: UserType, index) => (
             <UserItem
@@ -61,34 +67,17 @@ const Users: FC<Props> = memo(
             />
           ))}
         </div>
-        {hasFollowed && (
-          <>
-            <div>Followers:</div>
-            {users.map((user: UserType, index) => (
-              <>
-                {user.followed && (
-                  <UserItem
-                    user={user}
-                    followUsers={followUsers}
-                    unfollowUsers={unfollowUsers}
-                    followingInProgress={followingInProgress}
-                    key={index + user.toString()}
-                  />
-                )}
-              </>
-            ))}
-          </>
-        )}
-        <div>
+        <div className={classes.pagination}>
           <Pagination
             count={pagesCount}
             showFirstButton
             showLastButton
             page={page}
             onChange={handleChange}
+            shape="rounded"
           />
         </div>
-      </>
+      </div>
     );
   }
 );
