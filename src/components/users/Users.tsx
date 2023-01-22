@@ -46,10 +46,10 @@ const Users: FC<Props> = memo(
       return <Redirect to="/Login" />;
     }
 
-    const hasFollowed = users.some((user) => user.followed);
+    // const hasFollowed = users.some((user) => user.followed);
 
     return (
-      <>
+      <div className={classes.wrapper}>
         <div className={classes.itemWrapper}>
           {users.map((user: UserType, index) => (
             <UserItem
@@ -61,7 +61,7 @@ const Users: FC<Props> = memo(
             />
           ))}
         </div>
-        {hasFollowed && (
+        {/* {hasFollowed && (
           <>
             <div>Followers:</div>
             {users.map((user: UserType, index) => (
@@ -78,7 +78,7 @@ const Users: FC<Props> = memo(
               </>
             ))}
           </>
-        )}
+        )} */}
         <div>
           <Pagination
             count={pagesCount}
@@ -88,7 +88,7 @@ const Users: FC<Props> = memo(
             onChange={handleChange}
           />
         </div>
-      </>
+      </div>
     );
   }
 );

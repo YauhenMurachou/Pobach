@@ -1,5 +1,9 @@
 import { FC, memo } from 'react';
 import { NavLink } from 'react-router-dom';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
+import ThreePIcon from '@mui/icons-material/ThreeP';
+import { Button } from '@mui/material';
 import avatar from 'src/images/avatar.png';
 import { UserType } from 'src/types';
 
@@ -15,47 +19,64 @@ export type Props = {
 const UserItem: FC<Props> = memo(
   ({ followingInProgress, unfollowUsers, followUsers, user }) => (
     <div className={classes.item}>
-      <NavLink to={'/profile/' + user.id}>
-        <img
-          src={
-            user.photos && user.photos.small != null
-              ? user.photos.small
-              : avatar
-          }
-          className={classes.avatar}
-          alt="avatar"
-        />
-      </NavLink>
-      <span> {user.name} </span>
-      <span> id: {user.id} </span>
-      <span> {user.city} </span>
-      <span> {user.country}</span>
-      <span> {user.status}</span>
+      <div className={classes.avatarWrapper}>
+        <NavLink to={'/profile/' + user.id}>
+          <img
+            src={
+              user.photos && user.photos.small != null
+                ? user.photos.small
+                : avatar
+            }
+            className={classes.avatar}
+            alt="avatar"
+          />
+        </NavLink>
+        <div className={classes.infoWrapper}>
+          <NavLink to={'/profile/' + user.id} className={classes.name}>
+            {user.name}
+          </NavLink>
+          {user.status && (
+            <div className={classes.status}>
+              <ThreePIcon />
+              <div>{user.status}</div>
+            </div>
+          )}
+          <span className={classes.id}> id: {user.id} </span>
+          <NavLink to={'#'} className={classes.message}>
+            Message
+          </NavLink>
+        </div>
+      </div>
       <div>
         {user.followed ? (
-          <button
+          <Button
+            variant="contained"
+            startIcon={<PersonRemoveIcon />}
             disabled={followingInProgress.some(
               (id: UserType['id']) => id === user.id
             )}
             onClick={() => {
               unfollowUsers(user.id);
             }}
-            type="submit"
+            color="info"
           >
-            unfollow
-          </button>
+            {/* {t('avatar.change')} */}
+            Unfollow
+          </Button>
         ) : (
-          <button
+          <Button
+            variant="contained"
+            startIcon={<PersonAddIcon />}
             disabled={followingInProgress.some(
               (id: UserType['id']) => id === user.id
             )}
             onClick={() => {
               followUsers(user.id);
             }}
-            type="submit"
           >
-            follow
-          </button>
+            {/* {t('avatar.change')} */}
+            Follow
+          </Button>
         )}
       </div>
     </div>
