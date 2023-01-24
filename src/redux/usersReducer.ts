@@ -137,10 +137,14 @@ const usersReducer = (state = initialState, action: UserActionsType) => {
 };
 
 export const getUsersThunkCreator =
-  (currentPage: number, pageSize: number): CommonThunkType<UserActionsType> =>
+  (
+    currentPage: number,
+    pageSize: number,
+    name?: string
+  ): CommonThunkType<UserActionsType> =>
   async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
-    const data = await usersApi.getUsers(currentPage, pageSize);
+    const data = await usersApi.getUsers(currentPage, pageSize, name ?? name);
     dispatch(actions.setCurrentPageActionCreator(currentPage));
     dispatch(actions.setIsFetchingActionCreator(false));
     dispatch(actions.setUsersActionCreator(data.items));
