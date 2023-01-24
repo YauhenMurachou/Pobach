@@ -98,6 +98,7 @@ const Users: FC<Props> = memo(
                 ),
               }}
               sx={{ bgcolor: 'white' }}
+              autoFocus={isSearch}
             />
             <div className={classes.itemWrapper}>
               {users.map((user: UserType, index) => (
