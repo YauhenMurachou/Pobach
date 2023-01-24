@@ -46,6 +46,8 @@
     "follow": "Follow",
     "showing": "Showing",
     "users": "users out of",
-    "registered": " registered in the system"
+    "registered": " registered in the system",
+    "search": "Find users (minimum 2 characters)",
+    "nothing": "Nothing found"
   }
 }

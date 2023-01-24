@@ -43,6 +43,7 @@ class UsersClass extends React.Component<PropsType> {
           followUsers={this.props.followUsers}
           users={this.props.users}
           followingInProgress={this.props.followingInProgress}
+          getUsers={this.props.getUsers}
           // setFollowingInProgress={this.props.setFollowingInProgress}
         />
       </>

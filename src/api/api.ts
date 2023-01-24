@@ -13,11 +13,18 @@ const instance = axios.create({
 });
 
 export const usersApi = {
-  async getUsers(currentPage = 1, pageSize = 20) {
-    const response = await instance.get(
-      `users?page=${currentPage}&count=${pageSize}`
-    );
-    return response.data;
+  async getUsers(currentPage = 1, pageSize = 100, name?: string) {
+    if (name) {
+      const response = await instance.get(
+        `users?page=${currentPage}&count=${pageSize}&term=${name}`
+      );
+      return response.data;
+    } else {
+      const response = await instance.get(
+        `users?page=${currentPage}&count=${pageSize}`
+      );
+      return response.data;
+    }
   },
 
   async followUsers(userId: number) {
