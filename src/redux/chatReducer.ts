@@ -1,6 +1,7 @@
 import { Dispatch } from 'redux';
 import { chatApi, MessageType, StatusType } from 'src/api/chat-api';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
+import { checkPageStatus } from 'src/utils/checkNotification';
 import { v4 as uuidv4 } from 'uuid';
 
 const SET_MESSAGES = 'SET_MESSAGES';
@@ -43,6 +44,16 @@ export const chatReducer = (
 ): ChatInitialStateType => {
   switch (action.type) {
     case SET_MESSAGES: {
+      const newMessages = action.data.messages;
+      const currentUrl = window.location.href;
+
+      if (newMessages.length === 1 && !currentUrl.includes('Chat')) {
+          checkPageStatus(
+          newMessages[0].message,
+          newMessages[0].userName,
+          currentUrl
+        );
+      }
       return {
         ...state,
         messages: [

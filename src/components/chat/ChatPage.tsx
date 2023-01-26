@@ -6,30 +6,14 @@ import SendIcon from '@mui/icons-material/Send';
 import { Button, TextField } from '@mui/material';
 import { MessageType } from 'src/api/chat-api';
 import Loader from 'src/components/loader/Loader';
-import {
-  sendMessageThunkCreator,
-  startMessagesThunkCreator,
-  stopMessagesThunkCreator,
-} from 'src/redux/chatReducer';
+import { sendMessageThunkCreator } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './ChatPage.module.css';
 
 export const ChatPage: FC = memo(() => {
-  const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const status = useSelector((state: RootState) => state.chatReducer.status);
-
-  useEffect(() => {
-    dispatch(startMessagesThunkCreator());
-  }, []);
-
-  useEffect(
-    () => () => {
-      dispatch(stopMessagesThunkCreator());
-    },
-    []
-  );
 
   if (!isAuth) {
     return <Redirect to="/Login" />;

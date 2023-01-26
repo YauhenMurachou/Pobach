@@ -44,14 +44,3 @@ export const initializedThunkCreator =
       dispatch(actions.initializedSuccessAction());
     });
   };
-
-// export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
-//   return async (
-//     dispatch
-//     // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
-//   ) => {
-//     // dispatch(setUserDataThunkCreator());
-//     // console.log('promise', promise);
-//     await dispatch(actions.initializedSuccessAction());
-//   };
-// };

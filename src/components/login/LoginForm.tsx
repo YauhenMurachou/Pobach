@@ -12,7 +12,7 @@ import styles from './Login.module.css';
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-    .max(20, 'Too Long!')
+    .max(25, 'Too Long!')
     .required('Required')
     .email('Invalid email format'),
   password: Yup.string().max(15, 'Too Long!').required('Required'),
