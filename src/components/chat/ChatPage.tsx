@@ -22,15 +22,15 @@ export const ChatPage: FC = memo(() => {
   }
 
   return (
-    <div>
+    <>
       {status === 'pending' && <Loader isFetching={status === 'pending'} />}
       {status === 'ready' && (
-        <div className={classes.container}>
+        <>
           <Messages />
           <AddMessageForm />
-        </div>
+        </>
       )}
-    </div>
+    </>
   );
 });
 
@@ -46,20 +46,18 @@ export const Messages: FC = memo(() => {
   }, [messages]);
 
   return (
-    <>
-      <div className={classes.messagesWrapper}>
-        {messages.map((message) => (
-          <Message
-            key={message.id}
-            userId={message.userId}
-            message={message.message}
-            photo={message.photo}
-            userName={message.userName}
-          />
-        ))}
-        <div ref={scrollRef}></div>
-      </div>
-    </>
+    <div className={classes.messagesWrapper}>
+      {messages.map((message) => (
+        <Message
+          key={message.id}
+          userId={message.userId}
+          message={message.message}
+          photo={message.photo}
+          userName={message.userName}
+        />
+      ))}
+      <div ref={scrollRef}></div>
+    </div>
   );
 });
 

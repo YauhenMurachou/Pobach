@@ -1,7 +1,3 @@
-/* .container {
-	padding: 0;
-} */
-
 .messagesWrapper {
 	overflow-y: scroll;
 	max-height: calc(100vh - 13.475rem);
