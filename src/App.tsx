@@ -36,6 +36,9 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(initializedThunkCreator());
+  }, []);
+
+  useEffect(() => {
     dispatch(startMessagesThunkCreator());
   }, [location]);
 
