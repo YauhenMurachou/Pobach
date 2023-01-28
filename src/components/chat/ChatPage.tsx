@@ -2,10 +2,12 @@ import { FC, memo, useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SendIcon from '@mui/icons-material/Send';
 import { Button, TextField } from '@mui/material';
 import { MessageType } from 'src/api/chat-api';
 import Loader from 'src/components/loader/Loader';
+import avatar from 'src/images/avatar.png';
 import { sendMessageThunkCreator } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -63,14 +65,28 @@ export const Messages: FC = memo(() => {
 
 export const Message: FC<MessageType> = memo(
   ({ message, userName, photo, userId }) => (
-    <div>
-      <NavLink to={'/profile/' + userId}>
-        <img src={photo} alt={userName} />
-      </NavLink>
-      <NavLink to={'/profile/' + userId}>
-        <div>{userName}</div>
-      </NavLink>
-      <div>{message}</div>
+    <div className={classes.messageContainer}>
+      <div className={classes.messageBlock}>
+        <NavLink to={'/profile/' + userId}>
+          <img
+            src={photo ?? avatar}
+            alt={userName}
+            className={classes.avatar}
+          />
+        </NavLink>
+        <div>
+          <NavLink to={'/profile/' + userId}>
+            <div className={classes.author}>{userName}</div>
+          </NavLink>
+          <div className={classes.message}>{message}</div>
+        </div>
+      </div>
+      <div className={classes.iconWrapper}>
+        <DeleteOutlineIcon
+          onClick={() => console.log('clicked')}
+          className={classes.icon}
+        />
+      </div>
     </div>
   )
 );

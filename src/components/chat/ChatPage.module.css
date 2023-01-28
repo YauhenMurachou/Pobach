@@ -1,18 +1,67 @@
-.container {
-	padding: 0 0 0 1rem;
-}
+/* .container {
+	padding: 0;
+} */
 
 .messagesWrapper {
 	overflow-y: scroll;
 	max-height: calc(100vh - 13.475rem);
-	padding: 1rem 0;
 }
 
 .addMessageForm {
 	border-top: 2px solid #b6c3d1;
-	padding-right: 1rem;
+	padding: 0 1rem;
 }
 
 .addMessageForm :global .MuiOutlinedInput-root {
 	background-color: white;
+}
+
+.avatar {
+	width: 4rem;
+	border-radius: 50%;
+}
+
+.messageContainer {
+	display: flex;
+	justify-content: space-between;
+	padding: 0.75rem 1rem;
+}
+
+.messageContainer:last-child {
+	padding-bottom: 0;
+}
+
+.messageContainer:hover {
+	background-color: #dbe0e4;
+	transition-duration: 0.5s;
+}
+
+.messageBlock {
+	display: flex;
+	gap: 1rem;
+}
+
+.author {
+	font-weight: 500;
+	color: #6e6ef8;
+}
+
+.message {
+	font-size: 0.9rem;
+}
+
+.iconWrapper {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	opacity: 0;
+}
+
+.messageContainer:hover .iconWrapper {
+	opacity: 1;
+	transition-duration: 2.5s;
+}
+
+.icon {
+	cursor: pointer;
 }
