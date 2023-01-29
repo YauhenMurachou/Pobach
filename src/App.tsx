@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, useLocation } from 'react-router-dom';
+import CorseError from 'src/components/corseError/CorseError';
 import Loader from 'src/components/loader/Loader';
 import { MaterialProvider } from 'src/providers/MaterialProvider';
 import { initializedThunkCreator } from 'src/redux/appReducer';
@@ -13,6 +14,7 @@ import { RootState } from 'src/redux/redux-store';
 import styles from './App.module.css';
 
 const Header = React.lazy(() => import('./components/header/Header'));
+
 const Navbar = React.lazy(() => import('./components/navbar/Navbar'));
 const ProfileContainer = React.lazy(
   () => import('./components/profile/ProfileContainer')
@@ -31,7 +33,9 @@ const ChatPage = React.lazy(
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const { isInitialized } = useSelector((state: RootState) => state.appReducer);
+  const { isInitialized, isCorseError } = useSelector(
+    (state: RootState) => state.appReducer
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -74,7 +78,10 @@ const App: React.FC = () => {
         </Suspense>
       )}
 
-      {!isInitialized && <Loader isFetching={!isInitialized} />}
+      {!isInitialized && !isCorseError && (
+        <Loader isFetching={!isInitialized} />
+      )}
+      {!isInitialized && isCorseError && <CorseError />}
     </MaterialProvider>
   );
 };
