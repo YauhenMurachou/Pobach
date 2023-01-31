@@ -9,6 +9,7 @@
     "@mui/icons-material": "^5.11.0",
     "@mui/material": "^5.10.0",
     "@redux-devtools/extension": "^3.2.3",
+    "@reduxjs/toolkit": "^1.9.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
