@@ -1,20 +1,22 @@
-import { composeWithDevTools } from '@redux-devtools/extension';
-import { Action, applyMiddleware, combineReducers, createStore } from 'redux';
-import thunk, { ThunkAction } from 'redux-thunk';
+import { configureStore } from '@reduxjs/toolkit';
+import { Action, combineReducers } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import { appReducer } from 'src/redux/appReducer';
 import { authReducer } from 'src/redux/authReducer';
 import { chatReducer } from 'src/redux/chatReducer';
 import dialogsPageReducer from 'src/redux/dialogsPageReducer';
+import photosReducer from 'src/redux/photosReducer';
 import { profilePageReducer } from 'src/redux/profilePageReducer';
 import usersReducer from 'src/redux/usersReducer';
 
-const reducers = combineReducers({
+const reducer = combineReducers({
   profilePage: profilePageReducer,
   dialogsPage: dialogsPageReducer,
   usersPage: usersReducer,
   auth: authReducer,
   appReducer: appReducer,
   chatReducer: chatReducer,
+  photos: photosReducer,
 });
 
 export type CommonActionTypes<T> = T extends {
@@ -29,11 +31,10 @@ export type CommonThunkType<
   P = Promise<void>
 > = ThunkAction<P, RootState, unknown, ActionsType>;
 
-const store = createStore(
-  reducers,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+const store = configureStore({
+  reducer,
+});
 
-export type RootState = ReturnType<typeof reducers>;
+export type RootState = ReturnType<typeof reducer>;
 
 export default store;
