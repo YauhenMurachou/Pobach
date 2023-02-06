@@ -25,11 +25,7 @@ export const actions = {
 
 type AppActionsType = CommonActionTypes<typeof actions>;
 
-export const appReducer = (
-  state = initialState,
-  action: AppActionsType
-  //строчка ниже - получаемое значение вызова функции
-): InitialStateAppType => {
+export const appReducer = (state = initialState, action: AppActionsType) => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
       return {

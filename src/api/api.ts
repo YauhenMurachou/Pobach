@@ -111,3 +111,12 @@ export const photosApi = {
     return response.json();
   },
 };
+
+export const todosApi = {
+  async getTodos(id: number) {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/todos/${id}`
+    );
+    return response.json();
+  },
+};
