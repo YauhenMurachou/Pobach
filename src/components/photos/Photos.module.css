@@ -1,4 +1,17 @@
+.subtitle {
+	display: flex;
+	justify-content: space-around;
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+}
+
+.wrapper {
+	display: flex;
+	flex-basis: 50%;
+}
+
 .container {
 	display: flex;
 	flex-wrap: wrap;
+	width: 50%;
 }

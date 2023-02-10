@@ -1,15 +1,17 @@
 import { FC } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { action, RootState } from 'src/redux/redux-store';
+import { RootState } from 'src/redux/redux-store';
+import { actions } from 'src/redux/settingsReducer';
 
 const Settings: FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const { count, todos } = useSelector((state: RootState) => state.settings);
-  const onIncrement = () => action('INCREMENT');
-  const onDecrement = () => action('DECREMENT');
-  const onIncrementAsync = () => action('INCREMENT_ASYNC');
-  const onGetTodos = () => action('TODOS_REQUESTED');
+  const dispatch = useDispatch();
+  const onIncrement = () => dispatch(actions.incrementAction());
+  const onDecrement = () => dispatch(actions.decrementAction());
+  const onIncrementAsync = () => dispatch(actions.incrementAsyncAction());
+  const onGetTodos = () => dispatch(actions.todosRequestedAction());
   if (!isAuth) {
     return <Redirect to="/Login" />;
   }

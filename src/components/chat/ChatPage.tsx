@@ -34,7 +34,7 @@ export const ChatPage: FC = memo(() => {
   );
 });
 
-export const Messages: FC = memo(() => {
+const Messages: FC = memo(() => {
   const messages = useSelector(
     (state: RootState) => state.chatReducer.messages
   );
@@ -61,7 +61,7 @@ export const Messages: FC = memo(() => {
   );
 });
 
-export const Message: FC<MessageType> = memo(
+const Message: FC<MessageType> = memo(
   ({ message, userName, photo, userId }) => (
     <div className={classes.messageContainer}>
       <div className={classes.messageBlock}>
@@ -89,7 +89,7 @@ export const Message: FC<MessageType> = memo(
   )
 );
 
-export const AddMessageForm: FC = () => {
+const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
   const status = useSelector((state: RootState) => state.chatReducer.status);
   const dispatch = useDispatch();

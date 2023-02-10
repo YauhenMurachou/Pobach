@@ -1,7 +1,11 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import {
+  combineReducers,
+  createAsyncThunk,
+  createSlice,
+} from '@reduxjs/toolkit';
 import { photosApi } from 'src/api/api';
 
-type Photo = {
+type ToolkitPhoto = {
   albumId: number;
   id: number;
   title: string;
@@ -9,12 +13,23 @@ type Photo = {
   thumbnailUrl: string;
 };
 
-export type InitialStatePhotosType = {
-  photos: Photo[];
+export type SagaPhoto = {
+  id: string;
+  author: string;
+  width: number;
+  height: number;
+  url: string;
+  download_url: string;
+};
+
+type InitialStatePhotosType = {
+  toolkitPhotos: ToolkitPhoto[];
+  sagaPhotos: SagaPhoto[];
 };
 
 const initialState: InitialStatePhotosType = {
-  photos: [],
+  toolkitPhotos: [],
+  sagaPhotos: [],
 };
 
 export const fetchPhotos = createAsyncThunk('photos/fetchPhotos', async () => {
@@ -22,22 +37,41 @@ export const fetchPhotos = createAsyncThunk('photos/fetchPhotos', async () => {
   return response;
 });
 
+export const photosRequestedAction = () =>
+  ({
+    type: 'PHOTOS_REQUESTED',
+  } as const);
+
 const photosSlice = createSlice({
-  name: 'photos',
+  name: 'toolkitPhotos',
   initialState,
   reducers: {
-    photosAdded(state, action) {
-      state.photos = action.payload;
+    toolkitPhotosAdded(state, action) {
+      state.toolkitPhotos = action.payload;
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPhotos.fulfilled, (state, action) => {
       const photos = action.payload;
-      state.photos = photos;
+      state.toolkitPhotos = photos;
     });
   },
 });
 
-export const { photosAdded } = photosSlice.actions;
+export const photoSagaSlice = createSlice({
+  name: 'sagaPhotos',
+  initialState,
+  reducers: {
+    sagaPhotosAdded: (state, action) => {
+      state.sagaPhotos = action.payload;
+    },
+  },
+});
 
-export default photosSlice.reducer;
+export const { toolkitPhotosAdded } = photosSlice.actions;
+export const { sagaPhotosAdded } = photoSagaSlice.actions;
+
+export default combineReducers({
+  toolkit: photosSlice.reducer,
+  saga: photoSagaSlice.reducer,
+});

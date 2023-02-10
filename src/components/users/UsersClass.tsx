@@ -4,7 +4,7 @@ import Users from 'src/components/users/Users';
 
 import { UserType } from '../../types';
 
-export type PropsType = {
+type PropsType = {
   currentPage: number;
   pageSize: number;
   getUsers: (currentPage: number, pageSize: number) => void;

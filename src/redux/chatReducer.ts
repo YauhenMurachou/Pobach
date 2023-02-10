@@ -8,7 +8,7 @@ const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
 
-export type ChatInitialStateType = {
+type ChatInitialStateType = {
   messages: MessageType[];
   status: StatusType;
 };
@@ -18,7 +18,7 @@ const initialState: ChatInitialStateType = {
   status: 'pending',
 };
 
-export const chatActions = {
+const chatActions = {
   setMessagesActionCreator: (messages: MessageType[]) =>
     ({
       type: SET_MESSAGES,

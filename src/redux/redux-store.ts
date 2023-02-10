@@ -44,8 +44,6 @@ const store = configureStore({
 
 sagaMiddleware.run(rootSaga);
 
-export const action = (type: unknown) => store.dispatch({ type });
-
 export type RootState = ReturnType<typeof reducer>;
 
 export default store;

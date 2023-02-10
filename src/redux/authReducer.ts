@@ -6,7 +6,7 @@ const STOP_SUBMIT = 'STOP_SUBMIT';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 const SET_OWNER_AVATAR = 'SET_OWNER_AVATAR';
 
-export type AuthInitialStateType = {
+type AuthInitialStateType = {
   isAuth: boolean | null;
   userId: number | null;
   email: string | null;
@@ -26,7 +26,7 @@ const initialState: AuthInitialStateType = {
   ownerAvatar: null,
 };
 
-export const authActions = {
+const authActions = {
   setUserDataActionCreator: (
     userId: number | null,
     email: string | null,
@@ -129,7 +129,7 @@ export const loginDataThunkCreator =
     });
   };
 
-export const getCaptchaUrlThunkCreator =
+const getCaptchaUrlThunkCreator =
   (): CommonThunkType<AuthActionsType, void> => (dispatch) => {
     usersApi.getCaptchaUrl().then((data) => {
       const captchaUrl = data.url;

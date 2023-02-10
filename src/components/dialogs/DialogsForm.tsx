@@ -11,7 +11,7 @@ const MessageSchema = Yup.object().shape({
     .required("Required")
 })
 
-export type Props = {
+type Props = {
   onSubmit: (
     values: { newMessage: string },
     formikHelpers: FormikHelpers<{ newMessage: string }>
