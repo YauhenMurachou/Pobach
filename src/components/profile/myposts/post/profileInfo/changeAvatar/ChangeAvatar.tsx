@@ -7,7 +7,7 @@ import { Button, Popover } from '@mui/material';
 
 import classes from './ChangeAvatar.module.css';
 
-export type Props = {
+type Props = {
   sendPhoto: (file: string | Blob) => void;
   isAvatar: boolean;
 };

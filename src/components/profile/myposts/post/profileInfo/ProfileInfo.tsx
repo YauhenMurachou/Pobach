@@ -12,7 +12,7 @@ import { ProfileType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
 
-export type Props = {
+type Props = {
   profile: ProfileType;
   status: string;
   isOwner: boolean;

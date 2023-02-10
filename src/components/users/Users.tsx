@@ -12,7 +12,7 @@ import { UserType } from 'src/types';
 
 import classes from './Users.module.css';
 
-export type Props = {
+type Props = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;

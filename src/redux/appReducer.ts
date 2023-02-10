@@ -4,7 +4,7 @@ import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
 const CORSE_ERROR = 'CORSE_ERROR';
 
-export type InitialStateAppType = {
+type InitialStateAppType = {
   isInitialized: boolean;
   isCorseError: boolean;
 };
@@ -14,7 +14,7 @@ const initialState: InitialStateAppType = {
   isCorseError: false,
 };
 
-export const actions = {
+const actions = {
   initializedSuccessAction: () => ({
     type: INITIALIZED_SUCCESS,
   }),

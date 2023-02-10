@@ -18,7 +18,7 @@ const LoginSchema = Yup.object().shape({
   password: Yup.string().max(15, 'Too Long!').required('Required'),
 });
 
-export type Props = {
+type Props = {
   onSubmit: (
     values: LoginType,
     formikHelpers: FormikHelpers<{

@@ -2,7 +2,7 @@ import React from "react"
 
 import classes from "./Message.module.css"
 
-export type Props = {
+type Props = {
   message: string
   id: number
 }

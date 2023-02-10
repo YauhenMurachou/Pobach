@@ -5,7 +5,7 @@ import { ProfileType } from 'src/types';
 
 import classes from './Profile.module.css';
 
-export type Props = {
+type Props = {
   profile: ProfileType;
   status: string;
   isOwner: boolean;

@@ -18,7 +18,7 @@ export type ProfileType = {
   photos: { small: string; large: string } | null;
 };
 
-export type ContactsType = {
+type ContactsType = {
   github: string;
   vk: string;
   facebook: string;

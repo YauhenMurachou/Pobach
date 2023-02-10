@@ -10,7 +10,7 @@ import { UserType } from 'src/types';
 
 import classes from './Users.module.css';
 
-export type Props = {
+type Props = {
   followingInProgress: number[];
   unfollowUsers: (id: number) => void;
   followUsers: (id: number) => void;
