@@ -120,3 +120,10 @@ export const todosApi = {
     return response.json();
   },
 };
+
+export const photoSagaApi = {
+  async getPhotos() {
+    const response = await axios.get('https://picsum.photos/v2/list');
+    return response.data;
+  },
+};

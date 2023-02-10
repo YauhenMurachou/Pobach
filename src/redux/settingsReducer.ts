@@ -3,6 +3,8 @@ import { CommonActionTypes } from 'src/redux/redux-store';
 const GET_TODOS = 'GET_TODOS';
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
+const INCREMENT_ASYNC = 'INCREMENT_ASYNC';
+const TODOS_REQUESTED = 'TODOS_REQUESTED';
 
 export type Todos = {
   userId: number;
@@ -22,10 +24,27 @@ const initialState: SettingsStateType = {
 };
 
 export const actions = {
-  getTodosAction: (payload: Todos) => ({
-    type: GET_TODOS,
-    payload,
-  }),
+  getTodosAction: (payload: Todos) =>
+    ({
+      type: GET_TODOS,
+      payload,
+    } as const),
+  incrementAction: () =>
+    ({
+      type: INCREMENT,
+    } as const),
+  decrementAction: () =>
+    ({
+      type: DECREMENT,
+    } as const),
+  incrementAsyncAction: () =>
+    ({
+      type: INCREMENT_ASYNC,
+    } as const),
+  todosRequestedAction: () =>
+    ({
+      type: TODOS_REQUESTED,
+    } as const),
 };
 
 type SettingsActionsType = CommonActionTypes<typeof actions>;
