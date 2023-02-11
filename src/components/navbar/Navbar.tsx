@@ -2,9 +2,14 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
-import { RootState } from '../../redux/redux-store';
-import Logo from '../common/logo/Logo';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import GroupIcon from '@mui/icons-material/Group';
+import MailOutlineIcon from '@mui/icons-material/MailOutline';
+import PhotoIcon from '@mui/icons-material/Photo';
+import SettingsIcon from '@mui/icons-material/Settings';
+import Logo from 'src/components/common/logo/Logo';
+import { RootState } from 'src/redux/redux-store';
 
 import classes from './Navbar.module.css';
 
@@ -20,6 +25,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <AccountBoxIcon />
         {t('navbar.profile')}
       </NavLink>
       <NavLink
@@ -27,6 +33,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <MailOutlineIcon />
         {t('navbar.dialogs')}
       </NavLink>
       <NavLink
@@ -34,6 +41,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <PhotoIcon />
         {t('navbar.photos')}
       </NavLink>
       <NavLink
@@ -41,6 +49,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <SettingsIcon />
         {t('navbar.settings')}
       </NavLink>
       <NavLink
@@ -48,6 +57,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <GroupIcon />
         {t('navbar.users')}
       </NavLink>
       <NavLink
@@ -55,6 +65,7 @@ const Navbar: FC = () => {
         activeClassName={classes.activeLink}
         className={classes.item}
       >
+        <ChatBubbleOutlineIcon />
         {t('navbar.chat')}
       </NavLink>
       <Logo />
