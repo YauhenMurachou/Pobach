@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Button } from '@mui/material';
@@ -17,8 +17,10 @@ type Props = {
   profile: ProfileType;
   status: string;
   isOwner: boolean;
+  editMode: boolean;
   updateStatus: (status: string) => void;
   sendPhoto: (file: string | Blob) => void;
+  setEditMode: Dispatch<SetStateAction<boolean>>;
 };
 
 const ProfileInfoContainer: FC<Props> = ({
@@ -27,8 +29,9 @@ const ProfileInfoContainer: FC<Props> = ({
   isOwner,
   status,
   updateStatus,
+  editMode,
+  setEditMode,
 }) => {
-  const [editMode, setEditMode] = useState(false);
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -46,29 +49,31 @@ const ProfileInfoContainer: FC<Props> = ({
 
   return (
     <div className={classes.container}>
-      <div className={classes.avatarContainer}>
-        <div>
-          <img
-            alt="photos"
-            src={profile.photos?.large ?? avatar}
-            className={classes.avatar}
-          />
-          {isOwner && (
-            <ChangeAvatar
-              sendPhoto={sendPhoto}
-              isAvatar={!!profile.photos?.large}
+      {!editMode && (
+        <div className={classes.avatarContainer}>
+          <div>
+            <img
+              alt="photos"
+              src={profile.photos?.large ?? avatar}
+              className={classes.avatar}
             />
-          )}
+            {isOwner && (
+              <ChangeAvatar
+                sendPhoto={sendPhoto}
+                isAvatar={!!profile.photos?.large}
+              />
+            )}
+          </div>
+          <div className={classes.statusContainer}>
+            <div className={classes.fullName}>{profile.fullName}</div>
+            <ProfileStatus
+              isOwner={isOwner}
+              status={status}
+              updateStatus={isOwner ? updateStatus : undefined}
+            />
+          </div>
         </div>
-        <div className={classes.statusContainer}>
-          <div className={classes.fullName}>{profile.fullName}</div>
-          <ProfileStatus
-            isOwner={isOwner}
-            status={status}
-            updateStatus={isOwner ? updateStatus : undefined}
-          />
-        </div>
-      </div>
+      )}
       <div className={classes.infoContainer}>
         {!editMode && <ProfileInfo profile={profile} />}
         {editMode && (
