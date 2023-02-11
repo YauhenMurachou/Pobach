@@ -60,3 +60,13 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+.formWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.info {
+	padding-bottom: 0.5rem;
+}

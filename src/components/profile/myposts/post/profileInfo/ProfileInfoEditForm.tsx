@@ -30,7 +30,7 @@ const ProfileInfoEditForm: FC<Props> = ({
     <>
       <Formik onSubmit={onSubmit} initialValues={profile}>
         {({ dirty }) => (
-          <Form>
+          <Form className={classes.formWrapper}>
             {info.map((item, index) => {
               if (item === 'photos' || item === 'userId') {
                 return undefined;
