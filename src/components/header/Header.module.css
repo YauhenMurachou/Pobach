@@ -15,7 +15,6 @@
 
 .wrapper {
 	display: flex;
-	vertical-align: top;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 1.5rem;
@@ -30,7 +29,6 @@
 	margin: auto 0 auto 60px;
 	display: inline-block;
 	padding-top: 1rem;
-	vertical-align: top;
 }
 
 .text a:last-child {
@@ -38,7 +36,6 @@
 	text-align: center;
 	margin: 0 auto;
 	display: inline-block;
-	vertical-align: top;
 }
 
 .logo {

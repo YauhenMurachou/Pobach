@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import MypostsContainer from 'src/components/profile/myposts/MypostsContainer';
-import ProfileInfo from 'src/components/profile/myposts/post/profileInfo/ProfileInfo';
+import ProfileInfoContainer from 'src/components/profile/myposts/post/profileInfo/ProfileInfoContainer';
 import { ProfileType } from 'src/types';
 
 import classes from './Profile.module.css';
@@ -16,7 +16,7 @@ type Props = {
 const Profile: React.FC<Props> = memo(
   ({ profile, status, isOwner, updateStatus, sendPhoto }) => (
     <div className={classes.content}>
-      <ProfileInfo
+      <ProfileInfoContainer
         profile={profile}
         status={status}
         isOwner={isOwner}
