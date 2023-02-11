@@ -93,6 +93,10 @@
 	padding-top: 1rem;
 }
 
+.language svg {
+	cursor: pointer;
+}
+
 .popoverWrapper {
 	display: flex;
 	flex-direction: column;

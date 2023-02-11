@@ -31,3 +31,11 @@
 	background-color: #e6e4e9;
 	box-shadow: none;
 }
+
+.popoverWrapper label:first-child svg {
+	fill: #4bb34b;
+}
+
+.popoverWrapper label:last-child svg {
+	fill: var(--red-main);
+}
