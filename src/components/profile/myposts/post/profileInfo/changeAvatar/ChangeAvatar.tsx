@@ -43,17 +43,15 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
   };
 
   return (
-    <>
-      <div className={classes.changeAvatar}>
-        <Button
-          variant="contained"
-          component="label"
-          startIcon={<EditIcon />}
-          onClick={handleClick}
-        >
-          {t('avatar.change')}
-        </Button>
-      </div>
+    <div className={classes.changeAvatar}>
+      <Button
+        variant="contained"
+        component="label"
+        startIcon={<EditIcon />}
+        onClick={handleClick}
+      >
+        {t('avatar.change')}
+      </Button>
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -89,7 +87,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
           </Button>
         </div>
       </Popover>
-    </>
+    </div>
   );
 };
 
