@@ -47,7 +47,7 @@ const Users: FC<Props> = memo(
     const [page, setPage] = useState(1);
     const { isAuth } = useSelector((state: RootState) => state.auth);
     const isFetching = useSelector(
-      (state: RootState) => state.usersPage.isFetching
+      (state: RootState) => state.users.isFetching
     );
     const { t } = useTranslation();
     const handleChange = (_event: ChangeEvent<unknown>, page: number) => {

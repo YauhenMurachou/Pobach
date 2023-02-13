@@ -63,6 +63,13 @@ export const usersApi = {
   },
 };
 
+export const dialogsApi = {
+  async getAllDialogs() {
+    const response = await instance.get('dialogs');
+    return response.data;
+  },
+};
+
 export const profileApi = {
   async getProfile(userId: number | null) {
     const response = await instance.get(`profile/${userId}`);

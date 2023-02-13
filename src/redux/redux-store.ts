@@ -6,6 +6,7 @@ import { appReducer } from 'src/redux/appReducer';
 import { authReducer } from 'src/redux/authReducer';
 import { chatReducer } from 'src/redux/chatReducer';
 import dialogsPageReducer from 'src/redux/dialogsPageReducer';
+import dialogsReducer from 'src/redux/dialogsReducer';
 import photosReducer from 'src/redux/photosReducer';
 import { profilePageReducer } from 'src/redux/profilePageReducer';
 import { rootSaga } from 'src/redux/sagas/sagas';
@@ -15,12 +16,13 @@ import usersReducer from 'src/redux/usersReducer';
 const reducer = combineReducers({
   profilePage: profilePageReducer,
   dialogsPage: dialogsPageReducer,
-  usersPage: usersReducer,
+  users: usersReducer,
   auth: authReducer,
   appReducer: appReducer,
-  chatReducer: chatReducer,
+  chat: chatReducer,
   photos: photosReducer,
   settings: settingsReducer,
+  dialogs: dialogsReducer,
 });
 
 export type CommonActionTypes<T> = T extends {

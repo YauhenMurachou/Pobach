@@ -1,5 +1,10 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { photoSagaApi, todosApi } from 'src/api/api';
+import { dialogsApi, photoSagaApi, todosApi } from 'src/api/api';
+import {
+  allDialogsGet,
+  Dialog,
+  getDialogsAction,
+} from 'src/redux/dialogsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
 
@@ -29,6 +34,11 @@ function* getPhotos() {
   yield put(sagaPhotosAdded(photoSaga));
 }
 
+function* getAllDialogs() {
+  const allDialogs: Dialog[] = yield call(() => dialogsApi.getAllDialogs());
+  yield put(allDialogsGet(allDialogs));
+}
+
 function* todosSaga() {
   yield takeEvery('TODOS_REQUESTED', getTodos);
 }
@@ -37,6 +47,10 @@ function* photoSaga() {
   yield takeEvery('PHOTOS_REQUESTED', getPhotos);
 }
 
+function* dialogsSaga() {
+  yield takeEvery(getDialogsAction, getAllDialogs);
+}
+
 export function* rootSaga() {
-  yield all([watchIncrementAsync(), todosSaga(), photoSaga()]);
+  yield all([watchIncrementAsync(), todosSaga(), photoSaga(), dialogsSaga()]);
 }
