@@ -2,8 +2,12 @@ import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import DialogsForm from 'src/components/dialogs/DialogsForm';
+import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
 import { dialogsActions } from 'src/redux/dialogsPageReducer';
-import { getDialogsAction } from 'src/redux/dialogsReducer';
+import {
+  getDialogsAction,
+  getMessagesListAction,
+} from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './Dialogs.module.css';
@@ -32,7 +36,13 @@ const Dialogs: FC = () => {
     <div className={classes.dialogs}>
       <ul>
         {dialogs.map((dialog) => (
-          <li key={dialog.id}>{dialog.userName}</li>
+          <MessageTitle
+            key={dialog.id}
+            dialog={dialog}
+            openDialog={() =>
+              dispatch(getMessagesListAction({ id: dialog.id }))
+            }
+          />
         ))}
       </ul>
       <div className={classes.messages}>

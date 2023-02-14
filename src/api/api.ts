@@ -68,6 +68,10 @@ export const dialogsApi = {
     const response = await instance.get('dialogs');
     return response.data;
   },
+  async getMessagesList(userId: number) {
+    const response = await instance.get(`dialogs/${userId}/messages`);
+    return response.data;
+  },
 };
 
 export const profileApi = {

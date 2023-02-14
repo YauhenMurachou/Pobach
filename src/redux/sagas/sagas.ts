@@ -4,6 +4,9 @@ import {
   allDialogsGet,
   Dialog,
   getDialogsAction,
+  getMessagesListAction,
+  MessagesList,
+  messagesListGet,
 } from 'src/redux/dialogsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
@@ -24,33 +27,58 @@ function* watchIncrementAsync() {
   yield takeEvery('INCREMENT_ASYNC', incrementAsync);
 }
 
+// Our worker
 function* getTodos() {
   const todos: Todos = yield call(() => todosApi.getTodos(1));
   yield put(actions.getTodosAction(todos));
 }
 
+// Our worker
 function* getPhotos() {
   const photoSaga: SagaPhoto[] = yield call(() => photoSagaApi.getPhotos());
   yield put(sagaPhotosAdded(photoSaga));
 }
 
+// Our worker
 function* getAllDialogs() {
   const allDialogs: Dialog[] = yield call(() => dialogsApi.getAllDialogs());
   yield put(allDialogsGet(allDialogs));
 }
 
+// Our worker
+function* getMessagesList(action: { payload: { id: number } }) {
+  const messagesList: MessagesList[] = yield call(() =>
+    dialogsApi.getMessagesList(action.payload.id)
+  );
+  yield put(messagesListGet(messagesList));
+}
+
+// Our watcher
 function* todosSaga() {
   yield takeEvery('TODOS_REQUESTED', getTodos);
 }
 
+// Our watcher
 function* photoSaga() {
   yield takeEvery('PHOTOS_REQUESTED', getPhotos);
 }
 
+// Our watcher
 function* dialogsSaga() {
   yield takeEvery(getDialogsAction, getAllDialogs);
 }
 
+// Our watcher
+function* getMessagesSaga() {
+  yield takeEvery(getMessagesListAction, getMessagesList);
+}
+
 export function* rootSaga() {
-  yield all([watchIncrementAsync(), todosSaga(), photoSaga(), dialogsSaga()]);
+  yield all([
+    watchIncrementAsync(),
+    todosSaga(),
+    photoSaga(),
+    dialogsSaga(),
+    getMessagesSaga(),
+  ]);
 }
