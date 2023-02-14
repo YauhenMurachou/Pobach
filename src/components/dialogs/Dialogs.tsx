@@ -33,7 +33,7 @@ const Dialogs: FC = () => {
   }
 
   return (
-    <div className={classes.dialogs}>
+    <>
       <ul>
         {dialogs.map((dialog) => (
           <MessageTitle
@@ -48,7 +48,7 @@ const Dialogs: FC = () => {
       <div className={classes.messages}>
         <DialogsForm onSubmit={addNewMessageForm} />
       </div>
-    </div>
+    </>
   );
 };
 
