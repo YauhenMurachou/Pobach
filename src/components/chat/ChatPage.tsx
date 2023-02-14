@@ -15,7 +15,7 @@ import classes from './ChatPage.module.css';
 
 export const ChatPage: FC = memo(() => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
-  const status = useSelector((state: RootState) => state.chatReducer.status);
+  const status = useSelector((state: RootState) => state.chat.status);
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
@@ -36,7 +36,7 @@ export const ChatPage: FC = memo(() => {
 
 const Messages: FC = memo(() => {
   const messages = useSelector(
-    (state: RootState) => state.chatReducer.messages
+    (state: RootState) => state.chat.messages
   );
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -91,7 +91,7 @@ const Message: FC<MessageType> = memo(
 
 const AddMessageForm: FC = () => {
   const [message, setMessage] = useState('');
-  const status = useSelector((state: RootState) => state.chatReducer.status);
+  const status = useSelector((state: RootState) => state.chat.status);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
