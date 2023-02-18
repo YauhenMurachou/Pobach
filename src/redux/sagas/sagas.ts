@@ -7,6 +7,7 @@ import {
   getMessagesListAction,
   MessagesList,
   messagesListGet,
+  sendMessageAction,
 } from 'src/redux/dialogsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
@@ -53,6 +54,15 @@ function* getMessagesList(action: { payload: { id: number } }) {
   yield put(messagesListGet(messagesList));
 }
 
+// Our worker
+function* sendMessage(action: { payload: { id: number } }) {
+  yield call(
+    () => dialogsApi.sendMessage(action.payload.id)
+    // dialogsApi.sendMessage(action.payload.id)
+  );
+  // yield put(messagesListGet(messagesList));
+}
+
 // Our watcher
 function* todosSaga() {
   yield takeEvery('TODOS_REQUESTED', getTodos);
@@ -73,6 +83,11 @@ function* getMessagesSaga() {
   yield takeEvery(getMessagesListAction, getMessagesList);
 }
 
+// Our watcher
+function* sendMessageSaga() {
+  yield takeEvery(sendMessageAction, sendMessage);
+}
+
 export function* rootSaga() {
   yield all([
     watchIncrementAsync(),
@@ -80,5 +95,6 @@ export function* rootSaga() {
     photoSaga(),
     dialogsSaga(),
     getMessagesSaga(),
+    sendMessageSaga(),
   ]);
 }

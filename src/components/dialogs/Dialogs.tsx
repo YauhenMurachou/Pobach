@@ -1,12 +1,14 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Button } from '@mui/material';
 import DialogsForm from 'src/components/dialogs/DialogsForm';
 import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
 import { dialogsActions } from 'src/redux/dialogsPageReducer';
 import {
   getDialogsAction,
   getMessagesListAction,
+  sendMessageAction,
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -19,6 +21,9 @@ type ValuesType = {
 const Dialogs: FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
+  const messages = useSelector(
+    (state: RootState) => state.dialogs.messagesList
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -33,7 +38,7 @@ const Dialogs: FC = () => {
   }
 
   return (
-    <div className={classes.dialogs}>
+    <>
       <ul>
         {dialogs.map((dialog) => (
           <MessageTitle
@@ -45,10 +50,18 @@ const Dialogs: FC = () => {
           />
         ))}
       </ul>
+      <div>
+        {messages?.items.map((message) => (
+          <div key={message.id}>{message.body}</div>
+        ))}
+      </div>
+      <Button onClick={() => dispatch(sendMessageAction({ id: 16763 }))}>
+        send message
+      </Button>
       <div className={classes.messages}>
         <DialogsForm onSubmit={addNewMessageForm} />
       </div>
-    </div>
+    </>
   );
 };
 

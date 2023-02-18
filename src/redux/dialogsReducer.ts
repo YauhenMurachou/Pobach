@@ -41,6 +41,9 @@ export const getDialogsAction = createAction('dialogs/getDialogsAction');
 export const getMessagesListAction = createAction<{ id: number }>(
   'dialogs/getMessagesListAction'
 );
+export const sendMessageAction = createAction<{ id: number }>(
+  'dialogs/sendMessageAction'
+);
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
