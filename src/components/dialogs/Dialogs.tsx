@@ -19,6 +19,9 @@ type ValuesType = {
 const Dialogs: FC = () => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
+  const messages = useSelector(
+    (state: RootState) => state.dialogs.messagesList
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -45,6 +48,11 @@ const Dialogs: FC = () => {
           />
         ))}
       </ul>
+      <div>
+        {messages?.items.map((message) => (
+          <div key={message.id}>{message.body}</div>
+        ))}
+      </div>
       <div className={classes.messages}>
         <DialogsForm onSubmit={addNewMessageForm} />
       </div>
