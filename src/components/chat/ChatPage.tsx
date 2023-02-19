@@ -4,7 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import SendIcon from '@mui/icons-material/Send';
-import { Button, TextField } from '@mui/material';
+import TagFacesIcon from '@mui/icons-material/TagFaces';
+import {
+  Button,
+  IconButton,
+  InputAdornment,
+  OutlinedInput,
+} from '@mui/material';
+import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
 import { MessageType } from 'src/api/chat-api';
 import Loader from 'src/components/loader/Loader';
 import avatar from 'src/images/avatar.png';
@@ -35,9 +42,7 @@ export const ChatPage: FC = memo(() => {
 });
 
 const Messages: FC = memo(() => {
-  const messages = useSelector(
-    (state: RootState) => state.chat.messages
-  );
+  const messages = useSelector((state: RootState) => state.chat.messages);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
@@ -103,9 +108,19 @@ const AddMessageForm: FC = () => {
     setMessage('');
   };
 
+  const [showEmoji, setShowEmoji] = useState(false);
+
+  const handleShowEmoji = () => {
+    setShowEmoji((prevState) => !prevState);
+  };
+
+  const handleEmojiClick = (emojiData: EmojiClickData) => {
+    setMessage(message + emojiData.emoji);
+  };
+
   return (
     <div className={classes.addMessageForm}>
-      <TextField
+      <OutlinedInput
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         //@ts-ignore
         placeholder={t('chat.enter')}
@@ -114,7 +129,6 @@ const AddMessageForm: FC = () => {
         value={message}
         onChange={(e) => setMessage(e.currentTarget.value)}
         fullWidth
-        margin="normal"
         onKeyDown={(e) => {
           if (e.ctrlKey && e.key === 'Enter') {
             setMessage(`${message}\r\n`);
@@ -124,7 +138,22 @@ const AddMessageForm: FC = () => {
           }
         }}
         autoFocus
+        endAdornment={
+          <InputAdornment position="end">
+            <IconButton onClick={handleShowEmoji} edge="end">
+              <TagFacesIcon />
+            </IconButton>
+          </InputAdornment>
+        }
       />
+      {showEmoji && (
+        <div className={classes.emojiContainer}>
+          <EmojiPicker
+            onEmojiClick={handleEmojiClick}
+            autoFocusSearch={false}
+          />
+        </div>
+      )}
       <Button
         onClick={sendMessage}
         disabled={status !== 'ready' || !message.trim().length}
