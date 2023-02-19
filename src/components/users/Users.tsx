@@ -100,7 +100,7 @@ const Users: FC<Props> = memo(
               sx={{ bgcolor: 'white' }}
               autoFocus={isSearch}
             />
-            <div className={classes.itemWrapper}>
+            <ul className={classes.itemWrapper}>
               {users.map((user: UserType, index) => (
                 <UserItem
                   user={user}
@@ -110,7 +110,7 @@ const Users: FC<Props> = memo(
                   key={index + user.toString()}
                 />
               ))}
-            </div>
+            </ul>
             <div className={classes.pagination}>
               {!!users.length && (
                 <Pagination

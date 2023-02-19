@@ -1,10 +1,8 @@
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import ThreePIcon from '@mui/icons-material/ThreeP';
-import { Button } from '@mui/material';
+import FollowButtons from 'src/components/users/FollowButtons';
 import avatar from 'src/images/avatar.png';
 import { UserType } from 'src/types';
 
@@ -21,7 +19,7 @@ const UserItem: FC<Props> = memo(
   ({ followingInProgress, unfollowUsers, followUsers, user }) => {
     const { t } = useTranslation();
     return (
-      <div className={classes.item}>
+      <li className={classes.item}>
         <div className={classes.avatarWrapper}>
           <NavLink to={'/profile/' + user.id}>
             <img
@@ -50,37 +48,13 @@ const UserItem: FC<Props> = memo(
             </NavLink>
           </div>
         </div>
-        <div>
-          {user.followed ? (
-            <Button
-              variant="contained"
-              startIcon={<PersonRemoveIcon />}
-              disabled={followingInProgress.some(
-                (id: UserType['id']) => id === user.id
-              )}
-              onClick={() => {
-                unfollowUsers(user.id);
-              }}
-              color="info"
-            >
-              {t('users.unfollow')}
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              startIcon={<PersonAddIcon />}
-              disabled={followingInProgress.some(
-                (id: UserType['id']) => id === user.id
-              )}
-              onClick={() => {
-                followUsers(user.id);
-              }}
-            >
-              {t('users.follow')}
-            </Button>
-          )}
-        </div>
-      </div>
+        <FollowButtons
+          followingInProgress={followingInProgress}
+          unfollowUsers={unfollowUsers}
+          followUsers={followUsers}
+          user={user}
+        />
+      </li>
     );
   }
 );

@@ -70,3 +70,8 @@
 .info {
 	padding-bottom: 0.5rem;
 }
+
+.buttons {
+	display: flex;
+	gap: 1rem;
+}

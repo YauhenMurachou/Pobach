@@ -144,11 +144,11 @@ export const getUsersThunkCreator =
   ): CommonThunkType<UserActionsType> =>
   async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
-    const data = await usersApi.getUsers(currentPage, pageSize, name ?? name);
+    const usersData = await usersApi.getUsers(currentPage, pageSize, name);
     dispatch(actions.setCurrentPageActionCreator(currentPage));
     dispatch(actions.setIsFetchingActionCreator(false));
-    dispatch(actions.setUsersActionCreator(data.items));
-    dispatch(actions.setTotalUsersCountActionCreator(data.totalCount));
+    dispatch(actions.setUsersActionCreator(usersData.items));
+    dispatch(actions.setTotalUsersCountActionCreator(usersData.totalCount));
   };
 
 export const unfollowUsersThunkCreator =
