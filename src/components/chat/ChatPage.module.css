@@ -1,6 +1,6 @@
 .messagesWrapper {
 	overflow-y: scroll;
-	max-height: calc(100vh - 13.475rem);
+	height: calc(100vh - 13.475rem);
 }
 
 .addMessageForm {
@@ -10,6 +10,7 @@
 
 .addMessageForm :global .MuiOutlinedInput-root {
 	background-color: white;
+	margin: 1rem 0;
 }
 
 .avatar {
@@ -60,4 +61,10 @@
 
 .icon {
 	cursor: pointer;
+}
+
+.emojiContainer aside {
+	position: absolute !important;
+	bottom: 140px;
+	right: 1.5rem;
 }
