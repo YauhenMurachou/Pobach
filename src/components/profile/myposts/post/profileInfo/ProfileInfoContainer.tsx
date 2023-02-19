@@ -1,15 +1,22 @@
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import Loader from 'src/components/loader/Loader';
 import ChangeAvatar from 'src/components/profile/myposts/post/profileInfo/changeAvatar/ChangeAvatar';
 import ProfileInfo from 'src/components/profile/myposts/post/profileInfo/ProfileInfo';
 import ProfileInfoEditForm from 'src/components/profile/myposts/post/profileInfo/ProfileInfoEditForm';
 import ProfileStatus from 'src/components/profile/myposts/post/profileInfo/profilleStatus/ProfileStatus';
+import FollowButtons from 'src/components/users/FollowButtons';
 import avatar from 'src/images/avatar.png';
 import { editProfileThunkCreator } from 'src/redux/profilePageReducer';
-import { ProfileType } from 'src/types';
+import { RootState } from 'src/redux/redux-store';
+import {
+  followUsersThunkCreator,
+  getUsersThunkCreator,
+  unfollowUsersThunkCreator,
+} from 'src/redux/usersReducer';
+import { ProfileType, UserType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
 
@@ -35,6 +42,23 @@ const ProfileInfoContainer: FC<Props> = ({
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const followingInProgress = useSelector(
+    (state: RootState) => state.users.followingInProgressUsers
+  );
+
+  const users = useSelector((state: RootState) => state.users.users);
+
+  useEffect(() => {
+    !isOwner &&
+      profile?.userId &&
+      dispatch(getUsersThunkCreator(1, 30, profile.fullName));
+  }, [profile]);
+
+  const user =
+    users && profile?.userId
+      ? users.find((user) => user.id === profile.userId)
+      : undefined;
 
   const handleProfileInfoEdit = (formData: ProfileType) => {
     dispatch(editProfileThunkCreator(formData));
@@ -62,6 +86,21 @@ const ProfileInfoContainer: FC<Props> = ({
                 sendPhoto={sendPhoto}
                 isAvatar={!!profile.photos?.large}
               />
+            )}
+            {!isOwner && (
+              <div className={classes.buttons}>
+                <FollowButtons
+                  followingInProgress={followingInProgress}
+                  unfollowUsers={() => {
+                    dispatch(unfollowUsersThunkCreator(user?.id as number));
+                  }}
+                  followUsers={() => {
+                    dispatch(followUsersThunkCreator(user?.id as number));
+                  }}
+                  user={user ?? ({} as UserType)}
+                />
+                {user?.followed && <Button variant="contained">Message</Button>}
+              </div>
             )}
           </div>
           <div className={classes.statusContainer}>
