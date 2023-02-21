@@ -17,7 +17,14 @@ export const usersApi = {
     const response = await instance.get(
       `users?page=${currentPage}&count=${pageSize}${
         name ? `&term=${name}` : ''
-      }`
+      }${`&friend=true`}`
+    );
+    return response.data;
+  },
+
+  async getFollowers(currentPage = 1, pageSize = 100) {
+    const response = await instance.get(
+      `users?page=${currentPage}&count=${pageSize}${`&friend=true`}`
     );
     return response.data;
   },

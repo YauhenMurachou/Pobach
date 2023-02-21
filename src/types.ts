@@ -1,12 +1,18 @@
 export type UserType = {
   id: number;
   name: string;
-  status?: string;
+  status: string;
   photos: { small: string; large: string };
   followed: boolean;
   city?: boolean;
   country?: boolean;
-  uniqueUrlName?: null | string;
+  uniqueUrlName: null | string;
+};
+
+export type FollowersType = {
+  error: string | null;
+  items: UserType[];
+  totalCount: number;
 };
 
 export type ProfileType = {
