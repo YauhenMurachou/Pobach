@@ -2,9 +2,8 @@ import { ChangeEvent, FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment, TextField } from '@mui/material';
 import Pagination from '@mui/material/Pagination';
+import SearchField from 'src/components/users/SearchField';
 import UserItem from 'src/components/users/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
@@ -60,12 +59,6 @@ const Users: FC<Props> = memo(
       pages.push(i);
     }
 
-    const handleChangeSearch = (
-      event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
-    ) => {
-      setSearchValue(event.target.value);
-    };
-
     if (!isAuth) {
       return <Redirect to="/Login" />;
     }
@@ -81,24 +74,11 @@ const Users: FC<Props> = memo(
               <span className={classes.number}>{totalUsersCount}</span>
               {t('users.registered')}
             </div>
-            <TextField
-              onChange={handleChangeSearch}
-              value={searchValue}
-              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-              //@ts-ignore
+            <SearchField
               placeholder={t('users.search')}
-              fullWidth
-              type="search"
-              size="small"
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
-              sx={{ bgcolor: 'white' }}
-              autoFocus={isSearch}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+              isSearch={isSearch}
             />
             <ul className={classes.itemWrapper}>
               {users.map((user: UserType, index) => (

@@ -6,21 +6,22 @@ import { getFollowersAction } from 'src/redux/followersReducer';
 import { RootState } from 'src/redux/redux-store';
 import {
   followUsersThunkCreator,
+  getUsersThunkCreator,
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
 
 import classes from './Followers.module.css';
 
 const Followers: FC = () => {
-  const { isAuth, isFetching, followers } = useSelector((state: RootState) => ({
-    isAuth: state.auth,
-    isFetching: state.users.isFetching,
-    followers: state.followers.followers,
-  }));
-
-  const followingInProgress = useSelector(
-    (state: RootState) => state.users.followingInProgressUsers
+  const { isAuth, isFetching, followers, followingInProgress } = useSelector(
+    (state: RootState) => ({
+      isAuth: state.auth,
+      isFetching: state.users.isFetching,
+      followers: state.users.users,
+      followingInProgress: state.users.followingInProgressUsers,
+    })
   );
+
   const dispatch = useDispatch();
 
   const unfollow = (id: number) => {
@@ -31,7 +32,7 @@ const Followers: FC = () => {
   };
 
   useEffect(() => {
-    dispatch(getFollowersAction());
+    dispatch(getUsersThunkCreator(1, 100, undefined, true));
   }, [dispatch]);
 
   if (!isAuth) {
