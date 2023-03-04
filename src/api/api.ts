@@ -13,11 +13,25 @@ const instance = axios.create({
 });
 
 export const usersApi = {
-  async getUsers(currentPage = 1, pageSize = 100, name?: string) {
+  async getUsers(
+    currentPage = 1,
+    pageSize = 100,
+    name?: string,
+    friend?: boolean
+  ) {
     const response = await instance.get(
       `users?page=${currentPage}&count=${pageSize}${
         name ? `&term=${name}` : ''
-      }`
+      }${friend ? `&friend=${friend}` : ''}`
+    );
+    return response.data;
+  },
+
+  async getFollowers(currentPage = 1, pageSize = 100, name?: string) {
+    const response = await instance.get(
+      `users?page=${currentPage}&count=${pageSize}${
+        name ? `&term=${name}` : ''
+      }${`&friend=true`}`
     );
     return response.data;
   },

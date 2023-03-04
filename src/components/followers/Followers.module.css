@@ -1,0 +1,19 @@
+.wrapper {
+	padding: 1rem;
+}
+
+.header {
+	padding-bottom: 1rem;
+	text-align: center;
+	font-weight: 500;
+	font-size: 1.2rem;
+}
+
+.itemWrapper {
+	padding-top: 1rem;
+}
+
+.message {
+	font-size: 0.85rem;
+	color: #6e6ef8;
+}

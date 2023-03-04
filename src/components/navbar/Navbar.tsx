@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import GroupIcon from '@mui/icons-material/Group';
+import HandshakeIcon from '@mui/icons-material/Handshake';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhotoIcon from '@mui/icons-material/Photo';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -59,6 +60,15 @@ const Navbar: FC = () => {
       >
         <GroupIcon />
         {t('navbar.users')}
+      </NavLink>
+      <NavLink
+        to="/Followers"
+        activeClassName={classes.activeLink}
+        className={classes.item}
+      >
+        <HandshakeIcon />
+        Followers
+        {/* {t('navbar.users')} */}
       </NavLink>
       <NavLink
         to="/Chat"
