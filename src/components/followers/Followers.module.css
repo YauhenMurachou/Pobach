@@ -1,6 +1,5 @@
 .wrapper {
 	padding: 1rem;
-	/* padding-right: 200px; */
 }
 
 .header {
@@ -10,67 +9,11 @@
 	font-size: 1.2rem;
 }
 
-.number {
-	color: #6e6ef8;
-}
-
 .itemWrapper {
 	padding-top: 1rem;
-}
-
-.item {
-	padding: 0.5rem 0;
-	cursor: default;
-	border-bottom: 1px solid #b6c3d1;
-	display: flex;
-	justify-content: space-between;
-}
-
-.item:last-child {
-	border-bottom: none;
-}
-
-.avatarWrapper {
-	display: flex;
-	column-gap: 1rem;
-}
-
-.avatar {
-	width: 5rem;
-	border-radius: 50%;
-}
-
-.infoWrapper {
-	display: flex;
-	flex-direction: column;
-}
-
-.name {
-	font-weight: 600;
-	font-size: 1.1rem;
-	color: #6e6ef8;
-}
-
-.status {
-	display: flex;
-	gap: 0.325rem;
-	font-size: 0.85rem;
-	color: #939393;
-}
-
-.id {
-	font-size: 0.85rem;
-	color: #939393;
 }
 
 .message {
 	font-size: 0.85rem;
 	color: #6e6ef8;
-}
-
-.pagination {
-	padding: 1rem 0;
-	display: flex;
-	justify-content: center;
-	margin: 0 auto;
 }
