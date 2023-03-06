@@ -9,7 +9,7 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import PhotoIcon from '@mui/icons-material/Photo';
 import SettingsIcon from '@mui/icons-material/Settings';
-import Logo from 'src/components/common/logo/Logo';
+import Logo from 'src/components/common/atoms/logo/Logo';
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './Navbar.module.css';

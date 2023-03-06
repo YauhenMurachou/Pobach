@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Pagination from '@mui/material/Pagination';
+import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import SearchField from 'src/components/users/SearchField';
 import UserItem from 'src/components/users/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
@@ -92,7 +93,7 @@ const Users: FC<Props> = memo(
               ))}
             </ul>
             <div className={classes.pagination}>
-              {!!users.length && (
+              {pagesCount > 1 && (
                 <Pagination
                   count={pagesCount}
                   showFirstButton
@@ -103,7 +104,9 @@ const Users: FC<Props> = memo(
                 />
               )}
             </div>
-            {isSearch && !users.length && <div>{t('users.nothing')}</div>}
+            {isSearch && !users.length && (
+              <EmptyState text={t('users.nothing')} />
+            )}
           </>
         )}
       </div>
