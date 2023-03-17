@@ -3,11 +3,13 @@ import { MessageType } from 'src/api/chat-api';
 const sendNotification = (
   message: MessageType['message'],
   user: MessageType['userName'],
-  currentUrl: string
+  currentUrl: string,
+  isMuted: boolean
 ) => {
   const notification = new Notification('New message from Open Chat', {
     icon: 'https://cdn-icons-png.flaticon.com/512/733/733585.png',
     body: `@${user}: ${message}`,
+    silent: isMuted,
   });
   const lastIndex = currentUrl.lastIndexOf('#');
   const newUrl = currentUrl.slice(0, lastIndex + 1) + '/Chat';
@@ -20,16 +22,17 @@ const sendNotification = (
 export const checkPageStatus = (
   message: MessageType['message'],
   user: MessageType['userName'],
-  currentUrl: string
+  currentUrl: string,
+  isMuted: boolean
 ) => {
   if (!('Notification' in window)) {
     alert('This browser does not support system notifications!');
   } else if (Notification.permission === 'granted') {
-    sendNotification(message, user, currentUrl);
+    sendNotification(message, user, currentUrl, isMuted);
   } else if (Notification.permission !== 'denied') {
     Notification.requestPermission((permission) => {
       if (permission === 'granted') {
-        sendNotification(message, user, currentUrl);
+        sendNotification(message, user, currentUrl, isMuted);
       }
     });
   }

@@ -5,9 +5,12 @@ import { NavLink } from 'react-router-dom';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import LanguageIcon from '@mui/icons-material/Language';
 import LogoutIcon from '@mui/icons-material/Logout';
+import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
+import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
 import { Button, Popover } from '@mui/material';
 import mockAvatar from 'src/images/avatar.png';
 import { logoutDataThunkCreator } from 'src/redux/authReducer';
+import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './Header.module.css';
@@ -18,6 +21,7 @@ const Header: React.FC = () => {
     (state: RootState) => state.auth
   );
   const ownerAvatar = useSelector((state: RootState) => state.auth.ownerAvatar);
+  const isMuted = useSelector((state: RootState) => state.chat.isMuted);
   const profilePath = `/Profile/${userId}`;
 
   const { t, i18n } = useTranslation();
@@ -33,6 +37,10 @@ const Header: React.FC = () => {
     event.preventDefault();
     setAnchorEl(event.currentTarget);
     setOpen((prevState) => !prevState);
+  };
+
+  const handleMute = () => {
+    dispatch(chatActions.setMutedActionCreator(!isMuted));
   };
 
   const handleClose = () => {
@@ -92,6 +100,13 @@ const Header: React.FC = () => {
               </Button>
             </div>
           </Popover>
+          <span onClick={handleMute} role="button" className={classes.mute}>
+            {isMuted ? (
+              <NotificationsOffOutlinedIcon />
+            ) : (
+              <NotificationsNoneOutlinedIcon />
+            )}
+          </span>
           <div className={classes.login}>
             {isAuth ? (
               <div>
