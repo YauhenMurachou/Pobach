@@ -7,18 +7,21 @@ import { v4 as uuidv4 } from 'uuid';
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
+const SET_MUTED = 'SET_MUTED';
 
 type ChatInitialStateType = {
   messages: MessageType[];
   status: StatusType;
+  isMuted: boolean;
 };
 
 const initialState: ChatInitialStateType = {
   messages: [] as MessageType[],
   status: 'pending',
+  isMuted: false,
 };
 
-const chatActions = {
+export const chatActions = {
   setMessagesActionCreator: (messages: MessageType[]) =>
     ({
       type: SET_MESSAGES,
@@ -34,6 +37,11 @@ const chatActions = {
       type: SET_STATUS,
       data: { status },
     } as const),
+  setMutedActionCreator: (isMuted: boolean) =>
+    ({
+      type: SET_MUTED,
+      data: { isMuted },
+    } as const),
 };
 
 type ChatActionsType = CommonActionTypes<typeof chatActions>;
@@ -48,10 +56,11 @@ export const chatReducer = (
       const currentUrl = window.location.href;
 
       if (newMessages.length === 1 && !currentUrl.includes('Chat')) {
-          checkPageStatus(
+        checkPageStatus(
           newMessages[0].message,
           newMessages[0].userName,
-          currentUrl
+          currentUrl,
+          state.isMuted
         );
       }
       return {
@@ -77,6 +86,12 @@ export const chatReducer = (
       return {
         ...state,
         status: action.data.status,
+      };
+    }
+    case SET_MUTED: {
+      return {
+        ...state,
+        isMuted: action.data.isMuted,
       };
     }
 

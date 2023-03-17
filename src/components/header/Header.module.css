@@ -97,6 +97,15 @@
 	cursor: pointer;
 }
 
+.mute {
+	padding-top: 1rem;
+	margin-left: 2rem;
+}
+
+.mute svg {
+	cursor: pointer;
+}
+
 .popoverWrapper {
 	display: flex;
 	flex-direction: column;
