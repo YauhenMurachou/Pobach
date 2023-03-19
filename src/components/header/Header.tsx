@@ -1,13 +1,12 @@
-import React, { MouseEvent, useState } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
-import LanguageIcon from '@mui/icons-material/Language';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
-import { Button, Popover } from '@mui/material';
+import ChangeLanguage from 'src/components/common/molecules/changeLanguage/ChangeLanguage';
 import mockAvatar from 'src/images/avatar.png';
 import { logoutDataThunkCreator } from 'src/redux/authReducer';
 import { chatActions } from 'src/redux/chatReducer';
@@ -15,7 +14,7 @@ import { RootState } from 'src/redux/redux-store';
 
 import classes from './Header.module.css';
 
-const Header: React.FC = () => {
+const Header: FC = () => {
   const dispatch = useDispatch();
   const { isAuth, login, userId } = useSelector(
     (state: RootState) => state.auth
@@ -24,33 +23,10 @@ const Header: React.FC = () => {
   const isMuted = useSelector((state: RootState) => state.chat.isMuted);
   const profilePath = `/Profile/${userId}`;
 
-  const { t, i18n } = useTranslation();
-
-  const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLElement) | null>(
-    null
-  );
-  const [open, setOpen] = useState(false);
-
-  const handleClick = (
-    event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
-  ) => {
-    event.preventDefault();
-    setAnchorEl(event.currentTarget);
-    setOpen((prevState) => !prevState);
-  };
+  const { t } = useTranslation();
 
   const handleMute = () => {
     dispatch(chatActions.setMutedActionCreator(!isMuted));
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-    setOpen(false);
-  };
-
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    handleClose();
   };
 
   const logoutOnClick = () => {
@@ -66,40 +42,7 @@ const Header: React.FC = () => {
           <span className={classes.social}>{t('header.social')}</span>
         </div>
         <div className={classes.rightBlock}>
-          <span
-            onClick={handleClick}
-            role="button"
-            className={classes.language}
-          >
-            <LanguageIcon />
-          </span>
-
-          <Popover
-            open={open}
-            anchorEl={anchorEl}
-            onClose={handleClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'left',
-            }}
-          >
-            <div className={classes.popoverWrapper}>
-              <Button
-                variant="contained"
-                component="label"
-                onClick={() => changeLanguage('by')}
-              >
-                {t('header.belarusian')}
-              </Button>
-              <Button
-                variant="contained"
-                component="label"
-                onClick={() => changeLanguage('en')}
-              >
-                {t('header.english')}
-              </Button>
-            </div>
-          </Popover>
+          <ChangeLanguage />
           <span onClick={handleMute} role="button" className={classes.mute}>
             {isMuted ? (
               <NotificationsOffOutlinedIcon />

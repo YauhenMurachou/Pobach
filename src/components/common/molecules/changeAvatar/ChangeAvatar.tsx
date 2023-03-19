@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -12,14 +12,14 @@ type Props = {
   isAvatar: boolean;
 };
 
-const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
+const ChangeAvatar: FC<Props> = ({ sendPhoto, isAvatar }) => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLElement) | null>(
     null
   );
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const handleClick = (
+  const handleOpen = (
     event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
   ) => {
     event.preventDefault();
@@ -48,7 +48,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
         variant="contained"
         component="label"
         startIcon={<EditIcon />}
-        onClick={handleClick}
+        onClick={handleOpen}
       >
         {t('avatar.change')}
       </Button>
