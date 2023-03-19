@@ -1,7 +1,7 @@
 import { FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
-import { Button, Popover } from '@mui/material';
+import { Button, Popover, Tooltip } from '@mui/material';
 
 import classes from './ChangeLanguage.module.css';
 import styles from 'src/components/common/molecules/changeAvatar/ChangeAvatar.module.css';
@@ -33,9 +33,11 @@ const ChangeLanguage: FC = () => {
 
   return (
     <>
-      <span onClick={handleOpen} role="button" className={classes.language}>
-        <LanguageIcon />
-      </span>
+      <Tooltip title={t('header.choose') as string}>
+        <span onClick={handleOpen} role="button" className={classes.language}>
+          <LanguageIcon />
+        </span>
+      </Tooltip>
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -50,6 +52,7 @@ const ChangeLanguage: FC = () => {
             variant="contained"
             component="label"
             onClick={() => changeLanguage('by')}
+            disabled={i18n.language === 'by'}
           >
             {t('header.belarusian')}
           </Button>
@@ -57,6 +60,7 @@ const ChangeLanguage: FC = () => {
             variant="contained"
             component="label"
             onClick={() => changeLanguage('en')}
+            disabled={i18n.language === 'en'}
           >
             {t('header.english')}
           </Button>

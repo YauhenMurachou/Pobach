@@ -6,6 +6,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import LogoutIcon from '@mui/icons-material/Logout';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
+import { Tooltip } from '@mui/material';
 import ChangeLanguage from 'src/components/common/molecules/changeLanguage/ChangeLanguage';
 import mockAvatar from 'src/images/avatar.png';
 import { logoutDataThunkCreator } from 'src/redux/authReducer';
@@ -43,13 +44,21 @@ const Header: FC = () => {
         </div>
         <div className={classes.rightBlock}>
           <ChangeLanguage />
-          <span onClick={handleMute} role="button" className={classes.mute}>
-            {isMuted ? (
-              <NotificationsOffOutlinedIcon />
-            ) : (
-              <NotificationsNoneOutlinedIcon />
-            )}
-          </span>
+          <Tooltip
+            title={
+              isMuted
+                ? (t('header.unmute') as string)
+                : (t('header.mute') as string)
+            }
+          >
+            <span onClick={handleMute} role="button" className={classes.mute}>
+              {isMuted ? (
+                <NotificationsOffOutlinedIcon />
+              ) : (
+                <NotificationsNoneOutlinedIcon />
+              )}
+            </span>
+          </Tooltip>
           <div className={classes.login}>
             {isAuth ? (
               <div>

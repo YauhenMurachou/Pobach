@@ -6,7 +6,9 @@
     "belarusian": "belarusian",
     "signin": "You signed in as",
     "signout": "Sign out",
-    "choose": "Choose language"
+    "choose": "Choose language",
+    "mute": "Mute notifications",
+    "unmute": "unmute notifications"
   },
   "navbar": {
     "profile": "My profile",

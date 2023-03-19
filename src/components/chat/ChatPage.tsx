@@ -121,9 +121,7 @@ const AddMessageForm: FC = () => {
   return (
     <div className={classes.addMessageForm}>
       <OutlinedInput
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        //@ts-ignore
-        placeholder={t('chat.enter')}
+        placeholder={t('chat.enter') as string}
         multiline
         maxRows={4}
         value={message}

@@ -24,8 +24,6 @@ const SearchField: FC<Props> = memo(
         <TextField
           onChange={handleChangeSearch}
           value={searchValue}
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-ignore
           placeholder={placeholder}
           fullWidth
           type="search"
