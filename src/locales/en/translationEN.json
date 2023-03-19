@@ -36,7 +36,8 @@
   },
   "chat": {
     "send": "send",
-    "enter": "Enter your message"
+    "enter": "Enter your message",
+    "delete": "Delete message"
   },
   "login": {
     "registration": "Sign up",

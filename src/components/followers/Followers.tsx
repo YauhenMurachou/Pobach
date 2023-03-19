@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Loader from 'src/components/loader/Loader';
 import UserItem from 'src/components/users/UserItem';
 import { getFollowersAction } from 'src/redux/followersReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -37,6 +38,10 @@ const Followers: FC = () => {
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
+  }
+
+  if (isFetching) {
+    return <Loader isFetching={isFetching} />;
   }
 
   return (
