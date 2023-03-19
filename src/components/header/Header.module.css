@@ -89,14 +89,6 @@
 	align-items: center;
 }
 
-.language {
-	padding-top: 1rem;
-}
-
-.language svg {
-	cursor: pointer;
-}
-
 .mute {
 	padding-top: 1rem;
 	margin-left: 2rem;
@@ -104,29 +96,4 @@
 
 .mute svg {
 	cursor: pointer;
-}
-
-.popoverWrapper {
-	display: flex;
-	flex-direction: column;
-	background-color: #F5F5F5;
-	padding: 0.25rem;
-}
-
-.popoverWrapper :global .MuiButton-root {
-	background-color: #F5F5F5;
-	text-transform: none;
-	color: #293138;
-	box-shadow: none;
-}
-
-.popoverWrapper :global .Mui-disabled {
-	color: rgba(0, 0, 0, 0.26);
-	box-shadow: none;
-	background-color: rgba(0, 0, 0, 0.12);
-}
-
-.popoverWrapper :global .MuiButton-root:hover {
-	background-color: #e6e4e9;
-	box-shadow: none;
 }
