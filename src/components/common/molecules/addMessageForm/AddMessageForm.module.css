@@ -1,0 +1,15 @@
+.addMessageForm {
+	border-top: 2px solid #b6c3d1;
+	padding: 0 1rem;
+}
+
+.addMessageForm :global .MuiOutlinedInput-root {
+	background-color: white;
+	margin: 1rem 0;
+}
+
+.emojiContainer aside {
+	position: absolute !important;
+	bottom: 140px;
+	right: 1.5rem;
+}

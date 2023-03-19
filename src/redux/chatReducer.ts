@@ -8,6 +8,7 @@ const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
 const SET_MUTED = 'SET_MUTED';
+const DELETE_MESSAGE = 'DELETE_MESSAGE';
 
 type ChatInitialStateType = {
   messages: MessageType[];
@@ -41,6 +42,11 @@ export const chatActions = {
     ({
       type: SET_MUTED,
       data: { isMuted },
+    } as const),
+  deleteMessageActionCreator: (id: string) =>
+    ({
+      type: DELETE_MESSAGE,
+      data: { id },
     } as const),
 };
 
@@ -92,6 +98,14 @@ export const chatReducer = (
       return {
         ...state,
         isMuted: action.data.isMuted,
+      };
+    }
+    case DELETE_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages].filter(
+          (message) => message.id !== action.data.id
+        ),
       };
     }
 
