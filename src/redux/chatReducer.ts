@@ -111,7 +111,6 @@ export const chatReducer = (
         ...state,
         messages: [...state.messages].map((message) => {
           if (message.id === action.data.id) {
-            // Reflect.deleteProperty(message, 'userName');
             message.deleted = true;
             message.deletedMessage = 'Message deleted. Restore';
           }
