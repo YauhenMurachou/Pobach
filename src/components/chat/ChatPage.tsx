@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, Redirect } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Tooltip } from '@mui/material';
+import classNames from 'classnames';
 import { MessageType } from 'src/api/chat-api';
 import { AddMessageForm } from 'src/components/common/molecules/addMessageForm/AddMessageForm';
 import Loader from 'src/components/loader/Loader';
@@ -53,6 +54,8 @@ const Messages: FC = memo(() => {
           photo={message.photo}
           userName={message.userName}
           id={message.id}
+          deleted={message.deleted}
+          deletedMessage={message.deletedMessage}
         />
       ))}
       <div ref={scrollRef}></div>
@@ -61,42 +64,72 @@ const Messages: FC = memo(() => {
 });
 
 const Message: FC<MessageType> = memo(
-  ({ message, userName, photo, userId, id }) => {
+  ({ message, userName, photo, userId, id, deleted, deletedMessage }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
 
-    const deleteMessage = () => {
+    const handleDeleteMessage = () => {
       dispatch(chatActions.deleteMessageActionCreator(id as string));
     };
+
+    const handleRestoreMessage = () => {
+      dispatch(chatActions.restoreMessageActionCreator(id as string));
+    };
+
+    const [deletion, recovery] =
+      deleted && deletedMessage ? deletedMessage.split('.') : [];
+
     return (
-      <div className={classes.messageContainer}>
+      <div
+        className={classNames(classes.messageContainer, {
+          [classes.deleted]: deleted,
+        })}
+      >
         <div className={classes.messageBlock}>
-          <NavLink to={'/profile/' + userId}>
-            <img
-              src={photo ?? avatar}
-              alt={userName}
-              className={classes.avatar}
-            />
-          </NavLink>
-          <div>
+          {!deleted && (
             <NavLink to={'/profile/' + userId}>
-              <div className={classes.author}>{userName}</div>
+              <img
+                src={photo ?? avatar}
+                alt={userName}
+                className={classes.avatar}
+              />
             </NavLink>
-            <div className={classes.message}>{message}</div>
+          )}
+          <div>
+            {!deleted && (
+              <NavLink to={'/profile/' + userId}>
+                <div className={classes.author}>{userName}</div>
+              </NavLink>
+            )}
+            {!deleted && <div className={classes.message}>{message}</div>}
+            {deleted && (
+              <div className={classes.message}>
+                <span>{deletion}</span>.{' '}
+                <span
+                  className={classes.recovery}
+                  onClick={handleRestoreMessage}
+                  role="button"
+                >
+                  {recovery}
+                </span>
+              </div>
+            )}
           </div>
         </div>
-        <div className={classes.iconWrapper}>
-          <Tooltip
-            title={t('chat.delete') as string}
-            arrow
-            placement="bottom-start"
-          >
-            <DeleteOutlineIcon
-              onClick={deleteMessage}
-              className={classes.icon}
-            />
-          </Tooltip>
-        </div>
+        {!deleted && (
+          <div className={classes.iconWrapper}>
+            <Tooltip
+              title={t('chat.delete') as string}
+              arrow
+              placement="bottom-start"
+            >
+              <DeleteOutlineIcon
+                onClick={handleDeleteMessage}
+                className={classes.icon}
+              />
+            </Tooltip>
+          </div>
+        )}
       </div>
     );
   }

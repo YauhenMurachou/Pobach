@@ -9,6 +9,7 @@ const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
 const SET_MUTED = 'SET_MUTED';
 const DELETE_MESSAGE = 'DELETE_MESSAGE';
+const RESTORE_MESSAGE = 'RESTORE_MESSAGE';
 
 type ChatInitialStateType = {
   messages: MessageType[];
@@ -46,6 +47,11 @@ export const chatActions = {
   deleteMessageActionCreator: (id: string) =>
     ({
       type: DELETE_MESSAGE,
+      data: { id },
+    } as const),
+  restoreMessageActionCreator: (id: string) =>
+    ({
+      type: RESTORE_MESSAGE,
       data: { id },
     } as const),
 };
@@ -103,9 +109,26 @@ export const chatReducer = (
     case DELETE_MESSAGE: {
       return {
         ...state,
-        messages: [...state.messages].filter(
-          (message) => message.id !== action.data.id
-        ),
+        messages: [...state.messages].map((message) => {
+          if (message.id === action.data.id) {
+            // Reflect.deleteProperty(message, 'userName');
+            message.deleted = true;
+            message.deletedMessage = 'Message deleted. Restore';
+          }
+          return message;
+        }),
+      };
+    }
+    case RESTORE_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages].map((message) => {
+          if (message.id === action.data.id) {
+            message.deleted = false;
+            message.deletedMessage = undefined;
+          }
+          return message;
+        }),
       };
     }
 
