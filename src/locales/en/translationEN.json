@@ -37,7 +37,8 @@
   "chat": {
     "send": "send",
     "enter": "Enter your message",
-    "delete": "Delete message"
+    "delete": "Delete message",
+    "deletedMessage": "Message deleted. Restore"
   },
   "login": {
     "registration": "Sign up",
