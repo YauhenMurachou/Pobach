@@ -27,7 +27,7 @@ export const usersApi = {
     return response.data;
   },
 
-  async getFollowers(currentPage = 1, pageSize = 100, name?: string) {
+  async getFriends(currentPage = 1, pageSize = 100, name?: string) {
     const response = await instance.get(
       `users?page=${currentPage}&count=${pageSize}${
         name ? `&term=${name}` : ''

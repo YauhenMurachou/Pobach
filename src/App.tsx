@@ -27,7 +27,7 @@ const UsersContainer = React.lazy(
   () => import('./components/users/UsersContainer')
 );
 const Login = React.lazy(() => import('./components/login/Login'));
-const Followers = React.lazy(() => import('./components/followers/Followers'));
+const Friends = React.lazy(() => import('./components/friends/Friends'));
 const ChatPage = React.lazy(
   () => import('./components/chat/ChatPageDefaultExport')
 );
@@ -70,7 +70,7 @@ const App: React.FC = () => {
               <Route path="/Photos" component={Photos} />
               <Route path="/Settings" component={Settings} />
               <Route path="/Users" render={() => <UsersContainer />} />
-              <Route path="/Followers" render={() => <Followers />} />
+              <Route path="/Friends" render={() => <Friends />} />
               <Route path="/Chat" render={() => <ChatPage />} />
               <Route exact path="/" render={() => <StartPage />} />
             </div>

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import Loader from 'src/components/loader/Loader';
 import UserItem from 'src/components/users/UserItem';
-import { getFollowersAction } from 'src/redux/followersReducer';
+import { getFriendsAction } from 'src/redux/friendsReducer';
 import { RootState } from 'src/redux/redux-store';
 import {
   followUsersThunkCreator,
@@ -11,14 +11,14 @@ import {
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
 
-import classes from './Followers.module.css';
+import classes from './Friends.module.css';
 
-const Followers: FC = () => {
-  const { isAuth, isFetching, followers, followingInProgress } = useSelector(
+const Friends: FC = () => {
+  const { isAuth, isFetching, friends, followingInProgress } = useSelector(
     (state: RootState) => ({
       isAuth: state.auth,
       isFetching: state.users.isFetching,
-      followers: state.users.users,
+      friends: state.users.users,
       followingInProgress: state.users.followingInProgressUsers,
     })
   );
@@ -28,7 +28,7 @@ const Followers: FC = () => {
   const unfollow = (id: number) => {
     dispatch(unfollowUsersThunkCreator(id));
     setTimeout(() => {
-      dispatch(getFollowersAction());
+      dispatch(getFriendsAction());
     }, 200);
   };
 
@@ -48,17 +48,17 @@ const Followers: FC = () => {
     <div className={classes.wrapper}>
       {!isFetching && (
         <div>
-          <div className={classes.header}>All friends({followers.length})</div>
+          <div className={classes.header}>All friends({friends.length})</div>
           <ul className={classes.itemWrapper}>
-            {followers.map((follower, index) => (
+            {friends.map((friend, index) => (
               <UserItem
-                user={follower}
+                user={friend}
                 followUsers={() => {
-                  dispatch(followUsersThunkCreator(follower.id as number));
+                  dispatch(followUsersThunkCreator(friend.id as number));
                 }}
-                unfollowUsers={() => unfollow(follower.id as number)}
+                unfollowUsers={() => unfollow(friend.id as number)}
                 followingInProgress={followingInProgress}
-                key={index + follower.toString()}
+                key={index + friend.toString()}
               />
             ))}
           </ul>
@@ -68,4 +68,4 @@ const Followers: FC = () => {
   );
 };
 
-export default Followers;
+export default Friends;

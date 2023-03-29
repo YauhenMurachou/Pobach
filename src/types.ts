@@ -9,7 +9,7 @@ export type UserType = {
   uniqueUrlName: null | string;
 };
 
-export type FollowersType = {
+export type FriendsType = {
   error: string | null;
   items: UserType[];
   totalCount: number;

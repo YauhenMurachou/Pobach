@@ -62,13 +62,12 @@ const Navbar: FC = () => {
         {t('navbar.users')}
       </NavLink>
       <NavLink
-        to="/Followers"
+        to="/Friends"
         activeClassName={classes.activeLink}
         className={classes.item}
       >
         <HandshakeIcon />
-        Followers
-        {/* {t('navbar.users')} */}
+           {t('navbar.friends')}
       </NavLink>
       <NavLink
         to="/Chat"
