@@ -67,7 +67,7 @@ const Navbar: FC = () => {
         className={classes.item}
       >
         <HandshakeIcon />
-           {t('navbar.friends')}
+        {t('navbar.friends')}
       </NavLink>
       <NavLink
         to="/Chat"

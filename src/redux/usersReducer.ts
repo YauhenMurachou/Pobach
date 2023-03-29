@@ -141,7 +141,7 @@ export const getUsersThunkCreator =
     currentPage: number,
     pageSize: number,
     name?: string,
-    friend?: boolean
+    isFriend?: boolean
   ): CommonThunkType<UserActionsType> =>
   async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
@@ -149,23 +149,8 @@ export const getUsersThunkCreator =
       currentPage,
       pageSize,
       name,
-      friend
+      isFriend
     );
-    dispatch(actions.setCurrentPageActionCreator(currentPage));
-    dispatch(actions.setIsFetchingActionCreator(false));
-    dispatch(actions.setUsersActionCreator(usersData.items));
-    dispatch(actions.setTotalUsersCountActionCreator(usersData.totalCount));
-  };
-
-export const getFriendsThunkCreator =
-  (
-    currentPage: number,
-    pageSize: number,
-    name?: string
-  ): CommonThunkType<UserActionsType> =>
-  async (dispatch) => {
-    dispatch(actions.setIsFetchingActionCreator(true));
-    const usersData = await usersApi.getFriends(currentPage, pageSize, name);
     dispatch(actions.setCurrentPageActionCreator(currentPage));
     dispatch(actions.setIsFetchingActionCreator(false));
     dispatch(actions.setUsersActionCreator(usersData.items));
