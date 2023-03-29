@@ -17,3 +17,10 @@
 	font-size: 0.85rem;
 	color: #6e6ef8;
 }
+
+.pagination {
+	padding: 1rem 0;
+	display: flex;
+	justify-content: center;
+	margin: 0 auto;
+}

@@ -9,10 +9,10 @@ import {
   messagesListGet,
   sendMessageAction,
 } from 'src/redux/dialogsReducer';
-import { followersGet, getFollowersAction } from 'src/redux/followersReducer';
+import { friendsGet, getFriendsAction } from 'src/redux/friendsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
-import { FollowersType } from 'src/types';
+import { FriendsType } from 'src/types';
 
 const delay = (ms?: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -57,9 +57,9 @@ function* sendMessage(action: { payload: { id: number } }) {
 }
 
 // Our worker
-function* getFollowers() {
-  const followers: FollowersType = yield call(() => usersApi.getFollowers());
-  yield put(followersGet(followers.items));
+function* getFriends() {
+  const friends: FriendsType = yield call(() => usersApi.getFriends());
+  yield put(friendsGet(friends.items));
 }
 
 function* todosSaga() {
@@ -83,8 +83,8 @@ function* sendMessageSaga() {
 }
 
 // Our watcher
-function* getFollowersSaga() {
-  yield takeEvery(getFollowersAction, getFollowers);
+function* getFriendsSaga() {
+  yield takeEvery(getFriendsAction, getFriends);
 }
 
 export function* rootSaga() {
@@ -95,6 +95,6 @@ export function* rootSaga() {
     dialogsSaga(),
     getMessagesSaga(),
     sendMessageSaga(),
-    getFollowersSaga(),
+    getFriendsSaga(),
   ]);
 }

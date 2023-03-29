@@ -2,9 +2,15 @@ import { useEffect, useState } from 'react';
 import { useDebounce } from 'src/hooks/useDebounce';
 
 export const useSearch = (
-  onChange: (currentPage: number, pageSize: number, name?: string) => void,
+  onChange: (
+    currentPage: number,
+    pageSize: number,
+    name?: string,
+    isFriend?: boolean
+  ) => void,
   currentPage: number,
-  pageSize: number
+  pageSize: number,
+  isFriend?: boolean
 ) => {
   const [isSearch, setIsSearch] = useState(false);
   const [searchValue, setSearchValue] = useState('');
@@ -19,7 +25,7 @@ export const useSearch = (
 
   useEffect(() => {
     if (onChange && (searchValue.trim().length >= 2 || !searchValue.length)) {
-      onChange(currentPage, pageSize, searchValue);
+      onChange(currentPage, pageSize, searchValue, isFriend);
     }
   }, [debouncedValue]); // eslint-disable-line
 
