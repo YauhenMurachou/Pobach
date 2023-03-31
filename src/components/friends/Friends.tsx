@@ -1,8 +1,9 @@
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Pagination } from '@mui/material';
+import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
+import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import Loader from 'src/components/loader/Loader';
 import SearchField from 'src/components/users/SearchField';
 import UserItem from 'src/components/users/UserItem';
@@ -18,6 +19,7 @@ import classes from './Friends.module.css';
 
 const Friends: FC = () => {
   const dispatch = useDispatch();
+  const [currentPage, setPage] = useState(1);
   const { isAuth, isFetching, friends, followingInProgress, pageSize } =
     useSelector((state: RootState) => ({
       isAuth: state.auth,
@@ -27,8 +29,13 @@ const Friends: FC = () => {
       followingInProgress: state.users.followingInProgressUsers,
     }));
   const { t } = useTranslation();
+
+  useEffect(() => {
+    dispatch(getUsersThunkCreator(currentPage, 100, undefined, true));
+  }, [dispatch]);
+
   const pagesCount = Math.ceil(friends.length / pageSize);
-  const [page, setPage] = useState(1);
+
   const getFriends = (
     currentPage: number,
     pageSize: number,
@@ -36,31 +43,22 @@ const Friends: FC = () => {
     isFriend?: boolean
   ) => dispatch(getUsersThunkCreator(currentPage, pageSize, name, isFriend));
 
-  const onPageChange = (pageNumber: number) => {
-    dispatch(getUsersThunkCreator(pageNumber, pageSize, undefined, true));
-  };
-
   const { setSearchValue, searchValue } = useSearch(
     getFriends,
-    page,
+    currentPage,
     pageSize,
     true
   );
 
-  const isSearch = searchValue.length ? true : false;
-
-  const handleChange = (_event: ChangeEvent<unknown>, page: number) => {
-    setPage(page);
-    onPageChange(page);
+  const handlePageChange = (pageNumber: number) => {
+    dispatch(getUsersThunkCreator(pageNumber, pageSize, undefined, true));
   };
+
+  const isSearch = searchValue.length ? true : false;
 
   const unfollow = (id: number) => {
     dispatch(unfollowUsersThunkCreator(id));
   };
-
-  useEffect(() => {
-    dispatch(getUsersThunkCreator(page, 100, undefined, true));
-  }, [dispatch]);
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
@@ -94,18 +92,17 @@ const Friends: FC = () => {
               />
             ))}
           </ul>
-          <div className={classes.pagination}>
-            {pagesCount > 1 && (
-              <Pagination
-                count={pagesCount}
-                showFirstButton
-                showLastButton
-                page={page}
-                onChange={handleChange}
-                shape="rounded"
-              />
-            )}
-          </div>
+          {pagesCount > 1 && (
+            <UsersPagination
+              pagesCount={pagesCount}
+              currentPage={currentPage}
+              handlePageChange={handlePageChange}
+              setPage={setPage}
+            />
+          )}
+          {isSearch && !friends.length && (
+            <EmptyState text={t('users.nothing')} />
+          )}
         </div>
       )}
     </div>

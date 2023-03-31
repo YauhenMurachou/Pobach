@@ -1,8 +1,8 @@
-import { ChangeEvent, FC, memo, useState } from 'react';
+import { FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Pagination from '@mui/material/Pagination';
+import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import SearchField from 'src/components/users/SearchField';
 import UserItem from 'src/components/users/UserItem';
@@ -36,6 +36,13 @@ const Users: FC<Props> = memo(
     followUsers,
     getUsers,
   }) => {
+    const [page, setPage] = useState(1);
+    const { isAuth } = useSelector((state: RootState) => state.auth);
+    const isFetching = useSelector(
+      (state: RootState) => state.users.isFetching
+    );
+    const { t } = useTranslation();
+
     const { setSearchValue, searchValue } = useSearch(
       getUsers,
       currentPage,
@@ -44,16 +51,6 @@ const Users: FC<Props> = memo(
 
     const isSearch = searchValue.length ? true : false;
 
-    const [page, setPage] = useState(1);
-    const { isAuth } = useSelector((state: RootState) => state.auth);
-    const isFetching = useSelector(
-      (state: RootState) => state.users.isFetching
-    );
-    const { t } = useTranslation();
-    const handleChange = (_event: ChangeEvent<unknown>, page: number) => {
-      setPage(page);
-      onPageChange(page);
-    };
     const pagesCount = Math.ceil(totalUsersCount / pageSize);
     const pages = [];
     for (let i = 1; i <= pagesCount; i++) {
@@ -92,18 +89,14 @@ const Users: FC<Props> = memo(
                 />
               ))}
             </ul>
-            <div className={classes.pagination}>
-              {pagesCount > 1 && (
-                <Pagination
-                  count={pagesCount}
-                  showFirstButton
-                  showLastButton
-                  page={page}
-                  onChange={handleChange}
-                  shape="rounded"
-                />
-              )}
-            </div>
+            {pagesCount > 1 && (
+              <UsersPagination
+                pagesCount={pagesCount}
+                currentPage={page}
+                handlePageChange={onPageChange}
+                setPage={setPage}
+              />
+            )}
             {isSearch && !users.length && (
               <EmptyState text={t('users.nothing')} />
             )}
