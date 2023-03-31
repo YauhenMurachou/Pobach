@@ -2,11 +2,11 @@ import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import ThreePIcon from '@mui/icons-material/ThreeP';
-import FollowButtons from 'src/components/users/FollowButtons';
+import FollowButtons from 'src/components/common/atoms/followButtons/FollowButtons';
 import avatar from 'src/images/avatar.png';
 import { UserType } from 'src/types';
 
-import classes from './Users.module.css';
+import classes from './UserItem.module.css';
 
 type Props = {
   followingInProgress: number[];
