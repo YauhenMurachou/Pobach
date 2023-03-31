@@ -2,11 +2,11 @@ import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
+import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import Loader from 'src/components/loader/Loader';
-import SearchField from 'src/components/users/SearchField';
-import UserItem from 'src/components/users/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
 import {

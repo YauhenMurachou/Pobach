@@ -2,7 +2,7 @@ import { ChangeEvent, Dispatch, FC, memo, SetStateAction } from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment, TextField } from '@mui/material';
 
-import classes from './Users.module.css';
+import classes from './SearchField.module.css';
 
 type Props = {
   placeholder: string;

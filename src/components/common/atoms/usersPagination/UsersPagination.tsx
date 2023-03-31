@@ -6,7 +6,6 @@ import classes from './UsersPagination.module.css';
 type Props = {
   pagesCount: number;
   currentPage: number;
-  // togglePage: (_event: ChangeEvent<unknown>, page: number) => void;
   handlePageChange: (pageNumber: number) => void;
   setPage: Dispatch<SetStateAction<number>>;
 };
