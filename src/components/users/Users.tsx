@@ -9,6 +9,7 @@ import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
 import { UserType } from 'src/types';
+import { calculatePagesCount } from 'src/utils/calculatePagesCount';
 
 import classes from './Users.module.css';
 
@@ -50,12 +51,7 @@ const Users: FC<Props> = memo(
     );
 
     const isSearch = searchValue.length ? true : false;
-
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i);
-    }
+    const pagesCount = calculatePagesCount(totalUsersCount, pageSize);
 
     if (!isAuth) {
       return <Redirect to="/Login" />;
