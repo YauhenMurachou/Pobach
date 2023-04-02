@@ -8,7 +8,6 @@ import { v4 as uuidv4 } from 'uuid';
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
-const SET_MUTED = 'SET_MUTED';
 const DELETE_MESSAGE = 'DELETE_MESSAGE';
 const RESTORE_MESSAGE = 'RESTORE_MESSAGE';
 
@@ -40,11 +39,6 @@ export const chatActions = {
       type: SET_STATUS,
       data: { status },
     } as const),
-  setMutedActionCreator: (isMuted: boolean) =>
-    ({
-      type: SET_MUTED,
-      data: { isMuted },
-    } as const),
   deleteMessageActionCreator: (id: string) =>
     ({
       type: DELETE_MESSAGE,
@@ -67,13 +61,21 @@ export const chatReducer = (
     case SET_MESSAGES: {
       const newMessages = action.data.messages;
       const currentUrl = window.location.href;
+      const isMuted = JSON.parse(localStorage.getItem('isMuted') || '[]');
+      const isOffNotifications = JSON.parse(
+        localStorage.getItem('isOffNotifications') || '[]'
+      );
 
-      if (newMessages.length === 1 && !currentUrl.includes('Chat')) {
+      if (
+        newMessages.length === 1 &&
+        !currentUrl.includes('Chat') &&
+        !isOffNotifications
+      ) {
         checkPageStatus(
           newMessages[0].message,
           newMessages[0].userName,
           currentUrl,
-          state.isMuted
+          isMuted
         );
       }
       return {
@@ -99,12 +101,6 @@ export const chatReducer = (
       return {
         ...state,
         status: action.data.status,
-      };
-    }
-    case SET_MUTED: {
-      return {
-        ...state,
-        isMuted: action.data.isMuted,
       };
     }
     case DELETE_MESSAGE: {

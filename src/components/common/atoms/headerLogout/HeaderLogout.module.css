@@ -1,0 +1,15 @@
+.text {
+	color: var(--red-main);
+	color: #293138;
+	text-align: center;
+	margin: auto 0 auto 60px;
+	display: inline-block;
+	padding-top: 1rem;
+}
+
+.text a:last-child {
+	color: #293138;
+	text-align: center;
+	margin: 0 auto;
+	display: inline-block;
+}

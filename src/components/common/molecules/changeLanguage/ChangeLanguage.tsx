@@ -33,7 +33,7 @@ const ChangeLanguage: FC = () => {
 
   return (
     <>
-      <Tooltip title={t('header.choose') as string}>
+      <Tooltip title={t('header.choose') as string} arrow>
         <span onClick={handleOpen} role="button" className={classes.language}>
           <LanguageIcon />
         </span>

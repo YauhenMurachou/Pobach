@@ -14,6 +14,7 @@ import {
   getUsersThunkCreator,
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
+import { calculatePagesCount } from 'src/utils/calculatePagesCount';
 
 import classes from './Friends.module.css';
 
@@ -34,7 +35,7 @@ const Friends: FC = () => {
     dispatch(getUsersThunkCreator(currentPage, 100, undefined, true));
   }, [dispatch]);
 
-  const pagesCount = Math.ceil(friends.length / pageSize);
+  const pagesCount = calculatePagesCount(friends.length, pageSize);
 
   const getFriends = (
     currentPage: number,

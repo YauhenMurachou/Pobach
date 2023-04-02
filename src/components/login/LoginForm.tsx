@@ -1,7 +1,8 @@
-import React from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Button } from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { Button, IconButton, InputAdornment } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
 import { LoginType } from 'src/components/login/Login';
@@ -30,9 +31,15 @@ type Props = {
   ) => void;
 };
 
-const LoginForm: React.FC<Props> = ({ onSubmit }) => {
+const LoginForm: FC<Props> = ({ onSubmit }) => {
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+  };
   const { error, captcha } = useSelector((state: RootState) => state.auth);
   const { t } = useTranslation();
+
   return (
     <>
       <Formik
@@ -64,10 +71,23 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
                 placeholder="Password"
                 name="password"
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 label="Password"
                 component={TextField}
                 disabled={false}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
               />
             </div>
             {captcha && (

@@ -1,4 +1,5 @@
 import { MessageType } from 'src/api/chat-api';
+import i18n from 'src/i18n';
 
 const sendNotification = (
   message: MessageType['message'],
@@ -6,7 +7,7 @@ const sendNotification = (
   currentUrl: string,
   isMuted: boolean
 ) => {
-  const notification = new Notification('New message from Open Chat', {
+  const notification = new Notification(i18n.t('chat.newMessage'), {
     icon: 'https://cdn-icons-png.flaticon.com/512/733/733585.png',
     body: `@${user}: ${message}`,
     silent: isMuted,
