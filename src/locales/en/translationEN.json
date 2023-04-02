@@ -8,7 +8,9 @@
     "signout": "Sign out",
     "choose": "Choose language",
     "mute": "Mute notifications",
-    "unmute": "unmute notifications"
+    "unmute": "Unmute notifications",
+    "off": "Turn off notifications",
+    "on": "Turn on notifications"
   },
   "navbar": {
     "profile": "My profile",
@@ -39,7 +41,8 @@
     "send": "send",
     "enter": "Enter your message",
     "delete": "Delete message",
-    "deletedMessage": "Message deleted. Restore"
+    "deletedMessage": "Message deleted. Restore",
+    "newMessage": "Chat: new message"
   },
   "login": {
     "registration": "Sign up",

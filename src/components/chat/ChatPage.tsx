@@ -37,7 +37,6 @@ export const ChatPage: FC = memo(() => {
 
 const Messages: FC = memo(() => {
   const messages = useSelector((state: RootState) => state.chat.messages);
-
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

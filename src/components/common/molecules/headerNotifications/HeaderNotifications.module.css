@@ -1,0 +1,13 @@
+.mute {
+	padding-top: 1rem;
+	margin-left: 2rem;
+}
+
+.mute svg {
+	cursor: pointer;
+}
+
+.disabled {
+	opacity: 0.5;
+	pointer-events: none
+}
