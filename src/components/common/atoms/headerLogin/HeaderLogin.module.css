@@ -1,6 +1,6 @@
 .login {
 	color: var(--red-main);
-	color: #293138;
+	color: var(--grey-dark);
 	text-align: center;
 	margin: auto 0 auto 60px;
 	display: inline-block;

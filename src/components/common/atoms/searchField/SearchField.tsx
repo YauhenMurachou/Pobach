@@ -35,7 +35,7 @@ const SearchField: FC<Props> = memo(
               </InputAdornment>
             ),
           }}
-          sx={{ bgcolor: 'white' }}
+          sx={{ bgcolor: 'var(--white-main)' }}
           autoFocus={isSearch}
         />
       </div>

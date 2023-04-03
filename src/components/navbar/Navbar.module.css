@@ -10,7 +10,7 @@
 }
 
 .item {
-	color: white;
+	color: var(--white-main);
 	padding: 0.5rem 1.5rem;
 	cursor: pointer;
 	white-space: nowrap;
@@ -21,13 +21,13 @@
 }
 
 .item:hover {
-	background-color: rgb(243, 235, 235);
+	background-color: var(--bg-light-2);
 	color: var(--red-main);
 	transition-duration: 0.3s;
 }
 
 .nav .activeLink {
 	color: var(--red-main);
-	background-color: white;
+	background-color: var(--white-main);
 	font-weight: 600;
 }

@@ -99,7 +99,9 @@ const ProfileInfoContainer: FC<Props> = ({
                   }}
                   user={user ?? ({} as UserType)}
                 />
-                {user?.followed && <Button variant="contained">Message</Button>}
+                {user?.followed && (
+                  <Button variant="contained">{t('users.message')}</Button>
+                )}
               </div>
             )}
           </div>

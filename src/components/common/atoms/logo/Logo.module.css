@@ -1,7 +1,7 @@
 .logo {
 	display: flex;
 	align-items: center;
-	color: #F5F5F5;
+	color: var(--bg-light-2);
 	position: fixed;
 	bottom: 2rem;
 	left: 1.5rem;

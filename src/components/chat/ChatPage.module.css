@@ -38,7 +38,7 @@
 
 .author {
 	font-weight: 500;
-	color: #6e6ef8;
+	color: var(--blue-main);
 }
 
 .message {
@@ -62,7 +62,7 @@
 }
 
 .recovery {
-	color: #6e6ef8;
+	color: var(--blue-main);
 	cursor: pointer;
 }
 
