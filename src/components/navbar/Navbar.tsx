@@ -18,6 +18,7 @@ const Navbar: FC = () => {
           to={index === 0 ? profilePath : path}
           activeClassName={classes.activeLink}
           className={classes.item}
+          key={path + text}
         >
           {icon}
           {text}

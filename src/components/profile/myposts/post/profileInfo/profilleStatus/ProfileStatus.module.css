@@ -1,6 +1,6 @@
 .subtitle {
 	font-size: 0.75rem;
-	color: #79747E;
+	color: var(--grey-light-2);
 }
 
 .status {

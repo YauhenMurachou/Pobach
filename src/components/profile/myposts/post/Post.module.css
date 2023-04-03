@@ -1,5 +1,5 @@
 .post {
-	color: rgb(27, 31, 223);
+	color: var(--blue-main);
 	padding-bottom: 1rem;
 	display: flex;
 	justify-content: start;

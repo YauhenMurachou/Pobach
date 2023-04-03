@@ -1,6 +1,5 @@
 .wrapper {
 	padding: 1rem;
-	/* padding-right: 200px; */
 }
 
 .header {
@@ -11,7 +10,7 @@
 }
 
 .number {
-	color: #6e6ef8;
+	color: var(--blue-main);
 }
 
 .itemWrapper {

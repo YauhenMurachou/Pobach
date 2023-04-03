@@ -4,15 +4,15 @@
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-color: #E2E2E2;
+	background-color: var(--bg-light-2);
 }
 
 .login {
 	margin: 25vh auto 0 auto;
-	background-color: white;
+	background-color: var(--white-main);
 	max-width: 28.75rem;
 	border-radius: 0.5rem;
-	box-shadow: 0px 1rem 1.5rem rgba(110, 116, 134, 0.24);
+	box-shadow: 0px 1rem 1.5rem var(--grey-main-2);
 }
 
 .loginForm {
@@ -34,5 +34,5 @@
 }
 
 .error {
-	color: #d32f2f;
+	color: var(--red-main);
 }
