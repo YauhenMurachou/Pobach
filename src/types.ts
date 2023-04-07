@@ -34,3 +34,14 @@ type ContactsType = {
   youtube: string;
   mainLink: string;
 };
+
+export type Message = {
+  id: number;
+  body: string;
+  translatedBody: string | null;
+  addedAt: string;
+  senderId: number;
+  senderName: string;
+  recipientId: number;
+  viewed: boolean;
+};
