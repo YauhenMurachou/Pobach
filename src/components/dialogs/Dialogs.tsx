@@ -1,37 +1,33 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Button } from '@mui/material';
-import DialogsForm from 'src/components/dialogs/DialogsForm';
+import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
 import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
-import { dialogsActions } from 'src/redux/dialogsPageReducer';
 import {
   getDialogsAction,
   getMessagesListAction,
-  sendMessageAction,
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
-import classes from './Dialogs.module.css';
-
-type ValuesType = {
-  newMessage: string;
-};
+// import classes from './Dialogs.module.css';
 
 const Dialogs: FC = () => {
+  const dispatch = useDispatch();
   const { isAuth } = useSelector((state: RootState) => state.auth);
   const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
   const messages = useSelector(
     (state: RootState) => state.dialogs.messagesList
   );
-  const dispatch = useDispatch();
+  const [openDialogId, setOpenDialogId] = useState<number>();
 
   useEffect(() => {
     dispatch(getDialogsAction());
   }, []);
 
-  const addNewMessageForm = (values: ValuesType) =>
-    dispatch(dialogsActions.addMessageActionCreator(values.newMessage));
+  const openDialog = (id: number) => {
+    dispatch(getMessagesListAction({ id }));
+    setOpenDialogId(id);
+  };
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
@@ -39,28 +35,20 @@ const Dialogs: FC = () => {
 
   return (
     <>
-      <ul>
-        {dialogs.map((dialog) => (
-          <MessageTitle
-            key={dialog.id}
-            dialog={dialog}
-            openDialog={() =>
-              dispatch(getMessagesListAction({ id: dialog.id }))
-            }
-          />
-        ))}
-      </ul>
-      <div>
-        {messages?.items.map((message) => (
-          <div key={message.id}>{message.body}</div>
-        ))}
-      </div>
-      <Button onClick={() => dispatch(sendMessageAction({ id: 16763 }))}>
-        send message
-      </Button>
-      <div className={classes.messages}>
-        <DialogsForm onSubmit={addNewMessageForm} />
-      </div>
+      {!messages && (
+        <ul>
+          {dialogs.map((dialog) => (
+            <MessageTitle
+              key={dialog.id}
+              dialog={dialog}
+              openDialog={() => openDialog(dialog.id)}
+            />
+          ))}
+        </ul>
+      )}
+      {!!messages && (
+        <DialogItem messages={messages} dialogId={openDialogId as number} />
+      )}
     </>
   );
 };

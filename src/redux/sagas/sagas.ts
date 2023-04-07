@@ -5,6 +5,7 @@ import {
   Dialog,
   getDialogsAction,
   getMessagesListAction,
+  messageAdd,
   MessagesList,
   messagesListGet,
   sendMessageAction,
@@ -12,7 +13,7 @@ import {
 import { friendsGet, getFriendsAction } from 'src/redux/friendsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
-import { FriendsType } from 'src/types';
+import { FriendsType, Message } from 'src/types';
 
 const delay = (ms?: number) => new Promise((res) => setTimeout(res, ms));
 
@@ -52,8 +53,12 @@ function* getMessagesList(action: { payload: { id: number } }) {
   yield put(messagesListGet(messagesList));
 }
 
-function* sendMessage(action: { payload: { id: number } }) {
-  yield call(() => dialogsApi.sendMessage(action.payload.id));
+function* sendMessage(action: { payload: { id: number; body: string } }) {
+  const { id, body } = action.payload;
+  const sentMessage: Message = yield call(() =>
+    dialogsApi.sendMessage(id, body)
+  );
+  yield put(messageAdd(sentMessage));
 }
 
 // Our worker

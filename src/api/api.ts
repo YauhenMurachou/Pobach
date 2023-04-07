@@ -86,11 +86,11 @@ export const dialogsApi = {
     const response = await instance.get(`dialogs/${userId}/messages`);
     return response.data;
   },
-  async sendMessage(userId: number) {
+  async sendMessage(userId: number, body: string) {
     const response = await instance.post(`dialogs/${userId}/messages`, {
-      body: 'Привет, Настя',
+      body,
     });
-    return response.data;
+    return response.data.data.message;
   },
   async isMessageViewed(messageId: number) {
     const response = await instance.get(`dialogs/messages/${messageId}/viewed`);

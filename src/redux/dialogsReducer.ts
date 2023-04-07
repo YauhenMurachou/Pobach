@@ -1,4 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
+import { Message } from 'src/types';
 
 export type Dialog = {
   id: number;
@@ -10,19 +11,8 @@ export type Dialog = {
   photos: { small: string; large: string } | null;
 };
 
-type Messsage = {
-  id: number;
-  body: string;
-  translatedBody: string | null;
-  addedAt: string;
-  senderId: number;
-  senderName: string;
-  recipientId: number;
-  viewed: boolean;
-};
-
 export type MessagesList = {
-  items: Messsage[];
+  items: Message[];
   totalCount: number;
   error: null | string;
 };
@@ -41,7 +31,7 @@ export const getDialogsAction = createAction('dialogs/getDialogsAction');
 export const getMessagesListAction = createAction<{ id: number }>(
   'dialogs/getMessagesListAction'
 );
-export const sendMessageAction = createAction<{ id: number }>(
+export const sendMessageAction = createAction<{ id: number; body: string }>(
   'dialogs/sendMessageAction'
 );
 
@@ -55,9 +45,18 @@ const dialogsSlice = createSlice({
     messagesListGet(state, action) {
       state.messagesList = action.payload;
     },
+    messageAdd(state, action) {
+      if (state.messagesList) {
+        state.messagesList.items = [
+          ...state.messagesList.items,
+          action.payload,
+        ];
+      }
+    },
   },
 });
 
-export const { allDialogsGet, messagesListGet } = dialogsSlice.actions;
+export const { allDialogsGet, messagesListGet, messageAdd } =
+  dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
