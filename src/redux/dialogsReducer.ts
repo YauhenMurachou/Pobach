@@ -28,6 +28,9 @@ const initialState: InitialStateDialogsType = {
 };
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
+export const startDialogAction = createAction<{ id: number }>(
+  'dialogs/startDialogAction'
+);
 export const getMessagesListAction = createAction<{ id: number }>(
   'dialogs/getMessagesListAction'
 );

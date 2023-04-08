@@ -1,0 +1,16 @@
+.modal {
+	position: absolute !important;
+	top: 40% !important;
+	left: 40% !important;
+	bottom: auto !important;
+	width: 400px;
+	background-color: var(--blue-light);
+	border: none;
+	padding: 1rem;
+	border-radius: 0.25rem;
+}
+
+.title {
+	display: flex;
+	justify-content: space-between;
+}

@@ -1,9 +1,10 @@
-import { Dispatch, FC, SetStateAction, useEffect } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import FollowButtons from 'src/components/common/atoms/followButtons/FollowButtons';
 import ChangeAvatar from 'src/components/common/molecules/changeAvatar/ChangeAvatar';
+import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import Loader from 'src/components/loader/Loader';
 import ProfileInfo from 'src/components/profile/myposts/post/profileInfo/ProfileInfo';
 import ProfileInfoEditForm from 'src/components/profile/myposts/post/profileInfo/ProfileInfoEditForm';
@@ -39,6 +40,7 @@ const ProfileInfoContainer: FC<Props> = ({
   editMode,
   setEditMode,
 }) => {
+  const [isDialogOpen, setDialogOpen] = useState(false);
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -54,6 +56,10 @@ const ProfileInfoContainer: FC<Props> = ({
       profile?.userId &&
       dispatch(getUsersThunkCreator(1, 30, profile.fullName));
   }, [profile]);
+
+  const handleDialogOpen = () => {
+    setDialogOpen((prevState) => !prevState);
+  };
 
   const user =
     users && profile?.userId
@@ -100,7 +106,9 @@ const ProfileInfoContainer: FC<Props> = ({
                   user={user ?? ({} as UserType)}
                 />
                 {user?.followed && (
-                  <Button variant="contained">{t('users.message')}</Button>
+                  <Button variant="contained" onClick={handleDialogOpen}>
+                    {t('users.message')}
+                  </Button>
                 )}
               </div>
             )}
@@ -131,6 +139,11 @@ const ProfileInfoContainer: FC<Props> = ({
           </Button>
         )}
       </div>
+      <DialogModal
+        isOpen={isDialogOpen}
+        handleClose={handleDialogOpen}
+        companion={user as UserType}
+      />
     </div>
   );
 };

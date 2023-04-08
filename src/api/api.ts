@@ -82,6 +82,10 @@ export const dialogsApi = {
     const response = await instance.get('dialogs');
     return response.data;
   },
+  async startDialog(userId: number) {
+    const response = await instance.put(`dialogs/${userId}`);
+    return response.data;
+  },
   async getMessagesList(userId: number) {
     const response = await instance.get(`dialogs/${userId}/messages`);
     return response.data;
