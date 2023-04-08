@@ -47,3 +47,12 @@
 	font-size: 0.85rem;
 	color: var(--blue-main);
 }
+
+.disabled {
+	opacity: 0.5;
+}
+
+.disabled:hover {
+	cursor: not-allowed !important;
+	text-decoration: none;
+}

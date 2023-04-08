@@ -9,6 +9,7 @@ import {
   MessagesList,
   messagesListGet,
   sendMessageAction,
+  startDialogAction,
 } from 'src/redux/dialogsReducer';
 import { friendsGet, getFriendsAction } from 'src/redux/friendsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
@@ -46,6 +47,13 @@ function* getAllDialogs() {
   yield put(allDialogsGet(allDialogs));
 }
 
+function* startDialog(action: { payload: { id: number } }) {
+  const dialog: Dialog = yield call(() =>
+    dialogsApi.startDialog(action.payload.id)
+  );
+  console.log('startDialog', dialog);
+}
+
 function* getMessagesList(action: { payload: { id: number } }) {
   const messagesList: MessagesList[] = yield call(() =>
     dialogsApi.getMessagesList(action.payload.id)
@@ -79,6 +87,10 @@ function* dialogsSaga() {
   yield takeEvery(getDialogsAction, getAllDialogs);
 }
 
+function* startDialogsSaga() {
+  yield takeEvery(startDialogAction, startDialog);
+}
+
 function* getMessagesSaga() {
   yield takeEvery(getMessagesListAction, getMessagesList);
 }
@@ -101,5 +113,6 @@ export function* rootSaga() {
     getMessagesSaga(),
     sendMessageSaga(),
     getFriendsSaga(),
+    startDialogsSaga(),
   ]);
 }

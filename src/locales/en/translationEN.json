@@ -56,6 +56,11 @@
     "users": "users out of",
     "registered": " registered in the system",
     "search": "Find users (minimum 2 characters)",
-    "nothing": "Nothing found"
+    "nothing": "Nothing found",
+    "onlyFriend": "You can only message to a friend"
+  },
+  "dialogModal": {
+    "newMessage": "New message",
+    "redirect": "Go to dialogue with "
   }
 }

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
+import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
@@ -38,6 +39,8 @@ const Users: FC<Props> = memo(
     getUsers,
   }) => {
     const [page, setPage] = useState(1);
+    const [isDialogOpen, setDialogOpen] = useState(false);
+    const [companion, setCompanion] = useState<UserType>();
     const { isAuth } = useSelector((state: RootState) => state.auth);
     const isFetching = useSelector(
       (state: RootState) => state.users.isFetching
@@ -49,6 +52,11 @@ const Users: FC<Props> = memo(
       currentPage,
       pageSize
     );
+
+    const handleDialogOpen = (companion?: UserType) => {
+      setDialogOpen((prevState) => !prevState);
+      setCompanion(companion);
+    };
 
     const isSearch = searchValue.length ? true : false;
     const pagesCount = calculatePagesCount(totalUsersCount, pageSize);
@@ -81,6 +89,7 @@ const Users: FC<Props> = memo(
                   followUsers={followUsers}
                   unfollowUsers={unfollowUsers}
                   followingInProgress={followingInProgress}
+                  handleDialogOpen={() => handleDialogOpen(user)}
                   key={index + user.toString()}
                 />
               ))}
@@ -98,6 +107,11 @@ const Users: FC<Props> = memo(
             )}
           </>
         )}
+        <DialogModal
+          isOpen={isDialogOpen}
+          handleClose={handleDialogOpen}
+          companion={companion as UserType}
+        />
       </div>
     );
   }

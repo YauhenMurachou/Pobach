@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
+import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import Loader from 'src/components/loader/Loader';
@@ -14,6 +15,7 @@ import {
   getUsersThunkCreator,
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
+import { UserType } from 'src/types';
 import { calculatePagesCount } from 'src/utils/calculatePagesCount';
 
 import classes from './Friends.module.css';
@@ -21,6 +23,8 @@ import classes from './Friends.module.css';
 const Friends: FC = () => {
   const dispatch = useDispatch();
   const [currentPage, setPage] = useState(1);
+  const [isDialogOpen, setDialogOpen] = useState(false);
+  const [companion, setCompanion] = useState<UserType>();
   const { isAuth, isFetching, friends, followingInProgress, pageSize } =
     useSelector((state: RootState) => ({
       isAuth: state.auth,
@@ -34,6 +38,11 @@ const Friends: FC = () => {
   useEffect(() => {
     dispatch(getUsersThunkCreator(currentPage, 100, undefined, true));
   }, [dispatch]);
+
+  const handleDialogOpen = (companion?: UserType) => {
+    setDialogOpen((prevState) => !prevState);
+    setCompanion(companion);
+  };
 
   const pagesCount = calculatePagesCount(friends.length, pageSize);
 
@@ -89,6 +98,7 @@ const Friends: FC = () => {
                 }}
                 unfollowUsers={() => unfollow(friend.id as number)}
                 followingInProgress={followingInProgress}
+                handleDialogOpen={() => handleDialogOpen(friend)}
                 key={index + friend.toString()}
               />
             ))}
@@ -104,6 +114,11 @@ const Friends: FC = () => {
           {isSearch && !friends.length && (
             <EmptyState text={t('users.nothing')} />
           )}
+          <DialogModal
+            isOpen={isDialogOpen}
+            handleClose={handleDialogOpen}
+            companion={companion as UserType}
+          />
         </div>
       )}
     </div>
