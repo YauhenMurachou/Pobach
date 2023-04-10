@@ -1,9 +1,15 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import DialogsForm from 'src/components/dialogs/DialogsForm';
-import { sendMessageAction } from 'src/redux/dialogsReducer';
+import {
+  dialogOpenedAction,
+  sendMessageAction,
+} from 'src/redux/dialogsReducer';
 import { UserType } from 'src/types';
 
 import classes from './DialogModal.module.css';
@@ -14,7 +20,7 @@ type ValuesType = {
 
 type Props = {
   isOpen: boolean;
-  handleClose: (companion: UserType) => void;
+  handleClose: () => void;
   companion: UserType;
 };
 
@@ -22,10 +28,16 @@ const DialogModal: FC<Props> = ({ isOpen, handleClose, companion }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { name, id } = companion || {};
+  const dialogPath = `/Dialogs/${id}`;
 
   const addNewMessageForm = (values: ValuesType) => {
     dispatch(sendMessageAction({ id, body: values.newMessage }));
     values.newMessage = '';
+    handleClose();
+  };
+
+  const openDialog = (id: number) => {
+		dispatch(dialogOpenedAction({ id }));
   };
 
   return (
@@ -36,8 +48,15 @@ const DialogModal: FC<Props> = ({ isOpen, handleClose, companion }) => {
             <h5>{t('dialogModal.newMessage')}</h5>
             <div>
               {t('dialogModal.redirect')}
-              {name}
+              <NavLink to={dialogPath} onClick={() => openDialog(id)}>
+                {name}
+              </NavLink>
             </div>
+            <span className={classes.closeIcon}>
+              <IconButton onClick={handleClose}>
+                <CloseIcon />
+              </IconButton>
+            </span>
           </div>
           <div>{name}</div>
           <DialogsForm onSubmit={addNewMessageForm} />

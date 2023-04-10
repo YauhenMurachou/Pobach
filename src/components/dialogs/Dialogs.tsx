@@ -1,11 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
 import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
 import {
+  dialogOpenedAction,
   getDialogsAction,
   getMessagesListAction,
+  MessagesList,
+  messagesListCleared,
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -18,15 +21,24 @@ const Dialogs: FC = () => {
   const messages = useSelector(
     (state: RootState) => state.dialogs.messagesList
   );
-  const [openDialogId, setOpenDialogId] = useState<number>();
+  const openDialogId = useSelector(
+    (state: RootState) => state.dialogs.openDialogId
+  );
 
   useEffect(() => {
     dispatch(getDialogsAction());
   }, []);
 
+  useEffect(
+    () => () => {
+      dispatch(messagesListCleared());
+    },
+    []
+  );
+
   const openDialog = (id: number) => {
     dispatch(getMessagesListAction({ id }));
-    setOpenDialogId(id);
+    dispatch(dialogOpenedAction({ id }));
   };
 
   if (!isAuth) {
@@ -42,12 +54,23 @@ const Dialogs: FC = () => {
               key={dialog.id}
               dialog={dialog}
               openDialog={() => openDialog(dialog.id)}
+              openDialogId={openDialogId as number}
             />
           ))}
         </ul>
       )}
-      {!!messages && (
-        <DialogItem messages={messages} dialogId={openDialogId as number} />
+      {!!messages && openDialogId && (
+        <Switch>
+          <Route
+            path="/Dialogs/:id"
+            render={() => (
+              <DialogItem
+                messages={messages as MessagesList}
+                dialogId={openDialogId}
+              />
+            )}
+          />
+        </Switch>
       )}
     </>
   );

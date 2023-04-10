@@ -35,6 +35,16 @@ type ContactsType = {
   mainLink: string;
 };
 
+export type Dialog = {
+  id: number;
+  userName: string;
+  hasNewMessages: boolean;
+  lastDialogActivityDate: string;
+  lastUserActivityDate: string;
+  newMessagesCount: number;
+  photos: { small: string; large: string } | null;
+};
+
 export type Message = {
   id: number;
   body: string;

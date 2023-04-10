@@ -54,8 +54,12 @@ const Users: FC<Props> = memo(
     );
 
     const handleDialogOpen = (companion?: UserType) => {
-      setDialogOpen((prevState) => !prevState);
+      setDialogOpen(true);
       setCompanion(companion);
+    };
+
+    const handleDialogClose = () => {
+      setDialogOpen(false);
     };
 
     const isSearch = searchValue.length ? true : false;
@@ -109,7 +113,7 @@ const Users: FC<Props> = memo(
         )}
         <DialogModal
           isOpen={isDialogOpen}
-          handleClose={handleDialogOpen}
+          handleClose={handleDialogClose}
           companion={companion as UserType}
         />
       </div>
