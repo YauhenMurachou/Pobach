@@ -2,7 +2,6 @@ import { all, call, put, takeEvery } from 'redux-saga/effects';
 import { dialogsApi, photoSagaApi, todosApi, usersApi } from 'src/api/api';
 import {
   allDialogsGet,
-  Dialog,
   getDialogsAction,
   getMessagesListAction,
   messageAdd,
@@ -14,7 +13,7 @@ import {
 import { friendsGet, getFriendsAction } from 'src/redux/friendsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
 import { actions, Todos } from 'src/redux/settingsReducer';
-import { FriendsType, Message } from 'src/types';
+import { Dialog, FriendsType, Message } from 'src/types';
 
 const delay = (ms?: number) => new Promise((res) => setTimeout(res, ms));
 

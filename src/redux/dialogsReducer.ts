@@ -1,15 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { Message } from 'src/types';
-
-export type Dialog = {
-  id: number;
-  userName: string;
-  hasNewMessages: boolean;
-  lastDialogActivityDate: string;
-  lastUserActivityDate: string;
-  newMessagesCount: number;
-  photos: { small: string; large: string } | null;
-};
+import { Dialog, Message } from 'src/types';
 
 export type MessagesList = {
   items: Message[];
@@ -20,6 +10,7 @@ export type MessagesList = {
 type InitialStateDialogsType = {
   dialogs: Dialog[];
   messagesList: MessagesList | null;
+  openDialogId?: number;
 };
 
 const initialState: InitialStateDialogsType = {
@@ -37,6 +28,9 @@ export const getMessagesListAction = createAction<{ id: number }>(
 export const sendMessageAction = createAction<{ id: number; body: string }>(
   'dialogs/sendMessageAction'
 );
+export const dialogOpenedAction = createAction<{ id: number }>(
+  'dialogs/dialogOpened'
+);
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
@@ -47,6 +41,12 @@ const dialogsSlice = createSlice({
     },
     messagesListGet(state, action) {
       state.messagesList = action.payload;
+    },
+    messagesListCleared(state) {
+      state.messagesList = null;
+    },
+    dialogOpened(state, action) {
+      state.openDialogId = action.payload.id;
     },
     messageAdd(state, action) {
       if (state.messagesList) {
@@ -59,7 +59,12 @@ const dialogsSlice = createSlice({
   },
 });
 
-export const { allDialogsGet, messagesListGet, messageAdd } =
-  dialogsSlice.actions;
+export const {
+  allDialogsGet,
+  messagesListGet,
+  messageAdd,
+  messagesListCleared,
+  dialogOpened,
+} = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;

@@ -9,6 +9,7 @@ import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import Loader from 'src/components/loader/Loader';
 import { useSearch } from 'src/hooks/useSearch';
+import { getMessagesListAction } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 import {
   followUsersThunkCreator,
@@ -40,8 +41,13 @@ const Friends: FC = () => {
   }, [dispatch]);
 
   const handleDialogOpen = (companion?: UserType) => {
-    setDialogOpen((prevState) => !prevState);
+    setDialogOpen(true);
     setCompanion(companion);
+    dispatch(getMessagesListAction({ id: companion?.id as number }));
+  };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
   };
 
   const pagesCount = calculatePagesCount(friends.length, pageSize);
@@ -116,7 +122,7 @@ const Friends: FC = () => {
           )}
           <DialogModal
             isOpen={isDialogOpen}
-            handleClose={handleDialogOpen}
+            handleClose={handleDialogClose}
             companion={companion as UserType}
           />
         </div>

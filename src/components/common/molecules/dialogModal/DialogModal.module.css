@@ -14,3 +14,10 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+.closeIcon :global .MuiIconButton-root {
+	position: absolute;
+	right: 0.5rem;
+	top: 0.5rem;
+}
+
