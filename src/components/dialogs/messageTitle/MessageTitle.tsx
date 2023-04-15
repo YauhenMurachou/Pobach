@@ -7,16 +7,14 @@ import classes from './MessageTitle.module.css';
 type Props = {
   dialog: Dialog;
   openDialog: () => void;
-  openDialogId: number;
 };
 
 const MessageTitle: React.FC<Props> = ({
   dialog,
   openDialog,
-  openDialogId,
 }) => {
   const {
-    // id,
+    id,
     userName,
     // hasNewMessages,
     lastDialogActivityDate,
@@ -25,7 +23,7 @@ const MessageTitle: React.FC<Props> = ({
     photos,
   } = dialog;
 
-  const dialogPath = `/Dialogs/${openDialogId}`;
+  const dialogPath = `/Dialogs/${id}`;
 
   return (
     <NavLink className={classes.container} onClick={openDialog} to={dialogPath}>

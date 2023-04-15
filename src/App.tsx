@@ -1,7 +1,8 @@
 import React, { Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Route, useLocation } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 import CorseError from 'src/components/corseError/CorseError';
+import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
 import Loader from 'src/components/loader/Loader';
 import { MaterialProvider } from 'src/providers/MaterialProvider';
 import { initializedThunkCreator } from 'src/redux/appReducer';
@@ -62,7 +63,13 @@ const App: React.FC = () => {
             <Header />
             <Navbar />
             <div className={styles.appWrapperContent}>
-              <Route path="/Dialogs" render={() => <Dialogs />} />
+              <Switch>
+                <Route exact path="/Dialogs" render={() => <Dialogs />} />
+                <Route
+                  path="/Dialogs/:dialogId"
+                  render={() => <DialogItem />}
+                />
+              </Switch>
               <Route
                 path="/Profile/:userId?"
                 render={() => <ProfileContainer />}
