@@ -1,13 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
+import { Redirect } from 'react-router-dom';
 import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
 import {
   dialogOpenedAction,
   getDialogsAction,
   getMessagesListAction,
-  MessagesList,
   messagesListCleared,
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -16,24 +14,20 @@ import { RootState } from 'src/redux/redux-store';
 
 const Dialogs: FC = () => {
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state: RootState) => state.auth);
-  const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
-  const messages = useSelector(
-    (state: RootState) => state.dialogs.messagesList
-  );
-  const openDialogId = useSelector(
-    (state: RootState) => state.dialogs.openDialogId
-  );
+  const { isAuth, dialogs } = useSelector((state: RootState) => ({
+    isAuth: state.auth,
+    dialogs: state.dialogs.dialogs,
+  }));
 
   useEffect(() => {
     dispatch(getDialogsAction());
-  }, []);
+  }, []); // eslint-disable-line
 
   useEffect(
     () => () => {
       dispatch(messagesListCleared());
     },
-    []
+    [] // eslint-disable-line
   );
 
   const openDialog = (id: number) => {
@@ -47,31 +41,15 @@ const Dialogs: FC = () => {
 
   return (
     <>
-      {!messages && (
-        <ul>
-          {dialogs.map((dialog) => (
-            <MessageTitle
-              key={dialog.id}
-              dialog={dialog}
-              openDialog={() => openDialog(dialog.id)}
-              openDialogId={openDialogId as number}
-            />
-          ))}
-        </ul>
-      )}
-      {!!messages && openDialogId && (
-        <Switch>
-          <Route
-            path="/Dialogs/:id"
-            render={() => (
-              <DialogItem
-                messages={messages as MessagesList}
-                dialogId={openDialogId}
-              />
-            )}
+      <ul>
+        {dialogs.map((dialog) => (
+          <MessageTitle
+            key={dialog.id}
+            dialog={dialog}
+            openDialog={() => openDialog(dialog.id)}
           />
-        </Switch>
-      )}
+        ))}
+      </ul>
     </>
   );
 };
