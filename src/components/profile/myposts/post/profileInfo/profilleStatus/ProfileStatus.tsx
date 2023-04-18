@@ -22,12 +22,13 @@ class ProfileStatus extends React.Component<Props> {
   };
 
   deActiveEditMode = () => {
+    const { status, updateStatus } = this.props;
     this.setState({
       editMode: false,
     });
-    this.props.updateStatus &&
-      this.state.status.trim() !== this.props.status &&
-      this.props.updateStatus(this.state.status.trim());
+    if (updateStatus && this.state.status.trim() !== status) {
+      updateStatus(this.state.status.trim());
+    }
   };
 
   onStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -36,41 +37,42 @@ class ProfileStatus extends React.Component<Props> {
   };
 
   componentDidUpdate(prevProps: { status: string }) {
-    if (prevProps.status !== this.props.status) {
-      this.setState({ status: this.props.status });
+    const { status } = this.props;
+    if (prevProps.status !== status) {
+      this.setState({ status });
     }
   }
 
   render() {
+    const { status, isOwner } = this.props;
     return (
       <>
-        {this.props.status && (
+        {status && (
           <>
             <div className={styles.subtitle}>status</div>
             {!this.state.editMode && (
               <span
                 onClick={
-                  this.props.isOwner
+                  isOwner
                     ? (this
                         .activeEditMode as MouseEventHandler<HTMLSpanElement>)
                     : undefined
                 }
                 role="button"
-                className={this.props.isOwner ? styles.status : undefined}
+                className={isOwner ? styles.status : undefined}
               >
-                {this.props.status}
+                {status}
               </span>
             )}
-            {this.props.isOwner &&
-              (this.state.editMode || !this.props.status) && (
-                <TextField
-                  onBlur={this.deActiveEditMode}
-                  onChange={this.onStatusChange}
-                  value={this.state.status}
-                  autoFocus
-                  variant="standard"
-                />
-              )}
+            {isOwner && (this.state.editMode || !status) && (
+              <TextField
+                onBlur={this.deActiveEditMode}
+                onChange={this.onStatusChange}
+                value={this.state.status}
+                autoFocus
+                variant="standard"
+              />
+            )}
           </>
         )}
       </>

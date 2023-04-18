@@ -18,7 +18,7 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
       {info.map((item, index) => {
         if (item === 'fullName' || item === 'photos') {
           return undefined;
-        } else if (profile[item as keyof typeof profile] === null) {
+        } else if (profile[item as keyof ProfileType] === null) {
           return (
             <div key={(item + index).toString()}>
               <span className={classes.property}>{item}: </span>
@@ -26,9 +26,9 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
             </div>
           );
         } else if (
-          profile[item as keyof typeof profile] &&
-          typeof profile[item as keyof typeof profile] !== 'object' &&
-          typeof profile[item as keyof typeof profile] !== 'boolean'
+          profile[item as keyof ProfileType] &&
+          typeof profile[item as keyof ProfileType] !== 'object' &&
+          typeof profile[item as keyof ProfileType] !== 'boolean'
         ) {
           return (
             <div key={(item + index).toString()}>
