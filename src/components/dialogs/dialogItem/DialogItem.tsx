@@ -1,7 +1,11 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import DialogsForm from 'src/components/dialogs/DialogsForm';
-import { sendMessageAction } from 'src/redux/dialogsReducer';
+import {
+  getMessagesListAction,
+  sendMessageAction,
+} from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './DialogItem.module.css';
@@ -12,6 +16,12 @@ type ValuesType = {
 
 const DialogItem: FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    const id = +history.location.pathname.slice(9);
+    dispatch(getMessagesListAction({ id }));
+  }, [history]); // eslint-disable-line
 
   const { messages, openDialogId } = useSelector((state: RootState) => ({
     messages: state.dialogs.messagesList,
