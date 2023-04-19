@@ -37,16 +37,22 @@ const DialogItem: FC = () => {
 
   return (
     <>
-      <div>
-        <NavLink to="/Dialogs">
-          <Button variant="contained" startIcon={<ArrowBackIosIcon />}>
-            {t('dialogs.back')}
-          </Button>
-        </NavLink>
-        {messages?.items.map((message) => (
-          <div key={message.id}>{message.body}</div>
-        ))}
-      </div>
+      <NavLink to="/Dialogs">
+        <Button variant="contained" startIcon={<ArrowBackIosIcon />}>
+          {t('dialogs.back')}
+        </Button>
+      </NavLink>
+      {messages?.items.length ? (
+        <>
+          <div>
+            {messages?.items.map((message) => (
+              <div key={message.id}>{message.body}</div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div>{t('dialogs.empty')}</div>
+      )}
       <div className={classes.messages}>
         <DialogsForm onSubmit={addNewMessageForm} />
       </div>
