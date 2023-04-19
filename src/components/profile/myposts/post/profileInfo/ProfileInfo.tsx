@@ -34,7 +34,7 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
             <div key={(item + index).toString()}>
               <span className={classes.property}>{item}: </span>
               <span className={classes.value}>
-                {profile[item as keyof typeof profile] as ReactNode}
+                {profile[item as keyof ProfileType] as ReactNode}
               </span>
             </div>
           );
@@ -53,9 +53,8 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
               {Object.keys(profile['contacts']).map((elem, ind) => (
                 <div key={(elem + ind).toString()}>
                   <span className={classes.contact}>{elem}: </span>
-                  {profile['contacts'][
-                    elem as keyof typeof profile['contacts']
-                  ] || ' - '}
+                  {profile['contacts'][elem as keyof ProfileType['contacts']] ||
+                    ' - '}
                 </div>
               ))}
             </div>
