@@ -10,7 +10,10 @@ import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
 import { UserType } from 'src/types';
-import { calculatePagesCount } from 'src/utils/calculatePagesCount';
+import {
+  calculatePagesCount,
+  getUsers as getUsersHandler,
+} from 'src/utils/users';
 
 import classes from './Users.module.css';
 
@@ -23,7 +26,6 @@ type Props = {
   onPageChange: (value: number) => void;
   unfollowUsers: (id: number) => void;
   followUsers: (id: number) => void;
-  getUsers: (currentPage: number, pageSize: number, name?: string) => void;
 };
 
 const Users: FC<Props> = memo(
@@ -36,7 +38,6 @@ const Users: FC<Props> = memo(
     onPageChange,
     unfollowUsers,
     followUsers,
-    getUsers,
   }) => {
     const [page, setPage] = useState(1);
     const [isDialogOpen, setDialogOpen] = useState(false);
@@ -48,7 +49,7 @@ const Users: FC<Props> = memo(
     const { t } = useTranslation();
 
     const { setSearchValue, searchValue } = useSearch(
-      getUsers,
+      getUsersHandler,
       currentPage,
       pageSize
     );
@@ -62,7 +63,6 @@ const Users: FC<Props> = memo(
       setDialogOpen(false);
     };
 
-    const isSearch = searchValue.length ? true : false;
     const pagesCount = calculatePagesCount(totalUsersCount, pageSize);
 
     if (!isAuth) {
@@ -84,7 +84,7 @@ const Users: FC<Props> = memo(
               placeholder={t('users.search')}
               setSearchValue={setSearchValue}
               searchValue={searchValue}
-              isSearch={isSearch}
+              isSearch={!!searchValue}
             />
             <ul className={classes.itemWrapper}>
               {users.map((user: UserType, index) => (
@@ -106,7 +106,7 @@ const Users: FC<Props> = memo(
                 setPage={setPage}
               />
             )}
-            {isSearch && !users.length && (
+            {!!searchValue && !users.length && (
               <EmptyState text={t('users.nothing')} />
             )}
           </>

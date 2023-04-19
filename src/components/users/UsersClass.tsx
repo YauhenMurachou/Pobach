@@ -20,9 +20,6 @@ type PropsType = {
 
 class UsersClass extends React.Component<PropsType> {
   componentDidMount() {
-    // componentDidMount() вызывается сразу после монтирования (то есть, вставки компонента в DOM).
-    // В этом методе должны происходить действия, которые требуют наличия DOM-узлов.
-    //  Это хорошее место для создания сетевых запросов.
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }
 
@@ -31,19 +28,28 @@ class UsersClass extends React.Component<PropsType> {
   };
 
   render() {
+    const {
+      isFetching,
+      totalUsersCount,
+      pageSize,
+      currentPage,
+      users,
+      unfollowUsers,
+      followUsers,
+      followingInProgress,
+    } = this.props;
     return (
       <>
-        {this.props.isFetching && <Loader isFetching={this.props.isFetching} />}
+        {isFetching && <Loader isFetching={isFetching} />}
         <Users
-          totalUsersCount={this.props.totalUsersCount}
-          pageSize={this.props.pageSize}
-          currentPage={this.props.currentPage}
+          totalUsersCount={totalUsersCount}
+          pageSize={pageSize}
+          currentPage={currentPage}
           onPageChange={this.onPageChange}
-          unfollowUsers={this.props.unfollowUsers}
-          followUsers={this.props.followUsers}
-          users={this.props.users}
-          followingInProgress={this.props.followingInProgress}
-          getUsers={this.props.getUsers}
+          unfollowUsers={unfollowUsers}
+          followUsers={followUsers}
+          users={users}
+          followingInProgress={followingInProgress}
           // setFollowingInProgress={this.props.setFollowingInProgress}
         />
       </>

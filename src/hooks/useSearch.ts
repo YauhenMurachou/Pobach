@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useDebounce } from 'src/hooks/useDebounce';
 
 export const useSearch = (
   onChange: (
+    dispatch: Dispatch<unknown>,
     currentPage: number,
     pageSize: number,
     name?: string,
@@ -14,6 +16,7 @@ export const useSearch = (
 ) => {
   const [isSearch, setIsSearch] = useState(false);
   const [searchValue, setSearchValue] = useState('');
+  const dispatch = useDispatch();
 
   const toggleSearch = () => setIsSearch((prevState) => !prevState);
   const debouncedValue = useDebounce<string>(searchValue, 500);
@@ -25,7 +28,7 @@ export const useSearch = (
 
   useEffect(() => {
     if (onChange && (searchValue.trim().length >= 2 || !searchValue.length)) {
-      onChange(currentPage, pageSize, searchValue, isFriend);
+      onChange(dispatch, currentPage, pageSize, searchValue, isFriend);
     }
   }, [debouncedValue]); // eslint-disable-line
 
