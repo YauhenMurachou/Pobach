@@ -64,6 +64,7 @@
     "redirect": "Go to dialogue with "
   },
   "dialogs": {
-    "back": "Back"
+    "back": "Back",
+    "empty": "Message history is empty"
   }
 }
