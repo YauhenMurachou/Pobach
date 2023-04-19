@@ -66,7 +66,7 @@ const App: React.FC = () => {
               <Switch>
                 <Route exact path="/Dialogs" render={() => <Dialogs />} />
                 <Route
-                  path="/Dialogs/:dialogId"
+                  path="/Dialogs/:id"
                   render={() => <DialogItem />}
                 />
               </Switch>

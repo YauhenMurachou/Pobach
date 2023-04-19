@@ -62,5 +62,8 @@
   "dialogModal": {
     "newMessage": "New message",
     "redirect": "Go to dialogue with "
+  },
+  "dialogs": {
+    "back": "Back"
   }
 }

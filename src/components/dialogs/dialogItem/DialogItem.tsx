@@ -1,6 +1,9 @@
 import { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { NavLink, useParams } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Button } from '@mui/material';
 import DialogsForm from 'src/components/dialogs/DialogsForm';
 import {
   getMessagesListAction,
@@ -16,28 +19,30 @@ type ValuesType = {
 
 const DialogItem: FC = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const { t } = useTranslation();
+  const id = +useParams<{ id: string }>().id;
 
   useEffect(() => {
-    const id = +history.location.pathname.slice(9);
     dispatch(getMessagesListAction({ id }));
-  }, [history]); // eslint-disable-line
+  }, [id]); // eslint-disable-line
 
-  const { messages, openDialogId } = useSelector((state: RootState) => ({
-    messages: state.dialogs.messagesList,
-    openDialogId: state.dialogs.openDialogId,
-  }));
+  const messages = useSelector(
+    (state: RootState) => state.dialogs.messagesList
+  );
 
   const addNewMessageForm = (values: ValuesType) => {
-    dispatch(
-      sendMessageAction({ id: openDialogId as number, body: values.newMessage })
-    );
+    dispatch(sendMessageAction({ id, body: values.newMessage }));
     values.newMessage = '';
   };
 
   return (
     <>
       <div>
+        <NavLink to="/Dialogs">
+          <Button variant="contained" startIcon={<ArrowBackIosIcon />}>
+            {t('dialogs.back')}
+          </Button>
+        </NavLink>
         {messages?.items.map((message) => (
           <div key={message.id}>{message.body}</div>
         ))}

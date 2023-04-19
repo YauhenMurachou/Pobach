@@ -62,5 +62,8 @@
   "dialogModal": {
     "newMessage": "Новае паведамленне",
     "redirect": "Перайсці да дыялога з "
+  },
+  "dialogs": {
+    "back": "Назад"
   }
 }
