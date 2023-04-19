@@ -24,7 +24,6 @@ const ProfileInfoEditForm: FC<Props> = ({
   profile,
   toggleEditMode,
 }) => {
-  const objProp = profile;
   const { t } = useTranslation();
   return (
     <>
@@ -35,7 +34,7 @@ const ProfileInfoEditForm: FC<Props> = ({
               if (item === 'photos' || item === 'userId') {
                 return undefined;
               } else if (
-                typeof objProp[item as keyof typeof objProp] === 'boolean'
+                typeof profile[item as keyof ProfileType] === 'boolean'
               ) {
                 return (
                   <div
@@ -52,7 +51,7 @@ const ProfileInfoEditForm: FC<Props> = ({
                   </div>
                 );
               } else if (
-                typeof objProp[item as keyof typeof objProp] !== 'object'
+                typeof profile[item as keyof ProfileType] !== 'object'
               ) {
                 return (
                   <div
@@ -72,7 +71,7 @@ const ProfileInfoEditForm: FC<Props> = ({
                 return (
                   <div key={(item + index).toString()}>
                     <span className={classes.property}>{item}</span>:
-                    {Object.keys(objProp['contacts']).map((elem, ind) => (
+                    {Object.keys(profile['contacts']).map((elem, ind) => (
                       <div
                         key={(elem + ind).toString()}
                         className={classes.contact}
