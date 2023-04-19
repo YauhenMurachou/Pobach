@@ -35,8 +35,6 @@ const DialogItem: FC = () => {
     values.newMessage = '';
   };
 
-  console.log('messages', messages);
-
   return (
     <>
       <NavLink to="/Dialogs">
