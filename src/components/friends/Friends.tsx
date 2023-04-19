@@ -17,7 +17,7 @@ import {
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
 import { UserType } from 'src/types';
-import { calculatePagesCount } from 'src/utils/calculatePagesCount';
+import { calculatePagesCount, getUsers } from 'src/utils/users';
 
 import classes from './Friends.module.css';
 
@@ -37,7 +37,7 @@ const Friends: FC = () => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    dispatch(getUsersThunkCreator(currentPage, 100, undefined, true));
+    getUsers(dispatch, currentPage, 100, undefined, true);
   }, [dispatch]);
 
   const handleDialogOpen = (companion?: UserType) => {
@@ -52,15 +52,8 @@ const Friends: FC = () => {
 
   const pagesCount = calculatePagesCount(friends.length, pageSize);
 
-  const getFriends = (
-    currentPage: number,
-    pageSize: number,
-    name?: string,
-    isFriend?: boolean
-  ) => dispatch(getUsersThunkCreator(currentPage, pageSize, name, isFriend));
-
   const { setSearchValue, searchValue } = useSearch(
-    getFriends,
+    getUsers,
     currentPage,
     pageSize,
     true
@@ -69,8 +62,6 @@ const Friends: FC = () => {
   const handlePageChange = (pageNumber: number) => {
     dispatch(getUsersThunkCreator(pageNumber, pageSize, undefined, true));
   };
-
-  const isSearch = searchValue.length ? true : false;
 
   const unfollow = (id: number) => {
     dispatch(unfollowUsersThunkCreator(id));
@@ -93,7 +84,7 @@ const Friends: FC = () => {
             placeholder={t('users.search')}
             setSearchValue={setSearchValue}
             searchValue={searchValue}
-            isSearch={isSearch}
+            isSearch={!!searchValue}
           />
           <ul className={classes.itemWrapper}>
             {friends.map((friend, index) => (
@@ -117,7 +108,7 @@ const Friends: FC = () => {
               setPage={setPage}
             />
           )}
-          {isSearch && !friends.length && (
+          {!!searchValue && !friends.length && (
             <EmptyState text={t('users.nothing')} />
           )}
           <DialogModal
