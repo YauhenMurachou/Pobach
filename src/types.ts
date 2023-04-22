@@ -20,11 +20,14 @@ export type ProfileType = {
   lookingForAJob: boolean;
   lookingForAJobDescription: boolean;
   fullName: string;
+  aboutMe: string;
   contacts: ContactsType;
   photos: { small: string; large: string } | null;
 };
 
-type ContactsType = {
+export type EditProfileType = Omit<ProfileType, 'userId' | 'photos'>;
+
+export type ContactsType = {
   github: string;
   vk: string;
   facebook: string;

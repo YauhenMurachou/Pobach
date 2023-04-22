@@ -1,6 +1,6 @@
 import { profileApi } from 'src/api/api';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
-import { ProfileType } from 'src/types';
+import { EditProfileType, ProfileType } from 'src/types';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -122,7 +122,7 @@ export const setUserProfileThunkCreator =
   };
 
 export const editProfileThunkCreator =
-  (profile: ProfileType): CommonThunkType<ProfileActionsTypes, void> =>
+  (profile: EditProfileType): CommonThunkType<ProfileActionsTypes, void> =>
   (dispatch, getState) => {
     const userId = getState().auth.userId;
     profileApi.editProfileInfo(profile).then((data) => {

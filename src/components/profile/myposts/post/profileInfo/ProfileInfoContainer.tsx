@@ -17,7 +17,7 @@ import {
   getUsersThunkCreator,
   unfollowUsersThunkCreator,
 } from 'src/redux/usersReducer';
-import { ProfileType, UserType } from 'src/types';
+import { EditProfileType, ProfileType, UserType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
 
@@ -66,7 +66,7 @@ const ProfileInfoContainer: FC<Props> = ({
       ? users.find((user) => user.id === profile.userId)
       : undefined;
 
-  const handleProfileInfoEdit = (formData: ProfileType) => {
+  const handleProfileInfoEdit = (formData: EditProfileType) => {
     dispatch(editProfileThunkCreator(formData));
     setEditMode(false);
   };
@@ -76,6 +76,7 @@ const ProfileInfoContainer: FC<Props> = ({
   }
 
   const info = Object.getOwnPropertyNames(profile);
+  const { userId, photos, ...editProfile } = profile;
 
   return (
     <div className={classes.container}>
@@ -128,7 +129,7 @@ const ProfileInfoContainer: FC<Props> = ({
         {editMode && (
           <ProfileInfoEditForm
             info={info}
-            profile={profile}
+            editProfile={editProfile}
             onSubmit={handleProfileInfoEdit}
             toggleEditMode={toggleEditMode}
           />
