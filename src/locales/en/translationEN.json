@@ -66,5 +66,10 @@
   "dialogs": {
     "back": "Back",
     "empty": "Message history is empty"
+  },
+  "validation": {
+    "required": "Required field",
+    "long": "Too long",
+    "domain": "Invalid domain name"
   }
 }
