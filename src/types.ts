@@ -1,3 +1,5 @@
+export type Timeout = ReturnType<typeof setTimeout>;
+
 export type UserType = {
   id: number;
   name: string;
@@ -27,7 +29,7 @@ export type ProfileType = {
 
 export type EditProfileType = Omit<ProfileType, 'userId' | 'photos'>;
 
-export type ContactsType = {
+type ContactsType = {
   github: string;
   vk: string;
   facebook: string;

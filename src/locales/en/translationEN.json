@@ -71,5 +71,10 @@
     "required": "Required field",
     "long": "Too long",
     "domain": "Invalid domain name"
+  },
+  "popper": {
+    "message": "Your message ",
+    "sent": "sent to ",
+    "done": "Message sent"
   }
 }
