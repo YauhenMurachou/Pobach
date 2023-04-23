@@ -127,7 +127,7 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
               <Button
                 variant="contained"
                 color="secondary"
-                href="https://social-network.samuraijs.com/login"
+                href="https://social-network.samuraijs.com/signUp"
               >
                 {t('login.registration')}
               </Button>

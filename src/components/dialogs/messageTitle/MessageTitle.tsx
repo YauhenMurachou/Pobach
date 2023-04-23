@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { NavLink } from 'react-router-dom';
 import { Dialog } from 'src/types';
 
@@ -9,10 +9,7 @@ type Props = {
   openDialog: () => void;
 };
 
-const MessageTitle: React.FC<Props> = ({
-  dialog,
-  openDialog,
-}) => {
+const MessageTitle: FC<Props> = ({ dialog, openDialog }) => {
   const {
     id,
     userName,

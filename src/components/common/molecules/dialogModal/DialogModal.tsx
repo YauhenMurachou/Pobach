@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -22,9 +22,15 @@ type Props = {
   isOpen: boolean;
   handleClose: () => void;
   companion: UserType;
+  setPopperOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const DialogModal: FC<Props> = ({ isOpen, handleClose, companion }) => {
+const DialogModal: FC<Props> = ({
+  isOpen,
+  handleClose,
+  companion,
+  setPopperOpen,
+}) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const { name, id } = companion || {};
@@ -34,10 +40,11 @@ const DialogModal: FC<Props> = ({ isOpen, handleClose, companion }) => {
     dispatch(sendMessageAction({ id, body: values.newMessage }));
     values.newMessage = '';
     handleClose();
+    setPopperOpen(true);
   };
 
   const openDialog = (id: number) => {
-		dispatch(dialogOpenedAction({ id }));
+    dispatch(dialogOpenedAction({ id }));
   };
 
   return (

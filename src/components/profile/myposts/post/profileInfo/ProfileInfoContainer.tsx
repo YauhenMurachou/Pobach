@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import FollowButtons from 'src/components/common/atoms/followButtons/FollowButtons';
+import Popper from 'src/components/common/atoms/popper/Popper';
 import ChangeAvatar from 'src/components/common/molecules/changeAvatar/ChangeAvatar';
 import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import Loader from 'src/components/loader/Loader';
@@ -41,6 +42,7 @@ const ProfileInfoContainer: FC<Props> = ({
   setEditMode,
 }) => {
   const [isDialogOpen, setDialogOpen] = useState(false);
+  const [isPopperOpen, setPopperOpen] = useState(false);
   const toggleEditMode = () => setEditMode((prevState) => !prevState);
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -143,6 +145,14 @@ const ProfileInfoContainer: FC<Props> = ({
       <DialogModal
         isOpen={isDialogOpen}
         handleClose={handleDialogOpen}
+        setPopperOpen={setPopperOpen}
+        companion={user as UserType}
+      />
+      <Popper
+        isOpen={isPopperOpen}
+        placement="bottom-start"
+        anchorEl={document.body}
+        handleClose={() => setPopperOpen(false)}
         companion={user as UserType}
       />
     </div>

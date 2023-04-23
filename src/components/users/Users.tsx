@@ -2,6 +2,7 @@ import { FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import Popper from 'src/components/common/atoms/popper/Popper';
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
 import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
@@ -41,6 +42,7 @@ const Users: FC<Props> = memo(
   }) => {
     const [page, setPage] = useState(1);
     const [isDialogOpen, setDialogOpen] = useState(false);
+    const [isPopperOpen, setPopperOpen] = useState(false);
     const [companion, setCompanion] = useState<UserType>();
     const { isAuth } = useSelector((state: RootState) => state.auth);
     const isFetching = useSelector(
@@ -114,6 +116,14 @@ const Users: FC<Props> = memo(
         <DialogModal
           isOpen={isDialogOpen}
           handleClose={handleDialogClose}
+          setPopperOpen={setPopperOpen}
+          companion={companion as UserType}
+        />
+        <Popper
+          isOpen={isPopperOpen}
+          placement="bottom-start"
+          anchorEl={document.body}
+          handleClose={() => setPopperOpen(false)}
           companion={companion as UserType}
         />
       </div>
