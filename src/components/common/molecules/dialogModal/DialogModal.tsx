@@ -22,7 +22,7 @@ type Props = {
   isOpen: boolean;
   handleClose: () => void;
   companion: UserType;
-  setPopperOpen?: Dispatch<SetStateAction<boolean>>;
+  setPopperOpen: Dispatch<SetStateAction<boolean>>;
 };
 
 const DialogModal: FC<Props> = ({
@@ -40,7 +40,7 @@ const DialogModal: FC<Props> = ({
     dispatch(sendMessageAction({ id, body: values.newMessage }));
     values.newMessage = '';
     handleClose();
-    setPopperOpen?.(true);
+    setPopperOpen(true);
   };
 
   const openDialog = (id: number) => {
