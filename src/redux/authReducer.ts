@@ -12,7 +12,7 @@ type AuthInitialStateType = {
   email: string | null;
   login: string | null;
   error: string | null;
-  captcha: string | null;
+  captchaImageUrl: string | null;
   ownerAvatar?: string | null;
 };
 
@@ -22,7 +22,7 @@ const initialState: AuthInitialStateType = {
   email: null,
   login: null,
   error: null,
-  captcha: null,
+  captchaImageUrl: null,
   ownerAvatar: null,
 };
 
@@ -33,21 +33,21 @@ const authActions = {
     login: string | null,
     isAuth: boolean | null,
     error: null,
-    captcha: null
+    captchaImageUrl: null
   ) =>
     ({
       type: SET_USER_DATA,
-      data: { userId, email, login, isAuth, error, captcha },
+      data: { userId, email, login, isAuth, error, captchaImageUrl },
     } as const),
   stopSubmitActionCreator: (error: string) =>
     ({
       type: STOP_SUBMIT,
       data: { error },
     } as const),
-  setCaptchaActionCreator: (captcha: string) =>
+  setCaptchaActionCreator: (captchaImageUrl: string) =>
     ({
       type: SET_CAPTCHA_URL,
-      data: { captcha },
+      data: { captchaImageUrl },
     } as const),
   setAvatarActionCreator: (ownerAvatar: string) =>
     ({
@@ -112,21 +112,23 @@ export const loginDataThunkCreator =
     email: string | null,
     password: string | null,
     rememberMe: boolean | null,
-    captcha: string | null
+    captchaImageUrl: string | null
   ): CommonThunkType<AuthActionsType, void> =>
   (dispatch) => {
-    usersApi.login(email, password, rememberMe, captcha).then((data) => {
-      if (data.resultCode === 0) {
-        dispatch(setUserDataThunkCreator());
-      } else {
-        const message =
-          data.messages.length > 0 ? data.messages[0] : 'Неизвестная ошибка';
-        dispatch(authActions.stopSubmitActionCreator(message));
-        if (data.resultCode === 10) {
-          dispatch(getCaptchaUrlThunkCreator());
+    usersApi
+      .login(email, password, rememberMe, captchaImageUrl)
+      .then((data) => {
+        if (data.resultCode === 0) {
+          dispatch(setUserDataThunkCreator());
+        } else {
+          const message =
+            data.messages.length > 0 ? data.messages[0] : 'Неизвестная ошибка';
+          dispatch(authActions.stopSubmitActionCreator(message));
+          if (data.resultCode === 10) {
+            dispatch(getCaptchaUrlThunkCreator());
+          }
         }
-      }
-    });
+      });
   };
 
 const getCaptchaUrlThunkCreator =

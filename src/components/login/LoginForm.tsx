@@ -3,32 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Button, IconButton, InputAdornment } from '@mui/material';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
 import { LoginType } from 'src/components/login/Login';
 import { RootState } from 'src/redux/redux-store';
-import * as Yup from 'yup';
+import { loginValidationSchema } from 'src/utils/validationForms';
 
 import styles from './Login.module.css';
 
-const LoginSchema = Yup.object().shape({
-  email: Yup.string()
-    .max(25, 'Too Long!')
-    .required('Required')
-    .email('Invalid email format'),
-  password: Yup.string().max(15, 'Too Long!').required('Required'),
-});
-
 type Props = {
-  onSubmit: (
-    values: LoginType,
-    formikHelpers: FormikHelpers<{
-      email: string;
-      password: string;
-      rememberMe: boolean;
-      captcha: string;
-    }>
-  ) => void;
+  onSubmit: (values: LoginType) => void;
 };
 
 const LoginForm: FC<Props> = ({ onSubmit }) => {
@@ -37,20 +21,26 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
   const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
   };
-  const { error, captcha } = useSelector((state: RootState) => state.auth);
+  const { error, captchaImageUrl } = useSelector(
+    (state: RootState) => state.auth
+  );
   const { t } = useTranslation();
+  const [value, setValue] = useState('');
 
   return (
     <>
       <Formik
-        onSubmit={onSubmit}
+        onSubmit={(values) => {
+          onSubmit({ ...values, captcha: value });
+          setValue('');
+        }}
         initialValues={{
           email: '',
           password: '',
           rememberMe: false,
           captcha: '',
         }}
-        validationSchema={LoginSchema}
+        validationSchema={loginValidationSchema}
       >
         {({ errors, dirty }) => (
           <Form>
@@ -90,9 +80,14 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                 }}
               />
             </div>
-            {captcha && (
+            {captchaImageUrl && (
               <>
-                <img src={captcha} alt="captcha" width="180px" height="90px" />
+                <img
+                  src={captchaImageUrl}
+                  alt="captcha"
+                  width="180px"
+                  height="90px"
+                />
                 <Field
                   fullWidth
                   placeholder="captcha"
@@ -101,10 +96,11 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                   type="text"
                   label="captcha"
                   component={TextField}
-                  disabled={false}
-                  // onChange={(e: {
-                  //   target: { value: React.SetStateAction<string> };
-                  // }) => setValue(e.target.value)}
+                  disabled={!captchaImageUrl}
+                  value={value}
+                  onChange={(e: {
+                    target: { value: React.SetStateAction<string> };
+                  }) => setValue(e.target.value)}
                 />
               </>
             )}
@@ -127,8 +123,7 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                   !!errors.email ||
                   !!errors.password ||
                   !dirty ||
-                  // (!!captcha && !value)
-                  !!errors.captcha
+                  (!!captchaImageUrl && !value.trim())
                 }
               >
                 {t('login.enter')}

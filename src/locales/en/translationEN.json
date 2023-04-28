@@ -70,7 +70,8 @@
   "validation": {
     "required": "Required field",
     "long": "Too long",
-    "domain": "Invalid domain name"
+    "domain": "Invalid domain name",
+    "email": "Invalid email format"
   },
   "popper": {
     "message": "Your message ",

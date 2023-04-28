@@ -19,7 +19,7 @@ const Login: FC = () => {
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const profilePath = `/Profile/${userId}`;
 
-  const LogInFunction = (values: LoginType) => {
+  const logInFunction = (values: LoginType) => {
     const { email, password, rememberMe, captcha } = values;
     dispatch(loginDataThunkCreator(email, password, rememberMe, captcha));
   };
@@ -33,7 +33,7 @@ const Login: FC = () => {
       <div className={styles.login}>
         <div className={styles.loginForm}>
           <h1 className={styles.title}>Вход в аккаунт</h1>
-          <LoginForm onSubmit={LogInFunction} />
+          <LoginForm onSubmit={logInFunction} />
         </div>
       </div>
     </div>

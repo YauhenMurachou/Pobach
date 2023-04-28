@@ -33,6 +33,16 @@ export const profielValidationSchema = Yup.object().shape({
   }),
 });
 
+export const loginValidationSchema = Yup.object().shape({
+  email: Yup.string()
+    .max(25, t('validation.long') as string)
+    .required(t('validation.required') as string)
+    .email(t('validation.email') as string),
+  password: Yup.string()
+    .max(15, t('validation.long') as string)
+    .required(t('validation.required') as string),
+});
+
 export const isProfileFormChanged = <T extends { [key: string]: any }>(
   values: T,
   initialValues: T
