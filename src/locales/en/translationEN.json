@@ -6,13 +6,18 @@
     "belarusian": "belarusian",
     "signin": "You signed in as",
     "signout": "Sign out",
-    "choose": "Choose language"
+    "choose": "Choose language",
+    "mute": "Mute notifications",
+    "unmute": "Unmute notifications",
+    "off": "Turn off notifications",
+    "on": "Turn on notifications"
   },
   "navbar": {
     "profile": "My profile",
     "dialogs": "Dialogs",
     "photos": "Photos",
     "settings": "Settings",
+    "friends": "Friends",
     "users": "Users",
     "chat": "Chat"
   },
@@ -31,5 +36,45 @@
     "change": "Change photo",
     "new": "Add new",
     "delete": "Delete"
+  },
+  "chat": {
+    "send": "send",
+    "enter": "Enter your message",
+    "delete": "Delete message",
+    "deletedMessage": "Message deleted. Restore",
+    "newMessage": "Chat: new message"
+  },
+  "login": {
+    "registration": "Sign up",
+    "enter": "Log in"
+  },
+  "users": {
+    "message": "Message",
+    "unfollow": "Unfollow",
+    "follow": "Follow",
+    "showing": "Showing",
+    "users": "users out of",
+    "registered": " registered in the system",
+    "search": "Find users (minimum 2 characters)",
+    "nothing": "Nothing found",
+    "onlyFriend": "You can only message to a friend"
+  },
+  "dialogModal": {
+    "newMessage": "New message",
+    "redirect": "Go to dialogue with "
+  },
+  "dialogs": {
+    "back": "Back",
+    "empty": "Message history is empty"
+  },
+  "validation": {
+    "required": "Required field",
+    "long": "Too long",
+    "domain": "Invalid domain name"
+  },
+  "popper": {
+    "message": "Your message ",
+    "sent": "sent to ",
+    "done": "Message sent"
   }
 }

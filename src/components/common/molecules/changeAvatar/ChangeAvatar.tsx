@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -7,19 +7,19 @@ import { Button, Popover } from '@mui/material';
 
 import classes from './ChangeAvatar.module.css';
 
-export type Props = {
+type Props = {
   sendPhoto: (file: string | Blob) => void;
   isAvatar: boolean;
 };
 
-const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
+const ChangeAvatar: FC<Props> = ({ sendPhoto, isAvatar }) => {
   const [anchorEl, setAnchorEl] = useState<(EventTarget & HTMLElement) | null>(
     null
   );
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const handleClick = (
+  const handleOpen = (
     event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
   ) => {
     event.preventDefault();
@@ -43,17 +43,15 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
   };
 
   return (
-    <>
-      <div className={classes.changeAvatar}>
-        <Button
-          variant="contained"
-          component="label"
-          startIcon={<EditIcon />}
-          onClick={handleClick}
-        >
-          {t('avatar.change')}
-        </Button>
-      </div>
+    <div className={classes.changeAvatar}>
+      <Button
+        variant="contained"
+        component="label"
+        startIcon={<EditIcon />}
+        onClick={handleOpen}
+      >
+        {t('avatar.change')}
+      </Button>
       <Popover
         open={open}
         anchorEl={anchorEl}
@@ -89,7 +87,7 @@ const ChangeAvatar: React.FC<Props> = ({ sendPhoto, isAvatar }) => {
           </Button>
         </div>
       </Popover>
-    </>
+    </div>
   );
 };
 

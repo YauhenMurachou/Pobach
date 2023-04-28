@@ -1,62 +1,33 @@
 import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
-import { RootState } from '../../redux/redux-store';
-import Logo from '../common/logo/Logo';
+import Logo from 'src/components/common/atoms/logo/Logo';
+import { navBarData } from 'src/components/navbar/navbarData';
+import { messagesListCleared } from 'src/redux/dialogsReducer';
+import { RootState } from 'src/redux/redux-store';
 
 import classes from './Navbar.module.css';
 
 const Navbar: FC = () => {
+  const dispatch = useDispatch();
   const { userId } = useSelector((state: RootState) => state.auth);
   const profilePath = `/Profile/${userId}`;
-  const { t } = useTranslation();
+  const clearMessages = () => dispatch(messagesListCleared());
 
   return (
     <nav className={classes.nav}>
-      <NavLink
-        to={profilePath}
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.profile')}
-      </NavLink>
-      <NavLink
-        to="/Dialogs"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.dialogs')}
-      </NavLink>
-      <NavLink
-        to="/Photos"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.photos')}
-      </NavLink>
-      <NavLink
-        to="/Settings"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.settings')}
-      </NavLink>
-      <NavLink
-        to="/Users"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.users')}
-      </NavLink>
-      <NavLink
-        to="/Chat"
-        activeClassName={classes.activeLink}
-        className={classes.item}
-      >
-        {t('navbar.chat')}
-      </NavLink>
+      {navBarData.map(({ icon, path, text }, index) => (
+        <NavLink
+          to={index === 0 ? profilePath : path}
+          activeClassName={classes.activeLink}
+          className={classes.item}
+          key={path + text}
+          onClick={index === 1 ? clearMessages : undefined}
+        >
+          {icon}
+          {text}
+        </NavLink>
+      ))}
       <Logo />
     </nav>
   );

@@ -1,11 +1,11 @@
 .container {
-	border-right: 1rem solid #F5F5F5;
+	border-right: 1rem solid var(--bg-light-2);
 }
 
 .avatarContainer {
 	display: flex;
 	column-gap: 1rem;
-	border-bottom: 1rem solid #F5F5F5;
+	border-bottom: 1rem solid var(--bg-light-2);
 	padding: 0.75rem;
 }
 
@@ -34,13 +34,13 @@
 }
 
 .property {
-	color: #79747E;
+	color: var(--grey-light-2);
 }
 
 .contact {
 	padding-left: 1rem;
 	font-size: 0.8rem;
-	color: #79747E;
+	color: var(--grey-light-2);
 }
 
 .contact :global .MuiFormHelperText-root,
@@ -59,4 +59,19 @@
 .buttons {
 	display: flex;
 	justify-content: space-between;
+}
+
+.formWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+}
+
+.info {
+	padding-bottom: 0.5rem;
+}
+
+.buttons {
+	display: flex;
+	gap: 1rem;
 }

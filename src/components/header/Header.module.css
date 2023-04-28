@@ -10,47 +10,28 @@
 
 .header {
 	grid-area: h;
-	background-color: #F5F5F5;
+	background-color: var(--bg-light-2);
 }
 
 .wrapper {
 	display: flex;
-	vertical-align: top;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0 1.5rem;
 }
 
-.text,
-.login,
 .logo {
-	color: var(--red-main);
-	color: #293138;
-	text-align: center;
-	margin: auto 0 auto 60px;
-	display: inline-block;
 	padding-top: 1rem;
-	vertical-align: top;
-}
-
-.text a:last-child {
-	color: #293138;
-	text-align: center;
-	margin: 0 auto;
-	display: inline-block;
-	vertical-align: top;
-}
-
-.logo {
-	margin-left: 0;
+	margin: auto 0;
 	display: flex;
+	text-align: center;
 	align-items: center;
 	color: var(--red-main);
 }
 
 .image {
 	height: 127px;
-	background-color: #F5F5F5;
+	background-color: var(--bg-light-2);
 }
 
 .near {
@@ -68,55 +49,7 @@
 	margin-bottom: 5px;
 }
 
-.sign {
-	font-size: 0.8rem;
-	margin-bottom: 0.5rem;
-}
-
-.name a {
-	font-size: 1.1rem;
-	font-weight: 500;
-	display: flex;
-	align-items: center;
-	color: var(--red-main);
-}
-
-.avatar {
-	border-radius: 50%;
-	width: 1.5rem;
-	height: 1.5rem;
-}
-
 .rightBlock {
 	display: flex;
 	align-items: center;
-}
-
-.language {
-	padding-top: 1rem;
-}
-
-.popoverWrapper {
-	display: flex;
-	flex-direction: column;
-	background-color: #F5F5F5;
-	padding: 0.25rem;
-}
-
-.popoverWrapper :global .MuiButton-root {
-	background-color: #F5F5F5;
-	text-transform: none;
-	color: #293138;
-	box-shadow: none;
-}
-
-.popoverWrapper :global .Mui-disabled {
-	color: rgba(0, 0, 0, 0.26);
-	box-shadow: none;
-	background-color: rgba(0, 0, 0, 0.12);
-}
-
-.popoverWrapper :global .MuiButton-root:hover {
-	background-color: #e6e4e9;
-	box-shadow: none;
 }

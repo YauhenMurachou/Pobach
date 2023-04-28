@@ -9,12 +9,12 @@ import {
 } from 'src/redux/usersReducer';
 
 const mapStateToProps = (state: RootState) => ({
-  users: state.usersPage.users,
-  pageSize: state.usersPage.pageSize,
-  totalUsersCount: state.usersPage.totalUsersCount,
-  currentPage: state.usersPage.currentPage,
-  isFetching: state.usersPage.isFetching,
-  followingInProgress: state.usersPage.followingInProgressUsers,
+  users: state.users.users,
+  pageSize: state.users.pageSize,
+  totalUsersCount: state.users.totalUsersCount,
+  currentPage: state.users.currentPage,
+  isFetching: state.users.isFetching,
+  followingInProgress: state.users.followingInProgressUsers,
 });
 
 const UsersContainer = connect(mapStateToProps, {

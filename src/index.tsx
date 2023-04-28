@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
+import { HashRouter } from 'react-router-dom';
 
 import './i18n';
 
@@ -14,13 +15,13 @@ const root = ReactDOM.createRoot(
 
 root.render(
   // <React.StrictMode>
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <HashRouter>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </HashRouter>
   // </React.StrictMode>
 );
 
-{
   /* StrictMode (строгий режим) - это инструмент для выделения потенциальных проблем в приложении.
 		Он активирует дополнительные проверки и предупреждения. */
-}

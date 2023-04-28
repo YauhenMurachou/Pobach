@@ -1,20 +1,26 @@
 import { Dispatch } from 'redux';
 import { chatApi, MessageType, StatusType } from 'src/api/chat-api';
+import i18n from 'src/i18n';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
+import { checkPageStatus } from 'src/utils/checkNotification';
 import { v4 as uuidv4 } from 'uuid';
 
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';
 const SET_STATUS = 'SET_STATUS';
+const DELETE_MESSAGE = 'DELETE_MESSAGE';
+const RESTORE_MESSAGE = 'RESTORE_MESSAGE';
 
-export type ChatInitialStateType = {
+type ChatInitialStateType = {
   messages: MessageType[];
   status: StatusType;
+  isMuted: boolean;
 };
 
 const initialState: ChatInitialStateType = {
   messages: [] as MessageType[],
   status: 'pending',
+  isMuted: false,
 };
 
 export const chatActions = {
@@ -33,6 +39,16 @@ export const chatActions = {
       type: SET_STATUS,
       data: { status },
     } as const),
+  deleteMessageActionCreator: (id: string) =>
+    ({
+      type: DELETE_MESSAGE,
+      data: { id },
+    } as const),
+  restoreMessageActionCreator: (id: string) =>
+    ({
+      type: RESTORE_MESSAGE,
+      data: { id },
+    } as const),
 };
 
 type ChatActionsType = CommonActionTypes<typeof chatActions>;
@@ -43,6 +59,25 @@ export const chatReducer = (
 ): ChatInitialStateType => {
   switch (action.type) {
     case SET_MESSAGES: {
+      const newMessages = action.data.messages;
+      const currentUrl = window.location.href;
+      const isMuted = JSON.parse(localStorage.getItem('isMuted') || '[]');
+      const isOffNotifications = JSON.parse(
+        localStorage.getItem('isOffNotifications') || '[]'
+      );
+
+      if (
+        newMessages.length === 1 &&
+        !currentUrl.includes('Chat') &&
+        !isOffNotifications
+      ) {
+        checkPageStatus(
+          newMessages[0].message,
+          newMessages[0].userName,
+          currentUrl,
+          isMuted
+        );
+      }
       return {
         ...state,
         messages: [
@@ -66,6 +101,30 @@ export const chatReducer = (
       return {
         ...state,
         status: action.data.status,
+      };
+    }
+    case DELETE_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages].map((message) => {
+          if (message.id === action.data.id) {
+            message.deleted = true;
+            message.deletedMessage = i18n.t('chat.deletedMessage') as string;
+          }
+          return message;
+        }),
+      };
+    }
+    case RESTORE_MESSAGE: {
+      return {
+        ...state,
+        messages: [...state.messages].map((message) => {
+          if (message.id === action.data.id) {
+            message.deleted = false;
+            message.deletedMessage = undefined;
+          }
+          return message;
+        }),
       };
     }
 

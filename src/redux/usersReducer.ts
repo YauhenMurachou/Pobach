@@ -23,7 +23,7 @@ type InitialStateUsersType = {
 
 const initialState: InitialStateUsersType = {
   users: [] as UserType[],
-  pageSize: 30,
+  pageSize: 100,
   totalUsersCount: 0,
   currentPage: 1,
   isFetching: false,
@@ -137,14 +137,24 @@ const usersReducer = (state = initialState, action: UserActionsType) => {
 };
 
 export const getUsersThunkCreator =
-  (currentPage: number, pageSize: number): CommonThunkType<UserActionsType> =>
+  (
+    currentPage: number,
+    pageSize: number,
+    name?: string,
+    isFriend?: boolean
+  ): CommonThunkType<UserActionsType> =>
   async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
-    const data = await usersApi.getUsers(currentPage, pageSize);
+    const usersData = await usersApi.getUsers(
+      currentPage,
+      pageSize,
+      name,
+      isFriend
+    );
     dispatch(actions.setCurrentPageActionCreator(currentPage));
     dispatch(actions.setIsFetchingActionCreator(false));
-    dispatch(actions.setUsersActionCreator(data.items));
-    dispatch(actions.setTotalUsersCountActionCreator(data.totalCount));
+    dispatch(actions.setUsersActionCreator(usersData.items));
+    dispatch(actions.setTotalUsersCountActionCreator(usersData.totalCount));
   };
 
 export const unfollowUsersThunkCreator =

@@ -1,29 +1,25 @@
-import React from "react"
-import { Field, Form, Formik, FormikHelpers } from "formik"
-import * as Yup from "yup"
-
-import classes from "./Dialogs.module.css"
+import React from 'react';
+import { Button } from '@mui/material';
+import { Field, Form, Formik, FormikHelpers } from 'formik';
+import * as Yup from 'yup';
 
 const MessageSchema = Yup.object().shape({
-  newMessage: Yup.string()
-    .min(2, "Too Short!")
-    .max(20, "Too Long!")
-    .required("Required")
-})
+  newMessage: Yup.string().min(1, 'Too Short!').max(30, 'Too Long!'),
+});
 
-export type Props = {
+type Props = {
   onSubmit: (
     values: { newMessage: string },
     formikHelpers: FormikHelpers<{ newMessage: string }>
-  ) => void
-}
+  ) => void;
+};
 
 const DialogsForm: React.FC<Props> = ({ onSubmit }) => (
     <>
       <Formik
         onSubmit={onSubmit}
         initialValues={{
-          newMessage: ""
+          newMessage: '',
         }}
         validationSchema={MessageSchema}
       >
@@ -31,15 +27,15 @@ const DialogsForm: React.FC<Props> = ({ onSubmit }) => (
           <Form>
             <div>
               <Field name="newMessage" id="newMessage" component="textarea" />
-              {errors.newMessage && touched.newMessage ? <div>{errors.newMessage}</div> : null}
+              {errors.newMessage && touched.newMessage ? (
+                <div>{errors.newMessage}</div>
+              ) : null}
             </div>
-            <button className={classes.addButton} type="submit">
-              Write message
-            </button>
+            <Button type="submit">send message</Button>
           </Form>
         )}
       </Formik>
     </>
-  )
+  );
 
-export default DialogsForm
+export default DialogsForm;

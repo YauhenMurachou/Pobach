@@ -20,14 +20,8 @@ const Login: FC = () => {
   const profilePath = `/Profile/${userId}`;
 
   const LogInFunction = (values: LoginType) => {
-    dispatch(
-      loginDataThunkCreator(
-        values.email,
-        values.password,
-        values.rememberMe,
-        values.captcha
-      )
-    );
+    const { email, password, rememberMe, captcha } = values;
+    dispatch(loginDataThunkCreator(email, password, rememberMe, captcha));
   };
 
   if (isAuth) {

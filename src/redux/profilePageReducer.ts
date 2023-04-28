@@ -1,17 +1,19 @@
 import { profileApi } from 'src/api/api';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
-import { ProfileType } from 'src/types';
+import { EditProfileType, ProfileType } from 'src/types';
 
 const ADD_POST = 'ADD_POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const GET_STATUS = 'GET_STATUS';
 const UPDATE_STATUS = 'UPDATE_STATUS';
 const SEND_PHOTO = 'SEND_PHOTO';
+const UPDATE_LIKES = 'UPDATE_LIKES';
 
 type Post = {
   message: string;
   id: number;
   likesCount: number;
+  isLike?: boolean;
 };
 
 export type InitialStateProfileType = {
@@ -23,8 +25,8 @@ export type InitialStateProfileType = {
 const initialState: InitialStateProfileType = {
   postsData: [
     { message: 'Привет, как дела?', id: 1, likesCount: 0 },
-    { message: 'Hi! How are you?', id: 2, likesCount: 21 },
-    { message: 'Прывітанне, як твае справы?', id: 3, likesCount: 16 },
+    { message: 'Hi! How are you?', id: 2, likesCount: 0 },
+    { message: 'Прывітанне, як твае справы?', id: 3, likesCount: 0 },
   ],
   profile: null,
   status: '',
@@ -45,6 +47,8 @@ export const profileActions = {
 
   sendPhotoActionCreator: (file: ProfileType['photos']) =>
     ({ type: SEND_PHOTO, file } as const),
+  updateLikesActionCreator: (post: Post) =>
+    ({ type: UPDATE_LIKES, post } as const),
 };
 
 export type ProfileActionsTypes = CommonActionTypes<typeof profileActions>;
@@ -79,6 +83,18 @@ export const profilePageReducer = (
       return { ...state, status: action.status };
     }
 
+    case UPDATE_LIKES: {
+      const postsDataCopy = [...state.postsData];
+      const updatedIndex = postsDataCopy.findIndex(
+        (post) => post.id === action.post.id
+      );
+      postsDataCopy[updatedIndex] = action.post;
+      return {
+        ...state,
+        postsData: postsDataCopy,
+      };
+    }
+
     case SEND_PHOTO: {
       const profileCopy = state.profile;
       return {
@@ -106,7 +122,7 @@ export const setUserProfileThunkCreator =
   };
 
 export const editProfileThunkCreator =
-  (profile: ProfileType): CommonThunkType<ProfileActionsTypes, void> =>
+  (profile: EditProfileType): CommonThunkType<ProfileActionsTypes, void> =>
   (dispatch, getState) => {
     const userId = getState().auth.userId;
     profileApi.editProfileInfo(profile).then((data) => {

@@ -1,19 +1,63 @@
-import React from "react"
-import { NavLink } from "react-router-dom"
+import { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import { NavLink, useParams } from 'react-router-dom';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { Button } from '@mui/material';
+import DialogsForm from 'src/components/dialogs/DialogsForm';
+import {
+  getMessagesListAction,
+  sendMessageAction,
+} from 'src/redux/dialogsReducer';
+import { RootState } from 'src/redux/redux-store';
 
-import classes from "./DialogItem.module.css"
+import classes from './DialogItem.module.css';
 
-type Props = {
-  name: string
-  id: number
-}
+type ValuesType = {
+  newMessage: string;
+};
 
-const DialogItem: React.FC<Props> = ({ name, id }) => (
-    <div className={classes.dialog}>
-      <NavLink to={"/Dialogs/" + id} activeClassName={classes.activeLink}>
-        {name}
+const DialogItem: FC = () => {
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
+  const id = +useParams<{ id: string }>().id;
+
+  useEffect(() => {
+    dispatch(getMessagesListAction({ id }));
+  }, [id]); // eslint-disable-line
+
+  const messages = useSelector(
+    (state: RootState) => state.dialogs.messagesList
+  );
+
+  const addNewMessageForm = (values: ValuesType) => {
+    dispatch(sendMessageAction({ id, body: values.newMessage }));
+    values.newMessage = '';
+  };
+
+  return (
+    <>
+      <NavLink to="/Dialogs">
+        <Button variant="contained" startIcon={<ArrowBackIosIcon />}>
+          {t('dialogs.back')}
+        </Button>
       </NavLink>
-    </div>
-  )
+      {messages?.items.length ? (
+        <>
+          <div>
+            {messages?.items.map((message) => (
+              <div key={message.id}>{message.body}</div>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div>{t('dialogs.empty')}</div>
+      )}
+      <div className={classes.messages}>
+        <DialogsForm onSubmit={addNewMessageForm} />
+      </div>
+    </>
+  );
+};
 
-export default DialogItem
+export default DialogItem;

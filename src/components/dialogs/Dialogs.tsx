@@ -1,58 +1,56 @@
-import React from 'react';
+import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
-import DialogsForm from 'src/components/dialogs/DialogsForm';
-import Message from 'src/components/dialogs/message/Message';
-import { dialogsActions } from 'src/redux/dialogsPageReducer';
+import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
+import {
+  dialogOpenedAction,
+  getDialogsAction,
+  getMessagesListAction,
+  messagesListCleared,
+} from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
-import classes from './Dialogs.module.css';
+// import classes from './Dialogs.module.css';
 
-type ValuesType = {
-  newMessage: string;
-};
-
-type DialogType = {
-  name: string;
-  id: number;
-};
-
-type MessageType = {
-  message: string;
-  id: number;
-};
-
-const Dialogs: React.FC = () => {
-  const { dialogsData, messageData } = useSelector(
-    (state: RootState) => state.dialogsPage
-  );
-  const { isAuth } = useSelector((state: RootState) => state.auth);
+const Dialogs: FC = () => {
   const dispatch = useDispatch();
+  const { isAuth, dialogs } = useSelector((state: RootState) => ({
+    isAuth: state.auth,
+    dialogs: state.dialogs.dialogs,
+  }));
 
-  const addNewMessageForm = (values: ValuesType) =>
-    dispatch(dialogsActions.addMessageActionCreator(values.newMessage));
+  useEffect(() => {
+    dispatch(getDialogsAction());
+  }, []); // eslint-disable-line
 
-  const dialogsItemsCopy = dialogsData.map((dialog: DialogType) => (
-    <DialogItem name={dialog.name} id={dialog.id} key={dialog.id} />
-  ));
+  useEffect(
+    () => () => {
+      dispatch(messagesListCleared());
+    },
+    [] // eslint-disable-line
+  );
 
-  const messagesItemsCopy = messageData.map((message: MessageType) => (
-    <Message message={message.message} id={message.id} key={message.id} />
-  ));
+  const openDialog = (id: number) => {
+    dispatch(getMessagesListAction({ id }));
+    dispatch(dialogOpenedAction({ id }));
+  };
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
   }
 
   return (
-    <div className={classes.dialogs}>
-      <div className={classes.dialogsItems}>{dialogsItemsCopy}</div>
-      <div className={classes.messages}>
-        <div>{messagesItemsCopy}</div>
-        <DialogsForm onSubmit={addNewMessageForm} />
-      </div>
-    </div>
+    <>
+      <ul>
+        {dialogs.map((dialog) => (
+          <MessageTitle
+            key={dialog.id}
+            dialog={dialog}
+            openDialog={() => openDialog(dialog.id)}
+          />
+        ))}
+      </ul>
+    </>
   );
 };
 

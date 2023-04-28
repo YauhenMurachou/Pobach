@@ -2,7 +2,7 @@ import { CommonActionTypes } from 'src/redux/redux-store';
 
 const ADD_MESSAGE = 'ADD_MESSAGE';
 
-export type InitialStateType = typeof initialState;
+type InitialStateType = typeof initialState;
 
 const initialState = {
   dialogsData: [

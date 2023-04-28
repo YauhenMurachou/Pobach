@@ -23,8 +23,14 @@ const Myposts: FC<Props> = ({ postsData, addPostButton }) => {
 
   const { t } = useTranslation();
 
-  const posts = postsData.map((post) => (
-    <Post message={post.message} likesCount={post.likesCount} key={post.id} />
+  const posts = postsData.map(({ message, likesCount, id, isLike }) => (
+    <Post
+      message={message}
+      likesCount={likesCount}
+      key={id}
+      id={id}
+      isLike={isLike}
+    />
   ));
 
   return (

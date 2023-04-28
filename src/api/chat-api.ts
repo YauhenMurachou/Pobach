@@ -4,6 +4,8 @@ export type MessageType = {
   message: string;
   userId: number;
   id?: string;
+  deleted?: boolean;
+  deletedMessage?: string;
 };
 
 export type StatusType = 'pending' | 'ready';

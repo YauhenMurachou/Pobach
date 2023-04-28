@@ -1,14 +1,24 @@
-import { ChangeEvent, FC, memo, useState } from 'react';
+import { FC, memo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Pagination from '@mui/material/Pagination';
-import UserItem from 'src/components/users/UserItem';
+import Popper from 'src/components/common/atoms/popper/Popper';
+import SearchField from 'src/components/common/atoms/searchField/SearchField';
+import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
+import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
+import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
+import UserItem from 'src/components/common/molecules/userItem/UserItem';
+import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
 import { UserType } from 'src/types';
+import {
+  calculatePagesCount,
+  getUsers as getUsersHandler,
+} from 'src/utils/users';
 
 import classes from './Users.module.css';
 
-export type Props = {
+type Props = {
   totalUsersCount: number;
   pageSize: number;
   currentPage: number;
@@ -23,7 +33,7 @@ const Users: FC<Props> = memo(
   ({
     totalUsersCount,
     pageSize,
-    // currentPage,
+    currentPage,
     users,
     followingInProgress,
     onPageChange,
@@ -31,64 +41,92 @@ const Users: FC<Props> = memo(
     followUsers,
   }) => {
     const [page, setPage] = useState(1);
-
-    const handleChange = (_event: ChangeEvent<unknown>, page: number) => {
-      setPage(page);
-      onPageChange(page);
-    };
-    const pagesCount = Math.ceil(totalUsersCount / pageSize);
-    const pages = [];
-    for (let i = 1; i <= pagesCount; i++) {
-      pages.push(i);
-    }
+    const [isDialogOpen, setDialogOpen] = useState(false);
+    const [isPopperOpen, setPopperOpen] = useState(false);
+    const [companion, setCompanion] = useState<UserType>();
     const { isAuth } = useSelector((state: RootState) => state.auth);
+    const isFetching = useSelector(
+      (state: RootState) => state.users.isFetching
+    );
+    const { t } = useTranslation();
+
+    const { setSearchValue, searchValue } = useSearch(
+      getUsersHandler,
+      currentPage,
+      pageSize
+    );
+
+    const handleDialogOpen = (companion?: UserType) => {
+      setDialogOpen(true);
+      setCompanion(companion);
+    };
+
+    const handleDialogClose = () => {
+      setDialogOpen(false);
+    };
+
+    const pagesCount = calculatePagesCount(totalUsersCount, pageSize);
+
     if (!isAuth) {
       return <Redirect to="/Login" />;
     }
 
-    const hasFollowed = users.some((user) => user.followed);
-
     return (
-      <>
-        <div className={classes.itemWrapper}>
-          {users.map((user: UserType, index) => (
-            <UserItem
-              user={user}
-              followUsers={followUsers}
-              unfollowUsers={unfollowUsers}
-              followingInProgress={followingInProgress}
-              key={index + user.toString()}
-            />
-          ))}
-        </div>
-        {hasFollowed && (
+      <div className={classes.wrapper}>
+        {!isFetching && (
           <>
-            <div>Followers:</div>
-            {users.map((user: UserType, index) => (
-              <>
-                {user.followed && (
-                  <UserItem
-                    user={user}
-                    followUsers={followUsers}
-                    unfollowUsers={unfollowUsers}
-                    followingInProgress={followingInProgress}
-                    key={index + user.toString()}
-                  />
-                )}
-              </>
-            ))}
+            <div className={classes.header}>
+              {t('users.showing')}{' '}
+              <span className={classes.number}>{users.length}</span>{' '}
+              {t('users.users')}{' '}
+              <span className={classes.number}>{totalUsersCount}</span>
+              {t('users.registered')}
+            </div>
+            <SearchField
+              placeholder={t('users.search')}
+              setSearchValue={setSearchValue}
+              searchValue={searchValue}
+              isSearch={!!searchValue}
+            />
+            <ul className={classes.itemWrapper}>
+              {users.map((user: UserType, index) => (
+                <UserItem
+                  user={user}
+                  followUsers={followUsers}
+                  unfollowUsers={unfollowUsers}
+                  followingInProgress={followingInProgress}
+                  handleDialogOpen={() => handleDialogOpen(user)}
+                  key={index + user.toString()}
+                />
+              ))}
+            </ul>
+            {pagesCount > 1 && (
+              <UsersPagination
+                pagesCount={pagesCount}
+                currentPage={page}
+                handlePageChange={onPageChange}
+                setPage={setPage}
+              />
+            )}
+            {!!searchValue && !users.length && (
+              <EmptyState text={t('users.nothing')} />
+            )}
           </>
         )}
-        <div>
-          <Pagination
-            count={pagesCount}
-            showFirstButton
-            showLastButton
-            page={page}
-            onChange={handleChange}
-          />
-        </div>
-      </>
+        <DialogModal
+          isOpen={isDialogOpen}
+          handleClose={handleDialogClose}
+          setPopperOpen={setPopperOpen}
+          companion={companion as UserType}
+        />
+        <Popper
+          isOpen={isPopperOpen}
+          placement="bottom-start"
+          anchorEl={document.body}
+          handleClose={() => setPopperOpen(false)}
+          companion={companion as UserType}
+        />
+      </div>
     );
   }
 );

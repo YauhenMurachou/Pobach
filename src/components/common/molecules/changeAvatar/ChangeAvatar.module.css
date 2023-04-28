@@ -10,14 +10,14 @@
 .popoverWrapper {
 	display: flex;
 	flex-direction: column;
-	background-color: #F5F5F5;
+	background-color: var(--bg-light-2);
 	padding: 0.25rem;
 }
 
 .popoverWrapper :global .MuiButton-root {
-	background-color: #F5F5F5;
+	background-color: var(--bg-light-2);
 	text-transform: none;
-	color: #293138;
+	color: var(--grey-dark);
 	box-shadow: none;
 }
 
@@ -30,4 +30,12 @@
 .popoverWrapper :global .MuiButton-root:hover {
 	background-color: #e6e4e9;
 	box-shadow: none;
+}
+
+.popoverWrapper label:first-child svg {
+	fill: var(--green-light);
+}
+
+.popoverWrapper label:last-child svg {
+	fill: var(--red-main);
 }

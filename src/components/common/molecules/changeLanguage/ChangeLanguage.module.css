@@ -1,0 +1,7 @@
+.language {
+	padding-top: 1rem;
+}
+
+.language svg {
+	cursor: pointer;
+}

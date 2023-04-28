@@ -2,33 +2,41 @@ import { setUserDataThunkCreator } from 'src/redux/authReducer';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS';
+const CORSE_ERROR = 'CORSE_ERROR';
 
-export type InitialStateAppType = {
+type InitialStateAppType = {
   isInitialized: boolean;
+  isCorseError: boolean;
 };
 
 const initialState: InitialStateAppType = {
   isInitialized: false,
+  isCorseError: false,
 };
 
-export const actions = {
+const actions = {
   initializedSuccessAction: () => ({
     type: INITIALIZED_SUCCESS,
+  }),
+  corseErrorAction: () => ({
+    type: CORSE_ERROR,
   }),
 };
 
 type AppActionsType = CommonActionTypes<typeof actions>;
 
-export const appReducer = (
-  state = initialState,
-  action: AppActionsType
-  //строчка ниже - получаемое значение вызова функции
-): InitialStateAppType => {
+export const appReducer = (state = initialState, action: AppActionsType) => {
   switch (action.type) {
     case INITIALIZED_SUCCESS: {
       return {
         ...state,
         isInitialized: true,
+      };
+    }
+    case CORSE_ERROR: {
+      return {
+        ...state,
+        isCorseError: true,
       };
     }
 
@@ -40,18 +48,13 @@ export const appReducer = (
 export const initializedThunkCreator =
   (): CommonThunkType<AppActionsType> => async (dispatch) => {
     const dispatchResult = dispatch(setUserDataThunkCreator());
-    dispatchResult.then(() => {
-      dispatch(actions.initializedSuccessAction());
-    });
+    dispatchResult
+      .then(() => {
+        dispatch(actions.initializedSuccessAction());
+      })
+      .catch((error) => {
+        if (error instanceof Error && error.message === 'Network Error') {
+          dispatch(actions.corseErrorAction());
+        }
+      });
   };
-
-// export const initializedThunkCreator = (): CommonThunkType<AppActionsType> => {
-//   return async (
-//     dispatch
-//     // : ThunkDispatch<RootState, unknown, initializedSuccessActionType>
-//   ) => {
-//     // dispatch(setUserDataThunkCreator());
-//     // console.log('promise', promise);
-//     await dispatch(actions.initializedSuccessAction());
-//   };
-// };

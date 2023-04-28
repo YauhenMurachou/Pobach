@@ -1,0 +1,58 @@
+.item {
+	padding: 0.5rem 0;
+	cursor: default;
+	border-bottom: 1px solid var(--blue-light);
+	display: flex;
+	justify-content: space-between;
+}
+
+.item:last-child {
+	border-bottom: none;
+}
+
+.avatarWrapper {
+	display: flex;
+	column-gap: 1rem;
+}
+
+.avatar {
+	width: 5rem;
+	border-radius: 50%;
+}
+
+.infoWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.name {
+	font-weight: 600;
+	font-size: 1.1rem;
+	color: var(--blue-main);
+}
+
+.status {
+	display: flex;
+	gap: 0.325rem;
+	font-size: 0.85rem;
+	color: var(--grey-light);
+}
+
+.id {
+	font-size: 0.85rem;
+	color: var(--grey-light);
+}
+
+.message {
+	font-size: 0.85rem;
+	color: var(--blue-main);
+}
+
+.disabled {
+	opacity: 0.5;
+}
+
+.disabled:hover {
+	cursor: not-allowed !important;
+	text-decoration: none;
+}
