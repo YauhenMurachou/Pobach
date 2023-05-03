@@ -65,10 +65,7 @@ const App: React.FC = () => {
             <div className={styles.appWrapperContent}>
               <Switch>
                 <Route exact path="/Dialogs" render={() => <Dialogs />} />
-                <Route
-                  path="/Dialogs/:id"
-                  render={() => <DialogItem />}
-                />
+                <Route path="/Dialogs/:id" render={() => <DialogItem />} />
               </Switch>
               <Route
                 path="/Profile/:userId?"

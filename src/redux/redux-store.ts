@@ -11,7 +11,6 @@ import friendsReducer from 'src/redux/friendsReducer';
 import photosReducer from 'src/redux/photosReducer';
 import { profilePageReducer } from 'src/redux/profilePageReducer';
 import { rootSaga } from 'src/redux/sagas/sagas';
-import settingsReducer from 'src/redux/settingsReducer';
 import usersReducer from 'src/redux/usersReducer';
 
 const reducer = combineReducers({
@@ -22,7 +21,6 @@ const reducer = combineReducers({
   appReducer: appReducer,
   chat: chatReducer,
   photos: photosReducer,
-  settings: settingsReducer,
   dialogs: dialogsReducer,
   friends: friendsReducer,
 });

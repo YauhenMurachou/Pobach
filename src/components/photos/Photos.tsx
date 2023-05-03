@@ -32,7 +32,6 @@ const Photos: FC = () => {
   return (
     <div>
       <h3>Photos</h3>
-      <h5>This is test page for practice with redux-toolkit</h5>
       <div className={styles.subtitle}>
         <Button type="button" onClick={getToolkitPhotos} variant="contained">
           Get photos with RTK
