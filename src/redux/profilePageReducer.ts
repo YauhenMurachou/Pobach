@@ -1,4 +1,4 @@
-import { profileApi } from 'src/api/api';
+import { profileApi } from 'src/api/profileApi';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 import { EditProfileType, ProfileType } from 'src/types';
 

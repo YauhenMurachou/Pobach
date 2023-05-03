@@ -1,4 +1,5 @@
-import { profileApi, usersApi } from 'src/api/api';
+import { profileApi } from 'src/api/profileApi';
+import { usersApi } from 'src/api/usersApi';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 
 const SET_USER_DATA = 'SET_USER_DATA';

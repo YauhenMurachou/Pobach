@@ -1,4 +1,5 @@
-import { ResultCodeEnum, usersApi } from 'src/api/api';
+import { ResultCodeEnum } from 'src/api/api';
+import { usersApi } from 'src/api/usersApi';
 import { UserType } from 'src/types';
 
 import { CommonActionTypes, CommonThunkType } from './redux-store';

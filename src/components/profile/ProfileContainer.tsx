@@ -3,10 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import withAuthRedirect from 'src/components/hoc/withAuthRedirect';
-import {
-  // setUserDataThunkCreator,
-  AuthActionsType,
-} from 'src/redux/authReducer';
+import { AuthActionsType } from 'src/redux/authReducer';
 import {
   getStatusThunkCreator,
   ProfileActionsTypes,
@@ -46,7 +43,6 @@ class ProfileContainer extends React.Component<Props> {
   }
 
   componentDidMount() {
-    // this.props.setMyProfile();
     this.refreshProfile();
   }
 
@@ -82,7 +78,6 @@ export default compose(
     getStatus: getStatusThunkCreator,
     updateStatus: updateStatusThunkCreator,
     sendPhoto: sendPhotoThunkCreator,
-    // setMyProfile: setUserDataThunkCreator,
   }),
   withRouter,
   withAuthRedirect
