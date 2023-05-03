@@ -1,5 +1,6 @@
 import React, { ChangeEvent, MouseEventHandler } from 'react';
 import TextField from '@mui/material/TextField';
+import i18n from 'src/i18n';
 
 import styles from './ProfileStatus.module.css';
 
@@ -21,13 +22,23 @@ class ProfileStatus extends React.Component<Props> {
     });
   };
 
-  deActiveEditMode = () => {
+  deActiveEditMode = () =>
+    setTimeout(() => {
+      this.setState({
+        editMode: false,
+      });
+    }, 200);
+
+  handleBlurStatus = () => {
     const { status, updateStatus } = this.props;
-    this.setState({
-      editMode: false,
-    });
+
     if (updateStatus && this.state.status.trim() !== status) {
       updateStatus(this.state.status.trim());
+      this.deActiveEditMode();
+    } else {
+      this.setState({
+        editMode: false,
+      });
     }
   };
 
@@ -49,7 +60,7 @@ class ProfileStatus extends React.Component<Props> {
       <>
         {status && (
           <>
-            <div className={styles.subtitle}>status</div>
+            <div className={styles.subtitle}>{i18n.t('status.status')}</div>
             {!this.state.editMode && (
               <span
                 onClick={
@@ -66,7 +77,7 @@ class ProfileStatus extends React.Component<Props> {
             )}
             {isOwner && (this.state.editMode || !status) && (
               <TextField
-                onBlur={this.deActiveEditMode}
+                onBlur={this.handleBlurStatus}
                 onChange={this.onStatusChange}
                 value={this.state.status}
                 autoFocus

@@ -77,5 +77,8 @@
     "message": "Your message ",
     "sent": "sent to ",
     "done": "Message sent"
+  },
+  "status": {
+    "status": "Your status"
   }
 }
