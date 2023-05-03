@@ -1,6 +1,6 @@
 import { FC, memo, useState } from 'react';
 import MypostsContainer from 'src/components/profile/myposts/MypostsContainer';
-import ProfileInfoContainer from 'src/components/profile/myposts/post/profileInfo/ProfileInfoContainer';
+import ProfileInfoContainer from 'src/components/profile/profileInfoContainer/ProfileInfoContainer';
 import { ProfileType } from 'src/types';
 
 import classes from './Profile.module.css';

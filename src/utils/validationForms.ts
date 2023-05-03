@@ -13,6 +13,12 @@ const longStringValidate = Yup.string()
   .max(25, t('validation.long') as string)
   .required(t('validation.required') as string);
 
+export const newPostSchema = Yup.object().shape({
+  newPost: Yup.string()
+    .min(3, 'Too Short!')
+    .max(30, 'Too Long Post, maximum length 30 symbols!'),
+});
+
 export const profielValidationSchema = Yup.object().shape({
   fullName: Yup.string()
     .trim()
