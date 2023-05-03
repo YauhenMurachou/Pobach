@@ -6,10 +6,10 @@ import FollowButtons from 'src/components/common/atoms/followButtons/FollowButto
 import Popper from 'src/components/common/atoms/popper/Popper';
 import ChangeAvatar from 'src/components/common/molecules/changeAvatar/ChangeAvatar';
 import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
+import ProfileStatus from 'src/components/common/molecules/profilleStatus/ProfileStatus';
+import ProfileInfo from 'src/components/common/organisms/profileInfo/ProfileInfo';
+import ProfileInfoEditForm from 'src/components/common/organisms/profileInfoEditForm/ProfileInfoEditForm';
 import Loader from 'src/components/loader/Loader';
-import ProfileInfo from 'src/components/profile/myposts/post/profileInfo/ProfileInfo';
-import ProfileInfoEditForm from 'src/components/profile/myposts/post/profileInfo/ProfileInfoEditForm';
-import ProfileStatus from 'src/components/profile/myposts/post/profileInfo/profilleStatus/ProfileStatus';
 import avatar from 'src/images/avatar.png';
 import { editProfileThunkCreator } from 'src/redux/profilePageReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -20,7 +20,7 @@ import {
 } from 'src/redux/usersReducer';
 import { EditProfileType, ProfileType, UserType } from 'src/types';
 
-import classes from './ProfileInfo.module.css';
+import classes from './ProfileInfoContainer.module.css';
 
 type Props = {
   profile: ProfileType;

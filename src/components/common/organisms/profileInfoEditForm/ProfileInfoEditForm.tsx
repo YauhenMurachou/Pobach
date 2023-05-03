@@ -9,7 +9,7 @@ import {
   profielValidationSchema,
 } from 'src/utils/validationForms';
 
-import classes from './ProfileInfo.module.css';
+import classes from './ProfileInfoEditForm.module.css';
 
 type Props = {
   info: string[];

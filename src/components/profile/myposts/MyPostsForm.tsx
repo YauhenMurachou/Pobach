@@ -1,15 +1,9 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Field, Form,Formik } from 'formik';
-import * as Yup from 'yup';
+import { Field, Form, Formik } from 'formik';
+import { newPostSchema } from 'src/utils/validationForms';
 
 import classes from './Myposts.module.css';
-
-const newPostSchema = Yup.object().shape({
-  newPost: Yup.string()
-    .min(3, 'Too Short!')
-    .max(30, 'Too Long Post, maximum length 30 symbols!'),
-});
 
 type Props = {
   onSubmit: (values: { newPost: string }) => void;
