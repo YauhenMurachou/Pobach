@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { Button } from '@mui/material';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
@@ -14,7 +14,7 @@ type Props = {
   ) => void;
 };
 
-const DialogsForm: React.FC<Props> = ({ onSubmit }) => (
+const DialogsForm: FC<Props> = ({ onSubmit }) => (
     <>
       <Formik
         onSubmit={onSubmit}

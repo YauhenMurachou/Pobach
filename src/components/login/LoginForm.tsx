@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { FC, MouseEvent, SetStateAction, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -99,7 +99,7 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                   disabled={!captchaImageUrl}
                   value={value}
                   onChange={(e: {
-                    target: { value: React.SetStateAction<string> };
+                    target: { value: SetStateAction<string> };
                   }) => setValue(e.target.value)}
                 />
               </>

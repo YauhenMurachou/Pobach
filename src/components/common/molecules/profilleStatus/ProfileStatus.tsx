@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEventHandler } from 'react';
+import { ChangeEvent, Component, MouseEventHandler } from 'react';
 import TextField from '@mui/material/TextField';
 import i18n from 'src/i18n';
 
@@ -10,7 +10,7 @@ type Props = {
   isOwner: boolean;
 };
 
-class ProfileStatus extends React.Component<Props> {
+class ProfileStatus extends Component<Props> {
   state = {
     editMode: false,
     status: this.props.status,

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component, ComponentType, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -24,15 +24,15 @@ export type Props = {
   profile: ProfileType;
   updateStatus: (
     status: string
-  ) => (dispatch: React.Dispatch<ProfileActionsTypes>) => void;
+  ) => (dispatch: Dispatch<ProfileActionsTypes>) => void;
   sendPhoto: (
     file: string | Blob
-  ) => (dispatch: React.Dispatch<ProfileActionsTypes>) => void;
+  ) => (dispatch: Dispatch<ProfileActionsTypes>) => void;
   status: string;
   setMyProfile: () => CommonThunkType<AuthActionsType>;
 };
 
-class ProfileContainer extends React.Component<Props> {
+class ProfileContainer extends Component<Props> {
   refreshProfile() {
     let userId = this.props.match.params.userId;
     if (!userId) {
@@ -81,4 +81,4 @@ export default compose(
   }),
   withRouter,
   withAuthRedirect
-)(ProfileContainer) as React.ComponentType;
+)(ProfileContainer) as ComponentType;

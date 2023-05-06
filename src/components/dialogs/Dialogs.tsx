@@ -10,7 +10,7 @@ import {
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
-// import classes from './Dialogs.module.css';
+// import classes from './Dialogs.module.css';~
 
 const Dialogs: FC = () => {
   const dispatch = useDispatch();
