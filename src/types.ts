@@ -1,5 +1,7 @@
 export type Timeout = ReturnType<typeof setTimeout>;
 
+export type ID = { id: number };
+
 export type UserType = {
   id: number;
   name: string;
@@ -60,3 +62,23 @@ export type Message = {
   recipientId: number;
   viewed: boolean;
 };
+
+export type MessagesList = {
+  items: Message[];
+  totalCount: number;
+  error: null | string;
+};
+
+export type NewMessage = { id: number; body: string };
+
+export type ChatMessage = {
+  userName: string;
+  photo: string;
+  message: string;
+  userId: number;
+  id?: string;
+  deleted?: boolean;
+  deletedMessage?: string;
+};
+
+export type ChatStatus = 'pending' | 'ready';

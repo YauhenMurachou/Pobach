@@ -14,9 +14,9 @@ type Props = {
 const SearchField: FC<Props> = memo(
   ({ placeholder, searchValue, setSearchValue, isSearch }) => {
     const handleChangeSearch = (
-      event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
+      e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
-      setSearchValue(event.target.value);
+      setSearchValue(e.target.value);
     };
 
     return (

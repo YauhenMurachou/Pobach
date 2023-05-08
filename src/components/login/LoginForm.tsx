@@ -18,8 +18,8 @@ type Props = {
 const LoginForm: FC<Props> = ({ onSubmit }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-  const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
+  const handleMouseDownPassword = (e: MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
   };
   const { error, captchaImageUrl } = useSelector(
     (state: RootState) => state.auth

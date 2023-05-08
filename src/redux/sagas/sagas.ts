@@ -1,20 +1,28 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
-import { photoSagaApi } from 'src/api/api';
 import { dialogsApi } from 'src/api/dialogsApi';
+import { photoSagaApi } from 'src/api/photosApi';
 import { usersApi } from 'src/api/usersApi';
 import {
   allDialogsGet,
   getDialogsAction,
   getMessagesListAction,
+  getTitlesAction,
   messageAdd,
-  MessagesList,
   messagesListGet,
+  messagesTitlesGet,
   sendMessageAction,
   startDialogAction,
 } from 'src/redux/dialogsReducer';
 import { friendsGet, getFriendsAction } from 'src/redux/friendsReducer';
 import { SagaPhoto, sagaPhotosAdded } from 'src/redux/photosReducer';
-import { Dialog, FriendsType, Message } from 'src/types';
+import {
+  Dialog,
+  FriendsType,
+  ID,
+  Message,
+  MessagesList,
+  NewMessage,
+} from 'src/types';
 
 function* getPhotos() {
   const photoSaga: SagaPhoto[] = yield call(() => photoSagaApi.getPhotos());
@@ -26,21 +34,29 @@ function* getAllDialogs() {
   yield put(allDialogsGet(allDialogs));
 }
 
-function* startDialog(action: { payload: { id: number } }) {
+function* startDialog(action: { payload: ID }) {
   const dialog: Dialog = yield call(() =>
     dialogsApi.startDialog(action.payload.id)
   );
-  console.log('startDialog', dialog);
+  console.log('startDialog', dialog); //TODO
 }
 
-function* getMessagesList(action: { payload: { id: number } }) {
-  const messagesList: MessagesList[] = yield call(() =>
+function* getMessagesList(action: { payload: ID }) {
+  const messagesList: MessagesList = yield call(() =>
     dialogsApi.getMessagesList(action.payload.id)
   );
   yield put(messagesListGet(messagesList));
 }
 
-function* sendMessage(action: { payload: { id: number; body: string } }) {
+function* getMessagesTitles(action: { payload: ID }) {
+  const messagesList: MessagesList = yield call(() =>
+    dialogsApi.getMessagesList(action.payload.id)
+  );
+  const title = [action.payload.id, messagesList.items.pop()?.body as string];
+  yield put(messagesTitlesGet(title));
+}
+
+function* sendMessage(action: { payload: NewMessage }) {
   const { id, body } = action.payload;
   const sentMessage: Message = yield call(() =>
     dialogsApi.sendMessage(id, body)
@@ -70,6 +86,10 @@ function* getMessagesSaga() {
   yield takeEvery(getMessagesListAction, getMessagesList);
 }
 
+function* getTitlesSaga() {
+  yield takeEvery(getTitlesAction, getMessagesTitles);
+}
+
 function* sendMessageSaga() {
   yield takeEvery(sendMessageAction, sendMessage);
 }
@@ -87,5 +107,6 @@ export function* rootSaga() {
     sendMessageSaga(),
     getFriendsSaga(),
     startDialogsSaga(),
+    getTitlesSaga(),
   ]);
 }

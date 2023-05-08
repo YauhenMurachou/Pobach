@@ -1,47 +1,46 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 import { NavLink } from 'react-router-dom';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {
   Avatar,
+  Badge,
   Divider,
   ListItem,
   ListItemAvatar,
+  ListItemIcon,
   ListItemText,
-  Typography,
 } from '@mui/material';
 import { Dialog } from 'src/types';
+import { convertDate } from 'src/utils/date';
 
 import classes from './MessageTitle.module.css';
 
 type Props = {
   dialog: Dialog;
   openDialog: () => void;
+  title: string;
 };
 
-const MessageTitle: FC<Props> = ({ dialog, openDialog }) => {
+const MessageTitle: FC<Props> = ({ dialog, openDialog, title }) => {
   const {
     id,
     userName,
-    // hasNewMessages,
-    // lastDialogActivityDate,
+    lastDialogActivityDate,
+    hasNewMessages,
     // lastUserActivityDate,
-    // newMessagesCount,
+    newMessagesCount,
     photos,
   } = dialog;
+
+  const openMenu = (e: MouseEvent<SVGSVGElement>) => {
+    e.preventDefault();
+    console.log('openMenu');
+  };
 
   const dialogPath = `/Dialogs/${id}`;
 
   return (
-    <>
-      {/* <NavLink
-        className={classes.container}
-        onClick={openDialog}
-        to={dialogPath}
-      > */}
-      {/* <img alt={userName} src={photos?.small} />
-        <div>{userName}</div> */}
-      {/* <span>{lastDialogActivityDate}</span>
-        <span>{newMessagesCount}</span>
-      </NavLink> */}
+    <li className={classes.wrapper}>
       <NavLink
         className={classes.container}
         onClick={openDialog}
@@ -49,29 +48,30 @@ const MessageTitle: FC<Props> = ({ dialog, openDialog }) => {
       >
         <ListItem alignItems="flex-start">
           <ListItemAvatar>
-            {/* Remy Sharp */}
             <Avatar alt={userName} src={photos?.small} />
           </ListItemAvatar>
           <ListItemText
             primary={userName}
-            secondary={
-              <>
-                <Typography
-                  sx={{ display: 'inline' }}
-                  component="span"
-                  variant="body2"
-                  color="text.primary"
-                >
-                  Ali Connors
-                </Typography>
-                {" — I'll be in your neighborhood doing errands this…"}
-              </>
-            }
+            secondary={title}
+            className={classes.userName}
           />
+          <ListItemIcon className={classes.iconWrapper}>
+            <div className={classes.top}>
+              <span className={classes.date}>
+                {convertDate(lastDialogActivityDate)}
+              </span>
+              <MoreHorizIcon onClick={openMenu} className={classes.icon} />
+            </div>
+            {hasNewMessages && (
+              <div>
+                <Badge badgeContent={newMessagesCount} color="primary" />
+              </div>
+            )}
+          </ListItemIcon>
         </ListItem>
       </NavLink>
-      <Divider variant="inset" component="li" />
-    </>
+      <Divider variant="fullWidth" component="li" />
+    </li>
   );
 };
 

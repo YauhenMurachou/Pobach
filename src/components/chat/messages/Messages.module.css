@@ -19,7 +19,7 @@
 }
 
 .messageContainer:hover {
-	background-color: #dbe0e4;
+	background-color: var(--grey-light-3);
 	transition-duration: 0.5s;
 }
 

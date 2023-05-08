@@ -19,11 +19,9 @@ const ChangeAvatar: FC<Props> = ({ sendPhoto, isAvatar }) => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const handleOpen = (
-    event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
-  ) => {
-    event.preventDefault();
-    setAnchorEl(event.currentTarget);
+  const handleOpen = (e: MouseEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setAnchorEl(e.currentTarget);
     setOpen((prevState) => !prevState);
   };
 
