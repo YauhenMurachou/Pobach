@@ -1,17 +1,8 @@
-export type MessageType = {
-  userName: string;
-  photo: string;
-  message: string;
-  userId: number;
-  id?: string;
-  deleted?: boolean;
-  deletedMessage?: string;
-};
+import { ChatMessage, ChatStatus } from 'src/types';
 
-export type StatusType = 'pending' | 'ready';
 type EventType = 'message' | 'status';
-type MessageSubscriberType = (messages: MessageType[]) => void;
-type StatusSubscriberType = (status: StatusType) => void;
+type MessageSubscriberType = (messages: ChatMessage[]) => void;
+type StatusSubscriberType = (status: ChatStatus) => void;
 
 const subscribers = {
   message: [] as MessageSubscriberType[],
@@ -33,7 +24,7 @@ const cleanUp = () => {
   ws?.removeEventListener('message', messageHandler);
 };
 
-const changeStatus = (status: StatusType) => {
+const changeStatus = (status: ChatStatus) => {
   subscribers['status'].forEach((s) => s(status));
 };
 
@@ -73,7 +64,7 @@ export const chatApi = {
   unsubscribe(event: EventType) {
     subscribers[event] = [];
   },
-  send(message: MessageType['message']) {
+  send(message: ChatMessage['message']) {
     ws.send(message);
   },
 };

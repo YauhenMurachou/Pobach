@@ -3,7 +3,7 @@ import {
   createAsyncThunk,
   createSlice,
 } from '@reduxjs/toolkit';
-import { photosApi } from 'src/api/api';
+import { photosApi } from 'src/api/photosApi';
 
 type ToolkitPhoto = {
   albumId: number;

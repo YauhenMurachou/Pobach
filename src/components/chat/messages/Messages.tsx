@@ -5,14 +5,14 @@ import { NavLink } from 'react-router-dom';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Tooltip } from '@mui/material';
 import classNames from 'classnames';
-import { MessageType } from 'src/api/chat-api';
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
+import { ChatMessage } from 'src/types';
 
 import classes from './Messages.module.css';
 
-const Message: FC<MessageType> = memo(
+const Message: FC<ChatMessage> = memo(
   ({ message, userName, photo, userId, id, deleted, deletedMessage }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();

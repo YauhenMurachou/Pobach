@@ -1,52 +1,66 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { Dialog, Message } from 'src/types';
+import { Dialog, ID, MessagesList, NewMessage } from 'src/types';
 
-export type MessagesList = {
-  items: Message[];
-  totalCount: number;
-  error: null | string;
-};
+type TitleDialog = (string | number)[];
 
 type InitialStateDialogsType = {
   dialogs: Dialog[];
   messagesList: MessagesList | null;
+  messagesTitles: TitleDialog[];
   openDialogId?: number;
 };
 
 const initialState: InitialStateDialogsType = {
   dialogs: [],
   messagesList: null,
+  messagesTitles: [],
 };
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
-export const startDialogAction = createAction<{ id: number }>(
-  'dialogs/startDialogAction'
-);
-export const getMessagesListAction = createAction<{ id: number }>(
+export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
+export const getMessagesListAction = createAction<ID>(
   'dialogs/getMessagesListAction'
 );
-export const sendMessageAction = createAction<{ id: number; body: string }>(
+export const getTitlesAction = createAction<ID>(
+  'dialogs/getMessagesTitleAction'
+);
+export const updateTitleAction = createAction<NewMessage>(
+  'dialogs/titleUpdated'
+);
+export const sendMessageAction = createAction<NewMessage>(
   'dialogs/sendMessageAction'
 );
-export const dialogOpenedAction = createAction<{ id: number }>(
-  'dialogs/dialogOpened'
-);
+export const dialogOpenedAction = createAction<ID>('dialogs/dialogOpened');
+
+type Action<T> = {
+  payload: T;
+  type: string;
+};
 
 const dialogsSlice = createSlice({
   name: 'dialogs',
   initialState,
   reducers: {
-    allDialogsGet(state, action) {
+    allDialogsGet(state, action: Action<Dialog[]>) {
       state.dialogs = action.payload;
     },
-    messagesListGet(state, action) {
+    messagesListGet(state, action: Action<MessagesList>) {
       state.messagesList = action.payload;
+    },
+    messagesTitlesGet(state, action: Action<TitleDialog>) {
+      state.messagesTitles = [...state.messagesTitles, action.payload];
     },
     messagesListCleared(state) {
       state.messagesList = null;
     },
     dialogOpened(state, action) {
       state.openDialogId = action.payload.id;
+    },
+    titleUpdated(state, action) {
+      const updatedIndex = state.messagesTitles.findIndex((message) =>
+        message.find((item) => item === action.payload.id)
+      );
+      state.messagesTitles[updatedIndex] = Object.values(action.payload);
     },
     messageAdd(state, action) {
       if (state.messagesList) {
@@ -62,9 +76,11 @@ const dialogsSlice = createSlice({
 export const {
   allDialogsGet,
   messagesListGet,
+  messagesTitlesGet,
   messageAdd,
   messagesListCleared,
   dialogOpened,
+  titleUpdated,
 } = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;

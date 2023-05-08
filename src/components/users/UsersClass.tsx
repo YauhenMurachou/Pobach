@@ -1,4 +1,4 @@
-import React from 'react';
+import { Component } from 'react';
 import Loader from 'src/components/loader/Loader';
 import Users from 'src/components/users/Users';
 
@@ -18,7 +18,7 @@ type PropsType = {
   // setFollowingInProgress: any;
 };
 
-class UsersClass extends React.Component<PropsType> {
+class UsersClass extends Component<PropsType> {
   componentDidMount() {
     this.props.getUsers(this.props.currentPage, this.props.pageSize);
   }

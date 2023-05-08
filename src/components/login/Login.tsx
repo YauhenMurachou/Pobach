@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import LoginForm from 'src/components/login/LoginForm';
@@ -17,6 +18,7 @@ export type LoginType = {
 const Login: FC = () => {
   const dispatch = useDispatch();
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
+  const { t } = useTranslation();
   const profilePath = `/Profile/${userId}`;
 
   const logInFunction = (values: LoginType) => {
@@ -32,7 +34,7 @@ const Login: FC = () => {
     <div className={styles.container}>
       <div className={styles.login}>
         <div className={styles.loginForm}>
-          <h1 className={styles.title}>Вход в аккаунт</h1>
+          <h1 className={styles.title}> {t('login.title')}</h1>
           <LoginForm onSubmit={logInFunction} />
         </div>
       </div>

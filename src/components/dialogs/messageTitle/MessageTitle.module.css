@@ -1,3 +1,39 @@
+.wrapper a {
+	text-decoration: none;
+	color: var(--grey-dark);
+}
+
+.wrapper:hover {
+	background-color: var(--grey-light-3);
+	transition-duration: 0.5s;
+}
+
+.wrapper:hover .icon {
+	opacity: 1;
+}
+
 .container {
 	display: flex;
+}
+
+.container .userName span {
+	font-weight: 600;
+}
+
+.iconWrapper,
+.top {
+	display: flex;
+	align-items: center;
+}
+
+.iconWrapper {
+	flex-direction: column;
+}
+
+.date {
+	font-size: 0.8rem;
+}
+
+.icon {
+	opacity: 0;
 }

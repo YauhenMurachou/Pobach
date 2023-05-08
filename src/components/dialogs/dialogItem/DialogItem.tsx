@@ -8,6 +8,7 @@ import DialogsForm from 'src/components/dialogs/DialogsForm';
 import {
   getMessagesListAction,
   sendMessageAction,
+  updateTitleAction,
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -30,8 +31,10 @@ const DialogItem: FC = () => {
     (state: RootState) => state.dialogs.messagesList
   );
 
-  const addNewMessageForm = (values: ValuesType) => {
-    dispatch(sendMessageAction({ id, body: values.newMessage }));
+  const sendMessage = (values: ValuesType) => {
+    const message = { id, body: values.newMessage };
+    dispatch(sendMessageAction(message));
+    dispatch(updateTitleAction(message));
     values.newMessage = '';
   };
 
@@ -54,7 +57,7 @@ const DialogItem: FC = () => {
         <div>{t('dialogs.empty')}</div>
       )}
       <div className={classes.messages}>
-        <DialogsForm onSubmit={addNewMessageForm} />
+        <DialogsForm onSubmit={sendMessage} />
       </div>
     </>
   );

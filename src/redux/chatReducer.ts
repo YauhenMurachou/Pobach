@@ -1,7 +1,8 @@
 import { Dispatch } from 'redux';
-import { chatApi, MessageType, StatusType } from 'src/api/chat-api';
+import { chatApi } from 'src/api/chatApi';
 import i18n from 'src/i18n';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
+import { ChatMessage, ChatStatus } from 'src/types';
 import { checkPageStatus } from 'src/utils/checkNotification';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,19 +13,19 @@ const DELETE_MESSAGE = 'DELETE_MESSAGE';
 const RESTORE_MESSAGE = 'RESTORE_MESSAGE';
 
 type ChatInitialStateType = {
-  messages: MessageType[];
-  status: StatusType;
+  messages: ChatMessage[];
+  status: ChatStatus;
   isMuted: boolean;
 };
 
 const initialState: ChatInitialStateType = {
-  messages: [] as MessageType[],
+  messages: [] as ChatMessage[],
   status: 'pending',
   isMuted: false,
 };
 
 export const chatActions = {
-  setMessagesActionCreator: (messages: MessageType[]) =>
+  setMessagesActionCreator: (messages: ChatMessage[]) =>
     ({
       type: SET_MESSAGES,
       data: { messages },
@@ -34,7 +35,7 @@ export const chatActions = {
       type: CLEAR_MESSAGES,
       data: [],
     } as const),
-  setStatusActionCreator: (status: StatusType) =>
+  setStatusActionCreator: (status: ChatStatus) =>
     ({
       type: SET_STATUS,
       data: { status },
@@ -133,22 +134,22 @@ export const chatReducer = (
   }
 };
 
-let _newMessageHandler: ((messages: MessageType[]) => void) | null = null;
+let _newMessageHandler: ((messages: ChatMessage[]) => void) | null = null;
 
 const newMessageHandler = (dispatch: Dispatch) => {
   if (_newMessageHandler === null) {
-    _newMessageHandler = (messages: MessageType[]) => {
+    _newMessageHandler = (messages: ChatMessage[]) => {
       dispatch(chatActions.setMessagesActionCreator(messages));
     };
   }
   return _newMessageHandler;
 };
 
-let _statusHandler: ((status: StatusType) => void) | null = null;
+let _statusHandler: ((status: ChatStatus) => void) | null = null;
 
 const changeStatusHandler = (dispatch: Dispatch) => {
   if (_statusHandler === null) {
-    _statusHandler = (status: StatusType) => {
+    _statusHandler = (status: ChatStatus) => {
       dispatch(chatActions.setStatusActionCreator(status));
     };
   }
@@ -171,7 +172,7 @@ export const stopMessagesThunkCreator =
   };
 
 export const sendMessageThunkCreator =
-  (message: MessageType['message']): CommonThunkType<ChatActionsType> =>
+  (message: ChatMessage['message']): CommonThunkType<ChatActionsType> =>
   async (_dispatch) => {
     chatApi.send(message);
   };

@@ -1,4 +1,4 @@
-import { FC, MouseEvent, useState } from 'react';
+import { ChangeEvent, FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,11 +19,9 @@ const ChangeAvatar: FC<Props> = ({ sendPhoto, isAvatar }) => {
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
 
-  const handleOpen = (
-    event: MouseEvent<HTMLLabelElement, globalThis.MouseEvent>
-  ) => {
-    event.preventDefault();
-    setAnchorEl(event.currentTarget);
+  const handleOpen = (e: MouseEvent<HTMLLabelElement>) => {
+    e.preventDefault();
+    setAnchorEl(e.currentTarget);
     setOpen((prevState) => !prevState);
   };
 
@@ -32,7 +30,7 @@ const ChangeAvatar: FC<Props> = ({ sendPhoto, isAvatar }) => {
     setOpen(false);
   };
 
-  const loadAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const loadAvatar = (e: ChangeEvent<HTMLInputElement>) => {
     if (e?.target?.files?.length) {
       sendPhoto(e.target.files[0]);
     }

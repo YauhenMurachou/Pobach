@@ -5,7 +5,6 @@ import { ThunkAction } from 'redux-thunk';
 import { appReducer } from 'src/redux/appReducer';
 import { authReducer } from 'src/redux/authReducer';
 import { chatReducer } from 'src/redux/chatReducer';
-import dialogsPageReducer from 'src/redux/dialogsPageReducer';
 import dialogsReducer from 'src/redux/dialogsReducer';
 import friendsReducer from 'src/redux/friendsReducer';
 import photosReducer from 'src/redux/photosReducer';
@@ -15,7 +14,6 @@ import usersReducer from 'src/redux/usersReducer';
 
 const reducer = combineReducers({
   profilePage: profilePageReducer,
-  dialogsPage: dialogsPageReducer,
   users: usersReducer,
   auth: authReducer,
   appReducer: appReducer,

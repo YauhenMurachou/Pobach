@@ -1,9 +1,9 @@
-import { MessageType } from 'src/api/chat-api';
 import i18n from 'src/i18n';
+import { ChatMessage } from 'src/types';
 
 const sendNotification = (
-  message: MessageType['message'],
-  user: MessageType['userName'],
+  message: ChatMessage['message'],
+  user: ChatMessage['userName'],
   currentUrl: string,
   isMuted: boolean
 ) => {
@@ -21,8 +21,8 @@ const sendNotification = (
 };
 
 export const checkPageStatus = (
-  message: MessageType['message'],
-  user: MessageType['userName'],
+  message: ChatMessage['message'],
+  user: ChatMessage['userName'],
   currentUrl: string,
   isMuted: boolean
 ) => {

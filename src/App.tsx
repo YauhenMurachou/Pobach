@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from 'react';
+import { FC, lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
 import CorseError from 'src/components/corseError/CorseError';
@@ -14,26 +14,26 @@ import { RootState } from 'src/redux/redux-store';
 
 import styles from './App.module.css';
 
-const Header = React.lazy(() => import('./components/header/Header'));
+const Header = lazy(() => import('./components/header/Header'));
 
-const Navbar = React.lazy(() => import('./components/navbar/Navbar'));
-const ProfileContainer = React.lazy(
+const Navbar = lazy(() => import('./components/navbar/Navbar'));
+const ProfileContainer = lazy(
   () => import('./components/profile/ProfileContainer')
 );
-const Dialogs = React.lazy(() => import('./components/dialogs/Dialogs'));
-const StartPage = React.lazy(() => import('./components/startPage/StartPage'));
-const Photos = React.lazy(() => import('./components/photos/Photos'));
-const Settings = React.lazy(() => import('./components/settings/Settings'));
-const UsersContainer = React.lazy(
+const Dialogs = lazy(() => import('./components/dialogs/Dialogs'));
+const StartPage = lazy(() => import('./components/startPage/StartPage'));
+const Photos = lazy(() => import('./components/photos/Photos'));
+const Settings = lazy(() => import('./components/settings/Settings'));
+const UsersContainer = lazy(
   () => import('./components/users/UsersContainer')
 );
-const Login = React.lazy(() => import('./components/login/Login'));
-const Friends = React.lazy(() => import('./components/friends/Friends'));
-const ChatPage = React.lazy(
+const Login = lazy(() => import('./components/login/Login'));
+const Friends = lazy(() => import('./components/friends/Friends'));
+const ChatPage = lazy(
   () => import('./components/chat/ChatPageDefaultExport')
 );
 
-const App: React.FC = () => {
+const App: FC = () => {
   const dispatch = useDispatch();
   const { isInitialized, isCorseError } = useSelector(
     (state: RootState) => state.appReducer

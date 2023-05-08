@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { FC, ReactNode } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
@@ -13,6 +13,6 @@ type Props = {
   children: ReactNode;
 };
 
-export const MaterialProvider: React.FC<Props> = ({ children }) => (
+export const MaterialProvider: FC<Props> = ({ children }) => (
   <ThemeProvider theme={theme}>{children} </ThemeProvider>
 );

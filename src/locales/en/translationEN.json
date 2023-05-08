@@ -46,7 +46,8 @@
   },
   "login": {
     "registration": "Sign up",
-    "enter": "Log in"
+    "enter": "Log in",
+    "title": "Account login"
   },
   "users": {
     "message": "Message",
