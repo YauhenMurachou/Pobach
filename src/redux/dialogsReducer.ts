@@ -1,5 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { Dialog, ID, MessagesList, NewMessage } from 'src/types';
+import { Dialog, ID, Message, MessagesList, NewMessage } from 'src/types';
 
 type TitleDialog = (string | number)[];
 
@@ -53,16 +53,16 @@ const dialogsSlice = createSlice({
     messagesListCleared(state) {
       state.messagesList = null;
     },
-    dialogOpened(state, action) {
+    dialogOpened(state, action: Action<ID>) {
       state.openDialogId = action.payload.id;
     },
-    titleUpdated(state, action) {
+    titleUpdated(state, action: Action<NewMessage>) {
       const updatedIndex = state.messagesTitles.findIndex((message) =>
         message.find((item) => item === action.payload.id)
       );
       state.messagesTitles[updatedIndex] = Object.values(action.payload);
     },
-    messageAdd(state, action) {
+    messageAdd(state, action: Action<Message>) {
       if (state.messagesList) {
         state.messagesList.items = [
           ...state.messagesList.items,

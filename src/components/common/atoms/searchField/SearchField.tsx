@@ -1,4 +1,11 @@
-import { ChangeEvent, Dispatch, FC, memo, SetStateAction } from 'react';
+import {
+  ChangeEvent,
+  Dispatch,
+  FC,
+  memo,
+  ReactNode,
+  SetStateAction,
+} from 'react';
 import SearchIcon from '@mui/icons-material/Search';
 import { InputAdornment, TextField } from '@mui/material';
 
@@ -9,10 +16,19 @@ type Props = {
   searchValue: string;
   setSearchValue: Dispatch<SetStateAction<string>>;
   isSearch: boolean;
+  isDisabled?: boolean;
+  rightIcons?: ReactNode;
 };
 
 const SearchField: FC<Props> = memo(
-  ({ placeholder, searchValue, setSearchValue, isSearch }) => {
+  ({
+    placeholder,
+    searchValue,
+    setSearchValue,
+    isSearch,
+    isDisabled,
+    rightIcons,
+  }) => {
     const handleChangeSearch = (
       e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
     ) => {
@@ -25,6 +41,7 @@ const SearchField: FC<Props> = memo(
           onChange={handleChangeSearch}
           value={searchValue}
           placeholder={placeholder}
+          disabled={isDisabled}
           fullWidth
           type="search"
           size="small"
@@ -34,6 +51,7 @@ const SearchField: FC<Props> = memo(
                 <SearchIcon />
               </InputAdornment>
             ),
+            endAdornment: !isSearch && rightIcons,
           }}
           sx={{ bgcolor: 'var(--white-main)' }}
           autoFocus={isSearch}

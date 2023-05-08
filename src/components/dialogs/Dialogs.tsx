@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import DialogsTitle from 'src/components/dialogs/dialogTitle/DialogsTitle';
 import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
 import {
   dialogOpenedAction,
@@ -11,7 +12,7 @@ import {
 } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
-// import classes from './Dialogs.module.css';~
+import classes from './Dialogs.module.css';
 
 const Dialogs: FC = () => {
   const dispatch = useDispatch();
@@ -53,18 +54,18 @@ const Dialogs: FC = () => {
   }
 
   return (
-    <>
-      <ul>
-        {dialogs.map((dialog) => (
-          <MessageTitle
-            key={dialog.id}
-            dialog={dialog}
-            title={titlesObject[dialog.id]}
-            openDialog={() => openDialog(dialog.id)}
-          />
-        ))}
-      </ul>
-    </>
+    <ul className={classes.dialogs}>
+      <DialogsTitle />
+      {dialogs.map((dialog, index) => (
+        <MessageTitle
+          key={dialog.id}
+          dialog={dialog}
+          title={titlesObject[dialog.id]}
+          openDialog={() => openDialog(dialog.id)}
+          isLast={index === dialogs.length - 1}
+        />
+      ))}
+    </ul>
   );
 };
 

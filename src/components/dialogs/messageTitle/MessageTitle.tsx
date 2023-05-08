@@ -19,9 +19,10 @@ type Props = {
   dialog: Dialog;
   openDialog: () => void;
   title: string;
+  isLast: boolean;
 };
 
-const MessageTitle: FC<Props> = ({ dialog, openDialog, title }) => {
+const MessageTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
   const {
     id,
     userName,
@@ -70,7 +71,7 @@ const MessageTitle: FC<Props> = ({ dialog, openDialog, title }) => {
           </ListItemIcon>
         </ListItem>
       </NavLink>
-      <Divider variant="fullWidth" component="li" />
+      {!isLast && <Divider variant="fullWidth" component="li" />}
     </li>
   );
 };
