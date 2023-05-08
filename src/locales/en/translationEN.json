@@ -66,7 +66,8 @@
   },
   "dialogs": {
     "back": "Back",
-    "empty": "Message history is empty"
+    "empty": "Message history is empty",
+    "search": "Search"
   },
   "validation": {
     "required": "Required field",

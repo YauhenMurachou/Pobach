@@ -1,16 +1,6 @@
-/* .dialogs {
-	display: grid;
-	grid-template-columns: 2fr 10fr;
-} */
-
-.dialogsItems .active {
-	color: gold;
-}
-
-.dialog {
-	padding: 10px;
-}
-
-.message {
-	padding: 10px;
+.dialogs {
+	max-width: 55rem;
+	margin: 1rem;
+	border: 1px solid var(--grey-light-3);
+	border-radius: 0.5rem;
 }
