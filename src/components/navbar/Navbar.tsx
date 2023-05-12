@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import Logo from 'src/components/common/atoms/logo/Logo';
-import { navBarData } from 'src/components/navbar/navbarData';
+import { useTranslateData } from 'src/hooks/useTranslateData';
 import { messagesListCleared } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -11,6 +11,7 @@ import classes from './Navbar.module.css';
 const Navbar: FC = () => {
   const dispatch = useDispatch();
   const { userId } = useSelector((state: RootState) => state.auth);
+  const { navBarData } = useTranslateData();
   const profilePath = `/Profile/${userId}`;
   const clearMessages = () => dispatch(messagesListCleared());
 

@@ -47,7 +47,18 @@
   "login": {
     "registration": "Sign up",
     "enter": "Log in",
-    "title": "Account login"
+    "title": "Account login",
+    "remember": "Remember me",
+    "account": "Don't have an account?",
+    "redirect": "You will be redirected to an external service for registration"
+  },
+  "aside": {
+    "social": "Belarusian social network",
+    "friend": " Find and add friends",
+    "private": "Chat with friends in private messages",
+    "chat": "Chat with everyone in the general chat",
+    "upload": "Upload avatar and personal info",
+    "post": "Publish posts and photos"
   },
   "users": {
     "message": "Message",

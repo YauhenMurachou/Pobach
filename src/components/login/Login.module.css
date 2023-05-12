@@ -25,14 +25,18 @@
 }
 
 .field {
-	margin-bottom: 1rem;
-}
-
-.buttons {
-	display: flex;
-	justify-content: space-between;
+	margin-bottom: 0.75rem;
 }
 
 .error {
 	color: var(--red-main);
+}
+
+.submit {
+	width: 100%;
+	margin-bottom: 0.75rem;
+}
+
+.submit button {
+	width: 100%;
 }

@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import LoginAside from 'src/components/common/organisms/loginAside/LoginAside';
 import LoginForm from 'src/components/login/LoginForm';
 import { loginDataThunkCreator } from 'src/redux/authReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -32,6 +33,7 @@ const Login: FC = () => {
 
   return (
     <div className={styles.container}>
+      <LoginAside />
       <div className={styles.login}>
         <div className={styles.loginForm}>
           <h1 className={styles.title}> {t('login.title')}</h1>
