@@ -4,8 +4,10 @@ import { SvgIcon } from '@mui/material';
 
 import classes from './Logo.module.css';
 
-const Logo: FC = () => (
-  <div className={classes.logo}>
+type Props = { color?: string };
+
+const Logo: FC<Props> = ({ color }) => (
+  <div className={classes.logo} style={{ color }}>
     <Diversity3Icon className={classes.image} fontSize="medium" />
     <span className={classes.tradeMark}> Побач © 2023</span>
     <SvgIcon />

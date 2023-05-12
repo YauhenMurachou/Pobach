@@ -5,6 +5,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { Button, IconButton, InputAdornment } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
+import SignUpRedirect from 'src/components/common/atoms/signUpRedirect/SignUpRedirect';
 import { LoginType } from 'src/components/login/Login';
 import { RootState } from 'src/redux/redux-store';
 import { loginValidationSchema } from 'src/utils/validationForms';
@@ -13,6 +14,13 @@ import styles from './Login.module.css';
 
 type Props = {
   onSubmit: (values: LoginType) => void;
+};
+
+const initialValues = {
+  email: '',
+  password: '',
+  rememberMe: false,
+  captcha: '',
 };
 
 const LoginForm: FC<Props> = ({ onSubmit }) => {
@@ -34,12 +42,7 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
           onSubmit({ ...values, captcha: value });
           setValue('');
         }}
-        initialValues={{
-          email: '',
-          password: '',
-          rememberMe: false,
-          captcha: '',
-        }}
+        initialValues={initialValues}
         validationSchema={loginValidationSchema}
       >
         {({ errors, dirty }) => (
@@ -47,8 +50,8 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
             <div className={styles.field}>
               <Field
                 fullWidth
-                id="email"
                 name="email"
+                id="email"
                 label="Email"
                 placeholder="Email"
                 component={TextField}
@@ -104,17 +107,16 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                 />
               </>
             )}
-
             {errors && <div className={styles.error}>{error}</div>}
             <div className={styles.field}>
               <Field
                 type="checkbox"
                 component={CheckboxWithLabel}
                 name="rememberMe"
-                Label={{ label: 'remember me' }}
+                Label={{ label: t('login.remember') }}
               />
             </div>
-            <div className={styles.buttons}>
+            <div className={styles.submit}>
               <Button
                 variant="contained"
                 color="primary"
@@ -128,14 +130,8 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
               >
                 {t('login.enter')}
               </Button>
-              <Button
-                variant="contained"
-                color="secondary"
-                href="https://social-network.samuraijs.com/signUp"
-              >
-                {t('login.registration')}
-              </Button>
             </div>
+            <SignUpRedirect />
           </Form>
         )}
       </Formik>
