@@ -1,10 +1,11 @@
-import { FC, MouseEvent, SetStateAction, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { Button, IconButton, InputAdornment } from '@mui/material';
+import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
+import Captcha from 'src/components/common/atoms/captcha/Captcha';
+import PasswordIcon from 'src/components/common/atoms/passwordIcon/PasswordIcon';
 import SignUpRedirect from 'src/components/common/atoms/signUpRedirect/SignUpRedirect';
 import { LoginType } from 'src/components/login/Login';
 import { RootState } from 'src/redux/redux-store';
@@ -70,42 +71,21 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                 disabled={false}
                 InputProps={{
                   endAdornment: (
-                    <InputAdornment position="end">
-                      <IconButton
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                        edge="end"
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
+                    <PasswordIcon
+                      showPassword={showPassword}
+                      handleClickShowPassword={handleClickShowPassword}
+                      handleMouseDownPassword={handleMouseDownPassword}
+                    />
                   ),
                 }}
               />
             </div>
             {captchaImageUrl && (
-              <>
-                <img
-                  src={captchaImageUrl}
-                  alt="captcha"
-                  width="180px"
-                  height="90px"
-                />
-                <Field
-                  fullWidth
-                  placeholder="captcha"
-                  name="captcha"
-                  id="captcha"
-                  type="text"
-                  label="captcha"
-                  component={TextField}
-                  disabled={!captchaImageUrl}
-                  value={value}
-                  onChange={(e: {
-                    target: { value: SetStateAction<string> };
-                  }) => setValue(e.target.value)}
-                />
-              </>
+              <Captcha
+                captchaImageUrl={captchaImageUrl}
+                value={value}
+                setValue={setValue}
+              />
             )}
             {errors && <div className={styles.error}>{error}</div>}
             <div className={styles.field}>
