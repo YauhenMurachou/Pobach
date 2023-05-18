@@ -52,7 +52,7 @@ export const chatActions = {
     } as const),
 };
 
-type ChatActionsType = CommonActionTypes<typeof chatActions>;
+export type ChatActionsType = CommonActionTypes<typeof chatActions>;
 
 export const chatReducer = (
   state = initialState,

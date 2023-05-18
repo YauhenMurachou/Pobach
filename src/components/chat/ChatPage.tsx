@@ -2,11 +2,10 @@ import { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Messages } from 'src/components/chat/messages/Messages';
-import { AddMessageForm } from 'src/components/common/molecules/addMessageForm/AddMessageForm';
+import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import Loader from 'src/components/loader/Loader';
+import { sendMessageThunkCreator } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
-
-// import classes from './ChatPage.module.css';
 
 export const ChatPage: FC = memo(() => {
   const { isAuth } = useSelector((state: RootState) => state.auth);
@@ -22,7 +21,10 @@ export const ChatPage: FC = memo(() => {
       {status === 'ready' && (
         <>
           <Messages />
-          <AddMessageForm />
+          <SendMessageForm
+            status={status}
+            sendMessageChat={sendMessageThunkCreator}
+          />
         </>
       )}
     </>

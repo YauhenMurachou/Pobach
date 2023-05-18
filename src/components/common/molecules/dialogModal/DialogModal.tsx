@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import DialogsForm from 'src/components/dialogs/DialogsForm';
+import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import {
   dialogOpenedAction,
   sendMessageAction,
@@ -13,10 +13,6 @@ import {
 import { UserType } from 'src/types';
 
 import classes from './DialogModal.module.css';
-
-type ValuesType = {
-  newMessage: string;
-};
 
 type Props = {
   isOpen: boolean;
@@ -36,9 +32,9 @@ const DialogModal: FC<Props> = ({
   const { name, id } = companion || {};
   const dialogPath = `/Dialogs/${id}`;
 
-  const addNewMessageForm = (values: ValuesType) => {
-    dispatch(sendMessageAction({ id, body: values.newMessage }));
-    values.newMessage = '';
+  const sendMessage = (newMessage: string) => {
+    const message = { id, body: newMessage };
+    dispatch(sendMessageAction(message));
     handleClose();
     setPopperOpen(true);
   };
@@ -66,7 +62,7 @@ const DialogModal: FC<Props> = ({
             </span>
           </div>
           <div>{name}</div>
-          <DialogsForm onSubmit={addNewMessageForm} />
+          <SendMessageForm sendMessageDialog={sendMessage} />
         </div>
       </Modal>
     </div>
