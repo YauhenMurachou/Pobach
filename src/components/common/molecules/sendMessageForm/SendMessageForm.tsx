@@ -1,6 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import SendIcon from '@mui/icons-material/Send';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import {
@@ -10,34 +10,53 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
-import { sendMessageThunkCreator } from 'src/redux/chatReducer';
-import { RootState } from 'src/redux/redux-store';
+import { useClickOutside } from 'src/hooks/useClickOutside';
+import { ChatActionsType } from 'src/redux/chatReducer';
+import { CommonThunkType } from 'src/redux/redux-store';
+import { ChatMessage, ChatStatus } from 'src/types';
 
-import classes from './AddMessageForm.module.css';
+import classes from './SendMessageForm.module.css';
 
-export const AddMessageForm: FC = () => {
+type Props = {
+  status?: ChatStatus;
+  sendMessageChat?: (
+    message: ChatMessage['message']
+  ) => CommonThunkType<ChatActionsType>;
+  sendMessageDialog?: (newMessage: string) => void;
+};
+
+export const SendMessageForm: FC<Props> = ({
+  status,
+  sendMessageChat,
+  sendMessageDialog,
+}) => {
   const [message, setMessage] = useState('');
-  const status = useSelector((state: RootState) => state.chat.status);
+  const [showEmoji, setShowEmoji] = useState(false);
+  const emojiRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const sendMessage = () => {
+  const handleMessage = () => {
     if (!message) {
       return;
     }
-    dispatch(sendMessageThunkCreator(message));
+    if (sendMessageChat) {
+      dispatch(sendMessageChat(message));
+    }
+    if (sendMessageDialog) {
+      sendMessageDialog(message);
+    }
     setMessage('');
   };
-
-  const [showEmoji, setShowEmoji] = useState(false);
 
   const handleShowEmoji = () => {
     setShowEmoji((prevState) => !prevState);
   };
-
   const handleEmojiClick = (emojiData: EmojiClickData) => {
     setMessage(message + emojiData.emoji);
   };
+  const handleClickOutside = () => setShowEmoji(false);
+  useClickOutside(emojiRef, handleClickOutside);
 
   return (
     <div className={classes.addMessageForm}>
@@ -53,7 +72,7 @@ export const AddMessageForm: FC = () => {
             setMessage(`${message}\r\n`);
           } else if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
-            sendMessage();
+            handleMessage();
           }
         }}
         autoFocus
@@ -66,7 +85,7 @@ export const AddMessageForm: FC = () => {
         }
       />
       {showEmoji && (
-        <div className={classes.emojiContainer}>
+        <div className={classes.emojiContainer} ref={emojiRef}>
           <EmojiPicker
             onEmojiClick={handleEmojiClick}
             autoFocusSearch={false}
@@ -74,8 +93,8 @@ export const AddMessageForm: FC = () => {
         </div>
       )}
       <Button
-        onClick={sendMessage}
-        disabled={status !== 'ready' || !message.trim().length}
+        onClick={handleMessage}
+        disabled={(status && status !== 'ready') || !message.trim().length}
         variant="contained"
         endIcon={<SendIcon />}
       >

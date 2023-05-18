@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink, useParams } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Button } from '@mui/material';
-import DialogsForm from 'src/components/dialogs/DialogsForm';
+import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import {
   getMessagesListAction,
   sendMessageAction,
@@ -13,10 +13,6 @@ import {
 import { RootState } from 'src/redux/redux-store';
 
 import classes from './DialogItem.module.css';
-
-type ValuesType = {
-  newMessage: string;
-};
 
 const DialogItem: FC = () => {
   const dispatch = useDispatch();
@@ -31,11 +27,10 @@ const DialogItem: FC = () => {
     (state: RootState) => state.dialogs.messagesList
   );
 
-  const sendMessage = (values: ValuesType) => {
-    const message = { id, body: values.newMessage };
+  const sendMessage = (newMessage: string) => {
+    const message = { id, body: newMessage };
     dispatch(sendMessageAction(message));
     dispatch(updateTitleAction(message));
-    values.newMessage = '';
   };
 
   return (
@@ -47,17 +42,15 @@ const DialogItem: FC = () => {
       </NavLink>
       {messages?.items.length ? (
         <>
-          <div>
-            {messages?.items.map((message) => (
-              <div key={message.id}>{message.body}</div>
-            ))}
-          </div>
+          {messages?.items.map((message) => (
+            <div key={message.id}>{message.body}</div>
+          ))}
         </>
       ) : (
         <div>{t('dialogs.empty')}</div>
       )}
       <div className={classes.messages}>
-        <DialogsForm onSubmit={sendMessage} />
+        <SendMessageForm sendMessageDialog={sendMessage} />
       </div>
     </>
   );
