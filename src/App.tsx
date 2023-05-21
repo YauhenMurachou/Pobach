@@ -1,9 +1,9 @@
 import { FC, lazy, Suspense, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
-import CorseError from 'src/components/corseError/CorseError';
-import DialogItem from 'src/components/dialogs/dialogItem/DialogItem';
-import Loader from 'src/components/loader/Loader';
+import CorseError from 'src/components/common/atoms/corseError/CorseError';
+import Loader from 'src/components/common/atoms/loader/Loader';
+import DialogOpened from 'src/components/dialogs/dialogOpened/DialogOpened';
 import { MaterialProvider } from 'src/providers/MaterialProvider';
 import { initializedThunkCreator } from 'src/redux/appReducer';
 import {
@@ -21,17 +21,15 @@ const ProfileContainer = lazy(
   () => import('./components/profile/ProfileContainer')
 );
 const Dialogs = lazy(() => import('./components/dialogs/Dialogs'));
-const StartPage = lazy(() => import('./components/startPage/StartPage'));
+const StartPage = lazy(
+  () => import('./components/common/atoms/startPage/StartPage')
+);
 const Photos = lazy(() => import('./components/photos/Photos'));
 const Settings = lazy(() => import('./components/settings/Settings'));
-const UsersContainer = lazy(
-  () => import('./components/users/UsersContainer')
-);
+const UsersContainer = lazy(() => import('./components/users/UsersContainer'));
 const Login = lazy(() => import('./components/login/Login'));
 const Friends = lazy(() => import('./components/friends/Friends'));
-const ChatPage = lazy(
-  () => import('./components/chat/ChatPageDefaultExport')
-);
+const ChatPage = lazy(() => import('./components/chat/ChatPageDefaultExport'));
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -65,7 +63,7 @@ const App: FC = () => {
             <div className={styles.appWrapperContent}>
               <Switch>
                 <Route exact path="/Dialogs" render={() => <Dialogs />} />
-                <Route path="/Dialogs/:id" render={() => <DialogItem />} />
+                <Route path="/Dialogs/:id" render={() => <DialogOpened />} />
               </Switch>
               <Route
                 path="/Profile/:userId?"

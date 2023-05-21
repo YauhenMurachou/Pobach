@@ -5,13 +5,6 @@ import { useTranslateData } from 'src/hooks/useTranslateData';
 
 import styles from './LoginAside.module.css';
 
-export type LoginType = {
-  email: string;
-  password: string;
-  rememberMe: boolean;
-  captcha: string | null;
-};
-
 const LoginAside: FC = () => {
   const { asideData } = useTranslateData();
 

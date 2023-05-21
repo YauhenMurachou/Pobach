@@ -1,12 +1,11 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import DialogsTitle from 'src/components/dialogs/dialogTitle/DialogsTitle';
-import MessageTitle from 'src/components/dialogs/messageTitle/MessageTitle';
+import DialogsHeader from 'src/components/dialogs/dialogsHeader/DialogsHeader';
+import DialogTitle from 'src/components/dialogs/dialogTitle/DialogTitle';
 import {
   dialogOpenedAction,
   getDialogsAction,
-  getMessagesListAction,
   getTitlesAction,
   messagesListCleared,
 } from 'src/redux/dialogsReducer';
@@ -44,10 +43,7 @@ const Dialogs: FC = () => {
 
   const titlesObject = Object.fromEntries(messagesTitles);
 
-  const openDialog = (id: number) => {
-    dispatch(getMessagesListAction({ id }));
-    dispatch(dialogOpenedAction({ id }));
-  };
+  const openDialog = (id: number) => dispatch(dialogOpenedAction({ id }));
 
   if (!isAuth) {
     return <Redirect to="/Login" />;
@@ -55,9 +51,9 @@ const Dialogs: FC = () => {
 
   return (
     <ul className={classes.dialogs}>
-      <DialogsTitle />
+      <DialogsHeader />
       {dialogs.map((dialog, index) => (
-        <MessageTitle
+        <DialogTitle
           key={dialog.id}
           dialog={dialog}
           title={titlesObject[dialog.id]}

@@ -19,8 +19,8 @@ import {
   Dialog,
   FriendsType,
   ID,
-  Message,
-  MessagesList,
+  MessagesListType,
+  MessageType,
   NewMessage,
 } from 'src/types';
 
@@ -41,15 +41,20 @@ function* startDialog(action: { payload: ID }) {
   console.log('startDialog', dialog); //TODO
 }
 
-function* getMessagesList(action: { payload: ID }) {
-  const messagesList: MessagesList = yield call(() =>
-    dialogsApi.getMessagesList(action.payload.id)
+function* getMessagesList(action: {
+  payload: {
+    id: number;
+    page?: number;
+  };
+}) {
+  const messagesList: MessagesListType = yield call(() =>
+    dialogsApi.getMessagesList(action.payload.id, action.payload.page)
   );
   yield put(messagesListGet(messagesList));
 }
 
 function* getMessagesTitles(action: { payload: ID }) {
-  const messagesList: MessagesList = yield call(() =>
+  const messagesList: MessagesListType = yield call(() =>
     dialogsApi.getMessagesList(action.payload.id)
   );
   const title = [action.payload.id, messagesList.items.pop()?.body as string];
@@ -58,7 +63,7 @@ function* getMessagesTitles(action: { payload: ID }) {
 
 function* sendMessage(action: { payload: NewMessage }) {
   const { id, body } = action.payload;
-  const sentMessage: Message = yield call(() =>
+  const sentMessage: MessageType = yield call(() =>
     dialogsApi.sendMessage(id, body)
   );
   yield put(messageAdd(sentMessage));
