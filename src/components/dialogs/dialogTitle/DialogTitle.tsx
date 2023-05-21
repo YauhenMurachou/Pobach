@@ -40,7 +40,7 @@ const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
   const dialogPath = `/Dialogs/${id}`;
 
   return (
-    <li className={classes.wrapper}>
+    <div className={classes.wrapper}>
       <NavLink
         className={classes.container}
         onClick={openDialog}
@@ -71,7 +71,7 @@ const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
         </ListItem>
       </NavLink>
       {!isLast && <Divider variant="fullWidth" component="li" />}
-    </li>
+    </div>
   );
 };
 

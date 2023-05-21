@@ -6,6 +6,7 @@ import MessagesHeader from 'src/components/common/molecules/messagesHeader/Messa
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import { MessagesList } from 'src/components/common/organisms/messagesList/MessagesList';
 import {
+  getDialogsAction,
   getMessagesListAction,
   messagesListCleared,
   sendMessageAction,
@@ -20,9 +21,16 @@ const DialogOpened: FC = () => {
   const { t } = useTranslation();
   const id = +useParams<{ id: string }>().id;
   const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
+  const messages = useSelector(
+    (state: RootState) => state.dialogs.messagesList
+  );
   const currentDialog = dialogs.find((dialog) => dialog.id === id);
   const friendAvatar = currentDialog?.photos?.small;
   const { userName, lastUserActivityDate } = currentDialog || {};
+
+  useEffect(() => {
+    dispatch(getDialogsAction());
+  }, []); // eslint-disable-line
 
   useEffect(() => {
     dispatch(getMessagesListAction({ id }));
@@ -33,10 +41,6 @@ const DialogOpened: FC = () => {
       dispatch(messagesListCleared());
     },
     [] // eslint-disable-line
-  );
-
-  const messages = useSelector(
-    (state: RootState) => state.dialogs.messagesList
   );
 
   const sendMessage = (newMessage: string) => {

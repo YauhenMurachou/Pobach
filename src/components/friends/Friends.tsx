@@ -10,7 +10,6 @@ import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
-import { getMessagesListAction } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 import {
   followUsersThunkCreator,
@@ -45,7 +44,6 @@ const Friends: FC = () => {
   const handleDialogOpen = (companion?: UserType) => {
     setDialogOpen(true);
     setCompanion(companion);
-    dispatch(getMessagesListAction({ id: companion?.id as number }));
   };
 
   const handleDialogClose = () => {
