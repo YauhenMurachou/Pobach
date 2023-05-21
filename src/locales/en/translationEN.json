@@ -78,7 +78,9 @@
   "dialogs": {
     "back": "Back",
     "empty": "Message history is empty",
-    "search": "Search"
+    "search": "Search",
+    "online": "Was online",
+    "at": "at"
   },
   "validation": {
     "required": "Required field",

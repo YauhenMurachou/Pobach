@@ -1,11 +1,17 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
-import { Dialog, ID, Message, MessagesList, NewMessage } from 'src/types';
+import {
+  Dialog,
+  ID,
+  MessagesListType,
+  MessageType,
+  NewMessage,
+} from 'src/types';
 
 type TitleDialog = (string | number)[];
 
 type InitialStateDialogsType = {
   dialogs: Dialog[];
-  messagesList: MessagesList | null;
+  messagesList: MessagesListType | null;
   messagesTitles: TitleDialog[];
   openDialogId?: number;
 };
@@ -18,9 +24,10 @@ const initialState: InitialStateDialogsType = {
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
 export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
-export const getMessagesListAction = createAction<ID>(
-  'dialogs/getMessagesListAction'
-);
+export const getMessagesListAction = createAction<{
+  id: number;
+  page?: number;
+}>('dialogs/getMessagesListAction');
 export const getTitlesAction = createAction<ID>(
   'dialogs/getMessagesTitleAction'
 );
@@ -44,8 +51,13 @@ const dialogsSlice = createSlice({
     allDialogsGet(state, action: Action<Dialog[]>) {
       state.dialogs = action.payload;
     },
-    messagesListGet(state, action: Action<MessagesList>) {
-      state.messagesList = action.payload;
+    messagesListGet(state, action: Action<MessagesListType>) {
+      state.messagesList
+        ? (state.messagesList = {
+            ...state.messagesList,
+            items: [...action.payload.items, ...state.messagesList.items],
+          })
+        : (state.messagesList = action.payload);
     },
     messagesTitlesGet(state, action: Action<TitleDialog>) {
       state.messagesTitles = [...state.messagesTitles, action.payload];
@@ -62,7 +74,7 @@ const dialogsSlice = createSlice({
       );
       state.messagesTitles[updatedIndex] = Object.values(action.payload);
     },
-    messageAdd(state, action: Action<Message>) {
+    messageAdd(state, action: Action<MessageType>) {
       if (state.messagesList) {
         state.messagesList.items = [
           ...state.messagesList.items,

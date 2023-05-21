@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import Loader from 'src/components/loader/Loader';
+import Loader from 'src/components/common/atoms/loader/Loader';
 import Users from 'src/components/users/Users';
 
 import { UserType } from '../../types';

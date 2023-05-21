@@ -1,0 +1,9 @@
+.dayTitle {
+	padding: 1rem 0 0.5rem 0;
+	text-align: center;
+}
+
+.dayWrapper {
+	margin: 0.5rem;
+	border-radius: 0.25rem;
+}

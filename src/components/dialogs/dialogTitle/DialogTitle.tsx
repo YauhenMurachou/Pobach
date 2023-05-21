@@ -13,7 +13,7 @@ import {
 import { Dialog } from 'src/types';
 import { convertDate } from 'src/utils/date';
 
-import classes from './MessageTitle.module.css';
+import classes from './DialogTitle.module.css';
 
 type Props = {
   dialog: Dialog;
@@ -22,13 +22,12 @@ type Props = {
   isLast: boolean;
 };
 
-const MessageTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
+const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
   const {
     id,
     userName,
     lastDialogActivityDate,
     hasNewMessages,
-    // lastUserActivityDate,
     newMessagesCount,
     photos,
   } = dialog;
@@ -76,4 +75,4 @@ const MessageTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
   );
 };
 
-export default MessageTitle;
+export default DialogTitle;

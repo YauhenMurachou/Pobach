@@ -9,8 +9,10 @@ export const dialogsApi = {
     const response = await instance.put(`dialogs/${userId}`);
     return response.data;
   },
-  async getMessagesList(userId: number) {
-    const response = await instance.get(`dialogs/${userId}/messages`);
+  async getMessagesList(userId: number, page = 1) {
+    const response = await instance.get(
+      `dialogs/${userId}/messages?page=${page}&count=20`
+    );
     return response.data;
   },
   async sendMessage(userId: number, body: string) {

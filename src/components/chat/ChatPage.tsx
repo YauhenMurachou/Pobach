@@ -2,8 +2,8 @@ import { FC, memo } from 'react';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Messages } from 'src/components/chat/messages/Messages';
+import Loader from 'src/components/common/atoms/loader/Loader';
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
-import Loader from 'src/components/loader/Loader';
 import { sendMessageThunkCreator } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
 

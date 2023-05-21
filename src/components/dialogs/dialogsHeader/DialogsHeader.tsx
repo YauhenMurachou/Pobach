@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
-import RightIcons from 'src/components/dialogs/dialogTitle/RightIcons';
+import RightIcons from 'src/components/dialogs/dialogsHeader/RightIcons';
 
-import classes from './DialogsTitle.module.css';
+import classes from './DialogsHeader.module.css';
 
-const DialogsTitle: FC = () => {
+const DialogsHeader: FC = () => {
   const [searchValue, setSearchValue] = useState('');
   const { t } = useTranslation();
 
@@ -22,4 +22,4 @@ const DialogsTitle: FC = () => {
     </div>
   );
 };
-export default DialogsTitle;
+export default DialogsHeader;
