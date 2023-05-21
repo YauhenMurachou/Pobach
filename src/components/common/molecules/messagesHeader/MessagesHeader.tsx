@@ -2,7 +2,9 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Avatar, Button } from '@mui/material';
+import CallIcon from '@mui/icons-material/Call';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+import { Avatar, Button, IconButton } from '@mui/material';
 import { convertDate, convertDateInTime } from 'src/utils/date';
 
 import classes from './MessagesHeader.module.css';
@@ -34,13 +36,23 @@ const MessagesHeader: FC<Props> = ({
           <h5>{userName}</h5>
         </NavLink>
         <span className={classes.online}>
-          {t('dialogs.online')} {convertDate(lastUserActivityDate as string)}{' '}
-          {t('dialogs.at')} {convertDateInTime(lastUserActivityDate as string)}
+          {t('dialogs.online')}{' '}
+          {lastUserActivityDate && convertDate(lastUserActivityDate)}{' '}
+          {t('dialogs.at')}{' '}
+          {lastUserActivityDate && convertDateInTime(lastUserActivityDate)}
         </span>
       </div>
-      <NavLink to={'/profile/' + userId}>
-        <Avatar alt={userName} src={friendAvatar} />
-      </NavLink>
+      <div className={classes.rightBlock}>
+        <IconButton>
+          <CallIcon />
+        </IconButton>
+        <IconButton>
+          <MoreHorizIcon />
+        </IconButton>
+        <NavLink to={'/profile/' + userId}>
+          <Avatar alt={userName} src={friendAvatar} />
+        </NavLink>
+      </div>
     </div>
   );
 };

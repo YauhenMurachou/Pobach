@@ -34,12 +34,13 @@ export type Props = {
 
 class ProfileContainer extends Component<Props> {
   refreshProfile() {
+    const { setUserProfile, getStatus } = this.props;
     let userId = this.props.match.params.userId;
     if (!userId) {
       userId = this.props.userId;
     }
-    this.props.setUserProfile(userId);
-    this.props.getStatus(userId);
+    setUserProfile(userId);
+    getStatus(userId);
   }
 
   componentDidMount() {

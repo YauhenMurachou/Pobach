@@ -10,13 +10,16 @@ type Props = {
 
 const ProfileInfo: FC<Props> = ({ profile }) => {
   const { t } = useTranslation();
-
   const info = Object.getOwnPropertyNames(profile);
 
   return (
     <div className={classes.info}>
       {info.map((item, index) => {
-        if (item === 'fullName' || item === 'photos') {
+        if (
+          item === 'fullName' ||
+          item === 'photos' ||
+          (item === 'lookingForAJobDescription' && !profile.lookingForAJob)
+        ) {
           return undefined;
         } else if (profile[item as keyof ProfileType] === null) {
           return (
