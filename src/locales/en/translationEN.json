@@ -95,5 +95,11 @@
   },
   "status": {
     "status": "Your status"
+  },
+  "settings": {
+    "edit": "edit information about yourself",
+    "title": "Editing personal information",
+    "job": "Are you looking for a job",
+    "fullName": "Full name"
   }
 }

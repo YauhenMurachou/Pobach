@@ -1,0 +1,46 @@
+.formWrapper {
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	row-gap: 0.5rem;
+	padding: 1rem;
+}
+
+.title {
+	margin: 0 auto 1rem auto;
+	text-align: center;
+}
+
+.property {
+	color: var(--grey-light-2);
+	width: 50%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.contactsWrapper {
+	display: flex;
+	flex-wrap: wrap;
+	width: 40%;
+	text-align: center;
+	margin: 0 auto;
+}
+
+.contact {
+	padding-left: 1rem;
+	font-size: 0.8rem;
+	color: var(--grey-light-2);
+}
+
+.contact :global .MuiFormHelperText-root,
+.property :global .MuiFormHelperText-root {
+	margin-top: 0;
+}
+
+.buttons {
+	padding-top: 1rem;
+	display: flex;
+	width: 50%;
+	justify-content: space-between;
+	margin: 0 auto;
+}

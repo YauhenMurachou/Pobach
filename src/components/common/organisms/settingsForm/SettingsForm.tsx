@@ -1,34 +1,32 @@
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
-import { Field, Form, Formik, FormikHelpers } from 'formik';
+import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
 import { EditProfileType } from 'src/types';
 import {
   isProfileFormChanged,
   profielValidationSchema,
 } from 'src/utils/validationForms';
+import { v4 as uuidv4 } from 'uuid';
 
-import classes from './ProfileInfoEditForm.module.css';
+import classes from './SettingsForm.module.css';
 
 type Props = {
   info: string[];
-  onSubmit: (
-    values: EditProfileType,
-    formikHelpers: FormikHelpers<EditProfileType>
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  ) => void | Promise<any>;
+  onSubmit: (values: EditProfileType) => void | Promise<unknown>;
   editProfile: EditProfileType;
-  toggleEditMode: () => void;
+  toggleEditMode?: () => void;
 };
 
-const ProfileInfoEditForm: FC<Props> = ({
+const SettingsForm: FC<Props> = ({
   info,
   onSubmit,
   editProfile,
   toggleEditMode,
 }) => {
   const { t } = useTranslation();
+  const exceptions = ['photos', 'userId', 'fullName'];
   return (
     <>
       <Formik
@@ -44,24 +42,31 @@ const ProfileInfoEditForm: FC<Props> = ({
 
           return (
             <Form className={classes.formWrapper}>
-              {info.map((item, index) => {
-                if (item === 'photos' || item === 'userId') {
+              <h3 className={classes.title}>{t('settings.title')}</h3>
+              <Field
+                name="fullName"
+                id="fullName"
+                component={TextField}
+                variant="standard"
+                helperText={t('settings.fullName')}
+                className={classes.property}
+              />
+              {info.map((item) => {
+                if (exceptions.includes(item)) {
                   return undefined;
                 } else if (
                   typeof editProfile[item as keyof EditProfileType] ===
                   'boolean'
                 ) {
                   return (
-                    <div
-                      style={{ display: 'flex' }}
-                      key={(item + index).toString()}
-                    >
+                    <div className={classes.property} key={uuidv4()}>
                       <Field
-                        Label={{ label: item }}
+                        Label={{ label: t('settings.job') }}
                         name={item}
-                        id={(item + index).toString()}
+                        id={item}
                         type="checkbox"
                         component={CheckboxWithLabel}
+                        style={{ display: 'flex' }}
                       />
                     </div>
                   );
@@ -69,39 +74,35 @@ const ProfileInfoEditForm: FC<Props> = ({
                   typeof editProfile[item as keyof EditProfileType] !== 'object'
                 ) {
                   return (
-                    <div
+                    <Field
+                      name={item}
                       className={classes.property}
-                      key={(item + index).toString()}
-                    >
-                      <Field
-                        name={item}
-                        id={(item + index).toString()}
-                        component={TextField}
-                        variant="standard"
-                        helperText={item}
-                      />
-                    </div>
+                      key={uuidv4()}
+                      id={item}
+                      component={TextField}
+                      variant="standard"
+                      helperText={item}
+                    />
                   );
                 } else {
                   return (
-                    <div key={(item + index).toString()}>
-                      <span className={classes.property}>{item}</span>:
-                      {Object.keys(editProfile['contacts']).map((elem, ind) => (
-                        <div
-                          key={(elem + ind).toString()}
-                          className={classes.contact}
-                        >
+                    <div key={uuidv4()} className={classes.contactsWrapper}>
+                      <h4 className={classes.title}>{item}</h4>
+                      <div>
+                        {Object.keys(editProfile['contacts']).map((elem) => (
                           <Field
                             name={`contacts.${elem}`}
-                            id={(elem + index).toString()}
+                            id={`contacts.${elem}`}
                             component={TextField}
                             variant="standard"
                             helperText={elem}
-                            validateOnChange={false}
+                            validateonchange={false}
                             validateOnBlur={true}
+                            className={classes.contact}
+                            key={uuidv4()}
                           />
-                        </div>
-                      ))}
+                        ))}
+                      </div>
                     </div>
                   );
                 }
@@ -131,4 +132,4 @@ const ProfileInfoEditForm: FC<Props> = ({
   );
 };
 
-export default ProfileInfoEditForm;
+export default SettingsForm;
