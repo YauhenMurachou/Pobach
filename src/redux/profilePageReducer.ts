@@ -47,6 +47,7 @@ export const profileActions = {
 
   sendPhotoActionCreator: (file: ProfileType['photos']) =>
     ({ type: SEND_PHOTO, file } as const),
+
   updateLikesActionCreator: (post: Post) =>
     ({ type: UPDATE_LIKES, post } as const),
 };

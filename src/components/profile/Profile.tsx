@@ -1,4 +1,4 @@
-import { FC, memo, useState } from 'react';
+import { FC, memo } from 'react';
 import MypostsContainer from 'src/components/profile/myposts/MypostsContainer';
 import ProfileInfoContainer from 'src/components/profile/profileInfoContainer/ProfileInfoContainer';
 import { ProfileType } from 'src/types';
@@ -14,26 +14,18 @@ type Props = {
 };
 
 const Profile: FC<Props> = memo(
-  ({ profile, status, isOwner, updateStatus, sendPhoto }) => {
-    const [editMode, setEditMode] = useState(false);
-    return (
-      <div
-        className={classes.content}
-        style={{ height: editMode ? 'auto' : '100%' }}
-      >
-        <ProfileInfoContainer
-          profile={profile}
-          status={status}
-          isOwner={isOwner}
-          updateStatus={updateStatus}
-          sendPhoto={sendPhoto}
-          editMode={editMode}
-          setEditMode={setEditMode}
-        />
-        <MypostsContainer />
-      </div>
-    );
-  }
+  ({ profile, status, isOwner, updateStatus, sendPhoto }) => (
+    <div className={classes.content}>
+      <ProfileInfoContainer
+        profile={profile}
+        status={status}
+        isOwner={isOwner}
+        updateStatus={updateStatus}
+        sendPhoto={sendPhoto}
+      />
+      <MypostsContainer />
+    </div>
+  )
 );
 
 export default Profile;

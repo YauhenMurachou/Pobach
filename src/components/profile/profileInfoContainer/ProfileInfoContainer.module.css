@@ -37,3 +37,8 @@
 	display: flex;
 	gap: 1rem;
 }
+
+.infoContainer a {
+	text-decoration: none;
+	color: var(--main-white);
+}
