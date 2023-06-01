@@ -43,14 +43,15 @@ const SettingsForm: FC<Props> = ({
           return (
             <Form className={classes.formWrapper}>
               <h3 className={classes.title}>{t('settings.title')}</h3>
-              <Field
-                name="fullName"
-                id="fullName"
-                component={TextField}
-                variant="standard"
-                helperText={t('settings.fullName')}
-                className={classes.property}
-              />
+              <div className={classes.property}>
+                <Field
+                  name="fullName"
+                  id="fullName"
+                  component={TextField}
+                  variant="standard"
+                  helperText={t('settings.fullName')}
+                />
+              </div>
               {info.map((item) => {
                 if (exceptions.includes(item)) {
                   return undefined;
@@ -74,21 +75,22 @@ const SettingsForm: FC<Props> = ({
                   typeof editProfile[item as keyof EditProfileType] !== 'object'
                 ) {
                   return (
-                    <Field
-                      name={item}
-                      className={classes.property}
-                      key={uuidv4()}
-                      id={item}
-                      component={TextField}
-                      variant="standard"
-                      helperText={item}
-                    />
+                    <div className={classes.property}>
+                      <Field
+                        name={item}
+                        key={uuidv4()}
+                        id={item}
+                        component={TextField}
+                        variant="standard"
+                        helperText={item}
+                      />
+                    </div>
                   );
                 } else {
                   return (
                     <div key={uuidv4()} className={classes.contactsWrapper}>
                       <h4 className={classes.title}>{item}</h4>
-                      <div>
+                      <div className={classes.contacts}>
                         {Object.keys(editProfile['contacts']).map((elem) => (
                           <Field
                             name={`contacts.${elem}`}

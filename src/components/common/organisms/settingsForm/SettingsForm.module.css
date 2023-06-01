@@ -18,16 +18,25 @@
 	margin: 0 auto;
 }
 
+.property :global .MuiTextField-root {
+	margin: 0 auto;
+	width: 100%;
+}
+
 .contactsWrapper {
 	display: flex;
 	flex-wrap: wrap;
 	width: 40%;
 	text-align: center;
 	margin: 0 auto;
+
+}
+
+.contacts :global .MuiTextField-root {
+	margin-left: 1rem;
 }
 
 .contact {
-	padding-left: 1rem;
 	font-size: 0.8rem;
 	color: var(--grey-light-2);
 }
