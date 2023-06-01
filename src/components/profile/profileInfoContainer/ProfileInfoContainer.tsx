@@ -51,7 +51,7 @@ const ProfileInfoContainer: FC<Props> = ({
     !isOwner &&
       profile?.userId &&
       dispatch(getUsersThunkCreator(1, 30, profile.fullName));
-  }, [profile]);
+  }, [profile]); //eslint-disable-line
 
   const handleDialogOpen = () => {
     setDialogOpen((prevState) => !prevState);

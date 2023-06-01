@@ -1,6 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
 import { ProfileType } from 'src/types';
+import { v4 as uuidv4 } from 'uuid';
 
 import classes from './ProfileInfo.module.css';
 
@@ -14,7 +15,7 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
 
   return (
     <div className={classes.info}>
-      {info.map((item, index) => {
+      {info.map((item) => {
         if (
           item === 'fullName' ||
           item === 'photos' ||
@@ -23,7 +24,7 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
           return undefined;
         } else if (profile[item as keyof ProfileType] === null) {
           return (
-            <div key={(item + index).toString()}>
+            <div key={uuidv4()}>
               <span className={classes.property}>{item}: </span>
               <span className={classes.value}>-</span>
             </div>
@@ -34,7 +35,7 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
           typeof profile[item as keyof ProfileType] !== 'boolean'
         ) {
           return (
-            <div key={(item + index).toString()}>
+            <div key={uuidv4()}>
               <span className={classes.property}>{item}: </span>
               <span className={classes.value}>
                 {profile[item as keyof ProfileType] as ReactNode}
@@ -43,18 +44,18 @@ const ProfileInfo: FC<Props> = ({ profile }) => {
           );
         } else if (item === 'lookingForAJob' && profile.lookingForAJob) {
           return (
-            <div key={(item + index).toString()} className={classes.lookingJob}>
+            <div key={uuidv4()} className={classes.lookingJob}>
               {t('profile.looking')}
             </div>
           );
         } else if (item === 'lookingForAJob' && !profile.lookingForAJob) {
-          return <div key={index}>{t('profile.notLooking')}</div>;
+          return <div key={uuidv4()}>{t('profile.notLooking')}</div>;
         } else {
           return (
-            <div key={(item + index).toString()}>
+            <div key={uuidv4()}>
               <span className={classes.property}>{item}</span>:
-              {Object.keys(profile['contacts']).map((elem, ind) => (
-                <div key={(elem + ind).toString()}>
+              {Object.keys(profile['contacts']).map((elem) => (
+                <div key={uuidv4()}>
                   <span className={classes.contact}>{elem}: </span>
                   {profile['contacts'][elem as keyof ProfileType['contacts']] ||
                     ' - '}

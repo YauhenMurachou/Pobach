@@ -112,8 +112,6 @@ export const profilePageReducer = (
   }
 };
 
-//thunk-creatorы
-
 export const setUserProfileThunkCreator =
   (userId: number | null): CommonThunkType<ProfileActionsTypes, void> =>
   (dispatch) => {
