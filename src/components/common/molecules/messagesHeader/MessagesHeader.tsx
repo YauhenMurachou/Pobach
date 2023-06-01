@@ -1,10 +1,11 @@
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import CallIcon from '@mui/icons-material/Call';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import { Avatar, Button, IconButton } from '@mui/material';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+
 import { convertDate, convertDateInTime } from 'src/utils/date';
 
 import classes from './MessagesHeader.module.css';

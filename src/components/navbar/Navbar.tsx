@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 import Logo from 'src/components/common/atoms/logo/Logo';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 import { messagesListCleared } from 'src/redux/dialogsReducer';
@@ -22,7 +24,7 @@ const Navbar: FC = () => {
           to={index === 0 ? profilePath : path}
           activeClassName={classes.activeLink}
           className={classes.item}
-          key={path + text}
+          key={uuidv4()}
           onClick={index === 1 ? clearMessages : undefined}
         >
           {icon}

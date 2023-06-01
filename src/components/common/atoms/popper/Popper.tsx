@@ -1,10 +1,11 @@
-import { FC, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { NavLink } from 'react-router-dom';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton } from '@mui/material';
 import PopperComponent, { PopperPlacementType } from '@mui/material/Popper';
 import classNames from 'classnames';
+import { FC, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { NavLink } from 'react-router-dom';
+
 import { Timeout, UserType } from 'src/types';
 
 import classes from './Popper.module.css';

@@ -1,10 +1,11 @@
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { Tooltip } from '@mui/material';
+import classNames from 'classnames';
 import { FC, memo, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { Tooltip } from '@mui/material';
-import classNames from 'classnames';
+
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';

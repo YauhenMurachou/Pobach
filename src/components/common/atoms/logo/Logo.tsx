@@ -1,6 +1,6 @@
-import { FC } from 'react';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { SvgIcon } from '@mui/material';
+import { FC } from 'react';
 
 import classes from './Logo.module.css';
 

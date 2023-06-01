@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Action, combineReducers } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import { ThunkAction } from 'redux-thunk';
+
 import { appReducer } from 'src/redux/appReducer';
 import { authReducer } from 'src/redux/authReducer';
 import { chatReducer } from 'src/redux/chatReducer';

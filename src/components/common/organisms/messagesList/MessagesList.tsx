@@ -1,5 +1,7 @@
 import { FC, memo, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import { MessagesDay } from 'src/components/common/molecules/messagesDay/MessagesDay';
 import { getMessagesListAction } from 'src/redux/dialogsReducer';
 import { MessagesListType } from 'src/types';
@@ -49,7 +51,7 @@ export const MessagesList: FC<Props> = memo(
         <div ref={topRef}></div>
         {dates.map((day, index) => (
           <MessagesDay
-            key={index}
+            key={uuidv4()}
             title={day}
             messages={sortedMessages[index]}
             friendAvatar={friendAvatar}

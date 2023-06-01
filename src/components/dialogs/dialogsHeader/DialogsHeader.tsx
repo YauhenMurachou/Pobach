@@ -1,5 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import RightIcons from 'src/components/dialogs/dialogsHeader/RightIcons';
 

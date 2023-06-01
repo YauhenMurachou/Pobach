@@ -12,8 +12,8 @@ type AuthInitialStateType = {
   userId: number | null;
   email: string | null;
   login: string | null;
-  error: string | null;
-  captchaImageUrl: string | null;
+  error?: string | null;
+  captchaImageUrl?: string | null;
   ownerAvatar?: string | null;
 };
 
@@ -22,19 +22,16 @@ const initialState: AuthInitialStateType = {
   userId: null,
   email: null,
   login: null,
-  error: null,
-  captchaImageUrl: null,
-  ownerAvatar: null,
 };
 
-const authActions = {
+export const authActions = {
   setUserDataActionCreator: (
     userId: number | null,
     email: string | null,
     login: string | null,
     isAuth: boolean | null,
-    error: null,
-    captchaImageUrl: null
+    error?: null,
+    captchaImageUrl?: null
   ) =>
     ({
       type: SET_USER_DATA,
@@ -99,9 +96,7 @@ export const setUserDataThunkCreator =
     const data = await usersApi.setLogin();
     if (data.resultCode === 0) {
       const { id, email, login } = data.data;
-      dispatch(
-        authActions.setUserDataActionCreator(id, email, login, true, null, null)
-      );
+      dispatch(authActions.setUserDataActionCreator(id, email, login, true));
       profileApi.getProfile(id).then((data) => {
         dispatch(authActions.setAvatarActionCreator(data.photos.small));
       });

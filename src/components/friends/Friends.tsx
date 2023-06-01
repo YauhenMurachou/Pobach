@@ -2,12 +2,13 @@ import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 import Loader from 'src/components/common/atoms/loader/Loader';
-import Popper from 'src/components/common/atoms/popper/Popper';
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
-import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
+import DialogModalWrapper from 'src/components/common/molecules/dialogModalWrapper/DialogModalWrapper';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
@@ -78,7 +79,7 @@ const Friends: FC = () => {
   return (
     <div className={classes.wrapper}>
       {!isFetching && (
-        <div>
+        <>
           <div className={classes.header}>All friends({friends.length})</div>
           <SearchField
             placeholder={t('users.search')}
@@ -87,7 +88,7 @@ const Friends: FC = () => {
             isSearch={!!searchValue}
           />
           <ul className={classes.itemWrapper}>
-            {friends.map((friend, index) => (
+            {friends.map((friend) => (
               <UserItem
                 user={friend}
                 followUsers={() => {
@@ -96,7 +97,7 @@ const Friends: FC = () => {
                 unfollowUsers={() => unfollow(friend.id as number)}
                 followingInProgress={followingInProgress}
                 handleDialogOpen={() => handleDialogOpen(friend)}
-                key={index + friend.toString()}
+                key={uuidv4()}
               />
             ))}
           </ul>
@@ -111,20 +112,14 @@ const Friends: FC = () => {
           {!!searchValue && !friends.length && (
             <EmptyState text={t('users.nothing')} />
           )}
-          <DialogModal
-            isOpen={isDialogOpen}
-            handleClose={handleDialogClose}
+          <DialogModalWrapper
+            isDialogOpen={isDialogOpen}
             setPopperOpen={setPopperOpen}
+            handleDialogOpen={handleDialogClose}
             companion={companion as UserType}
+            isPopperOpen={isPopperOpen}
           />
-          <Popper
-            isOpen={isPopperOpen}
-            placement="bottom-start"
-            anchorEl={document.body}
-            handleClose={() => setPopperOpen(false)}
-            companion={companion as UserType}
-          />
-        </div>
+        </>
       )}
     </div>
   );

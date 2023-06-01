@@ -1,13 +1,13 @@
+import SearchIcon from '@mui/icons-material/Search';
+import { InputAdornment, TextField } from '@mui/material';
 import {
   ChangeEvent,
   Dispatch,
   FC,
-  memo,
   ReactNode,
   SetStateAction,
+  memo,
 } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import { InputAdornment, TextField } from '@mui/material';
 
 import classes from './SearchField.module.css';
 

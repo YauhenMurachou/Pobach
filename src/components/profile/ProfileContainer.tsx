@@ -2,11 +2,12 @@ import { Component, ComponentType, Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
+
 import withAuthRedirect from 'src/components/hoc/withAuthRedirect';
 import { AuthActionsType } from 'src/redux/authReducer';
 import {
-  getStatusThunkCreator,
   ProfileActionsTypes,
+  getStatusThunkCreator,
   sendPhotoThunkCreator,
   setUserProfileThunkCreator,
   updateStatusThunkCreator,

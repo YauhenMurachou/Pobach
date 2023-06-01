@@ -1,8 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import DialogsHeader from 'src/components/dialogs/dialogsHeader/DialogsHeader';
+
 import DialogTitle from 'src/components/dialogs/dialogTitle/DialogTitle';
+import DialogsHeader from 'src/components/dialogs/dialogsHeader/DialogsHeader';
 import {
   dialogOpenedAction,
   getDialogsAction,

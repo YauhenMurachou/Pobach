@@ -3,7 +3,7 @@ module.exports = {
     project: './tsconfig.json',
   },
   parser: '@typescript-eslint/parser',
-  plugins: ['prettier', '@typescript-eslint', 'simple-import-sort'],
+  plugins: ['prettier', '@typescript-eslint'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -29,39 +29,10 @@ module.exports = {
     'no-useless-escape': 'off',
     'arrow-body-style': ['error', 'as-needed'],
     'react/button-has-type': ['error'],
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
   },
   settings: {
     react: {
       version: '18.2.0',
     },
   },
-  overrides: [
-    // override "simple-import-sort" config
-    {
-      files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
-      rules: {
-        'simple-import-sort/imports': [
-          'error',
-          {
-            groups: [
-              // Packages `react` related packages come first.
-              ['^react', '^@?\\w'],
-              // Internal packages.
-              ['^(@|components)(/.*|$)'],
-              // Side effect imports.
-              ['^\\u0000'],
-              // Parent imports. Put `..` last.
-              ['^\\.\\.(?!/?$)', '^\\.\\./?$'],
-              // Other relative imports. Put same-folder imports and `.` last.
-              ['^\\./(?=.*/)(?!/?$)', '^\\.(?!/?$)', '^\\./?$'],
-              // Style imports.
-              ['^.+\\.?(css)$'],
-            ],
-          },
-        ],
-      },
-    },
-  ],
 };

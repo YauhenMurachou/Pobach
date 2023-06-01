@@ -1,9 +1,10 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
+
 import {
   Dialog,
   ID,
-  MessagesListType,
   MessageType,
+  MessagesListType,
   NewMessage,
 } from 'src/types';
 

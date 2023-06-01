@@ -1,11 +1,12 @@
-import { FC, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import MusicNoteIcon from '@mui/icons-material/MusicNote';
 import MusicOffIcon from '@mui/icons-material/MusicOff';
 import NotificationsNoneOutlinedIcon from '@mui/icons-material/NotificationsNoneOutlined';
 import NotificationsOffOutlinedIcon from '@mui/icons-material/NotificationsOffOutlined';
 import { Tooltip } from '@mui/material';
 import classNames from 'classnames';
+import { FC, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import ChangeLanguage from 'src/components/common/molecules/changeLanguage/ChangeLanguage';
 
 import classes from './HeaderNotifications.module.css';

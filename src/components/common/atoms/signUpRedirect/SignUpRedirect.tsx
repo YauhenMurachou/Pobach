@@ -1,6 +1,6 @@
+import { Tooltip } from '@mui/material';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Tooltip } from '@mui/material';
 
 import styles from './SignUpRedirect.module.css';
 

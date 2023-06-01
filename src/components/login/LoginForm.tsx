@@ -1,9 +1,10 @@
-import { FC, MouseEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
 import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
+import { FC, MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+
 import Captcha from 'src/components/common/atoms/captcha/Captcha';
 import PasswordIcon from 'src/components/common/atoms/passwordIcon/PasswordIcon';
 import SignUpRedirect from 'src/components/common/atoms/signUpRedirect/SignUpRedirect';
