@@ -1,7 +1,8 @@
+import { Button } from '@mui/material';
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Button } from '@mui/material';
+
 import { fetchPhotos, photosRequestedAction } from 'src/redux/photosReducer';
 import { RootState } from 'src/redux/redux-store';
 

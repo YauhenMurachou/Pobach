@@ -1,5 +1,6 @@
-import { FC } from 'react';
 import Diversity3Icon from '@mui/icons-material/Diversity3';
+import { FC } from 'react';
+
 import Logo from 'src/components/common/atoms/logo/Logo';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 

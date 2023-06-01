@@ -1,10 +1,11 @@
 import { Dispatch } from 'redux';
+import { v4 as uuidv4 } from 'uuid';
+
 import { chatApi } from 'src/api/chatApi';
 import i18n from 'src/i18n';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 import { ChatMessage, ChatStatus } from 'src/types';
 import { checkPageStatus } from 'src/utils/checkNotification';
-import { v4 as uuidv4 } from 'uuid';
 
 const SET_MESSAGES = 'SET_MESSAGES';
 const CLEAR_MESSAGES = 'CLEAR_MESSAGES';

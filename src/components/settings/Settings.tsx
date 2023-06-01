@@ -1,8 +1,9 @@
+import { Button } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { Button } from '@mui/material';
+
 import SettingsForm from 'src/components/common/organisms/settingsForm/SettingsForm';
 import { authActions } from 'src/redux/authReducer';
 import {

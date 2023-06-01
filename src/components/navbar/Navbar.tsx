@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid';
+
 import Logo from 'src/components/common/atoms/logo/Logo';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 import { messagesListCleared } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
-import { v4 as uuidv4 } from 'uuid';
 
 import classes from './Navbar.module.css';
 

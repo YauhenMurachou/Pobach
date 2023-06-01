@@ -1,9 +1,10 @@
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { Avatar, Tooltip } from '@mui/material';
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import { Avatar, Tooltip } from '@mui/material';
+
 import { RootState } from 'src/redux/redux-store';
 import { MessageType } from 'src/types';
 import { convertDateInTime } from 'src/utils/date';

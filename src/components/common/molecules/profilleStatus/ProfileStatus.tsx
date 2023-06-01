@@ -1,5 +1,6 @@
-import { ChangeEvent, Component, MouseEventHandler } from 'react';
 import TextField from '@mui/material/TextField';
+import { ChangeEvent, Component, MouseEventHandler } from 'react';
+
 import i18n from 'src/i18n';
 
 import styles from './ProfileStatus.module.css';

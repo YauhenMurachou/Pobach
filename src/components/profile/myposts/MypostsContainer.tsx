@@ -1,11 +1,12 @@
 import { FC } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
+
 import Myposts from 'src/components/profile/myposts/Myposts';
 import {
   InitialStateProfileType,
-  profileActions,
   ProfileActionsTypes,
+  profileActions,
 } from 'src/redux/profilePageReducer';
 
 const mapStateToProps = (state: { profilePage: InitialStateProfileType }) => ({

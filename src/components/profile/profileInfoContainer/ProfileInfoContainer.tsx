@@ -1,13 +1,13 @@
+import { Button } from '@mui/material';
 import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import { Button } from '@mui/material';
+
 import FollowButtons from 'src/components/common/atoms/followButtons/FollowButtons';
 import Loader from 'src/components/common/atoms/loader/Loader';
-import Popper from 'src/components/common/atoms/popper/Popper';
 import ChangeAvatar from 'src/components/common/molecules/changeAvatar/ChangeAvatar';
-import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
+import DialogModalWrapper from 'src/components/common/molecules/dialogModalWrapper/DialogModalWrapper';
 import ProfileStatus from 'src/components/common/molecules/profilleStatus/ProfileStatus';
 import ProfileInfo from 'src/components/common/organisms/profileInfo/ProfileInfo';
 import avatar from 'src/images/avatar.png';
@@ -110,7 +110,6 @@ const ProfileInfoContainer: FC<Props> = ({
           />
         </div>
       </div>
-
       <div className={classes.infoContainer}>
         <ProfileInfo profile={profile} />
         {isOwner && (
@@ -119,18 +118,12 @@ const ProfileInfoContainer: FC<Props> = ({
           </Button>
         )}
       </div>
-      <DialogModal
-        isOpen={isDialogOpen}
-        handleClose={handleDialogOpen}
+      <DialogModalWrapper
+        isDialogOpen={isDialogOpen}
         setPopperOpen={setPopperOpen}
+        handleDialogOpen={handleDialogOpen}
         companion={user as UserType}
-      />
-      <Popper
-        isOpen={isPopperOpen}
-        placement="bottom-start"
-        anchorEl={document.body}
-        handleClose={() => setPopperOpen(false)}
-        companion={user as UserType}
+        isPopperOpen={isPopperOpen}
       />
     </div>
   );

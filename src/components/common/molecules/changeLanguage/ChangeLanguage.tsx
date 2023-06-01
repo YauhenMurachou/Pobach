@@ -1,9 +1,10 @@
-import { FC, MouseEvent, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import LanguageIcon from '@mui/icons-material/Language';
 import { Button, Popover, Tooltip } from '@mui/material';
+import { FC, MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import classes from './ChangeLanguage.module.css';
+
 import styles from 'src/components/common/molecules/changeAvatar/ChangeAvatar.module.css';
 
 const ChangeLanguage: FC = () => {

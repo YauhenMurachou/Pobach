@@ -1,4 +1,5 @@
 import { FC, memo } from 'react';
+
 import { DialogMessage } from 'src/components/common/molecules/dialogMessage/DialogMessage';
 import { MessageType } from 'src/types';
 

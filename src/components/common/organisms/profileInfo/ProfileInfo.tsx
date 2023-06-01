@@ -1,7 +1,8 @@
 import { FC, ReactNode } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ProfileType } from 'src/types';
 import { v4 as uuidv4 } from 'uuid';
+
+import { ProfileType } from 'src/types';
 
 import classes from './ProfileInfo.module.css';
 

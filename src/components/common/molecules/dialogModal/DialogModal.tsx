@@ -1,10 +1,11 @@
+import CloseIcon from '@mui/icons-material/Close';
+import { IconButton } from '@mui/material';
+import Modal from '@mui/material/Modal';
 import { Dispatch, FC, SetStateAction } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import CloseIcon from '@mui/icons-material/Close';
-import { IconButton } from '@mui/material';
-import Modal from '@mui/material/Modal';
+
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import {
   dialogOpenedAction,

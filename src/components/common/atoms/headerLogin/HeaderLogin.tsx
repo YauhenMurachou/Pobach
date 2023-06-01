@@ -2,6 +2,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
 import mockAvatar from 'src/images/avatar.png';
 import { RootState } from 'src/redux/redux-store';
 
