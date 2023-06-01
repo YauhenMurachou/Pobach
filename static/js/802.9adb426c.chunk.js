@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkmy_app=self.webpackChunkmy_app||[]).push([[802],{3802:function(n,e,t){t.r(e);var u=t(364),r=t(8931),c=t(184);e.default=function(){return(0,u.v9)((function(n){return n.auth})).isAuth?(0,c.jsx)("h4",{children:"Section under development"}):(0,c.jsx)(r.l_,{to:"/Login"})}}}]);
-//# sourceMappingURL=802.9adb426c.chunk.js.map
