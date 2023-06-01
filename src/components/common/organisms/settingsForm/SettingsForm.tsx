@@ -1,14 +1,15 @@
-import { FC } from 'react';
-import { useTranslation } from 'react-i18next';
 import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
 import { CheckboxWithLabel, TextField } from 'formik-mui';
+import { FC } from 'react';
+import { useTranslation } from 'react-i18next';
+import { v4 as uuidv4 } from 'uuid';
+
 import { EditProfileType } from 'src/types';
 import {
   isProfileFormChanged,
   profielValidationSchema,
 } from 'src/utils/validationForms';
-import { v4 as uuidv4 } from 'uuid';
 
 import classes from './SettingsForm.module.css';
 

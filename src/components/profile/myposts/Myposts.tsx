@@ -1,5 +1,6 @@
 import { Dispatch, FC } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import Post from 'src/components/common/molecules/post/Post';
 import MyPostsForm from 'src/components/profile/myposts/MyPostsForm';
 import {

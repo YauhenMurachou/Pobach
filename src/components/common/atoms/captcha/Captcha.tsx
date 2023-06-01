@@ -1,6 +1,6 @@
-import { Dispatch, FC, SetStateAction } from 'react';
 import { Field } from 'formik';
 import { TextField } from 'formik-mui';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 type Props = {
   captchaImageUrl: string | null;

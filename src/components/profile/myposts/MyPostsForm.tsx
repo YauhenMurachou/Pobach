@@ -1,6 +1,7 @@
+import { Field, Form, Formik } from 'formik';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Field, Form, Formik } from 'formik';
+
 import { newPostSchema } from 'src/utils/validationForms';
 
 import classes from './Myposts.module.css';

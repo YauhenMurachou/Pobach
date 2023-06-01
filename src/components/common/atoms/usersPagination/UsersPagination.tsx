@@ -1,5 +1,5 @@
-import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
 import { Pagination } from '@mui/material';
+import { ChangeEvent, Dispatch, FC, SetStateAction } from 'react';
 
 import classes from './UsersPagination.module.css';
 

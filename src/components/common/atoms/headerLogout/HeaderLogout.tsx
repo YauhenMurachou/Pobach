@@ -1,8 +1,9 @@
+import LogoutIcon from '@mui/icons-material/Logout';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-import LogoutIcon from '@mui/icons-material/Logout';
+
 import { logoutDataThunkCreator } from 'src/redux/authReducer';
 import { RootState } from 'src/redux/redux-store';
 

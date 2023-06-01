@@ -1,6 +1,7 @@
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import Diversity3Icon from '@mui/icons-material/Diversity3';
+
 import HeaderLogin from 'src/components/common/atoms/headerLogin/HeaderLogin';
 import HeaderLogout from 'src/components/common/atoms/headerLogout/HeaderLogout';
 import HeaderNotifications from 'src/components/common/molecules/headerNotifications/HeaderNotifications';

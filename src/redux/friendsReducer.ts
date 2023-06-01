@@ -1,4 +1,5 @@
 import { createAction, createSlice } from '@reduxjs/toolkit';
+
 import { UserType } from 'src/types';
 
 type InitialStateFriendsType = {

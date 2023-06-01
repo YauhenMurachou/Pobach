@@ -1,6 +1,7 @@
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+
 import { profileActions } from 'src/redux/profilePageReducer';
 
 import classes from './Post.module.css';

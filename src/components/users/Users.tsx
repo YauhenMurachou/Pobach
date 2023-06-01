@@ -2,11 +2,12 @@ import { FC, memo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import Popper from 'src/components/common/atoms/popper/Popper';
+import { v4 as uuidv4 } from 'uuid';
+
 import SearchField from 'src/components/common/atoms/searchField/SearchField';
 import UsersPagination from 'src/components/common/atoms/usersPagination/UsersPagination';
-import DialogModal from 'src/components/common/molecules/dialogModal/DialogModal';
 import EmptyState from 'src/components/common/molecules/EmptyState/EmptyState';
+import DialogModalWrapper from 'src/components/common/molecules/dialogModalWrapper/DialogModalWrapper';
 import UserItem from 'src/components/common/molecules/userItem/UserItem';
 import { useSearch } from 'src/hooks/useSearch';
 import { RootState } from 'src/redux/redux-store';
@@ -15,7 +16,6 @@ import {
   calculatePagesCount,
   getUsers as getUsersHandler,
 } from 'src/utils/users';
-import { v4 as uuidv4 } from 'uuid';
 
 import classes from './Users.module.css';
 
@@ -114,18 +114,12 @@ const Users: FC<Props> = memo(
             )}
           </>
         )}
-        <DialogModal
-          isOpen={isDialogOpen}
-          handleClose={handleDialogClose}
+        <DialogModalWrapper
+          isDialogOpen={isDialogOpen}
           setPopperOpen={setPopperOpen}
+          handleDialogOpen={handleDialogClose}
           companion={companion as UserType}
-        />
-        <Popper
-          isOpen={isPopperOpen}
-          placement="bottom-start"
-          anchorEl={document.body}
-          handleClose={() => setPopperOpen(false)}
-          companion={companion as UserType}
+          isPopperOpen={isPopperOpen}
         />
       </div>
     );

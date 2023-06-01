@@ -1,5 +1,3 @@
-import { FC, MouseEvent } from 'react';
-import { NavLink } from 'react-router-dom';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import {
   Avatar,
@@ -10,6 +8,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { FC, MouseEvent } from 'react';
+import { NavLink } from 'react-router-dom';
+
 import { Dialog } from 'src/types';
 import { convertDate } from 'src/utils/date';
 

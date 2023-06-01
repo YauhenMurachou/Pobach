@@ -1,6 +1,3 @@
-import { FC, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
 import SendIcon from '@mui/icons-material/Send';
 import TagFacesIcon from '@mui/icons-material/TagFaces';
 import {
@@ -10,6 +7,10 @@ import {
   OutlinedInput,
 } from '@mui/material';
 import EmojiPicker, { EmojiClickData } from 'emoji-picker-react';
+import { FC, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+
 import { useClickOutside } from 'src/hooks/useClickOutside';
 import { ChatActionsType } from 'src/redux/chatReducer';
 import { CommonThunkType } from 'src/redux/redux-store';

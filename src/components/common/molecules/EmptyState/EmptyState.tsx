@@ -1,4 +1,5 @@
 import { FC } from 'react';
+
 import { ReactComponent as NoResult } from 'src/images/noResult.svg';
 
 import classes from './EmptyState.module.css';

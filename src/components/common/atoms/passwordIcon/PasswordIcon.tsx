@@ -1,6 +1,6 @@
-import { FC, MouseEvent } from 'react';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { IconButton, InputAdornment } from '@mui/material';
+import { FC, MouseEvent } from 'react';
 
 type Props = {
   showPassword: boolean;

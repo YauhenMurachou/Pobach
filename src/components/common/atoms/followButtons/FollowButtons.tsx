@@ -1,8 +1,9 @@
-import { FC, memo } from 'react';
-import { useTranslation } from 'react-i18next';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PersonRemoveIcon from '@mui/icons-material/PersonRemove';
 import { Button } from '@mui/material';
+import { FC, memo } from 'react';
+import { useTranslation } from 'react-i18next';
+
 import { UserType } from 'src/types';
 
 type Props = {

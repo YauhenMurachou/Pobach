@@ -2,6 +2,7 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+
 import MessagesHeader from 'src/components/common/molecules/messagesHeader/MessagesHeader';
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import { MessagesList } from 'src/components/common/organisms/messagesList/MessagesList';
