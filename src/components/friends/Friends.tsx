@@ -18,6 +18,7 @@ import {
 } from 'src/redux/usersReducer';
 import { UserType } from 'src/types';
 import { calculatePagesCount, getUsers } from 'src/utils/users';
+import { v4 as uuidv4 } from 'uuid';
 
 import classes from './Friends.module.css';
 
@@ -87,7 +88,7 @@ const Friends: FC = () => {
             isSearch={!!searchValue}
           />
           <ul className={classes.itemWrapper}>
-            {friends.map((friend, index) => (
+            {friends.map((friend) => (
               <UserItem
                 user={friend}
                 followUsers={() => {
@@ -96,7 +97,7 @@ const Friends: FC = () => {
                 unfollowUsers={() => unfollow(friend.id as number)}
                 followingInProgress={followingInProgress}
                 handleDialogOpen={() => handleDialogOpen(friend)}
-                key={index + friend.toString()}
+                key={uuidv4()}
               />
             ))}
           </ul>

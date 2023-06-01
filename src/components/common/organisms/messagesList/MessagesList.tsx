@@ -4,6 +4,7 @@ import { MessagesDay } from 'src/components/common/molecules/messagesDay/Message
 import { getMessagesListAction } from 'src/redux/dialogsReducer';
 import { MessagesListType } from 'src/types';
 import { separateByDate } from 'src/utils/date';
+import { v4 as uuidv4 } from 'uuid';
 
 import classes from './MessagesList.module.css';
 
@@ -49,7 +50,7 @@ export const MessagesList: FC<Props> = memo(
         <div ref={topRef}></div>
         {dates.map((day, index) => (
           <MessagesDay
-            key={index}
+            key={uuidv4()}
             title={day}
             messages={sortedMessages[index]}
             friendAvatar={friendAvatar}

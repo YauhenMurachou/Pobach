@@ -15,6 +15,7 @@ import {
   calculatePagesCount,
   getUsers as getUsersHandler,
 } from 'src/utils/users';
+import { v4 as uuidv4 } from 'uuid';
 
 import classes from './Users.module.css';
 
@@ -89,14 +90,14 @@ const Users: FC<Props> = memo(
               isSearch={!!searchValue}
             />
             <ul className={classes.itemWrapper}>
-              {users.map((user: UserType, index) => (
+              {users.map((user: UserType) => (
                 <UserItem
                   user={user}
                   followUsers={followUsers}
                   unfollowUsers={unfollowUsers}
                   followingInProgress={followingInProgress}
                   handleDialogOpen={() => handleDialogOpen(user)}
-                  key={index + user.toString()}
+                  key={uuidv4()}
                 />
               ))}
             </ul>
