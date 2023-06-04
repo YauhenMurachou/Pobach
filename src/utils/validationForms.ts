@@ -41,7 +41,7 @@ export const profielValidationSchema = Yup.object().shape({
 
 export const loginValidationSchema = Yup.object().shape({
   email: Yup.string()
-    .max(25, t('validation.long') as string)
+    .max(35, t('validation.long') as string)
     .required(t('validation.required') as string)
     .email(t('validation.email') as string),
   password: Yup.string()

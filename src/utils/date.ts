@@ -20,13 +20,13 @@ export const convertDateInTime = (dateString: string) => {
 };
 
 export const separateByDate = (messages: MessageType[]) => {
-  const dateMap: SeparateMessagesType = {};
+  const separatedMessages: SeparateMessagesType = {};
   messages.forEach((message) => {
     const date = convertDate(message.addedAt);
-    if (!dateMap[date]) {
-      dateMap[date] = [];
+    if (!separatedMessages[date]) {
+      separatedMessages[date] = [];
     }
-    dateMap[date].push(message);
+    separatedMessages[date].push(message);
   });
-  return dateMap;
+  return separatedMessages;
 };
