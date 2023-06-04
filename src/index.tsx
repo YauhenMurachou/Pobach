@@ -1,17 +1,15 @@
-import ReactDOM from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HashRouter } from 'react-router-dom';
 
-import './i18n';
-
-import store from './redux/redux-store';
-import App from './App';
-
 import './index.css';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
+import App from './App';
+import './i18n';
+import store from './redux/redux-store';
+
+const container = document.getElementById('root');
+const root = createRoot(container as HTMLElement);
 
 root.render(
   <HashRouter>
