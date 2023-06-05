@@ -22,7 +22,7 @@
     "chat": "Chat"
   },
   "profile": {
-    "posts": "My posts",
+    "posts": "I gave you back the wall",
     "addPost": "Add post",
     "removePost": "Remove post",
     "newPost": "New post",
@@ -30,7 +30,11 @@
     "notLooking": "I am NOT looking for a job",
     "edit": "Edit info",
     "save": "Save changes",
-    "back": "Back to profile"
+    "back": "Back to profile",
+    "summary": "Summary",
+    "contacts": "Contacts",
+    "description": "Job description",
+    "about": "About"
   },
   "avatar": {
     "change": "Change photo",
