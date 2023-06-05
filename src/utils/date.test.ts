@@ -1,4 +1,8 @@
-import { testMessages, testSeparatedMessages } from 'src/constants';
+import {
+  finishMessage,
+  testMessages,
+  testSeparatedMessages,
+} from 'src/constants';
 import { convertDate, convertDateInTime, separateByDate } from 'src/utils/date';
 
 describe('convertDate', () => {
@@ -22,18 +26,7 @@ describe('separate messages by Date', () => {
   });
   test('pass Array with one days, return object with one day', () => {
     expect(separateByDate(testMessages.splice(0, 1))).toEqual({
-      '03.06.2023': [
-        {
-          id: '6b178015-b5b0-4e31-b501-50bcca6efcfa',
-          body: 'Я закончил этот мессенджер ',
-          translatedBody: null,
-          addedAt: '2023-06-03T14:45:30.4',
-          senderId: 26059,
-          senderName: 'polyakog',
-          recipientId: 17658,
-          viewed: true,
-        },
-      ],
+      '03.06.2023': [finishMessage],
     });
   });
 });

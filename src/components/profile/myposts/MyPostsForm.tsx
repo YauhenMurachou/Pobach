@@ -1,4 +1,6 @@
+import { Button } from '@mui/material';
 import { Field, Form, Formik } from 'formik';
+import { TextField } from 'formik-mui';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -22,26 +24,31 @@ const MyPostsForm: FC<Props> = ({ onSubmit }) => {
     >
       {({ errors, touched, dirty, isValid }) => (
         <Form>
-          <div>
+          <>
             <Field
-              component="textarea"
+              component={TextField}
+              fullWidth
               name="newPost"
               id="newPost"
               placeholder={t('profile.newPost')}
+              autoFocus
+              sx={{ bgcolor: 'var(--white-main)' }}
             />
             {errors.newPost && touched.newPost ? (
               <div>{errors.newPost}</div>
             ) : null}
-          </div>
-          <div>
-            <button
-              className={classes.addButton}
+          </>
+          <div className={classes.buttons}>
+            <Button
               type="submit"
               disabled={!dirty || !isValid}
+              variant="contained"
             >
               {t('profile.addPost')}
-            </button>
-            <button type="submit">{t('profile.removePost')}</button>
+            </Button>
+            <Button type="submit" disabled variant="contained">
+              {t('profile.removePost')}
+            </Button>
           </div>
         </Form>
       )}
