@@ -98,7 +98,8 @@
     "done": "Message sent"
   },
   "status": {
-    "status": "Your status"
+    "status": "Status",
+    "click": "Click for changing"
   },
   "settings": {
     "edit": "edit information about yourself",

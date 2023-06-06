@@ -1,3 +1,4 @@
+import { Tooltip } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import { ChangeEvent, Component, MouseEventHandler } from 'react';
 
@@ -23,12 +24,13 @@ class ProfileStatus extends Component<Props> {
     });
   };
 
-  deActiveEditMode = () =>
-    setTimeout(() => {
-      this.setState({
-        editMode: false,
-      });
-    }, 200);
+  timer = setTimeout(() => {
+    this.setState({
+      editMode: false,
+    });
+  }, 200);
+
+  deActiveEditMode = () => this.timer;
 
   handleBlurStatus = () => {
     const { status, updateStatus } = this.props;
@@ -48,44 +50,47 @@ class ProfileStatus extends Component<Props> {
     this.setState({ status: currentTarget.value });
   };
 
-  componentDidUpdate(prevProps: { status: string }) {
-    const { status } = this.props;
-    if (prevProps.status !== status) {
-      this.setState({ status });
-    }
+  componentWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   render() {
     const { status, isOwner } = this.props;
     return (
       <>
-        {status && (
-          <>
-            <div className={styles.subtitle}>{i18n.t('status.status')}</div>
-            {!this.state.editMode && (
-              <span
-                onClick={
-                  isOwner
-                    ? (this
-                        .activeEditMode as MouseEventHandler<HTMLSpanElement>)
-                    : undefined
-                }
-                role="button"
-                className={isOwner ? styles.status : undefined}
-              >
-                {status}
-              </span>
-            )}
-            {isOwner && (this.state.editMode || !status) && (
-              <TextField
-                onBlur={this.handleBlurStatus}
-                onChange={this.onStatusChange}
-                value={this.state.status}
-                autoFocus
-                variant="standard"
-              />
-            )}
-          </>
+        <div className={styles.subtitle}>{i18n.t('status.status')}</div>
+        {!this.state.editMode && (
+          <Tooltip
+            title={isOwner ? (i18n.t('status.click') as string) : ''}
+            arrow
+            placement="bottom"
+          >
+            <span
+              onClick={
+                isOwner
+                  ? (this.activeEditMode as MouseEventHandler<HTMLSpanElement>)
+                  : undefined
+              }
+              role="button"
+              className={isOwner ? styles.status : undefined}
+            >
+              {status ?? '...'}
+            </span>
+          </Tooltip>
+        )}
+        {isOwner && (this.state.editMode || !status) && (
+          <TextField
+            onBlur={this.handleBlurStatus}
+            onChange={this.onStatusChange}
+            value={this.state.status}
+            autoFocus
+            variant="standard"
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') {
+                this.handleBlurStatus();
+              }
+            }}
+          />
         )}
       </>
     );
