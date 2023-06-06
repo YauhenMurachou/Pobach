@@ -52,7 +52,7 @@ const UserItem: FC<Props> = memo(
             <span className={classes.id}> id: {id} </span>
             <Tooltip
               title={
-                !followed ? (t('users.onlyFriend') as string) : ('' as string)
+                !followed ? (t('users.onlyFriend') as string) : ''
               }
               placement="bottom-start"
             >

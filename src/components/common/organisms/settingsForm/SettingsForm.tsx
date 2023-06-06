@@ -51,6 +51,7 @@ const SettingsForm: FC<Props> = ({
                   component={TextField}
                   variant="standard"
                   helperText={t('settings.fullName')}
+                  disabled
                 />
               </div>
               {info.map((item) => {
