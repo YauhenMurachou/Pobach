@@ -50,6 +50,13 @@ class ProfileStatus extends Component<Props> {
     this.setState({ status: currentTarget.value });
   };
 
+  componentDidUpdate(prevProps: { status: string }) {
+    const { status } = this.props;
+    if (prevProps.status !== status) {
+      this.setState({ status });
+    }
+  }
+
   componentWillUnmount() {
     clearTimeout(this.timer);
   }
