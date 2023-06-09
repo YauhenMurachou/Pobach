@@ -52,6 +52,8 @@
     "registration": "Sign up",
     "enter": "Log in",
     "title": "Account login",
+    "email": "Email",
+    "password": "Password",
     "remember": "Remember me",
     "account": "Don't have an account?",
     "redirect": "You will be redirected to an external service for registration"

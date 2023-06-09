@@ -1,6 +1,6 @@
-import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { FC } from 'react';
 
+import BigLogo from 'src/components/common/atoms/bigLogo/BigLogo';
 import Logo from 'src/components/common/atoms/logo/Logo';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 
@@ -11,10 +11,7 @@ const LoginAside: FC = () => {
 
   return (
     <aside className={styles.aside}>
-      <div className={styles.logo}>
-        <Diversity3Icon className={styles.image} fontSize="large" />
-        <span className={styles.near}>побач</span>
-      </div>
+      <BigLogo />
       <ul className={styles.social}>
         {asideData.map(({ icon, text }) => (
           <li className={styles.item} key={text}>

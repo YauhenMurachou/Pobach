@@ -2,7 +2,6 @@ import { Dispatch } from 'redux';
 import { v4 as uuidv4 } from 'uuid';
 
 import { chatApi } from 'src/api/chatApi';
-import i18n from 'src/i18n';
 import { CommonActionTypes, CommonThunkType } from 'src/redux/redux-store';
 import { ChatMessage, ChatStatus } from 'src/types';
 import { checkPageStatus } from 'src/utils/checkNotification';
@@ -111,7 +110,6 @@ export const chatReducer = (
         messages: [...state.messages].map((message) => {
           if (message.id === action.data.id) {
             message.deleted = true;
-            message.deletedMessage = i18n.t('chat.deletedMessage') as string;
           }
           return message;
         }),

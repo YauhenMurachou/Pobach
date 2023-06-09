@@ -54,8 +54,8 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
                 fullWidth
                 name="email"
                 id="email"
-                label="Email"
-                placeholder="Email"
+                label={t('login.email')}
+                placeholder={t('login.email')}
                 component={TextField}
                 disabled={false}
               />
@@ -63,11 +63,11 @@ const LoginForm: FC<Props> = ({ onSubmit }) => {
             <div className={styles.field}>
               <Field
                 fullWidth
-                placeholder="Password"
+                placeholder={t('login.password')}
                 name="password"
                 id="password"
                 type={showPassword ? 'text' : 'password'}
-                label="Password"
+                label={t('login.password')}
                 component={TextField}
                 disabled={false}
                 InputProps={{
