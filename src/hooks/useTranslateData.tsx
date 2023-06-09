@@ -1,4 +1,3 @@
-import { useTranslation } from 'react-i18next';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
 import ConnectWithoutContactIcon from '@mui/icons-material/ConnectWithoutContact';
@@ -11,6 +10,7 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import PhotoIcon from '@mui/icons-material/Photo';
 import PostAddIcon from '@mui/icons-material/PostAdd';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useTranslation } from 'react-i18next';
 
 export const useTranslateData = () => {
   const { i18n } = useTranslation();
@@ -78,5 +78,7 @@ export const useTranslateData = () => {
     },
   ];
 
-  return { navBarData, asideData };
+  const deletedNotify = i18n.t('chat.deletedMessage');
+
+  return { navBarData, asideData, deletedNotify };
 };
