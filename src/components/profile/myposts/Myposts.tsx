@@ -20,6 +20,7 @@ type Props = {
 const Myposts: FC<Props> = ({ postsData, addPostButton }) => {
   const addPostButtonFunction = (values: { newPost: string }) => {
     addPostButton(values.newPost);
+    values.newPost = '';
   };
 
   const { t } = useTranslation();
@@ -35,7 +36,7 @@ const Myposts: FC<Props> = ({ postsData, addPostButton }) => {
   ));
 
   return (
-    <div>
+    <div className={classes.container}>
       <h3 className={classes.item}>{t('profile.posts')}</h3>
       <MyPostsForm onSubmit={addPostButtonFunction} />
       <div className={classes.item}>{posts}</div>

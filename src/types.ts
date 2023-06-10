@@ -53,7 +53,7 @@ export type Dialog = {
 };
 
 export type MessageType = {
-  id: number;
+  id: string;
   body: string;
   translatedBody: string | null;
   addedAt: string;

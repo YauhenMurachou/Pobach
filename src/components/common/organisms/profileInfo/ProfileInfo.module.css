@@ -1,3 +1,13 @@
+.info {
+	padding-bottom: 1rem;
+}
+
+.title {
+	font-size: 1rem;
+	font-weight: 400;
+	text-align: center;
+}
+
 .property {
 	color: var(--grey-light-2);
 }
@@ -19,8 +29,4 @@
 
 .lookingJob {
 	font-weight: 500;
-}
-
-.info {
-	padding-bottom: 0.5rem;
 }

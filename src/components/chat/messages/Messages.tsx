@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { useTranslateData } from 'src/hooks/useTranslateData';
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -14,12 +15,15 @@ import { ChatMessage } from 'src/types';
 import classes from './Messages.module.css';
 
 const Message: FC<ChatMessage> = memo(
-  ({ message, userName, photo, userId, id, deleted, deletedMessage }) => {
+  ({ message, userName, photo, userId, id, deleted }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const { deletedNotify } = useTranslateData();
 
     const handleDeleteMessage = () => {
-      dispatch(chatActions.deleteMessageActionCreator(id as string));
+      dispatch(
+        chatActions.deleteMessageActionCreator(id as string)
+      );
     };
 
     const handleRestoreMessage = () => {
@@ -27,7 +31,7 @@ const Message: FC<ChatMessage> = memo(
     };
 
     const [deletion, recovery] =
-      deleted && deletedMessage ? deletedMessage.split('.') : [];
+      deleted && deletedNotify ? deletedNotify.split('.') : [];
 
     return (
       <div
