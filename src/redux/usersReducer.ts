@@ -147,7 +147,7 @@ export const getUsersThunkCreator =
   async (dispatch) => {
     dispatch(actions.setIsFetchingActionCreator(true));
     const usersData = await usersApi.getUsers(
-      currentPage,
+      name ? 1 : currentPage,
       pageSize,
       name,
       isFriend
