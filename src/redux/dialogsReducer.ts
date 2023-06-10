@@ -92,8 +92,6 @@ export const {
   messagesTitlesGet,
   messageAdd,
   messagesListCleared,
-  dialogOpened,
-  titleUpdated,
 } = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
