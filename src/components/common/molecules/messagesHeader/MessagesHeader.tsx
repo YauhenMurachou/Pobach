@@ -6,7 +6,7 @@ import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
-import { convertDate, convertDateInTime } from 'src/utils/date';
+import LastVisit from 'src/components/common/atoms/lastVisit/LastVisit';
 
 import classes from './MessagesHeader.module.css';
 
@@ -36,12 +36,7 @@ const MessagesHeader: FC<Props> = ({
         <NavLink to={'/profile/' + userId}>
           <h5>{userName}</h5>
         </NavLink>
-        <span className={classes.online}>
-          {t('dialogs.online')}{' '}
-          {lastUserActivityDate && convertDate(lastUserActivityDate)}{' '}
-          {t('dialogs.at')}{' '}
-          {lastUserActivityDate && convertDateInTime(lastUserActivityDate)}
-        </span>
+        <LastVisit date={lastUserActivityDate as string} />
       </div>
       <div className={classes.rightBlock}>
         <IconButton>

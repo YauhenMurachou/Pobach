@@ -1,18 +1,44 @@
 .modal {
 	position: absolute !important;
-	top: 40% !important;
-	left: 40% !important;
+	top: 35% !important;
+	left: 35% !important;
 	bottom: auto !important;
-	width: 400px;
+	width: 31rem;
 	background-color: var(--blue-light);
 	border: none;
 	padding: 1rem;
-	border-radius: 0.25rem;
+	border-radius: 0.5rem;
 }
 
 .title {
 	display: flex;
+	justify-content: flex-start;
+	column-gap: 8rem;
+	align-items: center;
+	padding-bottom: 1rem;
+}
+
+.newMessage {
+	font-size: 1rem;
+	color: var(--white-main);
+}
+
+.rightBlock {
+	display: flex;
 	justify-content: space-between;
+	align-items: center;
+}
+
+.rightBlock a {
+	color: var(--blue-light-2);
+}
+
+.rightBlock a :visited {
+	color: var(--blue-light-2);
+}
+
+.redirect {
+	font-size: 0.875rem;
 }
 
 .closeIcon :global .MuiIconButton-root {
@@ -21,3 +47,28 @@
 	top: 0.5rem;
 }
 
+.line {
+	margin: 0 -1rem;
+	border-top: 1px solid var(--white-main);
+}
+
+.friend {
+	display: flex;
+	padding-top: 1rem;
+	column-gap: 0.75rem;
+}
+
+.name {
+	font-weight: 500;
+	font-size: 0.875rem;
+	color: var(--blue-light-2);
+}
+
+.modal div[class*='addMessageForm'] {
+	padding: 0;
+	border-top: none;
+}
+
+.companion div[class*='online'] {
+	color: var(--white-main);
+}
