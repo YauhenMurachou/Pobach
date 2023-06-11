@@ -17,10 +17,6 @@
 	color: var(--grey-dark);
 }
 
-.online {
-	font-size: 0.75rem;
-}
-
 .rightBlock {
 	display: flex;
 	column-gap: 1rem;

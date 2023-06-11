@@ -5,6 +5,7 @@ import ProfileInfoContainer from 'src/components/profile/profileInfoContainer/Pr
 import { ProfileType } from 'src/types';
 
 import classes from './Profile.module.css';
+import Loader from 'src/components/common/atoms/loader/Loader';
 
 type Props = {
   profile: ProfileType;
@@ -17,14 +18,20 @@ type Props = {
 const Profile: FC<Props> = memo(
   ({ profile, status, isOwner, updateStatus, sendPhoto }) => (
     <div className={classes.content}>
-      <ProfileInfoContainer
-        profile={profile}
-        status={status}
-        isOwner={isOwner}
-        updateStatus={updateStatus}
-        sendPhoto={sendPhoto}
-      />
-      <MypostsContainer />
+      {profile ? (
+        <>
+          <ProfileInfoContainer
+            profile={profile}
+            status={status}
+            isOwner={isOwner}
+            updateStatus={updateStatus}
+            sendPhoto={sendPhoto}
+          />
+          <MypostsContainer />
+        </>
+      ) : (
+        <Loader />
+      )}
     </div>
   )
 );

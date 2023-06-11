@@ -1,16 +1,19 @@
 import CloseIcon from '@mui/icons-material/Close';
-import { IconButton } from '@mui/material';
+import { Avatar, IconButton } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import LastVisit from 'src/components/common/atoms/lastVisit/LastVisit';
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
 import {
   dialogOpenedAction,
+  getDialogsAction,
   sendMessageAction,
 } from 'src/redux/dialogsReducer';
+import { RootState } from 'src/redux/redux-store';
 import { UserType } from 'src/types';
 
 import classes from './DialogModal.module.css';
@@ -30,7 +33,15 @@ const DialogModal: FC<Props> = ({
 }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const { name, id } = companion || {};
+  const dialogs = useSelector((state: RootState) => state.dialogs.dialogs);
+
+  useEffect(() => {
+    dispatch(getDialogsAction());
+  }, []); // eslint-disable-line
+
+  const { name, id, photos } = companion || {};
+  const currentDialog = dialogs.find((dialog) => dialog.id === id);
+  const { lastUserActivityDate } = currentDialog || {};
   const dialogPath = `/Dialogs/${id}`;
 
   const sendMessage = (newMessage: string) => {
@@ -49,20 +60,36 @@ const DialogModal: FC<Props> = ({
       <Modal open={isOpen} onClose={handleClose} className={classes.modal}>
         <div>
           <div className={classes.title}>
-            <h5>{t('dialogModal.newMessage')}</h5>
-            <div>
-              {t('dialogModal.redirect')}
-              <NavLink to={dialogPath} onClick={() => openDialog(id)}>
+            <h5 className={classes.newMessage}>
+              {t('dialogModal.newMessage')}
+            </h5>
+            <div className={classes.rightBlock}>
+              <NavLink
+                to={dialogPath}
+                onClick={() => openDialog(id)}
+                className={classes.redirect}
+              >
+                {t('dialogModal.redirect')} {name}
+              </NavLink>
+              <span className={classes.closeIcon}>
+                <IconButton onClick={handleClose}>
+                  <CloseIcon />
+                </IconButton>
+              </span>
+            </div>
+          </div>
+          <div className={classes.line}></div>
+          <div className={classes.friend}>
+            <NavLink to={'/profile/' + id}>
+              <Avatar alt={name} src={photos?.small ?? ''} />
+            </NavLink>
+            <div className={classes.companion}>
+              <NavLink to={'/profile/' + id} className={classes.name}>
                 {name}
               </NavLink>
+              <LastVisit date={lastUserActivityDate as string} />
             </div>
-            <span className={classes.closeIcon}>
-              <IconButton onClick={handleClose}>
-                <CloseIcon />
-              </IconButton>
-            </span>
           </div>
-          <div>{name}</div>
           <SendMessageForm sendMessageDialog={sendMessage} />
         </div>
       </Modal>
