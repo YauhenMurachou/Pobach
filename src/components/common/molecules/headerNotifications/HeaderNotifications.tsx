@@ -18,14 +18,14 @@ const HeaderNotifications: FC = () => {
   useEffect(() => {
     const isMuted = JSON.parse(localStorage.getItem('isMuted') || '[]');
     setIsMuted(isMuted);
-  }, [isMuted]);
+  }, []);
 
   useEffect(() => {
     const isOffNotifications = JSON.parse(
       localStorage.getItem('isOffNotifications') || '[]'
     );
     setIsOffNotifications(isOffNotifications);
-  }, [isOffNotifications]);
+  }, []);
 
   const { t } = useTranslation();
 
