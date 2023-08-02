@@ -18,6 +18,7 @@
 	display: flex;
 	align-items: center;
 	column-gap: 0.5rem;
+	text-decoration: none !important;
 }
 
 .item:hover {
@@ -30,4 +31,27 @@
 	color: var(--red-main);
 	background-color: var(--white-main);
 	font-weight: 600;
+}
+
+.unreadWrapper {
+	width: 100%;
+	display: flex;
+	justify-content: end;
+}
+
+.unread {
+	padding: 0 0.5rem;
+	background-color: var(--white-main);
+	color: var(--red-main);
+	border-radius: 4px;
+}
+
+.nav .activeLink .unread {
+	color: var(--white-main);
+	background-color: var(--red-light);
+}
+
+.item:hover .unread {
+	color: var(--white-main);
+	background-color: var(--red-light);
 }
