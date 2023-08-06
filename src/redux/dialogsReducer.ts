@@ -9,18 +9,24 @@ import {
 } from 'src/types';
 
 type TitleDialog = (string | number)[];
+type SenderDialog = number[];
+type ViewedDialog = (number | boolean)[];
 
 type InitialStateDialogsType = {
   dialogs: Dialog[];
   messagesList: MessagesListType | null;
-  messagesTitles: TitleDialog[];
+  messagesTitles: {
+    titles: TitleDialog[];
+    senders: SenderDialog[];
+    viewed: ViewedDialog[];
+  };
   openDialogId?: number;
 };
 
 const initialState: InitialStateDialogsType = {
   dialogs: [],
   messagesList: null,
-  messagesTitles: [],
+  messagesTitles: { titles: [], senders: [], viewed: [] },
 };
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
@@ -61,7 +67,22 @@ const dialogsSlice = createSlice({
         : (state.messagesList = action.payload);
     },
     messagesTitlesGet(state, action: Action<TitleDialog>) {
-      state.messagesTitles = [...state.messagesTitles, action.payload];
+      state.messagesTitles.titles = [
+        ...state.messagesTitles.titles,
+        action.payload,
+      ];
+    },
+    messagesSendersGet(state, action: Action<SenderDialog>) {
+      state.messagesTitles.senders = [
+        ...state.messagesTitles.senders,
+        action.payload,
+      ];
+    },
+    messagesViewedGet(state, action: Action<ViewedDialog>) {
+      state.messagesTitles.viewed = [
+        ...state.messagesTitles.viewed,
+        action.payload,
+      ];
     },
     messagesListCleared(state) {
       state.messagesList = null;
@@ -70,10 +91,10 @@ const dialogsSlice = createSlice({
       state.openDialogId = action.payload.id;
     },
     titleUpdated(state, action: Action<NewMessage>) {
-      const updatedIndex = state.messagesTitles.findIndex((message) =>
+      const updatedIndex = state.messagesTitles.titles.findIndex((message) =>
         message.find((item) => item === action.payload.id)
       );
-      state.messagesTitles[updatedIndex] = Object.values(action.payload);
+      state.messagesTitles.titles[updatedIndex] = Object.values(action.payload);
     },
     messageAdd(state, action: Action<MessageType>) {
       if (state.messagesList) {
@@ -90,6 +111,8 @@ export const {
   allDialogsGet,
   messagesListGet,
   messagesTitlesGet,
+  messagesSendersGet,
+  messagesViewedGet,
   messageAdd,
   messagesListCleared,
 } = dialogsSlice.actions;

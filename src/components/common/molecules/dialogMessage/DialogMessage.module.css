@@ -3,24 +3,31 @@
 	justify-content: space-between;
 	padding: 0.75rem 1rem;
 	margin-bottom: 2px;
+	border-radius: 4px;
+}
+
+.incoming {
+	background-color: var(--white-main);
+}
+
+.sent {
 	background-color: var(--grey-light-4);
+}
+
+.notViewed {
+	background-color: var(--grey-light-5);
 }
 
 .messageContainer:last-child {
 	margin-bottom: 0;
 }
 
-.messageContainer:hover {
-	background-color: var(--grey-light-3);
-	transition-duration: 0.5s;
-}
-
 .deleted {
-	background-color: #b7babd;
+	background-color: var(--grey-light-6);
 }
 
 .deleted:hover {
-	background-color: #b7babd;
+	background-color: var(--grey-light-6);
 }
 
 .messageBlock {

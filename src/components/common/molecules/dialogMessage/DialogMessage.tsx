@@ -1,5 +1,6 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Avatar, Tooltip } from '@mui/material';
+import classNames from 'classnames';
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
@@ -16,16 +17,23 @@ type Props = MessageType & {
 };
 
 export const DialogMessage: FC<Props> = memo(
-  ({ addedAt, body, friendAvatar, senderId, senderName }) => {
-    const { userId, ownerAvatar } = useSelector(
-      (state: RootState) => state.auth
-    );
+  ({ addedAt, body, friendAvatar, senderId, senderName, viewed }) => {
+    const { userId, ownerAvatar } = useSelector((state: RootState) => ({
+      userId: state.auth.userId,
+      ownerAvatar: state.auth.ownerAvatar,
+    }));
 
     const isOwner = userId === senderId;
     const { t } = useTranslation();
 
     return (
-      <div className={classes.messageContainer}>
+      <div
+        className={classNames(classes.messageContainer, {
+          [classes.incoming]: !isOwner,
+          [classes.sent]: isOwner,
+          [classes.notViewed]: !viewed,
+        })}
+      >
         <div className={classes.messageBlock}>
           <NavLink to={'/profile/' + senderId}>
             <Avatar

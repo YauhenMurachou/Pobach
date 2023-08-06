@@ -37,12 +37,14 @@ const Dialogs: FC = () => {
 
   useEffect(() => {
     const dialogsIds = dialogs.map((dialog) => dialog.id);
-    if (dialogsIds.length !== messagesTitles.length) {
+    if (dialogsIds.length !== messagesTitles.titles.length) {
       dialogsIds.map((id) => dispatch(getTitlesAction({ id })));
     }
   }, [dialogs]); // eslint-disable-line
 
-  const titlesObject = Object.fromEntries(messagesTitles);
+  const titlesObject = Object.fromEntries(messagesTitles.titles);
+  const sendersObject = Object.fromEntries(messagesTitles.senders);
+  const viewedObject = Object.fromEntries(messagesTitles.viewed);
 
   const openDialog = (id: number) => dispatch(dialogOpenedAction({ id }));
 
@@ -58,6 +60,8 @@ const Dialogs: FC = () => {
           key={dialog.id}
           dialog={dialog}
           title={titlesObject[dialog.id]}
+          senderId={sendersObject[dialog.id]}
+          isViewed={viewedObject[dialog.id]}
           openDialog={() => openDialog(dialog.id)}
           isLast={index === dialogs.length - 1}
         />
