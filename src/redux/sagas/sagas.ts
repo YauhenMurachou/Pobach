@@ -1,4 +1,5 @@
 import { all, call, put, takeEvery } from 'redux-saga/effects';
+
 import { dialogsApi } from 'src/api/dialogsApi';
 import { photoSagaApi } from 'src/api/photosApi';
 import { usersApi } from 'src/api/usersApi';
@@ -9,7 +10,9 @@ import {
   getTitlesAction,
   messageAdd,
   messagesListGet,
+  messagesSendersGet,
   messagesTitlesGet,
+  messagesViewedGet,
   sendMessageAction,
   startDialogAction,
 } from 'src/redux/dialogsReducer';
@@ -19,8 +22,8 @@ import {
   Dialog,
   FriendsType,
   ID,
-  MessagesListType,
   MessageType,
+  MessagesListType,
   NewMessage,
 } from 'src/types';
 
@@ -57,8 +60,13 @@ function* getMessagesTitles(action: { payload: ID }) {
   const messagesList: MessagesListType = yield call(() =>
     dialogsApi.getMessagesList(action.payload.id)
   );
-  const title = [action.payload.id, messagesList.items.pop()?.body as string];
+  const length = messagesList.items.length;
+  const title = [action.payload.id, messagesList.items[length - 1].body];
+  const sender = [action.payload.id, messagesList.items[length - 1].senderId];
+  const viewed = [action.payload.id, messagesList.items[length - 1].viewed];
   yield put(messagesTitlesGet(title));
+  yield put(messagesSendersGet(sender));
+  yield put(messagesViewedGet(viewed));
 }
 
 function* sendMessage(action: { payload: NewMessage }) {

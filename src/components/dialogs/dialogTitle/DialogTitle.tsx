@@ -9,8 +9,10 @@ import {
   ListItemText,
 } from '@mui/material';
 import { FC, MouseEvent } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { RootState } from 'src/redux/redux-store';
 import { Dialog } from 'src/types';
 import { convertDate } from 'src/utils/date';
 
@@ -21,9 +23,18 @@ type Props = {
   openDialog: () => void;
   title: string;
   isLast: boolean;
+  isViewed: boolean;
+  senderId?: number;
 };
 
-const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
+const DialogTitle: FC<Props> = ({
+  dialog,
+  openDialog,
+  title,
+  isLast,
+  senderId,
+  isViewed,
+}) => {
   const {
     id,
     userName,
@@ -32,12 +43,17 @@ const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
     newMessagesCount,
     photos,
   } = dialog;
+  const { userId, ownerAvatar } = useSelector((state: RootState) => ({
+    userId: state.auth.userId,
+    ownerAvatar: state.auth.ownerAvatar,
+  }));
 
   const openMenu = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     console.log('openMenu');
   };
 
+  const isOwner = userId === senderId;
   const dialogPath = `/Dialogs/${id}`;
 
   return (
@@ -53,8 +69,23 @@ const DialogTitle: FC<Props> = ({ dialog, openDialog, title, isLast }) => {
           </ListItemAvatar>
           <ListItemText
             primary={userName}
-            secondary={title}
             className={classes.userName}
+            secondary={
+              <div className={classes.secondary}>
+                <ListItemAvatar>
+                  <div className={classes.avatar}>
+                    <Avatar
+                      alt={userName}
+                      src={isOwner ? (ownerAvatar as string) : photos?.small}
+                    />
+                  </div>
+                </ListItemAvatar>
+                <ListItemText
+                  secondary={title}
+                  className={!isViewed ? classes.subtitle : undefined}
+                />
+              </div>
+            }
           />
           <ListItemIcon className={classes.iconWrapper}>
             <div className={classes.top}>

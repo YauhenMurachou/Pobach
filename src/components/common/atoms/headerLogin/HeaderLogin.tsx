@@ -9,10 +9,15 @@ import { RootState } from 'src/redux/redux-store';
 import classes from './HeaderLogin.module.css';
 
 const HeaderLogin: FC = () => {
-  const { isAuth, login, userId } = useSelector(
-    (state: RootState) => state.auth
+  const { userId, ownerAvatar, isAuth, login } = useSelector(
+    (state: RootState) => ({
+      userId: state.auth.userId,
+      ownerAvatar: state.auth.ownerAvatar,
+      isAuth: state.auth.isAuth,
+      login: state.auth.login,
+    })
   );
-  const ownerAvatar = useSelector((state: RootState) => state.auth.ownerAvatar);
+
   const profilePath = `/Profile/${userId}`;
 
   const { t } = useTranslation();

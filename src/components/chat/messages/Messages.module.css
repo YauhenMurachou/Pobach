@@ -24,11 +24,11 @@
 }
 
 .deleted {
-	background-color: #b7babd;
+	background-color: var(--grey-light-6);
 }
 
 .deleted:hover {
-	background-color: #b7babd;
+	background-color: var(--grey-light-6);
 }
 
 .messageBlock {
