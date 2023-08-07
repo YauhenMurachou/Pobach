@@ -3,9 +3,10 @@ import { Avatar, Tooltip } from '@mui/material';
 import classNames from 'classnames';
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { moveToSpamAction } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 import { MessageType } from 'src/types';
 import { convertDateInTime } from 'src/utils/date';
@@ -17,11 +18,12 @@ type Props = MessageType & {
 };
 
 export const DialogMessage: FC<Props> = memo(
-  ({ addedAt, body, friendAvatar, senderId, senderName, viewed }) => {
+  ({ addedAt, body, friendAvatar, senderId, senderName, viewed, id }) => {
     const { userId, ownerAvatar } = useSelector((state: RootState) => ({
       userId: state.auth.userId,
       ownerAvatar: state.auth.ownerAvatar,
     }));
+    const dispatch = useDispatch();
 
     const isOwner = userId === senderId;
     const { t } = useTranslation();
@@ -59,7 +61,10 @@ export const DialogMessage: FC<Props> = memo(
             arrow
             placement="bottom-start"
           >
-            <DeleteOutlineIcon className={classes.icon} />
+            <DeleteOutlineIcon
+              className={classes.icon}
+              onClick={() => dispatch(moveToSpamAction(id))}
+            />
           </Tooltip>
         </div>
       </div>
