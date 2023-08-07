@@ -30,20 +30,29 @@ const initialState: InitialStateDialogsType = {
 };
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
+
+export const moveToSpamAction = createAction<string>(
+  'dialogs/moveToSpamAction'
+);
+
 export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
-export const getMessagesListAction = createAction<{
-  id: number;
-  page?: number;
-}>('dialogs/getMessagesListAction');
+
+export const getMessagesListAction = createAction<ID>(
+  'dialogs/getMessagesListAction'
+);
+
 export const getTitlesAction = createAction<ID>(
   'dialogs/getMessagesTitleAction'
 );
+
 export const updateTitleAction = createAction<NewMessage>(
   'dialogs/titleUpdated'
 );
+
 export const sendMessageAction = createAction<NewMessage>(
   'dialogs/sendMessageAction'
 );
+
 export const dialogOpenedAction = createAction<ID>('dialogs/dialogOpened');
 
 type Action<T> = {

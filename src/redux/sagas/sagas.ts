@@ -13,6 +13,7 @@ import {
   messagesSendersGet,
   messagesTitlesGet,
   messagesViewedGet,
+  moveToSpamAction,
   sendMessageAction,
   startDialogAction,
 } from 'src/redux/dialogsReducer';
@@ -35,6 +36,14 @@ function* getPhotos() {
 function* getAllDialogs() {
   const allDialogs: Dialog[] = yield call(() => dialogsApi.getAllDialogs());
   yield put(allDialogsGet(allDialogs));
+}
+
+function* moveToSpam(action: { payload: string }) {
+  const spam: Dialog[] = yield call(() =>
+    dialogsApi.setMessageToSpam(action.payload)
+  );
+  console.log('psam', spam);
+  // yield put(allDialogsGet(allDialogs));
 }
 
 function* startDialog(action: { payload: ID }) {
@@ -107,6 +116,10 @@ function* sendMessageSaga() {
   yield takeEvery(sendMessageAction, sendMessage);
 }
 
+function* spamSaga() {
+  yield takeEvery(moveToSpamAction, moveToSpam);
+}
+
 // Our watcher
 function* getFriendsSaga() {
   yield takeEvery(getFriendsAction, getFriends);
@@ -121,5 +134,6 @@ export function* rootSaga() {
     getFriendsSaga(),
     startDialogsSaga(),
     getTitlesSaga(),
+    spamSaga(),
   ]);
 }

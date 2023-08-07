@@ -25,7 +25,7 @@ export const dialogsApi = {
     const response = await instance.get(`dialogs/messages/${messageId}/viewed`);
     return response.data;
   },
-  async setMessageToSpam(messageId: number) {
+  async setMessageToSpam(messageId: string) {
     const response = await instance.post(`dialogs/messages/${messageId}/spam`);
     return response.data;
   },
