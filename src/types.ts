@@ -61,6 +61,7 @@ export type MessageType = {
   senderName: string;
   recipientId: number;
   viewed: boolean;
+  deleted?: boolean;
 };
 
 export type MessagesListType = {

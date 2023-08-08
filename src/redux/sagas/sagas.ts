@@ -5,15 +5,16 @@ import { photoSagaApi } from 'src/api/photosApi';
 import { usersApi } from 'src/api/usersApi';
 import {
   allDialogsGet,
+  deleteMessageAction,
   getDialogsAction,
   getMessagesListAction,
   getTitlesAction,
   messageAdd,
+  messageDeleted,
   messagesListGet,
   messagesSendersGet,
   messagesTitlesGet,
   messagesViewedGet,
-  moveToSpamAction,
   sendMessageAction,
   startDialogAction,
 } from 'src/redux/dialogsReducer';
@@ -33,17 +34,14 @@ function* getPhotos() {
   yield put(sagaPhotosAdded(photoSaga));
 }
 
+function* deleteMessage(action: { payload: string }) {
+  yield call(() => dialogsApi.deleteMessage(action.payload));
+  yield put(messageDeleted(action.payload));
+}
+
 function* getAllDialogs() {
   const allDialogs: Dialog[] = yield call(() => dialogsApi.getAllDialogs());
   yield put(allDialogsGet(allDialogs));
-}
-
-function* moveToSpam(action: { payload: string }) {
-  const spam: Dialog[] = yield call(() =>
-    dialogsApi.setMessageToSpam(action.payload)
-  );
-  console.log('psam', spam);
-  // yield put(allDialogsGet(allDialogs));
 }
 
 function* startDialog(action: { payload: ID }) {
@@ -100,6 +98,10 @@ function* dialogsSaga() {
   yield takeEvery(getDialogsAction, getAllDialogs);
 }
 
+function* deleteSaga() {
+  yield takeEvery(deleteMessageAction, deleteMessage);
+}
+
 function* startDialogsSaga() {
   yield takeEvery(startDialogAction, startDialog);
 }
@@ -116,10 +118,6 @@ function* sendMessageSaga() {
   yield takeEvery(sendMessageAction, sendMessage);
 }
 
-function* spamSaga() {
-  yield takeEvery(moveToSpamAction, moveToSpam);
-}
-
 // Our watcher
 function* getFriendsSaga() {
   yield takeEvery(getFriendsAction, getFriends);
@@ -134,6 +132,6 @@ export function* rootSaga() {
     getFriendsSaga(),
     startDialogsSaga(),
     getTitlesSaga(),
-    spamSaga(),
+    deleteSaga(),
   ]);
 }

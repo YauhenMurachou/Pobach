@@ -29,7 +29,7 @@ export const dialogsApi = {
     const response = await instance.post(`dialogs/messages/${messageId}/spam`);
     return response.data;
   },
-  async deleteMessage(messageId: number) {
+  async deleteMessage(messageId: string) {
     const response = await instance.delete(`dialogs/messages/${messageId}`);
     return response.data;
   },

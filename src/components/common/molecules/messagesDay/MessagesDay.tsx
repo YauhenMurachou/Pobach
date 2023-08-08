@@ -24,6 +24,7 @@ export const MessagesDay: FC<Props> = memo(
             body={message.body}
             recipientId={message.recipientId}
             senderId={message.senderId}
+            deleted={message.deleted}
             senderName={message.senderName}
             translatedBody={message.translatedBody}
             viewed={message.viewed}
