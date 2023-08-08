@@ -31,8 +31,8 @@ const initialState: InitialStateDialogsType = {
 
 export const getDialogsAction = createAction('dialogs/getDialogsAction');
 
-export const moveToSpamAction = createAction<string>(
-  'dialogs/moveToSpamAction'
+export const deleteMessageAction = createAction<string>(
+  'dialogs/deleteMessage'
 );
 
 export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
@@ -113,6 +113,13 @@ const dialogsSlice = createSlice({
         ];
       }
     },
+    messageDeleted(state, action: Action<string>) {
+      if (state.messagesList) {
+        state.messagesList.items.forEach((message) =>
+          message.id === action.payload ? (message.deleted = true) : message
+        );
+      }
+    },
   },
 });
 
@@ -124,6 +131,7 @@ export const {
   messagesViewedGet,
   messageAdd,
   messagesListCleared,
+  messageDeleted,
 } = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
