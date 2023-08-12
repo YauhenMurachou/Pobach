@@ -35,6 +35,10 @@ export const deleteMessageAction = createAction<string>(
   'dialogs/deleteMessage'
 );
 
+export const restoreMessageAction = createAction<string>(
+  'dialogs/restoreMessage'
+);
+
 export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
 
 export const getMessagesListAction = createAction<ID>(
@@ -120,6 +124,13 @@ const dialogsSlice = createSlice({
         );
       }
     },
+    messageRestored(state, action: Action<string>) {
+      if (state.messagesList) {
+        state.messagesList.items.forEach((message) =>
+          message.id === action.payload ? (message.deleted = false) : message
+        );
+      }
+    },
   },
 });
 
@@ -132,6 +143,7 @@ export const {
   messageAdd,
   messagesListCleared,
   messageDeleted,
+  messageRestored,
 } = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
