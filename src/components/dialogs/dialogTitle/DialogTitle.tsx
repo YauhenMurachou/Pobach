@@ -9,10 +9,9 @@ import {
   ListItemText,
 } from '@mui/material';
 import { FC, MouseEvent } from 'react';
-import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { RootState } from 'src/redux/redux-store';
+import { useIsOwner } from 'src/hooks/useIsOwner';
 import { Dialog } from 'src/types';
 import { convertDate } from 'src/utils/date';
 
@@ -24,7 +23,7 @@ type Props = {
   title: string;
   isLast: boolean;
   isViewed: boolean;
-  senderId?: number;
+  senderId: number;
 };
 
 const DialogTitle: FC<Props> = ({
@@ -43,17 +42,13 @@ const DialogTitle: FC<Props> = ({
     newMessagesCount,
     photos,
   } = dialog;
-  const { userId, ownerAvatar } = useSelector((state: RootState) => ({
-    userId: state.auth.userId,
-    ownerAvatar: state.auth.ownerAvatar,
-  }));
+  const { isOwner, ownerAvatar } = useIsOwner(senderId);
 
   const openMenu = (e: MouseEvent<SVGSVGElement>) => {
     e.preventDefault();
     console.log('openMenu');
   };
 
-  const isOwner = userId === senderId;
   const dialogPath = `/Dialogs/${id}`;
 
   return (

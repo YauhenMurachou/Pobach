@@ -11,10 +11,12 @@ import {
   getTitlesAction,
   messageAdd,
   messageDeleted,
+  messageRestored,
   messagesListGet,
   messagesSendersGet,
   messagesTitlesGet,
   messagesViewedGet,
+  restoreMessageAction,
   sendMessageAction,
   startDialogAction,
 } from 'src/redux/dialogsReducer';
@@ -37,6 +39,11 @@ function* getPhotos() {
 function* deleteMessage(action: { payload: string }) {
   yield call(() => dialogsApi.deleteMessage(action.payload));
   yield put(messageDeleted(action.payload));
+}
+
+function* restoreMessage(action: { payload: string }) {
+  yield call(() => dialogsApi.restoreMessage(action.payload));
+  yield put(messageRestored(action.payload));
 }
 
 function* getAllDialogs() {
@@ -102,6 +109,10 @@ function* deleteSaga() {
   yield takeEvery(deleteMessageAction, deleteMessage);
 }
 
+function* restoreSaga() {
+  yield takeEvery(restoreMessageAction, restoreMessage);
+}
+
 function* startDialogsSaga() {
   yield takeEvery(startDialogAction, startDialog);
 }
@@ -133,5 +144,6 @@ export function* rootSaga() {
     startDialogsSaga(),
     getTitlesSaga(),
     deleteSaga(),
+    restoreSaga(),
   ]);
 }

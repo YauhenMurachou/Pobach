@@ -3,11 +3,16 @@ import { Avatar, Tooltip } from '@mui/material';
 import classNames from 'classnames';
 import { FC, memo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { deleteMessageAction } from 'src/redux/dialogsReducer';
-import { RootState } from 'src/redux/redux-store';
+import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
+import { useIsOwner } from 'src/hooks/useIsOwner';
+import { useRestore } from 'src/hooks/useRestore';
+import {
+  deleteMessageAction,
+  restoreMessageAction,
+} from 'src/redux/dialogsReducer';
 import { MessageType } from 'src/types';
 import { convertDateInTime } from 'src/utils/date';
 
@@ -28,13 +33,10 @@ export const DialogMessage: FC<Props> = memo(
     id,
     deleted,
   }) => {
-    const { userId, ownerAvatar } = useSelector((state: RootState) => ({
-      userId: state.auth.userId,
-      ownerAvatar: state.auth.ownerAvatar,
-    }));
     const dispatch = useDispatch();
-    const isOwner = userId === senderId;
+    const { isOwner, ownerAvatar } = useIsOwner(senderId);
     const { t } = useTranslation();
+    const [deletion, recovery] = useRestore(!!deleted);
 
     return (
       <div>
@@ -82,7 +84,13 @@ export const DialogMessage: FC<Props> = memo(
             </div>
           </div>
         )}
-        {deleted && <div>deleted</div>}
+        {deleted && (
+          <DeletedMessage
+            restoreMessage={() => dispatch(restoreMessageAction(id))}
+            deletion={deletion}
+            recovery={recovery}
+          />
+        )}
       </div>
     );
   }

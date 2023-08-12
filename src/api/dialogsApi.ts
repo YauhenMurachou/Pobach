@@ -33,7 +33,7 @@ export const dialogsApi = {
     const response = await instance.delete(`dialogs/messages/${messageId}`);
     return response.data;
   },
-  async restoreMessage(messageId: number) {
+  async restoreMessage(messageId: string) {
     const response = await instance.put(
       `dialogs/messages/${messageId}/restore`
     );
