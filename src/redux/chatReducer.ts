@@ -105,26 +105,36 @@ export const chatReducer = (
       };
     }
     case DELETE_MESSAGE: {
+      const newMessages = [...state.messages];
+      const messageIndex = newMessages.findIndex(
+        (message) => message.id === action.data.id
+      );
+      if (messageIndex !== -1) {
+        newMessages[messageIndex] = {
+          ...newMessages[messageIndex],
+          deleted: true,
+        };
+      }
       return {
         ...state,
-        messages: [...state.messages].map((message) => {
-          if (message.id === action.data.id) {
-            message.deleted = true;
-          }
-          return message;
-        }),
+        messages: newMessages,
       };
     }
     case RESTORE_MESSAGE: {
+      const newMessages = [...state.messages];
+      const messageIndex = newMessages.findIndex(
+        (message) => message.id === action.data.id
+      );
+      if (messageIndex !== -1) {
+        newMessages[messageIndex] = {
+          ...newMessages[messageIndex],
+          deleted: false,
+          deletedMessage: undefined,
+        };
+      }
       return {
         ...state,
-        messages: [...state.messages].map((message) => {
-          if (message.id === action.data.id) {
-            message.deleted = false;
-            message.deletedMessage = undefined;
-          }
-          return message;
-        }),
+        messages: newMessages,
       };
     }
 

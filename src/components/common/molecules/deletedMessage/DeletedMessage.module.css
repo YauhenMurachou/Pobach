@@ -1,0 +1,12 @@
+.message {
+	font-size: 0.9rem;
+}
+
+.recovery {
+	color: var(--blue-main);
+	cursor: pointer;
+}
+
+.recovery:hover {
+	text-decoration: underline;
+}

@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
@@ -21,12 +22,10 @@ const Message: FC<ChatMessage> = memo(
     const { deletedNotify } = useTranslateData();
 
     const handleDeleteMessage = () => {
-      dispatch(
-        chatActions.deleteMessageActionCreator(id as string)
-      );
+      dispatch(chatActions.deleteMessageActionCreator(id as string));
     };
 
-    const handleRestoreMessage = () => {
+    const restoreMessage = () => {
       dispatch(chatActions.restoreMessageActionCreator(id as string));
     };
 
@@ -57,16 +56,11 @@ const Message: FC<ChatMessage> = memo(
             )}
             {!deleted && <div className={classes.message}>{message}</div>}
             {deleted && (
-              <div className={classes.message}>
-                <span>{deletion}</span>.{' '}
-                <span
-                  className={classes.recovery}
-                  onClick={handleRestoreMessage}
-                  role="button"
-                >
-                  {recovery}
-                </span>
-              </div>
+              <DeletedMessage
+                restoreMessage={restoreMessage}
+                deletion={deletion}
+                recovery={recovery}
+              />
             )}
           </div>
         </div>
