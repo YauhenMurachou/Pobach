@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 
 import LastVisit from 'src/components/common/atoms/lastVisit/LastVisit';
 import { SendMessageForm } from 'src/components/common/molecules/sendMessageForm/SendMessageForm';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import {
   dialogOpenedAction,
   getDialogsAction,
@@ -40,6 +41,7 @@ const DialogModal: FC<Props> = ({
   }, []); // eslint-disable-line
 
   const { name, id, photos } = companion || {};
+  const profilePath = useProfilePath(id);
   const currentDialog = dialogs.find((dialog) => dialog.id === id);
   const { lastUserActivityDate } = currentDialog || {};
   const dialogPath = `/Dialogs/${id}`;
@@ -80,11 +82,11 @@ const DialogModal: FC<Props> = ({
           </div>
           <div className={classes.line}></div>
           <div className={classes.friend}>
-            <NavLink to={'/profile/' + id}>
+            <NavLink to={profilePath}>
               <Avatar alt={name} src={photos?.small ?? ''} />
             </NavLink>
             <div className={classes.companion}>
-              <NavLink to={'/profile/' + id} className={classes.name}>
+              <NavLink to={profilePath} className={classes.name}>
                 {name}
               </NavLink>
               <LastVisit date={lastUserActivityDate as string} />

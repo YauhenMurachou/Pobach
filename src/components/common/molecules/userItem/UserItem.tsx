@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import FollowButtons from 'src/components/common/atoms/followButtons/FollowButtons';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import avatar from 'src/images/avatar.png';
 import { UserType } from 'src/types';
 
@@ -29,10 +30,11 @@ const UserItem: FC<Props> = memo(
   }) => {
     const { t } = useTranslation();
     const { id, photos, name, status, followed } = user;
+    const profilePath = useProfilePath(id);
     return (
       <li className={classes.item}>
         <div className={classes.avatarWrapper}>
-          <NavLink to={'/profile/' + id}>
+          <NavLink to={profilePath}>
             <img
               src={photos && photos.small != null ? photos.small : avatar}
               className={classes.avatar}
@@ -40,7 +42,7 @@ const UserItem: FC<Props> = memo(
             />
           </NavLink>
           <div className={classes.infoWrapper}>
-            <NavLink to={'/profile/' + id} className={classes.name}>
+            <NavLink to={profilePath} className={classes.name}>
               {name}
             </NavLink>
             {status && (
@@ -51,9 +53,7 @@ const UserItem: FC<Props> = memo(
             )}
             <span className={classes.id}> id: {id} </span>
             <Tooltip
-              title={
-                !followed ? (t('users.onlyFriend') as string) : ''
-              }
+              title={!followed ? (t('users.onlyFriend') as string) : ''}
               placement="bottom-start"
             >
               <NavLink

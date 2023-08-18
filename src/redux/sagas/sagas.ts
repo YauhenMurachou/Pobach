@@ -8,6 +8,7 @@ import {
   deleteMessageAction,
   getDialogsAction,
   getMessagesListAction,
+  getNewMessagesCountAction,
   getTitlesAction,
   messageAdd,
   messageDeleted,
@@ -16,6 +17,7 @@ import {
   messagesSendersGet,
   messagesTitlesGet,
   messagesViewedGet,
+  newMessagesGet,
   restoreMessageAction,
   sendMessageAction,
   startDialogAction,
@@ -31,31 +33,14 @@ import {
   NewMessage,
 } from 'src/types';
 
-function* getPhotos() {
-  const photoSaga: SagaPhoto[] = yield call(() => photoSagaApi.getPhotos());
-  yield put(sagaPhotosAdded(photoSaga));
-}
-
 function* deleteMessage(action: { payload: string }) {
   yield call(() => dialogsApi.deleteMessage(action.payload));
   yield put(messageDeleted(action.payload));
 }
 
-function* restoreMessage(action: { payload: string }) {
-  yield call(() => dialogsApi.restoreMessage(action.payload));
-  yield put(messageRestored(action.payload));
-}
-
 function* getAllDialogs() {
   const allDialogs: Dialog[] = yield call(() => dialogsApi.getAllDialogs());
   yield put(allDialogsGet(allDialogs));
-}
-
-function* startDialog(action: { payload: ID }) {
-  const dialog: Dialog = yield call(() =>
-    dialogsApi.startDialog(action.payload.id)
-  );
-  console.log('startDialog', dialog); //TODO
 }
 
 function* getMessagesList(action: {
@@ -81,6 +66,30 @@ function* getMessagesTitles(action: { payload: ID }) {
   yield put(messagesTitlesGet(title));
   yield put(messagesSendersGet(sender));
   yield put(messagesViewedGet(viewed));
+}
+
+function* getNewMessagesCount() {
+  const newMessagesCount: number = yield call(() =>
+    dialogsApi.getNewMessagesCount()
+  );
+  yield put(newMessagesGet(newMessagesCount));
+}
+
+function* getPhotos() {
+  const photoSaga: SagaPhoto[] = yield call(() => photoSagaApi.getPhotos());
+  yield put(sagaPhotosAdded(photoSaga));
+}
+
+function* restoreMessage(action: { payload: string }) {
+  yield call(() => dialogsApi.restoreMessage(action.payload));
+  yield put(messageRestored(action.payload));
+}
+
+function* startDialog(action: { payload: ID }) {
+  const dialog: Dialog = yield call(() =>
+    dialogsApi.startDialog(action.payload.id)
+  );
+  console.log('startDialog', dialog); //TODO
 }
 
 function* sendMessage(action: { payload: NewMessage }) {
@@ -117,6 +126,10 @@ function* startDialogsSaga() {
   yield takeEvery(startDialogAction, startDialog);
 }
 
+function* getNewMessagesCountSaga() {
+  yield takeEvery(getNewMessagesCountAction, getNewMessagesCount);
+}
+
 function* getMessagesSaga() {
   yield takeEvery(getMessagesListAction, getMessagesList);
 }
@@ -139,6 +152,7 @@ export function* rootSaga() {
     photoSaga(),
     dialogsSaga(),
     getMessagesSaga(),
+    getNewMessagesCountSaga(),
     sendMessageSaga(),
     getFriendsSaga(),
     startDialogsSaga(),

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import mockAvatar from 'src/images/avatar.png';
 import { RootState } from 'src/redux/redux-store';
 
@@ -18,8 +19,7 @@ const HeaderLogin: FC = () => {
     })
   );
 
-  const profilePath = `/Profile/${userId}`;
-
+  const profilePath = useProfilePath(userId as number);
   const { t } = useTranslation();
 
   return (

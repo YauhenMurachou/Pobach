@@ -1,6 +1,7 @@
-import { FC, lazy, Suspense, useEffect } from 'react';
+import { FC, Suspense, lazy, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Route, Switch, useLocation } from 'react-router-dom';
+
 import CorseError from 'src/components/common/atoms/corseError/CorseError';
 import Loader from 'src/components/common/atoms/loader/Loader';
 import DialogOpened from 'src/components/dialogs/dialogOpened/DialogOpened';
@@ -10,6 +11,7 @@ import {
   startMessagesThunkCreator,
   stopMessagesThunkCreator,
 } from 'src/redux/chatReducer';
+import { getNewMessagesCountAction } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
 
 import styles from './App.module.css';
@@ -44,6 +46,10 @@ const App: FC = () => {
 
   useEffect(() => {
     dispatch(startMessagesThunkCreator());
+  }, [location]);
+
+  useEffect(() => {
+    dispatch(getNewMessagesCountAction());
   }, [location]);
 
   useEffect(
