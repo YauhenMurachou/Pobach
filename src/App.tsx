@@ -49,7 +49,6 @@ const App: FC = () => {
   }, [location]);
 
   useEffect(() => {
-    console.log('here');
     dispatch(getNewMessagesCountAction());
   }, [location]);
 

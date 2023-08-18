@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -18,6 +19,7 @@ const Message: FC<ChatMessage> = memo(
   ({ message, userName, photo, userId, id, deleted }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
+    const profilePath = useProfilePath(userId);
 
     const handleDeleteMessage = () => {
       dispatch(chatActions.deleteMessageActionCreator(id as string));
@@ -35,7 +37,7 @@ const Message: FC<ChatMessage> = memo(
       >
         <div className={classes.messageBlock}>
           {!deleted && (
-            <NavLink to={'/profile/' + userId}>
+            <NavLink to={profilePath}>
               <img
                 src={photo ?? avatar}
                 alt={userName}
@@ -45,7 +47,7 @@ const Message: FC<ChatMessage> = memo(
           )}
           <div>
             {!deleted && (
-              <NavLink to={'/profile/' + userId}>
+              <NavLink to={profilePath}>
                 <div className={classes.author}>{userName}</div>
               </NavLink>
             )}

@@ -6,6 +6,7 @@ import { FC, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import { Timeout, UserType } from 'src/types';
 
 import classes from './Popper.module.css';
@@ -56,8 +57,8 @@ const Popper: FC<Props> = ({
 
   const { t } = useTranslation();
   const { name, id } = companion || {};
+  const profilePath = useProfilePath(id);
   const dialogPath = `/Dialogs/${id}`;
-  const profilePath = `/profile/${id}`;
 
   return (
     <PopperComponent

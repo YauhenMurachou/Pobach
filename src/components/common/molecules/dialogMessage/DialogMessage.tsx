@@ -8,6 +8,7 @@ import { NavLink } from 'react-router-dom';
 
 import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
 import { useIsOwner } from 'src/hooks/useIsOwner';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import {
   deleteMessageAction,
   restoreMessageAction,
@@ -35,6 +36,7 @@ export const DialogMessage: FC<Props> = memo(
     const dispatch = useDispatch();
     const { isOwner, ownerAvatar } = useIsOwner(senderId);
     const { t } = useTranslation();
+    const profilePath = useProfilePath(senderId);
 
     return (
       <div>
@@ -47,7 +49,7 @@ export const DialogMessage: FC<Props> = memo(
             })}
           >
             <div className={classes.messageBlock}>
-              <NavLink to={'/profile/' + senderId}>
+              <NavLink to={profilePath}>
                 <Avatar
                   alt={senderName}
                   src={isOwner ? (ownerAvatar as string) : friendAvatar}
@@ -55,10 +57,7 @@ export const DialogMessage: FC<Props> = memo(
               </NavLink>
               <div>
                 <div className={classes.authorTitle}>
-                  <NavLink
-                    to={'/profile/' + senderId}
-                    className={classes.author}
-                  >
+                  <NavLink to={profilePath} className={classes.author}>
                     {senderName}
                   </NavLink>
                   <span className={classes.sendTime}>

@@ -4,6 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import Logo from 'src/components/common/atoms/logo/Logo';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import { useTranslateData } from 'src/hooks/useTranslateData';
 import { messagesListCleared } from 'src/redux/dialogsReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -18,7 +19,7 @@ const Navbar: FC = () => {
   }));
 
   const { navBarData } = useTranslateData();
-  const profilePath = `/Profile/${userId}`;
+  const profilePath = useProfilePath(userId as number);
   const clearMessages = () => dispatch(messagesListCleared());
 
   return (

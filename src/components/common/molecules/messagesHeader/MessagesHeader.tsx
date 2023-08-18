@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 
 import LastVisit from 'src/components/common/atoms/lastVisit/LastVisit';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 
 import classes from './MessagesHeader.module.css';
 
@@ -14,7 +15,7 @@ type Props = {
   friendAvatar?: string;
   userName?: string;
   lastUserActivityDate?: string;
-  userId?: number;
+  userId: number;
 };
 
 const MessagesHeader: FC<Props> = ({
@@ -23,6 +24,7 @@ const MessagesHeader: FC<Props> = ({
   lastUserActivityDate,
   userId,
 }) => {
+  const profilePath = useProfilePath(userId);
   const { t } = useTranslation();
 
   return (
@@ -33,7 +35,7 @@ const MessagesHeader: FC<Props> = ({
         </Button>
       </NavLink>
       <div className={classes.title}>
-        <NavLink to={'/profile/' + userId}>
+        <NavLink to={profilePath}>
           <h5>{userName}</h5>
         </NavLink>
         <LastVisit date={lastUserActivityDate as string} />
@@ -45,7 +47,7 @@ const MessagesHeader: FC<Props> = ({
         <IconButton>
           <MoreHorizIcon />
         </IconButton>
-        <NavLink to={'/profile/' + userId}>
+        <NavLink to={profilePath}>
           <Avatar alt={userName} src={friendAvatar} />
         </NavLink>
       </div>

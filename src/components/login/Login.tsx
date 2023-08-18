@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 
 import LoginAside from 'src/components/common/organisms/loginAside/LoginAside';
 import LoginForm from 'src/components/login/LoginForm';
+import { useProfilePath } from 'src/hooks/useProfilePath';
 import { loginDataThunkCreator } from 'src/redux/authReducer';
 import { RootState } from 'src/redux/redux-store';
 
@@ -21,7 +22,7 @@ const Login: FC = () => {
   const dispatch = useDispatch();
   const { isAuth, userId } = useSelector((state: RootState) => state.auth);
   const { t } = useTranslation();
-  const profilePath = `/Profile/${userId}`;
+  const profilePath = useProfilePath(userId as number);
 
   const logInFunction = (values: LoginType) => {
     const { email, password, rememberMe, captcha } = values;

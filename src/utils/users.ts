@@ -1,4 +1,5 @@
 import { Dispatch } from 'react';
+
 import { getUsersThunkCreator } from 'src/redux/usersReducer';
 
 export const calculatePagesCount = (total: number, pageSize: number) => {
@@ -13,3 +14,5 @@ export const getUsers = (
   name?: string,
   isFriend?: boolean
 ) => dispatch(getUsersThunkCreator(currentPage, pageSize, name, isFriend));
+
+export const getProfilePath = (id: string | number) => `/profile/${id}`;
