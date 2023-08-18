@@ -35,7 +35,11 @@ class ProfileStatus extends Component<Props> {
   handleBlurStatus = () => {
     const { status, updateStatus } = this.props;
 
-    if (updateStatus && this.state.status.trim() !== status) {
+    if (
+      updateStatus &&
+      this.state.status &&
+      this.state.status.trim() !== status
+    ) {
       updateStatus(this.state.status.trim());
       this.deActiveEditMode();
     } else {

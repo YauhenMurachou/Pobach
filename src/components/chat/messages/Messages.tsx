@@ -1,13 +1,12 @@
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Tooltip } from '@mui/material';
 import classNames from 'classnames';
-import { FC, memo, useEffect, useRef } from 'react';
+import { FC, memo, useCallback, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
-import { useRestore } from 'src/hooks/useRestore';
 import avatar from 'src/images/avatar.png';
 import { chatActions } from 'src/redux/chatReducer';
 import { RootState } from 'src/redux/redux-store';
@@ -19,15 +18,14 @@ const Message: FC<ChatMessage> = memo(
   ({ message, userName, photo, userId, id, deleted }) => {
     const dispatch = useDispatch();
     const { t } = useTranslation();
-    const [deletion, recovery] = useRestore(!!deleted);
 
     const handleDeleteMessage = () => {
       dispatch(chatActions.deleteMessageActionCreator(id as string));
     };
 
-    const restoreMessage = () => {
+    const restoreMessage = useCallback(() => {
       dispatch(chatActions.restoreMessageActionCreator(id as string));
-    };
+    }, []);
 
     return (
       <div
@@ -52,13 +50,7 @@ const Message: FC<ChatMessage> = memo(
               </NavLink>
             )}
             {!deleted && <div className={classes.message}>{message}</div>}
-            {deleted && (
-              <DeletedMessage
-                restoreMessage={restoreMessage}
-                deletion={deletion}
-                recovery={recovery}
-              />
-            )}
+            {deleted && <DeletedMessage restoreMessage={restoreMessage} />}
           </div>
         </div>
         {!deleted && (

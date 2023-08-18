@@ -12,18 +12,14 @@ import classes from './Navbar.module.css';
 
 const Navbar: FC = () => {
   const dispatch = useDispatch();
-  const { userId, dialogs } = useSelector((state: RootState) => ({
+  const { userId, newMessagesCount } = useSelector((state: RootState) => ({
     userId: state.auth.userId,
-    dialogs: state.dialogs.dialogs,
+    newMessagesCount: state.dialogs.newMessagesCount,
   }));
 
   const { navBarData } = useTranslateData();
   const profilePath = `/Profile/${userId}`;
   const clearMessages = () => dispatch(messagesListCleared());
-  const newMessagesCount = dialogs.reduce(
-    (accumulator, currentValue) => accumulator + currentValue.newMessagesCount,
-    0
-  ); // TODO optimization
 
   return (
     <nav className={classes.nav}>

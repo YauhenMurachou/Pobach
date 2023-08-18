@@ -8,7 +8,6 @@ import { NavLink } from 'react-router-dom';
 
 import { DeletedMessage } from 'src/components/common/molecules/deletedMessage/DeletedMessage';
 import { useIsOwner } from 'src/hooks/useIsOwner';
-import { useRestore } from 'src/hooks/useRestore';
 import {
   deleteMessageAction,
   restoreMessageAction,
@@ -36,7 +35,6 @@ export const DialogMessage: FC<Props> = memo(
     const dispatch = useDispatch();
     const { isOwner, ownerAvatar } = useIsOwner(senderId);
     const { t } = useTranslation();
-    const [deletion, recovery] = useRestore(!!deleted);
 
     return (
       <div>
@@ -87,8 +85,6 @@ export const DialogMessage: FC<Props> = memo(
         {deleted && (
           <DeletedMessage
             restoreMessage={() => dispatch(restoreMessageAction(id))}
-            deletion={deletion}
-            recovery={recovery}
           />
         )}
       </div>

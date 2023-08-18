@@ -21,6 +21,7 @@ type InitialStateDialogsType = {
     viewed: ViewedDialog[];
   };
   openDialogId?: number;
+  newMessagesCount?: number;
 };
 
 const initialState: InitialStateDialogsType = {
@@ -29,17 +30,17 @@ const initialState: InitialStateDialogsType = {
   messagesTitles: { titles: [], senders: [], viewed: [] },
 };
 
-export const getDialogsAction = createAction('dialogs/getDialogsAction');
-
 export const deleteMessageAction = createAction<string>(
   'dialogs/deleteMessage'
 );
 
-export const restoreMessageAction = createAction<string>(
-  'dialogs/restoreMessage'
-);
+export const dialogOpenedAction = createAction<ID>('dialogs/dialogOpened');
 
-export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
+export const getDialogsAction = createAction('dialogs/getDialogsAction');
+
+export const getNewMessagesCountAction = createAction(
+  'dialogs/getNewMessagesCount'
+);
 
 export const getMessagesListAction = createAction<ID>(
   'dialogs/getMessagesListAction'
@@ -49,15 +50,19 @@ export const getTitlesAction = createAction<ID>(
   'dialogs/getMessagesTitleAction'
 );
 
-export const updateTitleAction = createAction<NewMessage>(
-  'dialogs/titleUpdated'
+export const restoreMessageAction = createAction<string>(
+  'dialogs/restoreMessage'
 );
 
 export const sendMessageAction = createAction<NewMessage>(
   'dialogs/sendMessageAction'
 );
 
-export const dialogOpenedAction = createAction<ID>('dialogs/dialogOpened');
+export const startDialogAction = createAction<ID>('dialogs/startDialogAction');
+
+export const updateTitleAction = createAction<NewMessage>(
+  'dialogs/titleUpdated'
+);
 
 type Action<T> = {
   payload: T;
@@ -131,6 +136,9 @@ const dialogsSlice = createSlice({
         );
       }
     },
+    newMessagesGet(state, action: Action<number>) {
+      state.newMessagesCount = action.payload;
+    },
   },
 });
 
@@ -144,6 +152,7 @@ export const {
   messagesListCleared,
   messageDeleted,
   messageRestored,
+  newMessagesGet,
 } = dialogsSlice.actions;
 
 export default dialogsSlice.reducer;
